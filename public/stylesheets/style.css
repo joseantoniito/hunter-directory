@@ -67,6 +67,7 @@ body {
 	background-color: white !important;
 	padding: 0 !important;
 	box-shadow: 5px 5px 5px #888888 !important;
+    min-height: 500px !important;
 }
 .bgrdBrown{
 	background-color: #665750 !important;
@@ -127,4 +128,66 @@ a {
 .alert.alert-danger.row{
 	margin-left: 0 !important;
 	margin-right: 0 !important;
+}
+
+/*estilos extra*/
+.divFlotante{
+    float:left;
+}
+.divBloque{
+    display:inline-block; width:100%;
+    padding:10px 0 0 0;
+}
+
+.sidebar {
+    width:30%; float:left;
+}
+.contenido {
+    width:70%; float:left;
+}
+
+#header{
+    width:100%; display:inline-block;
+    background-color:#990000; height:70px;
+}
+#headerTitulo{
+    font:normal 25px/70px Arial;
+    color:white;
+}
+.btnMenuFooter{
+    font:normal 15px/70px Arial;
+    color:white;
+}
+
+.contenedor920{
+    margin: 0 auto;
+    width: 980px;
+}
+
+.divContenedorListado{
+    padding:20px;
+    display:inline-block;
+    width:100%;
+}
+.divImagenListado{
+    float:left; width:30%;
+}
+.divContenidoListado{
+    float:left; width:70%;
+}
+.imagenListado{
+    width:200px; height:200px;
+}
+
+#cuerpo{
+    width:100%; display:inline-block;
+}
+
+#footer{
+    width:100%; height:76px;
+    background-color:#990000; 
+}
+#copyright{
+    width:100%; height:80px;
+    background-color:#b30000; 
 }

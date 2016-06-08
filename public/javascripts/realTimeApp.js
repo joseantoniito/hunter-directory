@@ -51,7 +51,7 @@ function($stateProvider, $urlRouterProvider) {
         resolve: {
             //if($stateParams.id != null)
             post: ['$stateParams', 'projects', function($stateParams, projects) {
-              return projects.get($stateParams.id);
+              return projects.obtenerDistribuidoresPorCategoria($stateParams.id);
             }]
           }
     });
@@ -111,7 +111,18 @@ function($scope, $state, auth, projects){
     $scope.currentId = auth.currentId;
     $scope.distribuidores = projects.distribuidores;
     $scope.categorias = projects.categorias;
+    $scope.distribuidor = {};
     
+    $scope.agregarDistribuidor = function(){
+        debugger;
+        projects.agregarDistribuidor($scope.distribuidor)
+            .error(function(error){
+                $scope.error = error;
+            })
+            .then(function(){
+                $state.go('home');}
+            );
+    }
     
     $scope.deleteProject = function(id){
 	  projects.delete(id).error(function(error){
@@ -202,60 +213,20 @@ app.factory('projects', ['$http', 'auth', function($http, auth){
         ]
 	  };
   
-	o.getAll = function() {
-		return $http.get('/projects',{headers: {Authorization: 'Bearer '+auth.getToken()}}).success(function(data){
-		  angular.copy(data, o.projects);
-		});
+    o.agregarDistribuidor = function(data) {
+		return $http.post('/distribuidores', data)
+            .success(function(dataS){
+                debugger;
+                //o.distribuidores.push(dataS);
+            });
 	};
-	
-	o.getAllPublic = function() {
-		return $http.get('/allProjects',{headers: {Authorization: 'Bearer '+auth.getToken()}}).success(function(data){
-		  angular.copy(data, o.projects);
-		});
+    o.obtenerDistribuidoresPorCategoria = function(id) {
+		return $http.get('/distribuidores/' + id)
+            .success(function(dataS){
+                debugger;
+                angular.copy(dataS, o.distribuidores);
+            });
 	};
-	
-  
-	o.create = function(project) {
-		return $http.post('/projects', project, {headers: {Authorization: 'Bearer '+auth.getToken()}}).success(function(data){
-			o.projects.push(data);
-		});
-	};
-
-	o.get = function(id) {
-	  return $http.get('/projects/' + id).then(function(res){
-			return res.data;
-	  });
-	};
-	
-	o.delete = function(id) {
-		return $http.delete('/projects/' + id, {headers: {Authorization: 'Bearer '+auth.getToken()}}).success(function(data){
-			console.log(data);
-			
-			var index;
-			for(i=0; i<o.projects.length; i++){
-				if(o.projects[i]._id == id){
-					index = i;
-					break;
-				}
-			};
-			o.projects.splice(index, 1);
-			
-			/*if(data.ok == 1)
-				alert("Proyecto eliminado correctamente.");
-			else
-				alert("Ocurrió un error al eliminar el proyecto.");*/
-		});
-	};
-	
-	
-	
-	o.getProject = function(id) {
-	  return $http.get('/projects/' + id).then(function(res){
-		  o.project = res.data;
-			return res.data;
-	  });
-	};
-	
 	
   return o;
 }]);

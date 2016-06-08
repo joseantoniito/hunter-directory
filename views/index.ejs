@@ -56,14 +56,29 @@
  <div class="container">
             <div class="row">
                 
-                <div class="col-md-4 col-md-offset-4 bgrdWhite">
+                <div class="col-md-8 col-md-offset-2 bgrdWhite">
                     <div class="page-header" >
-                        <h1 class="lblAzulObscuro">Resultados de busqueda</h1>
+                        <h1 class="lblAzulObscuro">Resultados</h1>
                     </div>
                 
-                    <div class="m30"
+                    <div class="" style="border-bottom:1px solid;"
                         ng-repeat="distribuidor in distribuidores">
-                        <span>{{ distribuidor.nombre }}</span>
+                       
+                        
+                        <div class='divContenedorListado'> 
+                            <div class='divImagenListado'> 
+                                <img class='imagenListado' src='/Imagenes/#:Logo#'/> 
+                            </div> 
+                            <div class='divContenidoListado'> 
+                                <h2>{{ distribuidor.nombre }}</h2>
+                                <h3>{{ distribuidor.direccion }}</h3>
+                                <a>{{ distribuidor.paginaWeb }}</a>
+                                <p>{{ distribuidor.descripcion }}</p>
+                            
+                                
+                            </div> 
+                        </div>
+                        
                     </div>
                 </div>
                 
@@ -73,30 +88,50 @@
       
 <script type="text/ng-template" id="/agregar-distribuidores.html">
  <div class="container">
-            <div class="row">
-                <div class="col-md-4 col-md-offset-4 bgrdWhite">
-                    <div class="page-header" >
-                        <h1 class="lblAzulObscuro">Agregar Distribuidor</h1>
-                    </div>
-                
-                    <form ng-submit="agregarDistribuidor()" class="m30">
-                        <div class="form-group">
-                        <input type="text" 
-                            placeholder="nombre" 
-                            ng-model="nombre"
-                            class="form-control"></input>
-                        </div>
-                        <div class="form-group">
-                        <input type="text" 
-                            placeholder="descripcion" 
-                            ng-model="descripcion"
-                            class="form-control"></input>
-                        </div>
-                        <button class="btn btn-primary">Guardar</button>
-                    </form>
+    <div class="row">
+        <div class="col-md-4 col-md-offset-4 bgrdWhite">
+            <div class="page-header" >
+                <h1 class="lblAzulObscuro">Agregar Distribuidor</h1>
+            </div>
+
+            <form ng-submit="agregarDistribuidor()" class="m30">
+                <div class="form-group">
+                    <input type="text" 
+                        placeholder="nombre" 
+                        ng-model="distribuidor.nombre"
+                        class="form-control"></input>
+                </div>
+                <div class="form-group">
+                    <input type="text" 
+                        placeholder="descripcion" 
+                        ng-model="distribuidor.descripcion"
+                        class="form-control"></input>
+                </div>
+                <div class="form-group">
+                    <input type="text" 
+                        placeholder="direccion" 
+                        ng-model="distribuidor.direccion"
+                        class="form-control"></input>
+                </div>
+                <div class="form-group">
+                    <input type="text" 
+                        placeholder="paginaWeb" 
+                        ng-model="distribuidor.paginaWeb"
+                        class="form-control"></input>
                 </div>
                 
-            </div>
+                <div class="form-group">
+                    <select ng-model="distribuidor.idCategoria">
+                        <option ng-repeat="categoria in categorias" 
+                            value="{{categoria.id}}">{{categoria.nombre}}</option>
+                    </select>
+                </div>
+                
+                <button class="btn btn-primary">Guardar</button>
+            </form>
+        </div>
+
+    </div>
         </div>
 </script>
       

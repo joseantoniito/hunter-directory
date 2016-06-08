@@ -11,11 +11,9 @@ var esquema = new mongoose.Schema({
     telefono: String,
     eMail: String,
     redesSociales: String, 
-    horario: String
+    horario: String,
+    idCategoria: Number
 });
-
-
-};
 
 mongoose.model('Distribuidor', esquema);
 

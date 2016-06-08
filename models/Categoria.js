@@ -5,7 +5,6 @@ var esquema = new mongoose.Schema({
     nombre: String
 });
 
-};
 
 mongoose.model('Categoria', esquema);
 

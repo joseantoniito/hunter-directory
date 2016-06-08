@@ -65,4 +65,45 @@ router.get('/categorias', function(req, res, next) {
 	  });
 });
 
+router.post('/distribuidores', function(req, res, next){
+    if(!req.body.nombre || !req.body.direccion){
+        return res.status(400).json({message: 'Favor de llenar todos los campos.'});
+    }
+
+    var distribuidor = new Distribuidor();
+    distribuidor.nombre = req.body.nombre;
+    distribuidor.descripcion = req.body.descripcion;
+    distribuidor.direccion = req.body.direccion;
+    distribuidor.paginaWeb = req.body.paginaWeb;
+    distribuidor.idCategoria = req.body.idCategoria;
+    
+  
+    distribuidor.save(function (err, data){
+        if(err){ return next(err); }
+
+        return res.json(data);
+    });
+});
+
+router.param('distribuidor', function(req, res, next, id) {
+    Distribuidor.find({ idCategoria: id },
+	  function(err, data){
+		if(err){ return next(err); }
+
+		req.data = data;
+        return next();
+	  });
+    
+    
+  });
+
+
+router.get('/distribuidores/:distribuidor', function(req, res, next) {
+    
+  res.json(req.data);
+});
+
+
+
+
 module.exports = router;
