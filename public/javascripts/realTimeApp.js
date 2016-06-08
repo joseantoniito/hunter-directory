@@ -6,8 +6,8 @@ app.config([
 function($stateProvider, $urlRouterProvider) {
 
   $stateProvider
-    .state('home', {
-      url: '/home',
+    .state('home1', {
+      url: '/home1',
       templateUrl: '/home.html',
       controller: 'MainCtrl'
     });
@@ -36,7 +36,34 @@ function($stateProvider, $urlRouterProvider) {
 	  }]
 	});
 	
-  //$urlRouterProvider.otherwise('home');
+    $stateProvider
+    .state('home', {
+      url: '/home',
+      templateUrl: '/directorio.html',
+      controller: 'MainCtrl'
+    });
+    
+    $stateProvider
+    .state('directorio-resultados', {
+        url: '/directorio/{id}',
+        templateUrl: '/directorio-resultados.html',
+        controller: 'MainCtrl',
+        resolve: {
+            //if($stateParams.id != null)
+            post: ['$stateParams', 'projects', function($stateParams, projects) {
+              return projects.get($stateParams.id);
+            }]
+          }
+    });
+    
+    $stateProvider
+    .state('agregar-distribuidores', {
+      url: '/agregar-distribuidores',
+      templateUrl: '/agregar-distribuidores.html',
+      controller: 'MainCtrl'
+    });
+    
+    //$urlRouterProvider.otherwise('home');
 }]);
 
 
@@ -64,7 +91,6 @@ function($scope, $state, auth){
   };
 }])
 
-
 app.controller('NavCtrl', [
 '$scope',
 'auth',
@@ -72,6 +98,40 @@ function($scope, auth){
   $scope.isLoggedIn = auth.isLoggedIn;
   $scope.currentUser = auth.currentUser;
   $scope.logOut = auth.logOut;
+}]);
+
+app.controller('MainCtrl', [
+'$scope',
+'$state',
+'auth',
+'projects',
+function($scope, $state, auth, projects){
+    debugger;
+    
+    $scope.currentId = auth.currentId;
+    $scope.distribuidores = projects.distribuidores;
+    $scope.categorias = projects.categorias;
+    
+    
+    $scope.deleteProject = function(id){
+	  projects.delete(id).error(function(error){
+		$scope.error = error;
+		if(!$scope.error.message)
+			$scope.error =
+				new Object({message:"Ocurrió un error al eliminar el proyecto."});
+			
+		}).then(function(){
+		  //$state.go('proyectos');
+		  
+		  $scope.error =
+				new Object({message:"Proyecto eliminado correctamente."});
+		  /*if(data.ok == 1)
+				alert("Proyecto eliminado correctamente.");
+			else
+				alert("Ocurrió un error al eliminar el proyecto.");*/
+	  });; 
+	};
+  
 }]);
 
 app.factory('auth', ['$http', '$window', function($http, $window){
@@ -126,3 +186,76 @@ app.factory('auth', ['$http', '$window', function($http, $window){
    
   return auth;
 }])
+
+app.factory('projects', ['$http', 'auth', function($http, auth){
+	  var o = {
+		distribuidores: [],
+		categorias: [
+            {id:1, nombre: 'Aspersores'},
+            {id:2, nombre: 'MP Rotator'},
+            {id:3, nombre: 'Toberas'},
+            {id:4, nombre: 'Cuerpos de Difusores'},
+            {id:5, nombre: 'Riego Localizado'},
+            {id:6, nombre: 'Programadores'},
+            {id:7, nombre: 'Sensores'},
+            {id:8, nombre: 'Controles Remotos'},
+        ]
+	  };
+  
+	o.getAll = function() {
+		return $http.get('/projects',{headers: {Authorization: 'Bearer '+auth.getToken()}}).success(function(data){
+		  angular.copy(data, o.projects);
+		});
+	};
+	
+	o.getAllPublic = function() {
+		return $http.get('/allProjects',{headers: {Authorization: 'Bearer '+auth.getToken()}}).success(function(data){
+		  angular.copy(data, o.projects);
+		});
+	};
+	
+  
+	o.create = function(project) {
+		return $http.post('/projects', project, {headers: {Authorization: 'Bearer '+auth.getToken()}}).success(function(data){
+			o.projects.push(data);
+		});
+	};
+
+	o.get = function(id) {
+	  return $http.get('/projects/' + id).then(function(res){
+			return res.data;
+	  });
+	};
+	
+	o.delete = function(id) {
+		return $http.delete('/projects/' + id, {headers: {Authorization: 'Bearer '+auth.getToken()}}).success(function(data){
+			console.log(data);
+			
+			var index;
+			for(i=0; i<o.projects.length; i++){
+				if(o.projects[i]._id == id){
+					index = i;
+					break;
+				}
+			};
+			o.projects.splice(index, 1);
+			
+			/*if(data.ok == 1)
+				alert("Proyecto eliminado correctamente.");
+			else
+				alert("Ocurrió un error al eliminar el proyecto.");*/
+		});
+	};
+	
+	
+	
+	o.getProject = function(id) {
+	  return $http.get('/projects/' + id).then(function(res){
+		  o.project = res.data;
+			return res.data;
+	  });
+	};
+	
+	
+  return o;
+}]);

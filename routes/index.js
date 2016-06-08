@@ -3,6 +3,7 @@ var router = express.Router();
 var passport = require('passport');
 var mongoose = require('mongoose');
 var User = mongoose.model('User');
+var Distribuidor = mongoose.model('Distribuidor');
 var jwt = require('express-jwt');
 var auth = jwt({secret: 'SECRET', userProperty: 'payload'});
 
@@ -52,6 +53,16 @@ router.post('/login', function(req, res, next){
       return res.status(401).json(info);
     }
   })(req, res, next);
+});
+
+
+router.get('/categorias', function(req, res, next) {
+  Project.find({ privado: false },
+	  function(err, projects){
+		if(err){ return next(err); }
+
+		res.json(projects);
+	  });
 });
 
 module.exports = router;

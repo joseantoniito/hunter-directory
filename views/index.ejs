@@ -11,13 +11,21 @@
 	
 	
   </head>
-  <body ng-app="realTime">
-	<nav class="navbar navbar-default pull-right" ng-controller="NavCtrl">
-		<ul class="nav navbar-nav">
-		  <li ng-show="isLoggedIn()"><a>{{ currentUser() }}</a></li>
-		  <li ng-show="isLoggedIn()"><a href="" ng-click="logOut()">Log Out</a></li>
-		  <li ng-hide="isLoggedIn()"><a href="/#/login">Log In</a></li>
-		  <li ng-hide="isLoggedIn()"><a href="/#/register">Register</a></li>
+  <body ng-app="realTime" class="bgrdBody"> 
+	<nav class="navbar navbar-static-top navbar-dark bg-inverse p10    " style="background-color: #01648B;" ng-controller="NavCtrl">
+		 <a href="/#/home" style="float:left;">
+            <img src="http://www.hunterindustries.com/sites/all/themes/hunter_responsive/images/logo_hunter.png"
+                 width="240"/>
+        </a>
+        
+        <ul class="nav navbar-nav  pull-right">
+            <li ng-show="isLoggedIn()">
+                <a class="btn btn-menu" href="/#/agregar-distribuidores">Agregar Distribuidores</a>
+            </li>
+		      <li ng-show="isLoggedIn()"><a class="btn btn-menu">{{ currentUser() }}</a></li>
+		      <li ng-show="isLoggedIn()"><a href="" ng-click="logOut()" class="btn btn-menu">Log Out</a></li>
+		      <li ng-hide="isLoggedIn()"><a href="/#/login" class="btn btn-menu">Log In</a></li>
+		      <li ng-hide="isLoggedIn()"><a href="/#/register" class="btn btn-menu">Register</a></li>
 		</ul>
 	</nav>
   
@@ -25,7 +33,74 @@
 	<ui-view></ui-view>
     </div>
     
-	
+
+<script type="text/ng-template" id="/directorio.html">
+ <div class="container">
+            <div class="row"> 
+                <div class="col-md-4 col-md-offset-4 bgrdWhite">
+                    <div class="page-header" >
+                        <h1 class="lblAzulObscuro">Directorio</h1>
+                    </div>
+                
+                    <div class="m30"
+                        ng-repeat="categoria in categorias">
+                        <a href="/#/directorio/{{ categoria.id }}">{{ categoria.nombre }}</a>
+                    </div>
+                </div>
+                
+            </div>
+        </div>
+</script>
+      
+<script type="text/ng-template" id="/directorio-resultados.html">
+ <div class="container">
+            <div class="row">
+                
+                <div class="col-md-4 col-md-offset-4 bgrdWhite">
+                    <div class="page-header" >
+                        <h1 class="lblAzulObscuro">Resultados de busqueda</h1>
+                    </div>
+                
+                    <div class="m30"
+                        ng-repeat="distribuidor in distribuidores">
+                        <span>{{ distribuidor.nombre }}</span>
+                    </div>
+                </div>
+                
+            </div>
+        </div>
+</script>
+      
+<script type="text/ng-template" id="/agregar-distribuidores.html">
+ <div class="container">
+            <div class="row">
+                <div class="col-md-4 col-md-offset-4 bgrdWhite">
+                    <div class="page-header" >
+                        <h1 class="lblAzulObscuro">Agregar Distribuidor</h1>
+                    </div>
+                
+                    <form ng-submit="agregarDistribuidor()" class="m30">
+                        <div class="form-group">
+                        <input type="text" 
+                            placeholder="nombre" 
+                            ng-model="nombre"
+                            class="form-control"></input>
+                        </div>
+                        <div class="form-group">
+                        <input type="text" 
+                            placeholder="descripcion" 
+                            ng-model="descripcion"
+                            class="form-control"></input>
+                        </div>
+                        <button class="btn btn-primary">Guardar</button>
+                    </form>
+                </div>
+                
+            </div>
+        </div>
+</script>
+      
+
 	
 <script type="text/ng-template" id="/home.html">
   <div class="page-header" >
@@ -36,61 +111,68 @@
 </script>
 	
 <script type="text/ng-template" id="/register.html">
-  <div class="page-header">
-    <h1>Real Time</h1>
+  <div class="row">
+	<div class="col-md-4 col-md-offset-4 bgrdWhite">
+        <div class="page-header" >
+            <h1 class="lblAzulObscuro">Registro</h1>
+        </div>
+  
+          <div ng-show="error" class="alert alert-danger row">
+            <span>{{ error.message }}</span>
+          </div>
+
+          <form ng-submit="register()"
+            class="m30">
+
+            <div class="form-group">
+              <input type="text"
+              class="form-control"
+              placeholder="Username"
+              ng-model="user.username"></input>
+            </div>
+            <div class="form-group">
+              <input type="password"
+              class="form-control"
+              placeholder="Password"
+              ng-model="user.password"></input>
+            </div>
+            <button type="submit" class="btn btn-primary">Registrarse</button>
+          </form>
+          </div>
   </div>
-
-  <div ng-show="error" class="alert alert-danger row">
-    <span>{{ error.message }}</span>
-  </div>
-
-  <form ng-submit="register()"
-    style="margin-top:30px;">
-    <h3>Register</h3>
-
-    <div class="form-group">
-      <input type="text"
-      class="form-control"
-      placeholder="Username"
-      ng-model="user.username"></input>
-    </div>
-    <div class="form-group">
-      <input type="password"
-      class="form-control"
-      placeholder="Password"
-      ng-model="user.password"></input>
-    </div>
-    <button type="submit" class="btn btn-primary">Register</button>
-  </form>
 </script>
 
 <script type="text/ng-template" id="/login.html">
-  <div class="page-header">
-    <h1>Real Time</h1>
+  <div class="row">
+	<div class="col-md-4 col-md-offset-4 bgrdWhite">
+        <div class="page-header" >
+            <h1 class="lblAzulObscuro">Inicio de Sesión</h1>
+        </div>
+
+      <div ng-show="error" class="alert alert-danger row">
+        <span>{{ error.message }}</span>
+      </div>
+
+      <form ng-submit="logIn()"
+        class="m30">
+
+
+        <div class="form-group">
+          <input type="text"
+          class="form-control"
+          placeholder="Username"
+          ng-model="user.username"></input>
+        </div>
+        <div class="form-group">
+          <input type="password"
+          class="form-control"
+          placeholder="Password"
+          ng-model="user.password"></input>
+        </div>
+        <button type="submit" class="btn btn-primary">Iniciar Sesión</button>
+      </form>
+      </div>
   </div>
-
-  <div ng-show="error" class="alert alert-danger row">
-    <span>{{ error.message }}</span>
-  </div>
-
-  <form ng-submit="logIn()"
-    style="margin-top:30px;">
-    <h3>Log In</h3>
-
-    <div class="form-group">
-      <input type="text"
-      class="form-control"
-      placeholder="Username"
-      ng-model="user.username"></input>
-    </div>
-    <div class="form-group">
-      <input type="password"
-      class="form-control"
-      placeholder="Password"
-      ng-model="user.password"></input>
-    </div>
-    <button type="submit" class="btn btn-primary">Log In</button>
-  </form>
 </script>
 	
   </body>
