@@ -140,10 +140,11 @@ router.post('/saveFiles',multipartMiddleware, function(req, res, next){
 
             console.log("The file was saved!");
         });*/
-    
+    var nombre = req.files.files.originalFilename;
     fs.readFile(req.files.files.path, function (err, data) {
             //here get the image name and other data parameters which you are sending like image name etc.
-           fs.writeFile("prueba2.png", data, function (err) {
+            console.log(data);
+           fs.writeFile('./public/uploads/' + nombre, data, function (err) {
           });
          });
     

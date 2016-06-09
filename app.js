@@ -4,7 +4,6 @@ var favicon = require('serve-favicon');
 var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
-var xmlparser = require('express-xml-bodyparser');
 
 //custom includes real time app
 var mongoose = require('mongoose');
@@ -33,7 +32,6 @@ app.use(logger('dev'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(cookieParser());
-app.use(xmlparser());
 app.use(express.static(path.join(__dirname, 'public')));
 app.use(passport.initialize());
 
