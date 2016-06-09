@@ -63,6 +63,19 @@ function($stateProvider, $urlRouterProvider) {
       controller: 'MainCtrl'
     });
     
+    $stateProvider
+    .state('detalle', {
+        url: '/detalle/{id}',
+        templateUrl: '/detalle.html',
+        controller: 'MainCtrl',
+        resolve: {
+            //if($stateParams.id != null)
+            post: ['$stateParams', 'projects', function($stateParams, projects) {
+              return projects.obtenerDistribuidor($stateParams.id);
+            }]
+          }
+    });
+    
     //$urlRouterProvider.otherwise('home');
 }]);
 
@@ -110,12 +123,12 @@ function($scope, $state, auth, projects){
     
     $scope.currentId = auth.currentId;
     $scope.distribuidores = projects.distribuidores;
-    $scope.distribuidoresK = new kendo.data.DataSource({ 
+    /*$scope.distribuidoresK = new kendo.data.DataSource({ 
      data: projects.distribuidores,
          pageSize: 2
-      });
+      });*/
     $scope.categorias = projects.categorias;
-    $scope.distribuidor = {};
+    $scope.distribuidor = projects.distribuidor;
     
     $scope.agregarDistribuidor = function(){
         debugger;
@@ -214,7 +227,8 @@ app.factory('projects', ['$http', 'auth', function($http, auth){
             {id:6, nombre: 'Programadores'},
             {id:7, nombre: 'Sensores'},
             {id:8, nombre: 'Controles Remotos'},
-        ]
+        ],
+        distribuidor: null
 	  };
   
     o.agregarDistribuidor = function(data) {
@@ -229,8 +243,17 @@ app.factory('projects', ['$http', 'auth', function($http, auth){
             .success(function(dataS){
                 debugger;
                 angular.copy(dataS, o.distribuidores);
+                o.distribuidor: null;
             });
 	};
 	
+    o.obtenerDistribuidor = function(id) {
+		return $http.get('/distribuidorPorId/' + id)
+            .success(function(dataS){
+                debugger;
+                o.distribuidor = dataS;
+            });
+	};
+    
   return o;
 }]);

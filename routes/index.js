@@ -6,6 +6,7 @@ var User = mongoose.model('User');
 var Distribuidor = mongoose.model('Distribuidor');
 var jwt = require('express-jwt');
 var auth = jwt({secret: 'SECRET', userProperty: 'payload'});
+var ObjectId = require('mongoose').Types.ObjectId; 
 
 router.get('/home', auth, function(req, res, next) {
   //res.render('index', { title: 'Express' });
@@ -86,21 +87,37 @@ router.post('/distribuidores', function(req, res, next){
 });
 
 router.param('distribuidor', function(req, res, next, id) {
-    Distribuidor.find({ idCategoria: id },
-	  function(err, data){
-		if(err){ return next(err); }
-
-		req.data = data;
-        return next();
-	  });
-    
-    
+    req.id = id;
+    return next();
   });
 
 
 router.get('/distribuidores/:distribuidor', function(req, res, next) {
+    Distribuidor.find({ idCategoria: req.id },
+	  function(err, data){
+		if(err){ return next(err); }
+
+		res.json(data);
+	  });
     
-  res.json(req.data);
+});
+
+router.get('/distribuidorPorId/:distribuidor', function(req, res, next) {
+    /*Distribuidor.find({ _id: new ObjectId(req.id) },
+	  function(err, data){
+		if(err){ return next(err); }
+
+		res.json(data);
+	  });*/
+    
+    var query = Distribuidor.findById(req.id);//.populate('colaboradores');
+
+    query.exec(function (err, data){
+        if (err) { return next(err); }
+        if (!data) { return next(new Error('No se encuentra el registro.')); }
+
+        res.json(data);
+    });
 });
 
 
