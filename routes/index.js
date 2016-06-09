@@ -7,6 +7,9 @@ var Distribuidor = mongoose.model('Distribuidor');
 var jwt = require('express-jwt');
 var auth = jwt({secret: 'SECRET', userProperty: 'payload'});
 var ObjectId = require('mongoose').Types.ObjectId; 
+var fs = require('fs');
+var multipart = require('connect-multiparty');
+var multipartMiddleware = multipart();
 
 router.get('/home', auth, function(req, res, next) {
   //res.render('index', { title: 'Express' });
@@ -67,6 +70,7 @@ router.get('/categorias', function(req, res, next) {
 });
 
 router.post('/distribuidores', function(req, res, next){
+    console.log(req.body);
     if(!req.body.nombre || !req.body.direccion){
         return res.status(400).json({message: 'Favor de llenar todos los campos.'});
     }
@@ -121,10 +125,29 @@ router.get('/distribuidorPorId/:distribuidor', function(req, res, next) {
 });
 
 
-router.post('/saveFiles', function(req, res, next){
-    console.log(req.body);
+router.post('/saveFiles',multipartMiddleware, function(req, res, next){
+    console.log(req.files);
+    //console.log('body: ' + JSON.stringify(req.body));
+    //console.log(req.files);
     
-    res.json(req.body);
+    /*var file=req.files.file;
+    console.log(file);
+    var fs = require('fs');
+    fs.writeFile("prueba.png", file, function(err) {
+            if(err) {
+            return console.log(err);
+                }
+
+            console.log("The file was saved!");
+        });*/
+    
+    fs.readFile(req.files.files.path, function (err, data) {
+            //here get the image name and other data parameters which you are sending like image name etc.
+           fs.writeFile("prueba2.png", data, function (err) {
+          });
+         });
+    
+    res.json(req.files);
 });
 
 router.post('/removeFiles', function(req, res, next){
