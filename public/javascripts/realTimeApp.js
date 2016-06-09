@@ -1,4 +1,4 @@
-var app = angular.module('realTime', ['ui.router'])
+var app = angular.module('realTime', ['ui.router', 'kendo.directives'])
 
 app.config([
 '$stateProvider',
@@ -110,6 +110,10 @@ function($scope, $state, auth, projects){
     
     $scope.currentId = auth.currentId;
     $scope.distribuidores = projects.distribuidores;
+    $scope.distribuidoresK = new kendo.data.DataSource({ 
+     data: projects.distribuidores,
+         pageSize: 2
+      });
     $scope.categorias = projects.categorias;
     $scope.distribuidor = {};
     
