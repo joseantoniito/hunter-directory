@@ -121,6 +121,17 @@ router.get('/distribuidorPorId/:distribuidor', function(req, res, next) {
 });
 
 
+router.post('/saveFiles', function(req, res, next){
+    console.log(req.body);
+    
+    res.json(req.body);
+});
+
+router.post('/removeFiles', function(req, res, next){
+    console.log(req.body);
+    
+    res.json(req.body);
+});
 
 
 module.exports = router;

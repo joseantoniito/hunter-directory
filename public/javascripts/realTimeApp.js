@@ -159,6 +159,11 @@ function($scope, $state, auth, projects){
 				alert("Ocurrió un error al eliminar el proyecto.");*/
 	  });; 
 	};
+    
+    $scope.successUploadFiles = function(data){
+        debugger;  
+        console.log(data);
+    };
   
 }]);
 
@@ -243,7 +248,7 @@ app.factory('projects', ['$http', 'auth', function($http, auth){
             .success(function(dataS){
                 debugger;
                 angular.copy(dataS, o.distribuidores);
-                o.distribuidor: null;
+                o.distribuidor = null;
             });
 	};
 	
