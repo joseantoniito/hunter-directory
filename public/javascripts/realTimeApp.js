@@ -196,6 +196,21 @@ function($scope, $state, auth, projects){
         console.log(data);
     }
     
+    $scope.autoCompleteOptions = {
+        dataSource : $scope.productsDataSource,
+        dataBound : $scope.dataBoundAutoComplete,
+        dataTextField: 'nombre',
+        dataValueField: 'id',
+        dataSource: /*$scope.productsDataSource*/ new kendo.data.DataSource({
+          transport: {
+            read: function(options) {
+              return projects.obtenerFiltro([], options)
+
+            }
+          }
+        })
+      }
+    
     $scope.myInterval = 5000;
     $scope.noWrapSlides = false;
     $scope.active = 0;
@@ -355,5 +370,12 @@ app.factory('projects', ['$http', 'auth', function($http, auth){
             });
 	};
     
+    o.obtenerFiltro = function(object, options) {
+		return $http.get('/distribuidores/')
+            .success(function(dataS){
+                debugger;
+                options.success(dataS);
+            });
+    }
   return o;
 }]);

@@ -68,13 +68,7 @@
                     </div>-->
                     
                     <input kendo-auto-complete 
-                        
-                        k-data-source="productsDataSource"
-                        
-                        
-                        k-data-text-field="'nombre'"
-                        k-data-value-field="'_id'"
-                        k-data-bound="dataBoundAutoComplete"
+                        k-options="autoCompleteOptions"
                         style="width: 100%;" />
                     <p class="demo-hint">Your selection: {{ country }}</p>
                 

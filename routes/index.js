@@ -102,7 +102,7 @@ router.get('/distribuidores/', function(req, res, next) {
 	  function(err, data){
 		if(err){ return next(err); }
         
-		res.json({d : { results:data }});
+		res.json(data);//{d : { results:data }});
 	  });
 });
 
