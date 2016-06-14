@@ -1,8 +1,11 @@
 body {
-  padding: 50px;
+  /*padding: 50px;*/
   font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
 }
 
+.navbar{
+    margin-bottom: 0 !important;
+}
 
 .contact-item.selected .md-list-item-text{
 	background-color: #E0E0E0;
@@ -78,8 +81,8 @@ body {
 }
 
 .bgrdBody{
-	background: url("../images/photo_bg.jpeg") no-repeat center center fixed;
-	background-size: cover;
+	/*background: url("../images/photo_bg.jpeg") no-repeat center center fixed;
+	background-size: cover;*/
 }
 
 .minH{

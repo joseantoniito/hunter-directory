@@ -1,4 +1,4 @@
-var app = angular.module('realTime', ['ui.router', 'kendo.directives'])
+var app = angular.module('realTime', ['ui.router', 'kendo.directives', 'ui.bootstrap'])
 
 app.config([
 '$stateProvider',
@@ -120,6 +120,101 @@ app.controller('MainCtrl', [
 'projects',
 function($scope, $state, auth, projects){
     debugger;
+    
+    $scope.countryNames = [
+              "Albania",
+              "Andorra",
+              "Armenia",
+              "Austria",
+              "Azerbaijan",
+              "Belarus",
+              "Belgium",
+              "Bosnia & Herzegovina",
+              "Bulgaria",
+              "Croatia",
+              "Cyprus",
+              "Czech Republic",
+              "Denmark",
+              "Estonia",
+              "Finland",
+              "France",
+              "Georgia",
+              "Germany",
+              "Greece",
+              "Hungary",
+              "Iceland",
+              "Ireland",
+              "Italy",
+              "Kosovo",
+              "Latvia",
+              "Liechtenstein",
+              "Lithuania",
+              "Luxembourg",
+              "Macedonia",
+              "Malta",
+              "Moldova",
+              "Monaco",
+              "Montenegro",
+              "Netherlands",
+              "Norway",
+              "Poland",
+              "Portugal",
+              "Romania",
+              "Russia",
+              "San Marino",
+              "Serbia",
+              "Slovakia",
+              "Slovenia",
+              "Spain",
+              "Sweden",
+              "Switzerland",
+              "Turkey",
+              "Ukraine",
+              "United Kingdom",
+              "Vatican City"
+                  ];
+  
+    $scope.products= {
+        type: "odata",
+        serverFiltering: true,
+        transport: {
+            read: "//demos.telerik.com/kendo-ui/service/Northwind.svc/Products"
+        }
+    };
+    
+    $scope.productsDataSource = {
+            type: "odata",
+            serverFiltering: true,
+            transport: {
+                read: {
+                    url: "http://localhost:3000/distribuidores",
+                }
+            }
+        };
+    
+    $scope.dataBoundAutoComplete = function(data){
+        console.log(data);
+    }
+    
+    $scope.myInterval = 5000;
+    $scope.noWrapSlides = false;
+    $scope.active = 0;
+    var slides = $scope.slides = [];
+    var currIndex = 0;
+    
+    $scope.addSlide = function() {
+        var newWidth = 1300 + slides.length + 1;
+        slides.push({
+          image: 'http://lorempixel.com/' + newWidth + '/300',
+          text: ['Nice image','Awesome photograph','That is so cool','I love that'][slides.length % 4],
+          id: currIndex++
+        });
+      };
+
+    
+    for (var i = 0; i < 4; i++) {
+        $scope.addSlide();
+      }
     
     $scope.currentId = auth.currentId;
     $scope.distribuidores = projects.distribuidores;
