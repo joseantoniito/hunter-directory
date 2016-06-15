@@ -200,7 +200,7 @@ function($scope, $state, auth, projects){
         dataSource : $scope.productsDataSource,
         dataBound : $scope.dataBoundAutoComplete,
         dataTextField: 'nombre',
-        dataValueField: 'id',
+        dataValueField: '_id',
         dataSource: /*$scope.productsDataSource*/ new kendo.data.DataSource({
           serverFiltering: true,
           transport: {
@@ -209,7 +209,15 @@ function($scope, $state, auth, projects){
 
             }
           }
-        })
+        }),
+        select: function(e) {
+            console.log(e);
+            var item = e.item;
+            var text = item.text();
+            var id = e.item.data().$$kendoScope.dataItem._id;
+            console.log("id",id);
+            window.location.href = "http://localhost:3000/#/detalle/" + id;
+          }
       }
     
     $scope.myInterval = 5000;
@@ -357,7 +365,6 @@ app.factory('projects', ['$http', 'auth', function($http, auth){
     o.obtenerDistribuidoresPorCategoria = function(id) {
 		return $http.get('/distribuidores/' + id)
             .success(function(dataS){
-                debugger;
                 angular.copy(dataS, o.distribuidores);
                 o.distribuidor = null;
             });
@@ -366,16 +373,13 @@ app.factory('projects', ['$http', 'auth', function($http, auth){
     o.obtenerDistribuidor = function(id) {
 		return $http.get('/distribuidorPorId/' + id)
             .success(function(dataS){
-                debugger;
                 o.distribuidor = dataS;
             });
 	};
     
     o.obtenerFiltro = function(object, options) {
-        debugger;
 		return $http.get('/distribuidoresPorNombre/' + options.data.filter.filters[0].value)
             .success(function(dataS){
-                debugger;
                 options.success(dataS);
             });
     }
