@@ -96,9 +96,10 @@ router.param('distribuidor', function(req, res, next, id) {
   });
 
 
-router.get('/distribuidores/', function(req, res, next) {
-    console.log(req.body);
-    Distribuidor.find(
+router.get('/distribuidoresPorNombre/:distribuidor', function(req, res, next) {
+    console.log(req.id);
+    var r = new RegExp(req.id,'i');
+    Distribuidor.find({ nombre: {$regex:r} },
 	  function(err, data){
 		if(err){ return next(err); }
         

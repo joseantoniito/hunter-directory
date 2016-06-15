@@ -202,6 +202,7 @@ function($scope, $state, auth, projects){
         dataTextField: 'nombre',
         dataValueField: 'id',
         dataSource: /*$scope.productsDataSource*/ new kendo.data.DataSource({
+          serverFiltering: true,
           transport: {
             read: function(options) {
               return projects.obtenerFiltro([], options)
@@ -371,7 +372,8 @@ app.factory('projects', ['$http', 'auth', function($http, auth){
 	};
     
     o.obtenerFiltro = function(object, options) {
-		return $http.get('/distribuidores/')
+        debugger;
+		return $http.get('/distribuidoresPorNombre/' + options.data.filter.filters[0].value)
             .success(function(dataS){
                 debugger;
                 options.success(dataS);
