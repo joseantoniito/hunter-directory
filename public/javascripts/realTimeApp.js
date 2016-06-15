@@ -223,10 +223,31 @@ function($scope, $state, auth, projects){
     $scope.myInterval = 5000;
     $scope.noWrapSlides = false;
     $scope.active = 0;
-    var slides = $scope.slides = [];
+    var slides = $scope.slides = [
+        {
+          image: 'http://www.zanita.by/media/files/News/2013/hero_homepage.jpg',
+          text: '111',
+          id: 0
+        },
+        {
+          image: 'https://i.ytimg.com/vi/6OgYgqcwgx8/maxresdefault.jpg',
+          text: '222',
+          id: 1
+        },
+        {
+          image: 'http://d24i9gy7fiw8h1.cloudfront.net/wp-content/uploads/2014/02/Hunter-4.jpg',
+          text: '333',
+          id: 2
+        },
+        {
+          image: 'http://www.potatogrower.com/Images/gallery/1726_1600.jpg',
+          text: '444',
+          id: 3
+        },
+    ];
     var currIndex = 0;
     
-    $scope.addSlide = function() {
+    /*$scope.addSlide = function() {
         var newWidth = 1300 + slides.length + 1;
         slides.push({
           image: 'http://lorempixel.com/' + newWidth + '/300',
@@ -238,7 +259,7 @@ function($scope, $state, auth, projects){
     
     for (var i = 0; i < 4; i++) {
         $scope.addSlide();
-      }
+      }*/
     
     $scope.currentId = auth.currentId;
     $scope.distribuidores = projects.distribuidores;

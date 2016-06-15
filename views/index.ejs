@@ -48,10 +48,10 @@
     
 
 <script type="text/ng-template" id="/directorio.html">
-        <div style="height: 305px;">
+        <div style="height: 300px;">
             <uib-carousel active="active" interval="myInterval" no-wrap="noWrapSlides">
-              <uib-slide ng-repeat="slide in slides track by slide.id" index="slide.id">
-                <img ng-src="{{slide.image}}" style="margin:auto;">
+              <uib-slide ng-repeat="slide in slides" index="slide.id">
+                <img ng-src="{{slide.image}}" style="margin:auto; width:1300px; height:300px;">
                 <div class="carousel-caption">
                   <h4>Slide {{slide.id}}</h4>
                   <p>{{slide.text}}</p>
@@ -60,24 +60,33 @@
             </uib-carousel>
         </div>
  
-        <div class="container">
+        <!--<div class="container">
             <div class="row"> 
                 <div class="col-md-8 col-md-offset-2 bgrdWhite">   
-                    <!--<div class="page-header" >
+                    <div class="page-header" >
                         <h1 class="lblAzulObscuro">Directorio</h1>
-                    </div>-->
-                    
-                    <input kendo-auto-complete 
-                        k-options="autoCompleteOptions"
-                        style="width: 100%;" />
-                    <p class="demo-hint">Your selection: {{ country }}</p>
-                
-                    <div class="m30"
-                        ng-repeat="categoria in categorias">
-                        <a href="/#/directorio/{{ categoria.id }}">{{ categoria.nombre }}</a>
                     </div>
                 </div>
+            </div>
+        </div>-->
+        
+        <div class="row divGris search-box-home">
+            <div class="container">
+                <h1 class="lblPrincipal">Todo para tu sistema de riego</h1>
+                <h3>Elige tu distribuidor, compara precios y agenda cita.</h3>
+                <br/>
+                <input kendo-auto-complete 
+                    k-options="autoCompleteOptions"
+                    style="width: 100%;" />
                 
+                <br/><br/>
+            </div>
+        </div>
+        
+        <div class="footerCategorias">
+            <div class="m10"
+                ng-repeat="categoria in categorias">
+                <a href="/#/directorio/{{ categoria.id }}">{{ categoria.nombre }}</a>
             </div>
         </div>
 </script>
