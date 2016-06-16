@@ -1,4 +1,4 @@
-var app = angular.module('realTime', ['ui.router', 'kendo.directives'])
+var app = angular.module('realTime', ['ui.router', 'kendo.directives', 'ui.bootstrap'])
 
 app.config([
 '$stateProvider',
@@ -120,6 +120,146 @@ app.controller('MainCtrl', [
 'projects',
 function($scope, $state, auth, projects){
     debugger;
+    
+    $scope.countryNames = [
+              "Albania",
+              "Andorra",
+              "Armenia",
+              "Austria",
+              "Azerbaijan",
+              "Belarus",
+              "Belgium",
+              "Bosnia & Herzegovina",
+              "Bulgaria",
+              "Croatia",
+              "Cyprus",
+              "Czech Republic",
+              "Denmark",
+              "Estonia",
+              "Finland",
+              "France",
+              "Georgia",
+              "Germany",
+              "Greece",
+              "Hungary",
+              "Iceland",
+              "Ireland",
+              "Italy",
+              "Kosovo",
+              "Latvia",
+              "Liechtenstein",
+              "Lithuania",
+              "Luxembourg",
+              "Macedonia",
+              "Malta",
+              "Moldova",
+              "Monaco",
+              "Montenegro",
+              "Netherlands",
+              "Norway",
+              "Poland",
+              "Portugal",
+              "Romania",
+              "Russia",
+              "San Marino",
+              "Serbia",
+              "Slovakia",
+              "Slovenia",
+              "Spain",
+              "Sweden",
+              "Switzerland",
+              "Turkey",
+              "Ukraine",
+              "United Kingdom",
+              "Vatican City"
+                  ];
+  
+    $scope.products= {
+        type: "odata",
+        serverFiltering: true,
+        transport: {
+            read: "//demos.telerik.com/kendo-ui/service/Northwind.svc/Products"
+        }
+    };
+    
+    $scope.productsDataSource = {
+            type: "odata",
+            serverFiltering: true,
+            transport: {
+                read: {
+                    url: "http://localhost:3000/distribuidores",
+                }
+            }
+        };
+    
+    $scope.dataBoundAutoComplete = function(data){
+        console.log(data);
+    }
+    
+    $scope.autoCompleteOptions = {
+        dataSource : $scope.productsDataSource,
+        dataBound : $scope.dataBoundAutoComplete,
+        dataTextField: 'nombre',
+        dataValueField: '_id',
+        dataSource: /*$scope.productsDataSource*/ new kendo.data.DataSource({
+          serverFiltering: true,
+          transport: {
+            read: function(options) {
+              return projects.obtenerFiltro([], options)
+
+            }
+          }
+        }),
+        select: function(e) {
+            console.log(e);
+            var item = e.item;
+            var text = item.text();
+            var id = e.item.data().$$kendoScope.dataItem._id;
+            console.log("id",id);
+            window.location.href = "http://localhost:3000/#/detalle/" + id;
+          }
+      }
+    
+    $scope.myInterval = 5000;
+    $scope.noWrapSlides = false;
+    $scope.active = 0;
+    var slides = $scope.slides = [
+        {
+          image: 'http://www.zanita.by/media/files/News/2013/hero_homepage.jpg',
+          text: '111',
+          id: 0
+        },
+        {
+          image: 'https://i.ytimg.com/vi/6OgYgqcwgx8/maxresdefault.jpg',
+          text: '222',
+          id: 1
+        },
+        {
+          image: 'http://d24i9gy7fiw8h1.cloudfront.net/wp-content/uploads/2014/02/Hunter-4.jpg',
+          text: '333',
+          id: 2
+        },
+        {
+          image: 'http://www.potatogrower.com/Images/gallery/1726_1600.jpg',
+          text: '444',
+          id: 3
+        },
+    ];
+    var currIndex = 0;
+    
+    /*$scope.addSlide = function() {
+        var newWidth = 1300 + slides.length + 1;
+        slides.push({
+          image: 'http://lorempixel.com/' + newWidth + '/300',
+          text: ['Nice image','Awesome photograph','That is so cool','I love that'][slides.length % 4],
+          id: currIndex++
+        });
+      };
+
+    
+    for (var i = 0; i < 4; i++) {
+        $scope.addSlide();
+      }*/
     
     $scope.currentId = auth.currentId;
     $scope.distribuidores = projects.distribuidores;
@@ -246,7 +386,6 @@ app.factory('projects', ['$http', 'auth', function($http, auth){
     o.obtenerDistribuidoresPorCategoria = function(id) {
 		return $http.get('/distribuidores/' + id)
             .success(function(dataS){
-                debugger;
                 angular.copy(dataS, o.distribuidores);
                 o.distribuidor = null;
             });
@@ -255,10 +394,15 @@ app.factory('projects', ['$http', 'auth', function($http, auth){
     o.obtenerDistribuidor = function(id) {
 		return $http.get('/distribuidorPorId/' + id)
             .success(function(dataS){
-                debugger;
                 o.distribuidor = dataS;
             });
 	};
     
+    o.obtenerFiltro = function(object, options) {
+		return $http.get('/distribuidoresPorNombre/' + options.data.filter.filters[0].value)
+            .success(function(dataS){
+                options.success(dataS);
+            });
+    }
   return o;
 }]);

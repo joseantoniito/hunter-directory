@@ -96,6 +96,17 @@ router.param('distribuidor', function(req, res, next, id) {
   });
 
 
+router.get('/distribuidoresPorNombre/:distribuidor', function(req, res, next) {
+    console.log(req.id);
+    var r = new RegExp(req.id,'i');
+    Distribuidor.find({ nombre: {$regex:r} },
+	  function(err, data){
+		if(err){ return next(err); }
+        
+		res.json(data);//{d : { results:data }});
+	  });
+});
+
 router.get('/distribuidores/:distribuidor', function(req, res, next) {
     Distribuidor.find({ idCategoria: req.id },
 	  function(err, data){

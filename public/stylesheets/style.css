@@ -1,8 +1,39 @@
 body {
-  padding: 50px;
+  /*padding: 50px;*/
   font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
 }
 
+.lblPrincipal{
+    color:#01648B;
+}
+
+.search-box-home {
+    text-align: center;
+    /*background: url('http://www.doctoralia.com.mx/content/images/d4/v-201605260946/home_foto_principal.jpg') no-repeat center top #edeef2;*/
+    background-size: cover;
+    background-repeat: no-repeat;
+}
+
+.divGris{
+    background-color: #E4E1DD; /*#EDEEF2;*/
+    width:100%;
+    padding:5% 5%;
+}
+
+.footerCategorias{
+    width:100%;
+    padding:5% 5%;
+    background-color: #3D4246;
+    
+}
+
+.footerCategorias a{
+    color: white !important;
+}
+
+.navbar{
+    margin-bottom: 0 !important;
+}
 
 .contact-item.selected .md-list-item-text{
 	background-color: #E0E0E0;
@@ -66,7 +97,7 @@ body {
 .bgrdWhite{
 	background-color: white !important;
 	padding: 0 !important;
-	box-shadow: 5px 5px 5px #888888 !important;
+	/*box-shadow: 5px 5px 5px #888888 !important;*/
     min-height: 500px !important;
 }
 .bgrdBrown{
@@ -78,8 +109,8 @@ body {
 }
 
 .bgrdBody{
-	background: url("../images/photo_bg.jpeg") no-repeat center center fixed;
-	background-size: cover;
+	/*background: url("../images/photo_bg.jpeg") no-repeat center center fixed;
+	background-size: cover;*/
 }
 
 .minH{
