@@ -3,6 +3,14 @@ body {
   font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
 }
 
+h1, h2{
+    color:#01648B !important;
+}
+
+.img-portfolio {
+    margin-bottom: 30px;
+}
+
 .lblPrincipal{
     color:#01648B;
 }
@@ -17,6 +25,10 @@ body {
 .divGris{
     background-color: #E4E1DD; /*#EDEEF2;*/
     width:100%;
+    
+}
+
+.pad5perc{
     padding:5% 5%;
 }
 
@@ -64,14 +76,14 @@ body {
     color:#01648B !important;
 }
 
-.page-header{
+/*.page-header{
     margin:0 !important;
     border: 0 !important;
     background-color: #E4E1DD;
     text-align: center;
     display: inline-block;
     width: 100%;
-}
+}*/
 .whiteText{
 	color: white !important;
 	/*line-height: 65px !important;*/
@@ -199,6 +211,7 @@ a {
     padding:20px;
     display:inline-block;
     width:100%;
+    background-color:  #E4E1DD;
 }
 .divImagenListado{
     float:left; width:30%;

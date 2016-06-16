@@ -81,6 +81,7 @@ router.post('/distribuidores', function(req, res, next){
     distribuidor.direccion = req.body.direccion;
     distribuidor.paginaWeb = req.body.paginaWeb;
     distribuidor.idCategoria = req.body.idCategoria;
+    distribuidor.logo = req.body.logo;
     
   
     distribuidor.save(function (err, data){

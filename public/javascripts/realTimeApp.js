@@ -119,7 +119,7 @@ app.controller('MainCtrl', [
 'auth',
 'projects',
 function($scope, $state, auth, projects){
-    debugger;
+    //debugger;
     
     $scope.countryNames = [
               "Albania",
@@ -196,6 +196,15 @@ function($scope, $state, auth, projects){
         console.log(data);
     }
     
+    $scope.uploadOptions ={
+        async: { saveUrl: 'saveFiles', removeUrl: 'removeFiles', autoUpload: true },
+        files: $scope.files,
+        success: function(e){
+            $scope.files = e.files;
+            
+        }
+    }
+    
     $scope.autoCompleteOptions = {
         dataSource : $scope.productsDataSource,
         dataBound : $scope.dataBoundAutoComplete,
@@ -269,9 +278,16 @@ function($scope, $state, auth, projects){
       });*/
     $scope.categorias = projects.categorias;
     $scope.distribuidor = projects.distribuidor;
+    $scope.files = [];
+
     
     $scope.agregarDistribuidor = function(){
         debugger;
+        return; //todo
+        
+        $scope.distribuidor.idCategoria = $scope.distribuidor.idCategoria.id;
+        $scope.distribuidor.logo = $scope.files[0].name;
+        
         projects.agregarDistribuidor($scope.distribuidor)
             .error(function(error){
                 $scope.error = error;

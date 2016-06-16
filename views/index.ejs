@@ -70,7 +70,7 @@
             </div>
         </div>-->
         
-        <div class="row divGris search-box-home">
+        <div class="row divGris pad5perc search-box-home">
             <div class="container">
                 <h1 class="lblPrincipal">Todo para tu sistema de riego</h1>
                 <h3>Elige tu distribuidor, compara precios y agenda cita.</h3>
@@ -82,6 +82,107 @@
                 <br/><br/>
             </div>
         </div>
+        
+        <div class="container">
+            <div class="col-lg-12">
+                <h1 class="page-header">
+                    Sistemas de riego a la medida
+                </h1>
+            </div>
+            <div class="col-md-4">
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        <h4><i class="fa fa-fw fa-check"></i> Sistemas automatizables</h4>
+                    </div>
+                    <div class="panel-body">
+                        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Itaque, optio corporis quae nulla aspernatur in alias at numquam rerum ea excepturi expedita tenetur assumenda voluptatibus eveniet incidunt dicta nostrum quod?</p>
+                        <a href="#" class="btn btn-default">Ver Más</a>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        <h4><i class="fa fa-fw fa-gift"></i> Distribuidores de toda Latinoamérica</h4>
+                    </div>
+                    <div class="panel-body">
+                        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Itaque, optio corporis quae nulla aspernatur in alias at numquam rerum ea excepturi expedita tenetur assumenda voluptatibus eveniet incidunt dicta nostrum quod?</p>
+                        <a href="#" class="btn btn-default">Ver Más</a>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        <h4><i class="fa fa-fw fa-compass"></i> Atención inmediata</h4>
+                    </div>
+                    <div class="panel-body">
+                        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Itaque, optio corporis quae nulla aspernatur in alias at numquam rerum ea excepturi expedita tenetur assumenda voluptatibus eveniet incidunt dicta nostrum quod?</p>
+                        <a href="#" class="btn btn-default">Ver Más</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="divGris">
+        <div class="container">
+            <div class="col-lg-12">
+                <h2 class="page-header">Portafolio</h2>
+            </div>
+            <div class="col-md-4 col-sm-6">
+                <a href="portfolio-item.html">
+                    <img class="img-responsive img-portfolio img-hover" src="../images/portfolio1.jpg" alt="">
+                </a>
+            </div>
+            <div class="col-md-4 col-sm-6">
+                <a href="portfolio-item.html">
+                    <img class="img-responsive img-portfolio img-hover" src="../images/portfolio2.jpg" alt="">
+                </a>
+            </div>
+            <div class="col-md-4 col-sm-6">
+                <a href="portfolio-item.html">
+                    <img class="img-responsive img-portfolio img-hover" src="../images/portfolio3.jpg" alt="">
+                </a>
+            </div>
+            <div class="col-md-4 col-sm-6">
+                <a href="portfolio-item.html">
+                    <img class="img-responsive img-portfolio img-hover" src="../images/portfolio4.jpg" alt="">
+                </a>
+            </div>
+            <div class="col-md-4 col-sm-6">
+                <a href="portfolio-item.html">
+                    <img class="img-responsive img-portfolio img-hover" src="../images/portfolio5.jpg" alt="">
+                </a>
+            </div>
+            <div class="col-md-4 col-sm-6">
+                <a href="portfolio-item.html">
+                    <img class="img-responsive img-portfolio img-hover" src="../images/portfolio6.jpg" alt="">
+                </a>
+            </div>
+        </div>
+        </div>
+        
+        <div class="container">
+            <div class="col-lg-12">
+                <h2 class="page-header">Características de sistemas de riego</h2>
+            </div>
+            <div class="col-md-6">
+                <p>El servicio consiste en:</p>
+                <ul>
+                    <li><strong>Para jardines</strong>
+                    </li>
+                    <li>Públicos</li>
+                    <li>Privados</li>
+                    <li>Canchas</li>
+                    <li>Todo tipo de accesorios</li>
+                    <li>Garantia</li>
+                </ul>
+                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Corporis, omnis doloremque non cum id reprehenderit, quisquam totam aspernatur tempora minima unde aliquid ea culpa sunt. Reiciendis quia dolorum ducimus unde.</p>
+            </div>
+            <div class="col-md-6">
+                <img class="img-responsive" src="../images/rotator-700x450.jpg" alt="">
+            </div>
+        </div>
+        <hr>
         
         <div class="footerCategorias">
             <div class="m10"
@@ -100,13 +201,13 @@
                         <h1 class="lblAzulObscuro">Resultados</h1>
                     </div>
                 
-                    <div class="" style="border-bottom:1px solid;"
+                    <div class="" style=""
                         ng-repeat="distribuidor in distribuidores">
                        
                         
                         <div class='divContenedorListado'> 
                             <div class='divImagenListado'> 
-                                <img class='imagenListado' src='/Imagenes/#:Logo#'/> 
+                                <img class='imagenListado' src='/uploads/{{ distribuidor.logo }}'/> 
                             </div> 
                             <div class='divContenidoListado'> 
                                 <h2>{{ distribuidor.nombre }}</h2>
@@ -181,7 +282,7 @@
                     </select>-->
                     
                     <select kendo-drop-down-list
-                        ng-model="distribuidor.idCategoria"
+                        k-ng-model="distribuidor.idCategoria"
                         k-data-text-field="'nombre'"
                         k-data-value-field="'id'"
                         k-data-source="categorias"
@@ -190,10 +291,11 @@
                 
                 <div class="form-group">
                     <input name="files"
+                       
                        type="file"
                        kendo-upload
-                       k-async="{ saveUrl: 'saveFiles', removeUrl: 'removeFiles', autoUpload: true }"
-                       k-success="successUploadFiles"
+                       
+                       k-options="uploadOptions"
                        />
                 </div>
                 
@@ -213,11 +315,17 @@
             <div class="page-header" >
                 <h1 class="lblAzulObscuro">Detalle</h1>
             </div>
-            <div style="text-align:center">
-                <h2>{{ distribuidor.nombre }}</h2>
-                <h3>{{ distribuidor.direccion }}</h3>
-                <a>{{ distribuidor.paginaWeb }}</a>
-                <p>{{ distribuidor.descripcion }}</p>
+            <div class='divContenedorListado'> 
+            <div class='divImagenListado'> 
+                <img class='imagenListado' src='/uploads/{{ distribuidor.logo }}'/> 
+            </div> 
+            <div class='divContenidoListado'> 
+                <div style="text-align:left">
+                    <h2>{{ distribuidor.nombre }}</h2>
+                    <h3>{{ distribuidor.direccion }}</h3>
+                    <a>{{ distribuidor.paginaWeb }}</a>
+                    <p>{{ distribuidor.descripcion }}</p>
+                </div>
             </div>
        </div>
     </div>
