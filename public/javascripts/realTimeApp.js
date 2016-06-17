@@ -206,6 +206,7 @@ function($scope, $state, auth, projects){
     }
     
     $scope.autoCompleteOptions = {
+        //modificación
         dataSource : $scope.productsDataSource,
         dataBound : $scope.dataBoundAutoComplete,
         dataTextField: 'nombre',
