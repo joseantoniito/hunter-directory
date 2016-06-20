@@ -236,22 +236,26 @@ function($scope, $state, auth, projects){
     var slides = $scope.slides = [
         {
           image: 'http://www.zanita.by/media/files/News/2013/hero_homepage.jpg',
-          text: '111',
+          text: 'Verde',
+          desc: 'Espacios verdes, paisajes sonrientes', 
           id: 0
         },
         {
           image: 'https://i.ytimg.com/vi/6OgYgqcwgx8/maxresdefault.jpg',
-          text: '222',
+          desc: 'Una conexiòn verde desde la web',
+            text: "Conectate",
           id: 1
         },
         {
           image: 'http://d24i9gy7fiw8h1.cloudfront.net/wp-content/uploads/2014/02/Hunter-4.jpg',
-          text: '333',
+          desc: 'Las mejores herramientas de riego',
+          text: 'Crecimiento para tu empresa',
           id: 2
         },
         {
           image: 'http://www.potatogrower.com/Images/gallery/1726_1600.jpg',
-          text: '444',
+          text: 'Asistencia verde en todo momento',
+           desc:  'Industria del Riego',
           id: 3
         },
     ];
