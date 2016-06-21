@@ -3,6 +3,15 @@ body {
   font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
 }
 
+
+.lblPrincipal, .lblAzulObscuro{
+    color:#01648B !important;
+}
+.lblSecundario{
+    color:#FF3300 !important;
+}
+
+
 h1, h2{
     color:#01648B !important;
 }
@@ -11,9 +20,6 @@ h1, h2{
     margin-bottom: 30px;
 }
 
-.lblPrincipal{
-    color:#01648B;
-}
 
 .search-box-home {
     text-align: center;
@@ -72,9 +78,7 @@ h1, h2{
 .btn-menu:hover{
     color:#01648B;   
 }
-.lblAzulObscuro{
-    color:#01648B !important;
-}
+
 
 /*.page-header{
     margin:0 !important;
