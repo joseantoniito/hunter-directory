@@ -3,14 +3,81 @@ body {
   font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
 }
 
+.vc_custom_1459900974046 {
+    padding-top: 32px !important;
+    padding-right: 32px !important;
+    padding-bottom: 32px !important;
+    padding-left: 32px !important;
+    background-image: url(http://cai-hs.totalplanning.com.mx/wp-content/uploads/2016/02/cover-box-1-home-main1.png?id=46) !important;
+}
+
+.vc_custom_1459900992558 {
+    padding-top: 32px !important;
+    padding-right: 32px !important;
+    padding-bottom: 32px !important;
+    padding-left: 32px !important;
+    background-image: url(http://cai-hs.totalplanning.com.mx/wp-content/uploads/2016/02/cover-box-2-home-main.png?id=47) !important;
+}
+
+.vc_custom_1459901011310 {
+    padding-top: 32px !important;
+    padding-right: 32px !important;
+    padding-bottom: 32px !important;
+    padding-left: 32px !important;
+    background-image: url(http://cai-hs.totalplanning.com.mx/wp-content/uploads/2016/02/cover-box-3-home-main.png?id=48) !important;
+}
+
+.vc_column_container {
+    padding-left: 0 !important;
+    padding-right: 0 !important;
+}
 
 .lblPrincipal, .lblAzulObscuro{
     color:#01648B !important;
 }
 .lblSecundario{
-    color:#FF3300 !important;
+    color:orange !important;
 }
 
+.btnGeneral{
+    background-color: orange !important;
+    color:white !important;
+}
+.btnGeneral:hover{
+    background-color: #01648B !important;
+}
+.btnGeneral a{
+    color:white !important;
+}
+
+.btnSecundario{
+    background-color: #01648B !important;
+    color:white !important;
+}
+.btnSecundario:hover{
+    background-color: orange !important;
+}
+.btnSecundario a{
+    color:white !important;
+}
+
+.divColorSecundario{
+    background-color: orange !important;
+    color:white !important;
+}
+
+.btn-menu:hover{
+    background-color: orange !important;
+    color:white !important;
+}
+
+.menuPrincipal{
+    background-color: #01648B;border-bottom: orange 5px solid !important;
+}
+
+/*h1 .ng-binding{
+     color:#FF3300 !important;
+}*/
 
 h1, h2{
     color:#01648B !important;
@@ -238,4 +305,364 @@ a {
 #copyright{
     width:100%; height:80px;
     background-color:#b30000; 
+}
+
+
+/* HOJAS DE ESTILO GENERAL */
+
+
+.qodef-content .wpb_video_widget{
+	border: 5px solid #B4B4B4 !important;
+}
+
+.divFlotanteContacto .wpcf7-form-control.wpcf7-textarea {
+	height: 160px !important;
+}
+
+.qodef-blog-holder {
+	margin-top: 125px !important;
+}
+
+.qodef-footer-top-holder .widget_wpcom_social_media_icons_widget  li {
+	display: block;
+}
+
+.qodef-footer-top-holder .widget_wpcom_social_media_icons_widget .genericon-facebook:before,
+.qodef-footer-top-holder .widget_wpcom_social_media_icons_widget .genericon-twitter:before,
+.qodef-footer-top-holder .widget_wpcom_social_media_icons_widget .genericon-instagram:before {
+	font-size: 35px;
+}
+
+/*
+.genericon-facebook:before,
+.genericon-twitter:before,
+.genericon-instagram:before {
+	font-size: 35px;
+}*/
+.divW100p {
+	width: 100%;
+}
+
+.textoslider {
+	padding: 5% 20px 10px;
+	width: 345px;
+	left: 8%;
+	top: 120px;
+	background-color: rgba(23,2,43,0.6);
+	color: #fff !important;
+/*	background-color: rgba(255,255,255,0.4);
+	color: rgba(23,2,43,1) !important;*/
+	text-align: center;
+	height: auto;
+	position: absolute;
+	z-index: 500;
+	overflow: hidden;
+}
+
+.textoslider h1,
+.textoslider h2,
+.textoslider h3,
+.textoslider h4 {
+	color: #fff !important;
+/*	color: rgba(23,2,43,0.6) !important;*/
+}
+
+.mTop10 {
+	margin-top: 10px !important;
+}
+
+.mTop20 {
+	margin-top: 20px !important;
+}
+
+.mTopBot10 {
+	margin: 10px 0 !important;
+}
+
+.mTopBot20 {
+	margin: 20px 0 !important;
+}
+
+.qodef-grid {
+	width: auto !important;
+	margin: 0 !important;
+}
+
+#divConoceNuestrosDesarrollos .vc_col-sm-2 {
+	width: 19.92% !important;
+}
+
+.divFormularioContacto {
+	padding-top: 20px !important;
+}
+
+.divFormularioContacto .pushbutton-wide {
+	margin-top: 20px;
+	float: right;
+	margin-right: 40px;
+}
+
+.divFlotanteContacto {
+	float: left;
+	width: 40%;
+	padding: 0 5%;
+	margin-bottom: 20px;
+}
+
+.divPadTop20 {
+	padding-top: 20px !important;
+}
+
+.primerDiv {
+	margin-top: 75px !important;
+	padding-top: 0 !important;
+}
+
+.divBloqueTipoCasa {
+	width: 100%;
+	display: inline-block;
+	padding: 20PX;
+}
+
+.divTituloTipoCasa {
+	width: 90%;
+	display: inline-block;
+	background-color: #1C4DA2;
+	color: white;
+	padding: 10px 5%;
+}
+
+.divEspaciosChicos {
+	padding: 2.6% 3.8% !important;
+}
+
+.divEspaciosMuyGrandes {
+	padding: 2.6% 15.2%;
+}
+
+.qodef-btn {
+	background-color: #7DC700 !important;
+	color: white !important;
+	border-color: #7DC700 !important;
+}
+
+.qodef-btn:hover {
+	background-color: #008B00 !important;
+	border-color: #008B00 !important;
+}
+
+.dividerGeneral {
+	border: 0;
+	height: 1px;
+	background-image: linear-gradient(to right,rgba(0,0,0,0),#7DC700,rgba(0,0,0,0));
+	margin: 35px 0;
+}
+
+.lblAzulOscuro, .lblAzulObscuro, .lblAzulFuerte {
+	color: #008B00!important;
+}
+
+.qodef-icon-font-awesome {
+	color: #7DC700 !important;
+}
+
+#desarrolladoPor {
+	line-height: 40px;
+	margin: 0 10px;
+	float: left;
+}
+
+.contenedorMetaSlider {
+	width: 100%;
+	margin: 0 auto;
+	margin-top: 20px;
+}
+
+.contenedorMetaSlider750 {
+	width: 100%;
+	max-width: 750px;
+	margin: 0 auto;
+	margin-top: 20px;
+}
+
+.contenedorMetaSlider1300 {
+	width: 100%;
+	margin: 0 auto;
+}
+
+.anchoGaleriaPromociones {
+	width: 237px;
+	height: 299px;
+	margin: 0 auto;
+}
+
+.qodef-menu-area {
+	background-color: rgba(0,0,0,0) !important;
+}
+
+#qtranslate-2 {
+	float: right;
+	padding: 43px 0;
+}
+
+.qtranxs_widget ul li {
+	float: left;
+}
+
+.qodef-icon-list-icon-holder {
+	vertical-align: top !important;
+}
+
+.videoConocenos .wpb_video_wrapper {
+	padding-top: 0 !important;
+}
+
+footer .qodef-footer-top-holder {
+	display: block;
+	background-color: #16B000 !important;
+	background-position: center center;
+	background-size: cover;
+	color: white !important;
+}
+
+footer .qodef-footer-top-holder h4 {
+	color: white !important;
+}
+
+footer .qodef-footer-bottom-holder {
+	display: inline-block;
+	width: 100%;
+	background-color: #7DC700 !important;
+	vertical-align: middle;
+	text-align: center;
+	padding: 30px 0;
+	color: #FFFFFF !important;
+}
+
+.divAzulClaro {
+	background-color: #7DC700 !important;
+}
+
+.divAzulObscuro {
+	background-color: #008B00 !important;
+}
+
+.divPadBottomNormal {
+	padding-bottom: 35px;
+}
+
+.divGrisClaro {
+	background-color: #f3f3f3;
+}
+
+.lblGrisClaro {
+	color: #797979;
+}
+
+.divAlto450 {
+	height: 450px;
+}
+
+.margenIzqX {
+	margin-left: 8%;
+}
+
+.qodef-container-inner {
+	padding-top: 0 !important;
+}
+
+.div30perc{
+    width: 30%;
+}
+
+.div70perc{
+    width: 60%;
+    padding: 12px 5% 48px 5%;
+}
+
+.divEspacios {
+	/*padding: 2.6% 0;*/
+    padding:32px 0 !important;
+    display: inline-block;
+}
+
+.divEspaciosNormal {
+	padding: 2.6% 7.6%;
+    display: inline-block;
+}
+
+.margen35-0 {
+	margin: 35px 0;
+}
+
+.ancho227{
+ width: 300px;
+    padding: 0 !important;
+}
+.altoMinimo45 {
+	min-height: 145px;
+}
+
+.divEspaciosDobles {
+	padding: 5% 7.6%;
+    display: inline-block;
+}
+
+.divPad35-0 {
+	padding: 35px 0;
+}
+.divPad32-0 {
+	padding: 32px 0;
+}
+.divPad64-0 {
+	padding: 64px 0;
+}
+
+.divAlignCenter {
+	text-align: center !important;
+}
+
+.divAlto500 {
+	height: 500px;
+}
+
+.divAlto175 {
+	width: 100%;
+	height: 175px;
+	text-align: center;
+}
+
+.divAlto175 h2 {
+	line-height: 175px;
+}
+
+.lblBlanco {
+	color: white !important;
+}
+
+.lblVerde {
+	color: #1C9F43 !important;
+}
+
+.lblAzul {
+	color: #008B00 !important;
+}
+
+#divContactenos {
+	text-align: left;
+	padding: 80px 10%;
+	width: 550px;
+}
+
+.divOculto {
+	display: none;
+}
+
+.divFlotante {
+	float: left;
+}
+
+.margen0auto {
+	margin: 0 auto;
+	width: 250px;
 }
