@@ -288,7 +288,6 @@ function($scope, $state, auth, projects){
     
     $scope.agregarDistribuidor = function(){
         debugger;
-        return; //todo
         
         $scope.distribuidor.idCategoria = $scope.distribuidor.idCategoria.id;
         $scope.distribuidor.logo = $scope.files[0].name;

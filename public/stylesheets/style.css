@@ -39,12 +39,14 @@ body {
     color:orange !important;
 }
 
-.btnGeneral{
+.btnGeneral, .btn-primary{
     background-color: orange !important;
     color:white !important;
+    border-color: orange !important;
 }
-.btnGeneral:hover{
+.btnGeneral:hover, .btn-primary:hover{
     background-color: #01648B !important;
+    border-color: #01648B !important;
 }
 .btnGeneral a{
     color:white !important;

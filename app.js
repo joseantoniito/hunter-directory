@@ -11,6 +11,8 @@ var passport = require('passport');
 require('./models/Users');
 require('./models/Categoria');
 require('./models/Distribuidor');
+require('./models/Evento');
+require('./models/Foto');
 require('./config/passport');
 mongoose.connect('mongodb://localhost/hunter-direcory');
 

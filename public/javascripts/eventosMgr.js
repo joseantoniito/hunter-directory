@@ -4,11 +4,24 @@ app.config([
 '$stateProvider',
 '$urlRouterProvider',
 function($stateProvider, $urlRouterProvider) {
-	
+    
     $stateProvider
     .state('principal', {
       url: '/principal',
-      templateUrl: '/principal.html',
+      templateUrl: '/eventos.html',
+      controller: 'EventosCtrl',
+      resolve: {
+        postPromise: ['factory', function(factory){
+            debugger;
+            return factory.obtenerEventosDeUsuario();
+        }]
+      }
+    });
+    
+    $stateProvider
+    .state('agregar-evento', {
+      url: '/agregar-evento',
+      templateUrl: '/agregar-evento.html',
       controller: 'EventosCtrl'
     });
     
@@ -25,9 +38,40 @@ function($scope, auth){
 }]);
 
 
-app.controller('EventosCtrl', ['$scope','$state',function($scope, $state){
+app.controller('EventosCtrl', [
+'$scope',
+'$state',
+'auth',
+'factory',
+function($scope, $state, auth, factory){
+    $scope.eventos = factory.eventos;
+    $scope.evento = factory.evento;
+    $scope.files = [];
     
-      
+    
+    $scope.uploadOptions ={
+        async: { saveUrl: 'saveFiles', removeUrl: 'removeFiles', autoUpload: true },
+        files: $scope.files,
+        success: function(e){
+            $scope.files = e.files;
+
+        }
+    }
+    
+
+    $scope.agregarEvento = function(){
+        debugger;
+
+        $scope.evento.banner = $scope.files[0].name;
+
+        factory.agregarEvento($scope.evento)
+            .error(function(error){
+                $scope.error = error;
+            })
+            .then(function(){
+                $state.go('principal');}
+            );
+    }
 }]);
 
 
@@ -83,3 +127,58 @@ app.factory('auth', ['$http', '$window', function($http, $window){
    
   return auth;
 }])
+
+
+app.factory('factory', ['$http', 'auth', function($http, auth){
+	  var o = {
+		eventos: [],
+		categorias: [
+            {id:1, nombre: 'Aspersores'},
+            {id:2, nombre: 'MP Rotator'},
+            {id:3, nombre: 'Toberas'},
+            {id:4, nombre: 'Cuerpos de Difusores'},
+            {id:5, nombre: 'Riego Localizado'},
+            {id:6, nombre: 'Programadores'},
+            {id:7, nombre: 'Sensores'},
+            {id:8, nombre: 'Controles Remotos'},
+        ],
+        evento: null
+	  };
+  
+    o.agregarEvento = function(data) {
+		return $http.post('/eventos/eventos', data, {headers: {Authorization: 'Bearer '+auth.getToken()}})
+            .success(function(dataS){
+                debugger;
+            });
+	};
+    o.obtenerEventosDeUsuario = function() {
+		return $http.get('/eventos/eventos',{headers: {Authorization: 'Bearer '+auth.getToken()}}).success(function(data){
+            debugger;
+		  angular.copy(data, o.eventos);
+		});
+	};
+    
+    //código que aun no se ocupa
+    o.obtenerDistribuidoresPorCategoria = function(id) {
+		return $http.get('/distribuidores/' + id)
+            .success(function(dataS){
+                angular.copy(dataS, o.distribuidores);
+                o.distribuidor = null;
+            });
+	};
+	
+    o.obtenerDistribuidor = function(id) {
+		return $http.get('/distribuidorPorId/' + id)
+            .success(function(dataS){
+                o.distribuidor = dataS;
+            });
+	};
+    
+    o.obtenerFiltro = function(object, options) {
+		return $http.get('/distribuidoresPorNombre/' + options.data.filter.filters[0].value)
+            .success(function(dataS){
+                options.success(dataS);
+            });
+    }
+  return o;
+}]);
