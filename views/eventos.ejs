@@ -25,15 +25,17 @@
         
 		 <h2><dl>
 		 <a href="/#/home" style="float:left; color: white;">
-            IMAGÉN RIEGO 1        </a>
+            IMAGÉN RIEGO        </a>
           </dl>
         </h2>
         
         <ul class="nav navbar-nav  pull-right">
             <li ng-show="isLoggedIn()">
-                <a class="btn btn-menu" href="/#/agregar-distribuidores">Agregar Distribuidores</a>
+                <a class="btn btn-menu" href="/eventos/#/agregar-evento">Agregar Eventos</a>
             </li>
-		      <li ng-show="isLoggedIn()"><a href="profile/#/override" class="btn btn-menu">{{ currentUser() }}</a></li>
+            <li ng-show="isLoggedIn()"><a href="/eventos/#/principal" class="btn btn-menu">Eventos</a></li>
+            <li><a href="/eventos/#/portafolio" class="btn btn-menu">Portafolio</a></li>
+		      <li ng-show="isLoggedIn()"><a href="/profile/#/override" class="btn btn-menu">{{ currentUser() }}</a></li>
 		      <li ng-show="isLoggedIn()"><a href="" ng-click="logOut()" class="btn btn-menu">Log Out</a></li>
 		      <li ng-hide="isLoggedIn()"><a href="/#/login" class="btn btn-menu">Log In</a></li>
 		      <li ng-hide="isLoggedIn()"><a href="/#/register" class="btn btn-menu">Register</a></li>
@@ -136,6 +138,57 @@
 </div>
 </div>
 </script>
+      
+      
+<script type="text/ng-template" id="/portafolio-evento.html">
+<div class="container">
+<div class="row">
+    <div class="col-md-8 col-md-offset-2 bgrdWhite">
+        
+    
+         <img class="img-responsive img-portfolio img-hover" src="/uploads/{{evento.banner}}"  alt="">
+        
+        
+        <h1>{{evento.nombre}}</h1>
+        <h3>{{evento.direccion}}</h3>
+        <p>{{evento.direccion}}</p>
+        <p>{{evento.fechaInicio}}</p>
+        <p>{{evento.fechaFin}}</p>
+
+        
+    </div> 
+</div>
+</div>
+</script>
+      
+      
+<script type="text/ng-template" id="/portafolio.html">
+<div class="container">
+<div class="row">
+    <div class="col-md-8 col-md-offset-2 bgrdWhite">
+        <div class="page-header divAlignCenter" >
+            <h1 class="lblPrincipal">Portafolio</h1>
+        </div>
+        
+        
+        <div class="demo-section k-content wide">
+            <div kendo-list-view id="listView" k-data-source="sourceEventosCompletos">
+                <div class="product" k-template>
+                    <h1>{{ dataItem.nombre }}</h1>
+                    
+                    <a href="\\#/portafolio-evento/{{ dataItem._id }}" style="display:block;" >
+                    <img ng-src="/uploads/{{dataItem.banner}}" alt=" {{dataItem.nombre}} image" />
+                    </a>
+                </div>
+            </div>
+            <div kendo-pager k-data-source="sourceEventosCompletos"></div>
+        </div>
+    
+    </div> 
+</div>
+</div>
+</script>
+      
 	
   </body>
 </html>

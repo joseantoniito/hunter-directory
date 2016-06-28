@@ -21,13 +21,6 @@ router.get('/', function(req, res, next) {
 
 
 router.get('/eventos', auth, function(req, res, next) {
-  /*Project.find({ idUsuario: new ObjectId(req.payload._id) },
-	  function(err, projects){
-		if(err){ return next(err); }
-
-		res.json(projects);
-	  });*/
-	  
       console.log(req.payload);
 	  var query = Evento.find({idUsuario : new ObjectId(req.payload._id)});//.populate('fotos');
 
@@ -64,6 +57,37 @@ router.post('/eventos', auth, function(req, res, next){
     });
 });
 
+
+router.param('idEvento', function(req, res, next, id) {
+    console.log(id);
+    req.id = id;
+    return next();
+});
+
+router.get('/eventoPorId/:idEvento', function(req, res, next) {
+    console.log(req.id);
+    var query = Evento.findById(req.id).populate('fotos');
+
+    query.exec(function (err, data){
+        if (err) { console.log(err); return next(err); }
+        if (!data) { return next(new Error('No se encuentra el registro.')); }
+        console.log(data);
+
+        res.json(data);
+    });
+});
+
+router.get('/eventosCompletos', function(req, res, next) {
+	  var query = Evento.find().populate('fotos');
+
+	  query.exec(function (err, data){
+		if (err) { return next(err); }
+		if (!data) { return next(new Error('No se encuentra el registro.')); }
+
+        console.log(data);
+		res.json(data);
+	  });
+});
 
 router.post('/saveFiles',multipartMiddleware, function(req, res, next){
     console.log(req.files);

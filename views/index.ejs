@@ -32,7 +32,8 @@
             <li ng-show="isLoggedIn()">
                 <a class="btn btn-menu" href="/#/agregar-distribuidores">Agregar Distribuidores</a>
             </li>
-		      <li ng-show="isLoggedIn()"><a href="profile/#/override" class="btn btn-menu">{{ currentUser() }}</a></li>
+            <li ng-show="isLoggedIn()"><a href="/eventos/#/principal" class="btn btn-menu">Eventos</a></li>
+		      <li ng-show="isLoggedIn()"><a href="/profile/#/override" class="btn btn-menu">{{ currentUser() }}</a></li>
 		      <li ng-show="isLoggedIn()"><a href="" ng-click="logOut()" class="btn btn-menu">Log Out</a></li>
 		      <li ng-hide="isLoggedIn()"><a href="/#/login" class="btn btn-menu">Log In</a></li>
 		      <li ng-hide="isLoggedIn()"><a href="/#/register" class="btn btn-menu">Register</a></li>

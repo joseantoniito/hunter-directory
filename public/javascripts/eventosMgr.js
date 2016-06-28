@@ -25,6 +25,31 @@ function($stateProvider, $urlRouterProvider) {
       controller: 'EventosCtrl'
     });
     
+    $stateProvider
+    .state('portafolio-evento', {
+      url: '/portafolio-evento/{id}',
+      templateUrl: '/portafolio-evento.html',
+      controller: 'EventosCtrl',
+      resolve: {
+        post: ['$stateParams', 'factory', function($stateParams, factory) {
+              debugger;
+              return factory.obtenerEventoPorId($stateParams.id);
+            }]
+      }
+    });
+    
+    $stateProvider
+    .state('portafolio', {
+      url: '/portafolio',
+      templateUrl: '/portafolio.html',
+      controller: 'EventosCtrl',
+      resolve: {
+        postPromise: ['factory', function(factory){
+            debugger;
+            return factory.obtenerEventosCompletos();
+        }]
+      }
+    });
     
 }]);
 
@@ -47,6 +72,11 @@ function($scope, $state, auth, factory){
     $scope.eventos = factory.eventos;
     $scope.evento = factory.evento;
     $scope.files = [];
+    
+    $scope.sourceEventosCompletos = new kendo.data.DataSource({
+        data: factory.eventosCompletos,
+        pageSize: 21
+    });
     
     
     $scope.uploadOptions ={
@@ -142,7 +172,8 @@ app.factory('factory', ['$http', 'auth', function($http, auth){
             {id:7, nombre: 'Sensores'},
             {id:8, nombre: 'Controles Remotos'},
         ],
-        evento: null
+        evento: null,
+        eventosCompletos: [],
 	  };
   
     o.agregarEvento = function(data) {
@@ -157,28 +188,19 @@ app.factory('factory', ['$http', 'auth', function($http, auth){
 		  angular.copy(data, o.eventos);
 		});
 	};
-    
-    //código que aun no se ocupa
-    o.obtenerDistribuidoresPorCategoria = function(id) {
-		return $http.get('/distribuidores/' + id)
-            .success(function(dataS){
-                angular.copy(dataS, o.distribuidores);
-                o.distribuidor = null;
-            });
+    o.obtenerEventoPorId = function(id) {
+		return $http.get('/eventos/eventoPorId/' + id).success(function(data){
+            debugger;
+		    o.evento = data;
+		});
 	};
-	
-    o.obtenerDistribuidor = function(id) {
-		return $http.get('/distribuidorPorId/' + id)
-            .success(function(dataS){
-                o.distribuidor = dataS;
-            });
+    o.obtenerEventosCompletos = function() {
+		return $http.get('/eventos/eventosCompletos').success(function(data){
+            debugger;
+		  angular.copy(data, o.eventosCompletos);
+		});
 	};
     
-    o.obtenerFiltro = function(object, options) {
-		return $http.get('/distribuidoresPorNombre/' + options.data.filter.filters[0].value)
-            .success(function(dataS){
-                options.success(dataS);
-            });
-    }
+    
   return o;
 }]);
