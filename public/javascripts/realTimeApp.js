@@ -259,6 +259,33 @@ function($scope, $state, auth, projects){
           id: 3
         },
     ];
+    
+    var slidesdis = $scope.slidesdis = [
+        {
+          image: 'http://eysh.mx/store/images/promo/0/banner_Conexiones_pagina_web.jpg',
+          text: '',
+          desc: '', 
+          id: 0
+        },
+        {
+          image: 'http://eysh.mx/store/images/promo/0/b2.jpg',
+          desc: '',
+            text: '',
+          id: 1
+        },
+        {
+          image: 'http://eysh.mx/store/images/promo/0/banner_tiendas_pagina_web.jpg',
+          desc: '',
+          text: '',
+          id: 2
+        },
+        {
+          image: 'http://eysh.mx/store/images/promo/0/b1.jpg',
+          text: '',
+           desc:  '',
+          id: 3
+        },
+    ];
     var currIndex = 0;
     
     /*$scope.addSlide = function() {
@@ -384,14 +411,16 @@ app.factory('projects', ['$http', 'auth', function($http, auth){
 	  var o = {
 		distribuidores: [],
 		categorias: [
-            {id:1, nombre: 'Aspersores'},
-            {id:2, nombre: 'MP Rotator'},
-            {id:3, nombre: 'Toberas'},
-            {id:4, nombre: 'Cuerpos de Difusores'},
-            {id:5, nombre: 'Riego Localizado'},
-            {id:6, nombre: 'Programadores'},
-            {id:7, nombre: 'Sensores'},
-            {id:8, nombre: 'Controles Remotos'},
+            {id:1, nombre: 'Riego Residencial'},
+            {id:2, nombre: 'Riego Institucional'},
+            {id:3, nombre: 'Parques y Jardines'},
+            {id:4, nombre: 'Distribuidores'},
+            {id:5, nombre: 'Punto de venta'},
+            {id:6, nombre: 'Equipos y sistemas de Riego'},
+            {id:6, nombre: 'Iluminación'},
+                        
+
+           
         ],
         distribuidor: null
 	  };
@@ -404,6 +433,7 @@ app.factory('projects', ['$http', 'auth', function($http, auth){
             });
 	};
     o.obtenerDistribuidoresPorCategoria = function(id) {
+        console.log("hola" + id);
 		return $http.get('/distribuidores/' + id)
             .success(function(dataS){
                 angular.copy(dataS, o.distribuidores);
