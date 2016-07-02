@@ -70,7 +70,20 @@ body {
     color:orange !important;
 }
 
-.btnGeneral, .btn-primary{
+.btn-iluminiti {
+    background-color: darkcyan;
+    color:white !important;
+    border-color: darkcyan!important;
+}
+
+.btn-connector {
+    background-color: chocolate;
+    color:white !important;
+    border-color: chocolate!important;
+}
+
+
+.btnGeneral{
     background-color: orange !important;
     color:white !important;
     border-color: orange !important;

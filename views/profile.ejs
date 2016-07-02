@@ -74,39 +74,47 @@
         <div class="col-sm-4 col-md-3 list-group sidebar">
           
           <a href="#" class="list-group-item thumbnail">
-                       <img src="data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0iVVRGLTgiIHN0YW5kYWxvbmU9InllcyI/PjxzdmcgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIiB3aWR0aD0iMzE5IiBoZWlnaHQ9IjIwMCIgdmlld0JveD0iMCAwIDMxOSAyMDAiIHByZXNlcnZlQXNwZWN0UmF0aW89Im5vbmUiPjwhLS0KU291cmNlIFVSTDogaG9sZGVyLmpzLzEwMCV4MjAwCkNyZWF0ZWQgd2l0aCBIb2xkZXIuanMgMi42LjAuCkxlYXJuIG1vcmUgYXQgaHR0cDovL2hvbGRlcmpzLmNvbQooYykgMjAxMi0yMDE1IEl2YW4gTWFsb3BpbnNreSAtIGh0dHA6Ly9pbXNreS5jbwotLT48ZGVmcz48c3R5bGUgdHlwZT0idGV4dC9jc3MiPjwhW0NEQVRBWyNob2xkZXJfMTU1NjZmNGYzOTkgdGV4dCB7IGZpbGw6I0FBQUFBQTtmb250LXdlaWdodDpib2xkO2ZvbnQtZmFtaWx5OkFyaWFsLCBIZWx2ZXRpY2EsIE9wZW4gU2Fucywgc2Fucy1zZXJpZiwgbW9ub3NwYWNlO2ZvbnQtc2l6ZToxNnB0IH0gXV0+PC9zdHlsZT48L2RlZnM+PGcgaWQ9ImhvbGRlcl8xNTU2NmY0ZjM5OSI+PHJlY3Qgd2lkdGg9IjMxOSIgaGVpZ2h0PSIyMDAiIGZpbGw9IiNFRUVFRUUiLz48Zz48dGV4dCB4PSIxMTcuOTg0Mzc1IiB5PSIxMDcuMiI+MzE5eDIwMDwvdGV4dD48L2c+PC9nPjwvc3ZnPg==" class="img-circle" alt="Icono empresa" width="200" height="200">
+                       <img src="../images/logoemmsariego.png" class="img-rounded" alt="Icono empresa" width="200" height="200">
                     </a>
           
-          <a href="#/override" class="list-group-item">
-                <span class="glyphicon glyphicon-home" aria-hidden="true" style="margin-right:20px;"></span>     Vista general </a>
-          <a href="#/editProfile" class="list-group-item">
-           <span class="glyphicon glyphicon-pencil" aria-hidden="true" style="margin-right:20px;"></span>Editar profile</a>
-  <a href="#/direccion" class="list-group-item">
-           <span class="glyphicon glyphicon-globe" style="margin-right:20px;"></span>Direccion</a>
-  <a href="#/suscripcion" class="list-group-item">
-           <span class="glyphicon glyphicon-credit-card" aria-hidden="true" style="margin-right:20px;"></span>Suscripción</a>
-  <a href="#/notificaciones" class="list-group-item">
-           <span class="glyphicon glyphicon-bell" aria-hidden="true" style="margin-right:20px;" ></span>Notificaciones</a>
+            <a href="#/override" class="list-group-item" ng-click="menuItemSelected = 1">
+                <span class="glyphicon glyphicon-home" aria-hidden="true" style="margin-right:20px;"></span>     Vista general 
+            </a>
+            <a href="#/editProfile" class="list-group-item">
+                <span class="glyphicon glyphicon-pencil" aria-hidden="true" style="margin-right:20px;"></span>Editar    profile
+            </a>
+            <a href="#/direccion" class="list-group-item">
+                <span class="glyphicon glyphicon-globe" style="margin-right:20px;"></span>Direccion
+            </a>
+            <a href="#/suscripcion" class="list-group-item">
+                <span class="glyphicon glyphicon-credit-card" aria-hidden="true" style="margin-right:20px;"></span>Suscripción
+            </a>
+            <a href="#/notificaciones" class="list-group-item">
+                <span class="glyphicon glyphicon-bell" aria-hidden="true" style="margin-right:20px;" ></span>Notificaciones
+            </a>
+            <a href="#/user-videos" class="list-group-item">
+                <span class="glyphicon glyphicon-film" aria-hidden="true" style="margin-right:20px;" ></span>Mis videos
+            </a>
       </div>
-        <div class="col-sm-9 ©">
+        <div class="col-sm-9">
           <ui-view></ui-view>
             <script type="text/ng-template" id="/override.html">
                  <div style="margin:10px">
-                    <img src="../images/banner.jpg" alt=""  height="200px" width="900px">
+                    <img src="../images/bannerevento.jpg" alt=""  height="200px" width="900px">
                     </div>
                         <div class="col-sm-5">
                             <div class="panel panel-default">
                                 <div class="panel-body">
                                     <h3 class="title">Perfil</h3>
                                     <h4 class="subtitle-inverse">Nombre de Usuario</h4>
-                                    <h5>Humbero Mendoza</h5>
+                                    <h5>JORGE ARMANDO AYALA RAMIREZ </h5>
                                     <h4 class="subtitle-inverse">Email</h4>
-                                    <h5>hmendoza@gmail.com</h5>
+                                    <h5>jayalar@emmsa.com.mx</h5>
                                     <h4 class="subtitle-inverse">Cliente desde</h4>
                                     <h5>01/Enero/2016</h5>
                                     <h4 class="subtitle-inverse">Pais</h4>
                                     <h5>México</h5>
-                                    <button type="button" class="btn btn-warning btn-edit">Editar Perfil</button>
+                                    <a href="#/editProfile" role="button" class="btn btn-warning btn-edit">Editar Perfil</a>
                                 </div>
                             </div>
                         </div>
@@ -115,7 +123,7 @@
                             <div class="panel-body">
                                 <h3 class="title">Imagén Riego</h3>
                                 <h5 class="subtitle-inverse">Obten Riego por solo 5,000 pesos mensuales, y recibe todas herramientas para seguir creciendo</h5>
-                                <button type="button" class="btn btn-warning">Obten Premiunm</button>
+                                <a href="#/suscripcion" role="button" class="btn btn-warning">Obten Premiunm</a>
                             </div>
                         </div>
                     </div>
@@ -226,23 +234,20 @@
 
                     </div>
                 </form>
+                                        
+                                        
+                        <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyA8Xq5o6lNl4YyFt0F30E_yas-zDNk3sMg&callback=initMap" async defer></script>
+
+                   
+        </div>                          
             </div>
         </div>           
-                        <script>
-                            var map;
-                            function initMap() {
-                                map = new google.maps.Map(document.getElementById('map'), {
-                                    center: {lat: 20.595679, lng: -100.405836},
-                                    zoom: 8
-                                });
-                            }
-                        </script>                      
-                        <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyA8Xq5o6lNl4YyFt0F30E_yas-zDNk3sMg&callback=initMap" async defer></script> 
+                        
             </script>
         </div>
           
           <script type="text/ng-template" id="/suscripcion.html">
-            <div class="col-md-6 col-md-offset-2 bgrdWhite">
+            <div class="col-md-6 bgrdWhite">
                 <div class="page-header" >
                     <h1 class="lblAzulObscuro">Suscripción</h1>
                 </div>
@@ -251,23 +256,77 @@
                 </div>
 
                 <form ng-submit="logIn()" class="form-horizontal m30">
+                    <label class="control-label" for="codigo_seguridad">Número de tarjeta</label>   
                     <div class="form-group">
-                        <input type="text" class="form-control"   placeholder="Número de tarjeta"></input>
+                                        <div class="col-md-8"> 
+                        <input type="number" class="form-control"  id="num_card" placeholder="1111 2222 3333 4444"></input>
+                                        </div>
                     </div>
-            
+                        
+                    <label class="control-label" for="codigo_seguridad">Fecha de vigencia</label>   
+                    <div class="form-group form-inline">
+                        
+                        
+                        <div class="col-md-8">
+                        <select class="form-control " id="mes">
+                            <option>01</option>
+                            <option>02</option>
+                            <option>03</option>
+                            <option>04</option>
+                            <option>05</option>
+                            <option>06</option>
+                            <option>07</option>
+                            <option>08</option>
+                            <option>09</option>
+                            <option>10</option>
+                            <option>11</option>
+                            <option>12</option>
+                          </select>
+                        <select class="form-control" id="anio">
+                            <option>16</option>
+                            <option>17</option>
+                            <option>18</option>
+                            <option>19</option>
+                            <option>20</option>
+                            <option>21</option>
+                            <option>22</option>
+                            <option>23</option>
+                            <option>24</option>
+                            <option>25</option>
+                            <option>26</option>
+                            <option>27</option>
+                            <option>28</option>
+                            <option>29</option>
+                            <option>30</option>
+                          </select>
+                                       </div> 
+
+                    </div>
+                    <label class="control-label" for="codigo_seguridad">Código de seguridad</label>   
                     <div class="form-group">
-                        <input type="password"    class="form-control"      placeholder="Código de seguridad"></input>
+                        <div class="col-md-6">                
+                        <input type="number"    class="form-control"      placeholder="Código de seguridad">                    </input>
+                                        </div>
                     </div>
-          <div class="form-group">
-                        <input type="password"    class="form-control"      placeholder="Fecha de "></input>
-                    </div>
-                        <button type="submit" class="btn btn-primary">Iniciar Sesión</button>
+                    <div>
+                             <div class="checkbox">
+      <label><input type="checkbox" value="">
+                                        
+                                        Estoy de acuerdo con la recopilación de mis datos financieros por parte de Spotify para su uso en los propósitos previamente expresados, tal como se encuentra detallado en la Política de Privacidad de Imagén riego
+
+          </label>
+                                        
+                                        Por este medio autorizas a IMAGEN RIEGO para que automáticamente te haga un cargo cada mes, hasta que canceles tu suscripción. Si no cancelas tu suscripción antes de que termine la oferta (para ver los detalles, consulta la página de tu cuenta), automáticamente se te hará un cargo cada mes por el precio estándar hasta que la canceles. Puedes consultar los términos completos y las instrucciones para cancelar aquí.
+Las tarjetas de crédito pueden estar sujetas a ajustes debido a las comisiones y cargos adicionales establecidos por tu banco.
+    </div>
+                        </div>
+                    <button type="submit" class="btn btn-primary">Iniciar Sesión</button>
                 </form>
             </div>
           </script>
           
         <script type="text/ng-template" id="/editProfile.html">
-            <div class="col-md-6 col-md-offset-1 bgrdWhite">
+            <div class="col-md-6 bgrdWhite">
                 <div class="page-header" >
                     <h1 class="lblAzulObscuro">Editar Profile</h1>
                 </div>
@@ -279,29 +338,43 @@
                 <form ng-submit="editProfile()" class="m30">
                     
                <a href="#" class="thumbnail">
-                       <img src="data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0iVVRGLTgiIHN0YW5kYWxvbmU9InllcyI/PjxzdmcgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIiB3aWR0aD0iMzE5IiBoZWlnaHQ9IjIwMCIgdmlld0JveD0iMCAwIDMxOSAyMDAiIHByZXNlcnZlQXNwZWN0UmF0aW89Im5vbmUiPjwhLS0KU291cmNlIFVSTDogaG9sZGVyLmpzLzEwMCV4MjAwCkNyZWF0ZWQgd2l0aCBIb2xkZXIuanMgMi42LjAuCkxlYXJuIG1vcmUgYXQgaHR0cDovL2hvbGRlcmpzLmNvbQooYykgMjAxMi0yMDE1IEl2YW4gTWFsb3BpbnNreSAtIGh0dHA6Ly9pbXNreS5jbwotLT48ZGVmcz48c3R5bGUgdHlwZT0idGV4dC9jc3MiPjwhW0NEQVRBWyNob2xkZXJfMTU1NjZmNGYzOTkgdGV4dCB7IGZpbGw6I0FBQUFBQTtmb250LXdlaWdodDpib2xkO2ZvbnQtZmFtaWx5OkFyaWFsLCBIZWx2ZXRpY2EsIE9wZW4gU2Fucywgc2Fucy1zZXJpZiwgbW9ub3NwYWNlO2ZvbnQtc2l6ZToxNnB0IH0gXV0+PC9zdHlsZT48L2RlZnM+PGcgaWQ9ImhvbGRlcl8xNTU2NmY0ZjM5OSI+PHJlY3Qgd2lkdGg9IjMxOSIgaGVpZ2h0PSIyMDAiIGZpbGw9IiNFRUVFRUUiLz48Zz48dGV4dCB4PSIxMTcuOTg0Mzc1IiB5PSIxMDcuMiI+MzE5eDIwMDwvdGV4dD48L2c+PC9nPjwvc3ZnPg==" class="img-rounded" alt="Icono empresa" width="304" height="236">
+                       <img src="../images/logoemmsariego.png" class="img-rounded" alt="Icono empresa" width="200" height="200">
                     </a>
                     <div class="form-group">
-          
-                       <label class="control-label col-sm-2">Nombre</label>
-                        <input type="text" class="form-control"   placeholder="nombre"></input>
-                    </div>
-          
-                    <div class="form-group">
-          
-                        <label class="control-label col-sm-2">Password</label>
-                        <input type="password"    class="form-control"      placeholder="Password"></input>
-                    </div>
-                    <div class="form-group">
-                        <label class="control-label col-sm-2">Email</label>
-                        <input type="password"    class="form-control"      placeholder="Email"></input>
+                        <input type="text" class="form-control"   placeholder="Nombre de usuario"></input>
                     </div>
                     
                     <div class="form-group">
-                        <label class="control-label col-sm-2">Email</label>
+                        <input type="password"    class="form-control"      placeholder="Contraseña"></input>
+                    </div>
+                                        
+                    <div class="form-group">
+                        <input type="password"    class="form-control"      placeholder="Confirmar contraseña"></input>
+                    </div>
+                                        
+                    <div class="form-group">
                         <input type="email"    class="form-control"      placeholder="Email"></input>
                     </div>
-                      <button type="submit" class="btn btn-primary">Iniciar Sesión</button>
+                    
+                    <div class="form-group">
+                        <input type="email"    class="form-control"      placeholder="Confirmar Email"></input>
+                    </div>
+                                        
+                    <div class="form-group">
+                        <label class="radio-inline">
+                              <input type="radio" name="optradio">Solo noticias
+                            </label>
+                            <label class="radio-inline">
+                              <input type="radio" name="optradio">Distribuidor
+                            </label>
+                            <label class="radio-inline">
+                              <input type="radio" name="optradio">Punto de venta
+                            </label>
+                    </div>
+                       <lable>
+                                        Al hacer click en Registrarse, aceptas los términos y condiciones y la política de privacidad de Imangén Riego.
+                        </laber>                 
+                      <button type="submit" class="btn btn-primary">Registrar</button>
                 </form>
             </div>
           </script>
@@ -329,25 +402,49 @@
                 
                 </form>
                 </div>
-
+                 
+          </script>
+                                        
+           <script type="text/ng-template" id="/user-videos.html">
+            <div class="col-md-6 bgrdWhite">
+              <div class="page-header" >
+                    <h1 class="lblAzulObscuro">Mis Videos</h1>
+                </div>
+                <div class="embed-responsive embed-responsive-4by3">
+                    <iframe class="embed-responsive-item" src="/uploads/temp.mp4"></iframe>
+                </div>
+                </div>
+                 
           </script>
     </row>
 </div>
-    <script>
-    $(function() {
-        $("#notifications-switch").kendoMobileSwitch();
-        $("#mail-switch").kendoMobileSwitch({
-            onLabel: "YES",
-            offLabel: "NO"
-        });
-        $("#visible-switch").kendoMobileSwitch({
-            checked: true
-        });
-        $("#name-switch").kendoMobileSwitch();
-    });
-</script>
 
-                   
+        <div ng-show="isNotishow()">
+                                        <script>
+                    $(function() {
+                        $("#notifications-switch").kendoMobileSwitch();
+                        $("#mail-switch").kendoMobileSwitch({
+                            onLabel: "YES",
+                            offLabel: "NO"
+                        });
+                        $("#visible-switch").kendoMobileSwitch({
+                            checked: true
+                        });
+                        $("#name-switch").kendoMobileSwitch();
+                    });
+                </script>
+                                        </div>
+          
+          <div ng-show="isMapShow()">
+           <script>
+                            var map;
+                            function initMap() {
+                                map = new google.maps.Map(document.getElementById('map'), {
+                                    center: {lat: 20.595679, lng: -100.405836},
+                                    zoom: 8
+                                });
+                            }
+                        </script>
         
   </body>
     

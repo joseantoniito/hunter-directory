@@ -26,6 +26,13 @@ function($stateProvider, $urlRouterProvider) {
       controller: 'ProfileCtrl'
     });
     
+    $stateProvider
+    .state('user-videos', {
+      url: '/user-videos',
+      templateUrl: '/user-videos.html',
+      controller: 'ProfileCtrl'
+    });
+    
     
     $stateProvider
     .state('editProfile', {
@@ -44,7 +51,20 @@ function($stateProvider, $urlRouterProvider) {
     
 }]);
 
-app.controller('ProfileCtrl', ['$scope','$state',function($scope, $state){
-    
+    app.controller('ProfileCtrl', ['$scope','$state',function($scope, $state){
+        
+        $scope.menuItemSelected = 0;
+        var showMap;
+        var showNotfications;
+        
+        $scope.isMapShow = function() {
+            console.log("Is show menu");
+            return $scope.menuItemSelected == 1;   
+        }
+        
+        $scope.OnClickMenu = function(value) {
+            console.log("Is show men");
+        }
+        
       
     }]);
