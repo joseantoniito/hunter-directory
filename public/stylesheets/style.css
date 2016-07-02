@@ -3,6 +3,37 @@ body {
   font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
 }
 
+.qodef-icon-shortcode .qodef-icon-element {
+    -webkit-transition: color .15s ease-in-out;
+    transition: color .15s ease-in-out;
+}
+.fa {
+    display: inline-block;
+    font: normal normal normal 14px/1 FontAwesome;
+    font-size: inherit;
+    text-rendering: auto;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+
+.qodef-icon-font-awesome {
+    color: orange !important;
+}
+
+.qodef-icon-huge {
+    font-size: 4em;/*5em;*/
+}
+.qodef-icon-shortcode {
+    display: inline-block;
+}
+
+
+.ico{
+    width: 50px;
+    height: 50px;
+    background-color: red;
+}
+
 .vc_custom_1459900974046 {
     padding-top: 32px !important;
     padding-right: 32px !important;
@@ -249,6 +280,9 @@ a {
 /*estilos extra*/
 .divFlotante{
     float:left;
+}
+.div30perc{
+    width:30%;
 }
 .divBloque{
     display:inline-block; width:100%;

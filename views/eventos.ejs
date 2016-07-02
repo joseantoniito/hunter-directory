@@ -14,6 +14,7 @@
     
     <link rel="stylesheet" href="//kendo.cdn.telerik.com/2016.1.226/styles/kendo.common-material.min.css" />
     <link rel="stylesheet" href="//kendo.cdn.telerik.com/2016.1.226/styles/kendo.material.min.css" />
+    <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-T8Gy5hrqNKT+hzMclPo118YTQO6cYprQmhrYwIiQ/3axmI1hQomh7Ud2hPOy8SP1" crossorigin="anonymous">
     
     <script src="//kendo.cdn.telerik.com/2016.1.226/js/kendo.all.min.js"></script>
     <script src="//angular-ui.github.io/bootstrap/ui-bootstrap-tpls-1.3.3.js"></script>
@@ -30,9 +31,9 @@
         </h2>
         
         <ul class="nav navbar-nav  pull-right">
-            <li ng-show="isLoggedIn()">
+            <!--<li ng-show="isLoggedIn()">
                 <a class="btn btn-menu" href="/eventos/#/agregar-evento">Agregar Eventos</a>
-            </li>
+            </li>-->
             <li ng-show="isLoggedIn()"><a href="/eventos/#/principal" class="btn btn-menu">Eventos</a></li>
             <li><a href="/eventos/#/portafolio" class="btn btn-menu">Portafolio</a></li>
 		      <li ng-show="isLoggedIn()"><a href="/profile/#/override" class="btn btn-menu">{{ currentUser() }}</a></li>
@@ -86,6 +87,14 @@
                 </div>
                 
                 <div class="form-group">
+                    Banner: 
+                    <input name="files"
+                       type="file"
+                       kendo-upload
+                       k-options="uploadOptions" />
+                </div>
+                
+                <div class="form-group">
                     <input kendo-date-time-picker
                        ng-model="evento.fechaInicioK"
                        k-ng-model="evento.fechaInicio"
@@ -102,10 +111,11 @@
                 </div>
                 
                 <div class="form-group">
+                    Fotos:
                     <input name="files"
                        type="file"
                        kendo-upload
-                       k-options="uploadOptions" />
+                       k-options="uploadOptionsFotos" />
                 </div>
                 
                 <button class="btn btn-primary">Guardar</button>
@@ -121,10 +131,14 @@
 <div class="container">
 <div class="row">
     <div class="col-md-8 col-md-offset-2 bgrdWhite">
-        <div class="page-header divAlignCenter" >
-            <h1 class="lblPrincipal">Resultados</h1>
+        <div class="row" >
+            <div style="float:right;">
+                <a class="qodef-icon-shortcode normal qodef-icon-huge" href="/eventos/#/agregar-evento">
+                    <i class="qodef-icon-font-awesome fa fa-plus qodef-icon-element" style=""></i>
+                </a>
+            </div>
         </div>
-
+        
         <div kendo-grid k-data-source="eventos" k-selectable="'row'"
             k-pageable='{ "pageSize": 2, "refresh": true, "pageSizes": true }'
               k-columns='[
@@ -143,7 +157,7 @@
 <script type="text/ng-template" id="/portafolio-evento.html">
 <div class="container">
 <div class="row">
-    <div class="col-md-8 col-md-offset-2 bgrdWhite">
+    <div class="col-md-8 col-md-offset-2 bgrdWhite divPadTop20">
         
     
          <img class="img-responsive img-portfolio img-hover" src="/uploads/{{evento.banner}}"  alt="">
@@ -152,9 +166,21 @@
         <h1>{{evento.nombre}}</h1>
         <h3>{{evento.direccion}}</h3>
         <p>{{evento.direccion}}</p>
-        <p>{{evento.fechaInicio}}</p>
-        <p>{{evento.fechaFin}}</p>
+        <p>{{evento.fechaInicio  | date:'MM/dd/yyyy h:mma'}}</p>
+        <p>{{evento.fechaFin  | date:'MM/dd/yyyy h:mma'}}</p>
 
+        
+         <div class="demo-section k-content wide divPadTop20">
+            <div kendo-list-view id="listView" k-data-source="sourceFotosEvento">
+                <div class="product divFlotante div30perc" k-template>
+                    
+                    <a name="{{ dataItem._id }}" style="display:block;" >
+                    <img ng-src="/uploads/{{dataItem.url}}" alt=" {{dataItem.descripcion}} image" width="100%" height="200" />
+                    </a>
+                </div>
+            </div>
+            <div kendo-pager k-data-source="sourceFotosEvento"></div>
+        </div>
         
     </div> 
 </div>
@@ -166,19 +192,21 @@
 <div class="container">
 <div class="row">
     <div class="col-md-8 col-md-offset-2 bgrdWhite">
-        <div class="page-header divAlignCenter" >
-            <h1 class="lblPrincipal">Portafolio</h1>
-        </div>
         
         
         <div class="demo-section k-content wide">
             <div kendo-list-view id="listView" k-data-source="sourceEventosCompletos">
-                <div class="product" k-template>
-                    <h1>{{ dataItem.nombre }}</h1>
-                    
-                    <a href="\\#/portafolio-evento/{{ dataItem._id }}" style="display:block;" >
-                    <img ng-src="/uploads/{{dataItem.banner}}" alt=" {{dataItem.nombre}} image" />
-                    </a>
+                <div class="product divPadTop20 row" k-template>
+                    <div class="col-md-4">
+                        <a href="\\#/portafolio-evento/{{ dataItem._id }}" style="display:block;" >
+                        <img ng-src="/uploads/{{dataItem.banner}}" alt=" {{dataItem.nombre}} image" style="width:100%;" />
+                        </a>
+                    </div>
+                    <div class="col-md-6" style="padding-right:0;">
+                        <h4 class="lblPrincipal">{{dataItem.nombre}}</h4>
+                        <p>{{dataItem.fechaInicio}} - {{dataItem.fechaFin}}</p>
+                        <p>{{dataItem.direccion}}</p>
+                    </div>
                 </div>
             </div>
             <div kendo-pager k-data-source="sourceEventosCompletos"></div>

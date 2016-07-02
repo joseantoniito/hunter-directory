@@ -72,11 +72,20 @@ function($scope, $state, auth, factory){
     $scope.eventos = factory.eventos;
     $scope.evento = factory.evento;
     $scope.files = [];
+    $scope.filesFotos = [];
     
     $scope.sourceEventosCompletos = new kendo.data.DataSource({
         data: factory.eventosCompletos,
         pageSize: 21
     });
+    
+    if($scope.evento){
+        $scope.sourceFotosEvento = new kendo.data.DataSource({
+            data: factory.evento.fotos,
+            pageSize: 21
+        });
+    }
+    
     
     
     $scope.uploadOptions ={
@@ -87,12 +96,29 @@ function($scope, $state, auth, factory){
 
         }
     }
+    $scope.uploadOptionsFotos ={
+        async: { saveUrl: 'saveFiles', removeUrl: 'removeFiles', autoUpload: true },
+        files: $scope.filesFotos,
+        success: function(e){
+            debugger;
+            $scope.filesFotos.push(e.response);
+        },
+        upload: function(e){
+            debugger;
+            $scope.filesFotos = [];
+        },
+        complete: function(e){
+            debugger;
+            console.log("complete", $scope.filesFotos);
+        }
+    }
     
 
     $scope.agregarEvento = function(){
         debugger;
 
         $scope.evento.banner = $scope.files[0].name;
+        $scope.evento.fotos = $scope.filesFotos;
 
         factory.agregarEvento($scope.evento)
             .error(function(error){

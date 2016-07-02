@@ -90,16 +90,26 @@ router.get('/eventosCompletos', function(req, res, next) {
 });
 
 router.post('/saveFiles',multipartMiddleware, function(req, res, next){
-    console.log(req.files);
+    //console.log(req.files);
     var nombre = req.files.files.originalFilename;
     fs.readFile(req.files.files.path, function (err, data) {
             
-            console.log(data);
-           fs.writeFile('./public/uploads/' + nombre, data, function (err) {
-          });
-         });
+        console.log(data);
+        fs.writeFile('./public/uploads/' + nombre, data, function (err) {});
+
+
+        var objeto = new Foto();
+        objeto.url = nombre;
+        objeto.descripcion = "";
+
+        objeto.save(function (err, dataO){
+        if(err){ return next(err); }
+            console.log(dataO);
+            res.json(dataO);
+        });
+    });
     
-    res.json(req.files);
+    //res.json(nombre);
 });
 
 router.post('/removeFiles', function(req, res, next){
