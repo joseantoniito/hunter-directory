@@ -57,17 +57,7 @@
               </uib-slide>
             </uib-carousel>
         </div>
- 
-        <!--<div class="container">
-            <div class="row"> 
-                <div class="col-md-8 col-md-offset-2 bgrdWhite">   
-                    <div class="page-header" >
-                        <h1 class="lblAzulObscuro">Directorio</h1>
-                    </div>
-                </div>
-            </div>
-        </div>-->
-        
+
         <div class="row divGris pad5perc search-box-home">
             <div class="container-fluid" >
                 <h1 class="lblPrincipal">Todo para tu sistema de riego</h1>
@@ -131,36 +121,20 @@
         <div class="divGris">
         <div class="container">
             <div class="col-lg-12">
-                <h2 class="page-header">Portafolio</h2>
+                <h2 class="page-header">Eventos</h2>
             </div>
-            <div class="col-md-4 col-sm-6">
-                <a href="portfolio-item.html">
-                    <img class="img-responsive img-portfolio img-hover" src="../images/portfolio1.jpg" alt="">
+            <!--<uib-carousel active="active" interval="myInterval" no-wrap="noWrapSlides">
+              <uib-slide ng-repeat="evento in ultimosEventos" index="evento._id">
+                <a href="/eventos/#/portafolio-evento/{{ evento._id }}">
+                    <img class="img-responsive img-portfolio img-hover" width="200px" src="../uploads/{{evento.banner}}" alt="">
                 </a>
-            </div>
-            <div class="col-md-4 col-sm-6">
-                <a href="portfolio-item.html">
-                    <img class="img-responsive img-portfolio img-hover" src="../images/portfolio2.jpg" alt="">
+                <a href="/eventos/#/portafolio-evento/{{ evento._id }}" width="200px">
                 </a>
-            </div>
-            <div class="col-md-4 col-sm-6">
-                <a href="portfolio-item.html">
-                    <img class="img-responsive img-portfolio img-hover" src="../images/portfolio3.jpg" alt="">
-                </a>
-            </div>
-            <div class="col-md-4 col-sm-6">
-                <a href="portfolio-item.html">
-                    <img class="img-responsive img-portfolio img-hover" src="../images/portfolio4.jpg" alt="">
-                </a>
-            </div>
-            <div class="col-md-4 col-sm-6">
-                <a href="portfolio-item.html">
-                    <img class="img-responsive img-portfolio img-hover" src="../images/portfolio5.jpg" alt="">
-                </a>
-            </div>
-            <div class="col-md-4 col-sm-6">
-                <a href="portfolio-item.html">
-                    <img class="img-responsive img-portfolio img-hover" src="../images/portfolio6.jpg" alt="">
+            </uib-carousel>-->
+            
+            <div class="col-md-4 col-sm-6" ng-repeat="evento in ultimosEventos">
+                <a href="/eventos/#/portafolio-evento/{{ evento._id }}">
+                    <img class="img-responsive img-portfolio img-hover" src="../uploads/{{evento.banner}}" alt="">
                 </a>
             </div>
         </div>
@@ -234,7 +208,7 @@
                             { "field": "nombre", "title": "nombre"},
                             { "field": "direccion", "title": "direccion"},
                             { "field": "paginaWeb", "title": "paginaWeb" },
-                             { "field": "descripcion", "title": "descripcion" }
+                            { "field": "descripcion", "title": "descripcion" }
                           ]'>
                         </div>-->
                     

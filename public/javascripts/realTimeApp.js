@@ -40,7 +40,12 @@ function($stateProvider, $urlRouterProvider) {
     .state('home', {
       url: '/home',
       templateUrl: '/directorio.html',
-      controller: 'MainCtrl'
+      controller: 'MainCtrl',
+      resolve: {
+        post: ['$stateParams', 'projects', function($stateParams, projects) {
+          return projects.obtenerUltimosEventos();
+        }]
+      }
     });
     
     $stateProvider
@@ -311,7 +316,7 @@ function($scope, $state, auth, projects){
     $scope.categorias = projects.categorias;
     $scope.distribuidor = projects.distribuidor;
     $scope.files = [];
-
+    $scope.ultimosEventos = projects.ultimosEventos;
     
     $scope.agregarDistribuidor = function(){
         debugger;
@@ -351,6 +356,14 @@ function($scope, $state, auth, projects){
         debugger;  
         console.log(data);
     };
+
+    $scope.getSecondIndex = function(index)
+    {
+        if(index-slides.length>=0)
+          return index-slides.length;
+        else
+          return index;
+    }
   
 }]);
 
@@ -422,7 +435,8 @@ app.factory('projects', ['$http', 'auth', function($http, auth){
 
            
         ],
-        distribuidor: null
+        distribuidor: null,
+        ultimosEventos: []
 	  };
   
     o.agregarDistribuidor = function(data) {
@@ -453,6 +467,14 @@ app.factory('projects', ['$http', 'auth', function($http, auth){
             .success(function(dataS){
                 options.success(dataS);
             });
+    }  
+    
+    o.obtenerUltimosEventos = function(){
+        return $http.get('/eventos/obtenerUltimosEventos').success(function(data){
+            debugger;
+            angular.copy(data, o.ultimosEventos);
+		}); 
     }
-  return o;
+    
+    return o;
 }]);
