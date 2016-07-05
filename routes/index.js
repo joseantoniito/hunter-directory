@@ -10,6 +10,10 @@ var ObjectId = require('mongoose').Types.ObjectId;
 var fs = require('fs');
 var multipart = require('connect-multiparty');
 var multipartMiddleware = multipart();
+var paisHelper = require('../helpers/LocalidadHelper');
+var userHelper = require('../helpers/UserHelper');
+
+paisHelper.CrearPaisDefult();
 
 router.get('/home', auth, function(req, res, next) {
   //res.render('index', { title: 'Express' });
@@ -25,25 +29,53 @@ router.get('/', function(req, res, next) {
 });
 
 router.get('/profile', function(req, res, next) {
-  res.render('profile', { title: 'Express' });
+  res.render('profile', { title: 'Profile' });
 });
 
+
 router.post('/register', function(req, res, next){
-  if(!req.body.username || !req.body.password){
+    console.log("register:" + req.body.password);
+    var body = req.body;
+    console.log(req.body);
+    /*
+  if(!req.body.username || !req.body.password) {
     return res.status(400).json({message: 'Please fill out all fields'});
   }
+  */
 
-  var user = new User();
-
-  user.username = req.body.username;
-
-  user.setPassword(req.body.password)
-
-  user.save(function (err){
-    if(err){ return next(err); }
-
-    return res.json({token: user.generateJWT()})
-  });
+   var confirm = function(userBody) {
+      console.log(userBody);
+      console.log("confirm Data change" + userBody.password);  
+      var user = new User();
+      user.username = userBody.username;
+      user.name = userBody.name;
+      user.email = userBody.email;
+      user.dateini = new Date();
+      user.lastchange = new Date();
+      user.status = {
+         state : 10,
+         confirm : { state : 10, code: 10, date: new Date()},
+         type : 10
+      };
+       
+      user.setPassword(userBody.password);
+      user.save(function (err){
+        if(err){ return next(err); }
+        return res.json({token: user.generateJWT()})
+      });
+   }
+   
+   var error = function(error) {
+       console.log("confirm");  
+       return res.status(400).json({message: error});
+   }
+    
+  userHelper.isUserValid(body, confirm,error);
+  
+  /*
+ 
+  */
+    
 });
 
 router.post('/login', function(req, res, next){

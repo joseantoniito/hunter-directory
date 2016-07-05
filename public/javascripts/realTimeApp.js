@@ -5,6 +5,7 @@ app.config([
 '$urlRouterProvider',
 function($stateProvider, $urlRouterProvider) {
 
+ 
   $stateProvider
     .state('home1', {
       url: '/home1',
@@ -90,16 +91,64 @@ app.controller('AuthCtrl', [
 '$state',
 'auth',
 function($scope, $state, auth){
+  $scope.appname = "Imagèn riego";
   $scope.user = {};
-
-  $scope.register = function(){
-    auth.register($scope.user).error(function(error){
-      $scope.error = error;
-    }).then(function(){
-      $state.go('home');
-    });
+  
+    
+  $scope.register = function() {
+    validateUser($scope.user,registrarUsuario,showError);
   };
+    
+    var registrarUsuario = function(user)  {
+        auth.register(user)
+            .error(showError)
+            .then( function() {
+                    $state.go('home');
+                });
+    }    
 
+    var showError = function(error) {
+          $scope.error = error;
+        console.log($scope.error);
+    }
+    
+    var validateUser = function(user, confirm, error) {
+        
+    if (!user.name) {
+        error("El nombre no puede estar vacio");
+        return;
+    } 
+      
+    if (!user.password) {
+        error("La contrasña no puede estar vacia");
+        return;
+    } 
+      
+    if (user.password.length < 5 ) {
+        error("La contrasña debe de ser mayor o igual a 5 caracteres");
+        return;
+    } 
+        
+    if (!user.email) {
+        error("El email no puede estar vacio");
+        return;
+    }
+        
+    if (user.email !== user.email_confirm) {
+        error("El email es diferente");
+        return;
+    }
+        
+    if (!user.tipo) {
+        error("Seleccione tipo de usuario");
+        return;
+    }
+            
+    confirm(user);
+  }    
+        
+
+ 
   $scope.logIn = function(){
     auth.logIn($scope.user).error(function(error){
       $scope.error = error;
@@ -125,7 +174,7 @@ app.controller('MainCtrl', [
 'projects',
 function($scope, $state, auth, projects){
     //debugger;
-    
+    $scope.appname = "Imagén riego";
     $scope.countryNames = [
               "Albania",
               "Andorra",

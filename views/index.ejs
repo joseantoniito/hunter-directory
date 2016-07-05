@@ -391,25 +391,71 @@
         </div>
   
           <div ng-show="error" class="alert alert-danger row">
-            <span>{{ error.message }}</span>
+            <span>{{ error }}</span>
           </div>
-
+            <h3>Registrate con tu dirección de email</h3>   
           <form ng-submit="register()"
             class="m30">
-
+            
+            <div class="form-group">
+              <input type="text"
+              class="form-control"
+              placeholder="Nombre empresa"
+              ng-model="user.name"></input>
+            </div>
+            
             <div class="form-group">
               <input type="text"
               class="form-control"
               placeholder="Username"
               ng-model="user.username"></input>
             </div>
+            
             <div class="form-group">
               <input type="password"
               class="form-control"
               placeholder="Password"
               ng-model="user.password"></input>
             </div>
-            <button type="submit" class="btn btn-primary">Registrarse</button>
+            
+            <div class="form-group">
+              <input type="email"
+              class="form-control"
+              placeholder="email"
+              ng-model="user.email"></input>
+            </div>
+            
+            <div class="form-group">
+              <input type="email"
+              class="form-control"
+              placeholder="Confirmar email"
+              ng-model="user.email_confirm"></input>
+            </div>
+            
+            <div class="radio">
+              <label><input type="radio" name="optradio" ng-model="user.tipo" value="10">Master(Distribuidor/importador)</label>
+            </div>
+            
+            <div class="radio">
+              <label><input type="radio" name="optradio" ng-model="user.tipo" value="20">Distribuidor</label>
+            </div>
+            
+            <div class="radio">
+              <label><input type="radio" name="optradio" ng-model="user.tipo" value="30" >
+              Contratista
+            </label>
+            </div>
+            <div class="checkbox" ng-model="user.usar_email">
+                <label><input type="checkbox" value="">
+                Compartir mis datos de registro con los proveedores de contenido de {{appname}} para fines de marketing.
+                
+                </label>
+            </div>
+            Al hacer click en Registrarse, aceptas los <a>términos y condiciones </a> y la <a>política de privacidad</a> de 
+                {{appname}}.
+            <div class="form-group">
+            <button  type="submit" class="btn btn-primary col-sm-4 col-md-10 col-lg-12">Registrarse</button>
+            </div>
           </form>
           </div>
   </div>
