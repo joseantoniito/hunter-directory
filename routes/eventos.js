@@ -61,12 +61,35 @@ router.post('/eventos', auth, function(req, res, next){
     objeto.fotos = req.body.fotos;
     objeto.idUsuario = req.payload._id;
 
-  
-    objeto.save(function (err, data){
-        if(err){ return next(err); }
-        console.log(data);
-        return res.json(data);
-    });
+    if(req.body._id == null){
+        
+        objeto.save(function (err, data){
+            if(err){ return next(err); }
+            console.log(data);
+            return res.json(data);
+        });
+    }
+    else{
+        objeto._id = req.body._id;
+		Evento.update(
+			{_id : new ObjectId(objeto._id)}, 
+			{
+				nombre : objeto.nombre, 
+				descripcion : objeto.descripcion, 
+				direccion : objeto.direccion,
+				fechaInicio : objeto.fechaInicio,
+                fechaFin : objeto.fechaFin,
+				banner: objeto.banner,
+                fotos: objeto.fotos
+			},  
+			function(err, numAffected){
+				if(err){ return next(err); }
+				res.json(objeto);
+			}
+        );
+        
+    }
+    
 });
 
 
@@ -87,6 +110,16 @@ router.get('/eventoPorId/:idEvento', function(req, res, next) {
 
         res.json(data);
     });
+});
+
+router.delete('/eliminarEvento/:idEvento', auth, function(req, res, next) {
+  Evento.remove({_id : new ObjectId(req.id)},
+		function(err, data){
+		if(err){ return next(err); }
+
+		res.json(data);
+	  }
+	);
 });
 
 router.get('/eventosCompletos', function(req, res, next) {

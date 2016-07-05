@@ -23,6 +23,12 @@ body {
 .qodef-icon-huge {
     font-size: 4em;/*5em;*/
 }
+.qodef-icon-middle {
+    font-size: 3em;
+}
+.qodef-icon-little {
+    font-size: 2em;
+}
 .qodef-icon-shortcode {
     display: inline-block;
 }
@@ -509,10 +515,6 @@ a {
 
 .lblAzulOscuro, .lblAzulObscuro, .lblAzulFuerte {
 	color: #008B00!important;
-}
-
-.qodef-icon-font-awesome {
-	color: #7DC700 !important;
 }
 
 #desarrolladoPor {

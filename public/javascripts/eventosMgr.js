@@ -26,6 +26,19 @@ function($stateProvider, $urlRouterProvider) {
     });
     
     $stateProvider
+    .state('editar-evento', {
+      url: '/agregar-evento/{id}',
+      templateUrl: '/agregar-evento.html',
+      controller: 'EventosCtrl',
+      resolve: {
+        post: ['$stateParams', 'factory', function($stateParams, factory) {
+              debugger;
+              return factory.obtenerEventoPorId($stateParams.id);
+            }]
+      }
+    });
+    
+    $stateProvider
     .state('portafolio-evento', {
       url: '/portafolio-evento/{id}',
       templateUrl: '/portafolio-evento.html',
@@ -51,6 +64,7 @@ function($stateProvider, $urlRouterProvider) {
       }
     });
     
+    
 }]);
 
 app.controller('NavCtrl', [
@@ -73,6 +87,7 @@ function($scope, $state, auth, factory){
     $scope.evento = factory.evento;
     $scope.files = [];
     $scope.filesFotos = [];
+    var filesBanner = [], filesFotos = [];
     
     $scope.sourceEventosCompletos = new kendo.data.DataSource({
         data: factory.eventosCompletos,
@@ -84,6 +99,19 @@ function($scope, $state, auth, factory){
             data: factory.evento.fotos,
             pageSize: 21
         });
+        
+        
+        $.each($scope.evento.fotos, function(indexE, itemE){
+            filesFotos.push({name : itemE.url, extension: '.' + itemE.url.split('.')[1]})
+        })
+        
+        filesBanner.push({name : $scope.evento.banner, extension: '.' + $scope.evento.banner.split('.')[1]});
+        
+        /*$scope.evento.fechaInicioK = $scope.evento.fechaInicio;
+        $scope.evento.fechaFinK = $scope.evento.fechaFin;*/
+        
+        $scope.evento.fechaInicio = new Date($scope.evento.fechaInicio);
+        $scope.evento.fechaFin = new Date($scope.evento.fechaFin);
     }
     
     
@@ -93,8 +121,8 @@ function($scope, $state, auth, factory){
         files: $scope.files,
         success: function(e){
             $scope.files = e.files;
-
-        }
+        },
+        files: filesBanner
     }
     $scope.uploadOptionsFotos ={
         async: { saveUrl: 'saveFiles', removeUrl: 'removeFiles', autoUpload: true },
@@ -110,15 +138,19 @@ function($scope, $state, auth, factory){
         complete: function(e){
             debugger;
             console.log("complete", $scope.filesFotos);
-        }
+        },
+        files: filesFotos
     }
     
 
     $scope.agregarEvento = function(){
         debugger;
 
-        $scope.evento.banner = $scope.files[0].name;
-        $scope.evento.fotos = $scope.filesFotos;
+        if(!$scope.evento._id){
+            $scope.evento.banner = $scope.files[0].name;
+            $scope.evento.fotos = $scope.filesFotos;
+        }
+        
 
         factory.agregarEvento($scope.evento)
             .error(function(error){
@@ -128,6 +160,39 @@ function($scope, $state, auth, factory){
                 $state.go('principal');}
             );
     }
+    
+    $scope.eliminarEvento = function(id){
+	  factory.eliminarEvento(id).error(function(error){
+          $scope.error = error;
+          alert("Ocurrió un error al eliminar el registro.");
+          $state.go('principal');
+          
+		}).then(function(){
+          alert("Registro eliminado correctamente.");
+	  });; 
+	};
+   
+    
+    $scope.myHelper = function (name) {
+          return "!!!" + name + "!!!"
+        }
+    
+    $scope.gridOptions = {
+        datasource: $scope.eventos, 
+        /*selectable:"row", */
+        pageable:{pageSize:2, refresh:true, pageSizes:true}, 
+        columns:[
+			{field:"nombre", title:"nombre"}, 
+			{field:"direccion", title:"direccion"},
+			{field:"fechaInicio", title:"fechaInicio"},
+			{field:"fechaFin", title:"fechaFin"},
+            {field:"_id", title:"Acciones", width:"100px", 
+             template: "<a href='\\#/agregar-evento/{{ dataItem._id }}' class='qodef-icon-shortcode normal qodef-icon-little'><i class='qodef-icon-font-awesome fa fa-pencil-square qodef-icon-element'></i></a> <a class='qodef-icon-shortcode normal qodef-icon-little' ng-click='eliminarEvento(dataItem._id)' style='cursor:pointer;'> <i class='qodef-icon-font-awesome fa fa-trash qodef-icon-element'></i> </a>"}
+        ]};
+
+    $scope.datePickerOptions = {
+      parseFormats: ["yyyy-MM-ddTHH:mm:ss"]
+    };
 }]);
 
 
@@ -226,7 +291,21 @@ app.factory('factory', ['$http', 'auth', function($http, auth){
 		  angular.copy(data, o.eventosCompletos);
 		});
 	};
-    
+    o.eliminarEvento = function(id) {
+		return $http.delete('/eventos/eliminarEvento/' + id, {headers: {Authorization: 'Bearer '+auth.getToken()}}).success(function(data){
+			console.log(data);
+			//todo: checar
+			var index;
+			for(i=0; i<o.eventos.length; i++){
+				if(o.eventos[i]._id == id){
+					index = i;
+					break;
+				}
+			};
+			o.eventos.splice(index, 1);
+
+		});
+	};
     
   return o;
 }]);

@@ -96,17 +96,19 @@
                 
                 <div class="form-group">
                     <input kendo-date-time-picker
-                       ng-model="evento.fechaInicioK"
+                       
                        k-ng-model="evento.fechaInicio"
                        placeholder="fecha inicio"
-                       style="width: 100%;" />
+                       
+                       style="width: 100%;"/>
                 </div>
                 
                 <div class="form-group">
                     <input kendo-date-time-picker
-                       ng-model="evento.fechaFinK"
                        k-ng-model="evento.fechaFin"
+                       
                        placeholder="fecha fin"
+                       
                        style="width: 100%;" />
                 </div>
                 
@@ -132,22 +134,15 @@
 <div class="row">
     <div class="col-md-8 col-md-offset-2 bgrdWhite">
         <div class="row" >
-            <div style="float:right;">
+            <div style="float:right; margin-right:15px;">
                 <a class="qodef-icon-shortcode normal qodef-icon-huge" href="/eventos/#/agregar-evento">
                     <i class="qodef-icon-font-awesome fa fa-plus qodef-icon-element" style=""></i>
                 </a>
             </div>
         </div>
         
-        <div kendo-grid k-data-source="eventos" k-selectable="'row'"
-            k-pageable='{ "pageSize": 2, "refresh": true, "pageSizes": true }'
-              k-columns='[
-                { "field": "nombre", "title": "nombre"},
-                { "field": "direccion", "title": "direccion"},
-                { "field": "fechaInicio", "title": "fechaInicio" },
-                { "field": "fechaFin", "title": "fechaFin" }
-              ]'>
-            </div>
+        <div kendo-grid k-data-source="eventos" k-options="gridOptions">
+        </div>
     </div> 
 </div>
 </div>
@@ -204,7 +199,9 @@
                     </div>
                     <div class="col-md-6" style="padding-right:0;">
                         <h4 class="lblPrincipal">{{dataItem.nombre}}</h4>
-                        <p>{{dataItem.fechaInicio}} - {{dataItem.fechaFin}}</p>
+                        <!--<p>{{dataItem.fechaInicio}} - {{dataItem.fechaFin}}</p>--> 
+                        <p>{{dataItem.fechaInicio  | date:'MM/dd/yyyy h:mma'}} - {{dataItem.fechaFin  | date:'MM/dd/yyyy h:mma'}}</p>
+                        <!--<p>{{dataItem.fechaInicio  | date:'MM/dd/yyyy h:mma Z':'UTC'}} - {{dataItem.fechaFin  | date:'MM/dd/yyyy h:mma Z':'UTC'}}</p>--> 
                         <p>{{dataItem.direccion}}</p>
                     </div>
                 </div>
