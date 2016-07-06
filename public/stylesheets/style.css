@@ -33,6 +33,9 @@ body {
 .altura150{
     height: 150px !important;
 }
+.altura205{
+    height: 205px !important;
+}
 
 .coverWrap .photo {
     image-rendering: optimizeQuality;
@@ -55,6 +58,20 @@ body {
     width: 90%; margin: 0 5%;
 }
 
+.a-foto-portfolio{
+    width:100% !important;float:left;height: 205px;
+}
+
+.img-foto-portfolio {
+    min-width: 90%; min-height: 100%;
+    position: absolute;
+    left: 0;
+    width: 90%; margin: 0 5%;
+}
+
+.div25perc{
+    width: 25%;
+}
 
 .qodef-icon-shortcode .qodef-icon-element {
     -webkit-transition: color .15s ease-in-out;
