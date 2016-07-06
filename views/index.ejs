@@ -48,7 +48,7 @@
 <script type="text/ng-template" id="/directorio.html">
         <div style="height: 650px;">
             <uib-carousel active="active" interval="myInterval" no-wrap="noWrapSlides">
-              <uib-slide ng-repeat="slide in slides" index="slide.id">
+              <uib-slide ng-repeat="slide in slidesHome" index="slide.id">
                 <img ng-src="{{slide.image}}" style="margin:auto; width:100%; height:650px;">
                 <div class="carousel-caption">
                   <h1><div style="color:white;">{{slide.desc}}</div></h1>
@@ -73,7 +73,6 @@
                 </span>
                 </div>
 
-                
                 <br/><br/>
             </div>
         </div>
@@ -114,29 +113,27 @@
                     </div>
                 </div>
             </div>
-            
-            
-            
+  
         </div>
         <div class="divGris">
         <div class="container">
             <div class="col-lg-12">
                 <h2 class="page-header">Eventos</h2>
             </div>
-            <!--<uib-carousel active="active" interval="myInterval" no-wrap="noWrapSlides">
-              <uib-slide ng-repeat="evento in ultimosEventos" index="evento._id">
-                <a href="/eventos/#/portafolio-evento/{{ evento._id }}">
-                    <img class="img-responsive img-portfolio img-hover" width="200px" src="../uploads/{{evento.banner}}" alt="">
-                </a>
-                <a href="/eventos/#/portafolio-evento/{{ evento._id }}" width="200px">
-                </a>
-            </uib-carousel>-->
             
-            <div class="col-md-4 col-sm-6" ng-repeat="evento in ultimosEventos">
-                <a href="/eventos/#/portafolio-evento/{{ evento._id }}">
-                    <img class="img-responsive img-portfolio img-hover" src="../uploads/{{evento.banner}}" alt="">
+             <uib-carousel active="active" interval="myInterval" no-wrap="noWrapSlides">
+              <uib-slide ng-repeat="slideCollection in groupedSlides" index="evento._id">
+                <a href="/eventos/#/portafolio-evento/{{ slideCollection.image1._id }}" class="a-portfolio coverWrap altura150">
+                    <img class="img-responsive img-portfolio img-hover" width="" src="../uploads/{{slideCollection.image1.banner}}" alt="">
                 </a>
-            </div>
+                <a href="/eventos/#/portafolio-evento/{{ slideCollection.image2._id }}" class="a-portfolio coverWrap altura150">
+                    <img class="img-responsive img-portfolio img-hover" width="margin:auto;min-width:100%;" src="../uploads/{{slideCollection.image2.banner}}" alt="">
+                </a>
+				<a href="/eventos/#/portafolio-evento/{{ slideCollection.image3._id }}" class="a-portfolio coverWrap altura150">
+                    <img class="img-responsive img-portfolio img-hover" width="margin:auto;min-width:100%;" src="../uploads/{{slideCollection.image3.banner}}" alt="">
+                </a>
+            </uib-carousel>
+        
         </div>
         </div>
         
@@ -173,51 +170,33 @@
       
 <script type="text/ng-template" id="/directorio-resultados.html">
  <div class="container">
-            <div class="row">
-                
-                <div class="col-md-8 col-md-offset-2 bgrdWhite">
-                    <div class="page-header" >
-                        <h1 class="lblAzulObscuro">Resultados</h1>
-                    </div>
-                
-                    <div class="" style=""
-                        ng-repeat="distribuidor in distribuidores">
-                       
-                        
-                        <div class='divContenedorListado'> 
-                            <div class='divImagenListado'> 
-                                <img class='imagenListado' src='/uploads/{{ distribuidor.logo }}'/> 
-                            </div> 
-                            <div class='divContenidoListado'> 
-                                <h2>{{ distribuidor.nombre }}</h2>
-                                <h3>{{ distribuidor.direccion }}</h3>
-                                <a>{{ distribuidor.paginaWeb }}</a>
-                                <p>{{ distribuidor.descripcion }}</p>
-                            
-                                <a class="k-primary k-button" 
-                                    href="/#/detalle/{{ distribuidor._id }}">
-                                    Ver Detalle</a>    
-                            </div> 
-                        </div>
-                        
-                    </div>
-                    
-                    <!--<div kendo-grid k-data-source="distribuidoresK" k-selectable="'row'"
-                        k-pageable='{ "pageSize": 2, "refresh": true, "pageSizes": true }'
-                          k-columns='[
-                            { "field": "nombre", "title": "nombre"},
-                            { "field": "direccion", "title": "direccion"},
-                            { "field": "paginaWeb", "title": "paginaWeb" },
-                            { "field": "descripcion", "title": "descripcion" }
-                          ]'>
-                        </div>-->
-                    
+    <div class="row">
+        <div class="col-md-8 col-md-offset-2 bgrdWhite">
+            <div class="page-header" >
+                <h1 class="lblAzulObscuro">Resultados</h1>
+            </div>
+
+            <div ng-repeat="distribuidor in distribuidores">
+
+                <div class='divContenedorListado'> 
+                    <div class='divImagenListado'> 
+                        <img class='imagenListado' src='/uploads/{{ distribuidor.logo }}'/> 
+                    </div> 
+                    <div class='divContenidoListado'> 
+                        <h2>{{ distribuidor.nombre }}</h2>
+                        <h3>{{ distribuidor.direccion }}</h3>
+                        <a>{{ distribuidor.paginaWeb }}</a>
+                        <p>{{ distribuidor.descripcion }}</p>
+
+                        <a class="k-primary k-button" 
+                            href="/#/detalle/{{ distribuidor._id }}">
+                            Ver Detalle</a>    
+                    </div> 
                 </div>
-                
-                <!--<input kendo-numerictextbox />-->
-                
             </div>
         </div>
+    </div>
+</div>
 </script>
       
 <script type="text/ng-template" id="/agregar-distribuidores.html">
@@ -255,11 +234,6 @@
                 </div>
                 
                 <div class="form-group">
-                    <!--<select ng-model="distribuidor.idCategoria">
-                        <option ng-repeat="categoria in categorias" 
-                            value="{{categoria.id}}">{{categoria.nombre}}</option>
-                    </select>-->
-                    
                     <select kendo-drop-down-list
                         k-ng-model="distribuidor.idCategoria"
                         k-data-text-field="'nombre'"
@@ -270,12 +244,9 @@
                 
                 <div class="form-group">
                     <input name="files"
-                       
                        type="file"
                        kendo-upload
-                       
-                       k-options="uploadOptions"
-                       />
+                       k-options="uploadOptions" />
                 </div>
                 
                 <button class="btn btn-primary">Guardar</button>
@@ -300,53 +271,44 @@
             </div> 
             <div class='divContenidoListado'> 
                 <div style="text-align:left">
-                    
                     <h2><p>{{ distribuidor.descripcion }}</p></h2>
                     <h4>Dirección: </h4>
                     <h5>{{ distribuidor.direccion }}</h5>
                     <h4>Contacto:</h4>
                     <div>
-									<button type="button" class="btn btn-primary" style="position:relative;" >
-                                        <img src="images/facebook.png" style="width:34px;height:24px;"/></button>
-                                        
-								<button type="button" class="btn btn-info" style="position:relative;"  >
-									<img src="images/twitter.png" style="width:34px;height:24px;"/></button>
-									<button type="button" class="btn btn-warning" style="position:relative;"   >
-									<img src="images/web.png" style="width:34px;height:24px;"/></button>
-									
-									</div>
+                        <button type="button" class="btn btn-primary" style="position:relative;" >
+                            <img src="images/facebook.png" style="width:34px;height:24px;"/></button>
+
+                        <button type="button" class="btn btn-info" style="position:relative;"  >
+                            <img src="images/twitter.png" style="width:34px;height:24px;"/></button>
+                            
+                        <button type="button" class="btn btn-warning" style="position:relative;">
+                            <img src="images/web.png" style="width:34px;height:24px;"/></button>
+                    </div>
                     
                     </div>
-                 <h4>Servicios: </h4>
-                  <div class="btn-group" role="group" aria-label="...">
-                    <button type="button" class="btn btn-success">
-                    <span class="glyphicon glyphicon-grain" aria-hidden="true"></span>
-                    Sistemas de riego</button>
+                    <h4>Servicios: </h4>
+                    <div class="btn-group" role="group" aria-label="...">
+                        <button type="button" class="btn btn-success">
+                        <span class="glyphicon glyphicon-grain" aria-hidden="true"></span>
+                        Sistemas de riego</button>
 
-                    <button type="button" class="btn btn-danger">
+                        <button type="button" class="btn btn-danger">
+                            <span class="glyphicon glyphicon-wrench" aria-hidden="true"></span>
+                            Herramientas</button>
+                        <button type="button" class="btn btn-iluminiti">
+                            <span class="glyphicon glyphicon-lamp" aria-hidden="true"></span>
+                            Iluminación</button>
+                        <button type="button" class="btn btn-connector" >
                         <span class="glyphicon glyphicon-wrench" aria-hidden="true"></span>
-                        Herramientas</button>
-                    <button type="button" class="btn btn-iluminiti">
-                        <span class="glyphicon glyphicon-lamp" aria-hidden="true"></span>
-                        Iluminación</button>
-                    <button type="button" class="btn btn-connector" >
-                    <span class="glyphicon glyphicon-wrench" aria-hidden="true"></span>
-                    Tuberia</button>
-                    <button type="button" class="btn btnGeneral">
-                    <span class="glyphicon glyphicon-align-justify" aria-hidden="true"></span>
-                    Conexiones</button>
-                </div>  
-                
-                 
-
+                        Tuberia</button>
+                        <button type="button" class="btn btnGeneral">
+                        <span class="glyphicon glyphicon-align-justify" aria-hidden="true"></span>
+                        Conexiones</button>
+                    </div>  
             </div>
-            
-      
-           <!-- 16:9 aspect ratio -->
-
-    
-       </div>
-    <div style="height: 250px;">
+        </div>
+        <div style="height: 250px;">
             <uib-carousel active="active" interval="myInterval" no-wrap="noWrapSlides">
               <uib-slide ng-repeat="slide in slidesdis" index="slide.id">
                 <img ng-src="{{slide.image}}" style="margin:auto; width:100%; height:250px;">
@@ -365,22 +327,11 @@
        <div class="col-md-6" sytle="margin:10px;">
           <iframe width="420" height="315" src="https://www.youtube.com/embed/H5-q-rB6qkE" frameborder="0" allowfullscreen></iframe>
           </div>
-       
 
         <div class="col-md-6" sytle="margin:10px;" >
           <iframe width="420" height="315" src="https://www.youtube.com/embed/pwsag7wFb8w" frameborder="0" allowfullscreen></iframe>
         </div>
-        
-         
-</div>
-</script>
-	
-<script type="text/ng-template" id="/home.html">
-  <div class="page-header" >
-    <h1>Hunter Directory...</h1>
-  </div>
-
-  <!-- rest of template -->
+    </div>
 </script>
 	
 <script type="text/ng-template" id="/register.html">

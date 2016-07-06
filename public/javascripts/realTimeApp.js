@@ -287,7 +287,7 @@ function($scope, $state, auth, projects){
     $scope.myInterval = 5000;
     $scope.noWrapSlides = false;
     $scope.active = 0;
-    var slides = $scope.slides = [
+    var slides = $scope.slidesHome = [
         {
           image: 'http://www.zanita.by/media/files/News/2013/hero_homepage.jpg',
           text: 'Verde',
@@ -348,8 +348,9 @@ function($scope, $state, auth, projects){
     $scope.categorias = projects.categorias;
     $scope.distribuidor = projects.distribuidor;
     $scope.files = [];
-    $scope.ultimosEventos = projects.ultimosEventos;
-    
+    //$scope.ultimosEventos = projects.ultimosEventos;
+    $scope.slides = projects.ultimosEventos;
+
     $scope.agregarDistribuidor = function(){
         debugger;
         
@@ -389,12 +390,37 @@ function($scope, $state, auth, projects){
         console.log(data);
     };
 
-    $scope.getSecondIndex = function(index)
-    {
-        if(index-slides.length>=0)
-          return index-slides.length;
-        else
-          return index;
+    //carousel multi item
+
+    if($state.current.name == "home"){
+        debugger;
+        var i, first = [],
+          second, third;
+        var many = 1;
+
+        //##################################################    
+        //Need to be changed to update the carousel since the resolution changed
+        $scope.displayMode = "tablet";
+        //##################################################
+        if ($scope.displayMode == "mobile") {many = 1;}
+        else if ($scope.displayMode == "tablet") {many = 2;} 
+        else {many = 3;}
+
+        for (i = 0; i < $scope.slides.length; i += many) {
+          second = {
+            image1: $scope.slides[i]
+          };
+          if (many == 1) {}
+          if ($scope.slides[i + 1] && (many == 2 || many == 3)) {
+            second.image2 = $scope.slides[i + 1];
+
+          }
+          if ($scope.slides[i + (many - 1)] && many == 3) {
+            second.image3 = $scope.slides[i + 2];
+          }
+          first.push(second);
+        }
+        $scope.groupedSlides = first;
     }
   
 }]);

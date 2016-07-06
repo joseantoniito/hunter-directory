@@ -12,7 +12,6 @@ function($stateProvider, $urlRouterProvider) {
       controller: 'EventosCtrl',
       resolve: {
         postPromise: ['factory', function(factory){
-            debugger;
             return factory.obtenerEventosDeUsuario();
         }]
       }
@@ -32,7 +31,6 @@ function($stateProvider, $urlRouterProvider) {
       controller: 'EventosCtrl',
       resolve: {
         post: ['$stateParams', 'factory', function($stateParams, factory) {
-              debugger;
               return factory.obtenerEventoPorId($stateParams.id);
             }]
       }
@@ -45,7 +43,6 @@ function($stateProvider, $urlRouterProvider) {
       controller: 'EventosCtrl',
       resolve: {
         post: ['$stateParams', 'factory', function($stateParams, factory) {
-              debugger;
               return factory.obtenerEventoPorId($stateParams.id);
             }]
       }
@@ -58,7 +55,6 @@ function($stateProvider, $urlRouterProvider) {
       controller: 'EventosCtrl',
       resolve: {
         postPromise: ['factory', function(factory){
-            debugger;
             return factory.obtenerEventosCompletos();
         }]
       }
@@ -106,15 +102,24 @@ function($scope, $state, auth, factory){
         })
         
         filesBanner.push({name : $scope.evento.banner, extension: '.' + $scope.evento.banner.split('.')[1]});
-        
-        /*$scope.evento.fechaInicioK = $scope.evento.fechaInicio;
-        $scope.evento.fechaFinK = $scope.evento.fechaFin;*/
-        
+       
         $scope.evento.fechaInicio = new Date($scope.evento.fechaInicio);
         $scope.evento.fechaFin = new Date($scope.evento.fechaFin);
     }
     
+    if($state.current.name == "principal"){
+        $scope.evento = null;
+    }
     
+    if($state.current.name == "portafolio-evento"){
+        var imgBanner = document.getElementsByClassName("photo")[0];
+
+        imgBanner.onload = function(){
+            var alturaBanner = this.clientHeight;
+            var offsetBanner = (alturaBanner - 294)/2;
+            this.style.top = "-" + offsetBanner + "px";
+        }
+    }
     
     $scope.uploadOptions ={
         async: { saveUrl: 'saveFiles', removeUrl: 'removeFiles', autoUpload: true },
@@ -124,19 +129,17 @@ function($scope, $state, auth, factory){
         },
         files: filesBanner
     }
+    
     $scope.uploadOptionsFotos ={
         async: { saveUrl: 'saveFiles', removeUrl: 'removeFiles', autoUpload: true },
         files: $scope.filesFotos,
         success: function(e){
-            debugger;
             $scope.filesFotos.push(e.response);
         },
         upload: function(e){
-            debugger;
             $scope.filesFotos = [];
         },
         complete: function(e){
-            debugger;
             console.log("complete", $scope.filesFotos);
         },
         files: filesFotos
@@ -144,13 +147,11 @@ function($scope, $state, auth, factory){
     
 
     $scope.agregarEvento = function(){
-        debugger;
-
+        
         if(!$scope.evento._id){
             $scope.evento.banner = $scope.files[0].name;
             $scope.evento.fotos = $scope.filesFotos;
         }
-        
 
         factory.agregarEvento($scope.evento)
             .error(function(error){
@@ -173,13 +174,8 @@ function($scope, $state, auth, factory){
 	};
    
     
-    $scope.myHelper = function (name) {
-          return "!!!" + name + "!!!"
-        }
-    
     $scope.gridOptions = {
         datasource: $scope.eventos, 
-        /*selectable:"row", */
         pageable:{pageSize:2, refresh:true, pageSizes:true}, 
         columns:[
 			{field:"nombre", title:"nombre"}, 
@@ -193,6 +189,12 @@ function($scope, $state, auth, factory){
     $scope.datePickerOptions = {
       parseFormats: ["yyyy-MM-ddTHH:mm:ss"]
     };
+
+    $scope.obtenerOffsetBanner = function(event){
+        
+        
+    };
+
 }]);
 
 
@@ -275,19 +277,16 @@ app.factory('factory', ['$http', 'auth', function($http, auth){
 	};
     o.obtenerEventosDeUsuario = function() {
 		return $http.get('/eventos/eventos',{headers: {Authorization: 'Bearer '+auth.getToken()}}).success(function(data){
-            debugger;
 		  angular.copy(data, o.eventos);
 		});
 	};
     o.obtenerEventoPorId = function(id) {
 		return $http.get('/eventos/eventoPorId/' + id).success(function(data){
-            debugger;
 		    o.evento = data;
 		});
 	};
     o.obtenerEventosCompletos = function() {
 		return $http.get('/eventos/eventosCompletos').success(function(data){
-            debugger;
 		  angular.copy(data, o.eventosCompletos);
 		});
 	};
