@@ -102,7 +102,7 @@
                     Fotos:
                     <input name="files"
                        type="file"
-                       kendo-upload
+                       kendo-upload="uploadFotos"
                        k-options="uploadOptionsFotos" />
                 </div>
                 
@@ -127,7 +127,7 @@
                 </div>
             </div>
 
-            <div kendo-grid k-data-source="eventos" k-options="gridOptions">
+            <div kendo-grid="gridEventos" k-data-source="eventos" k-options="gridOptions">
             </div>
         </div> 
     </div>
@@ -156,7 +156,7 @@
             <div kendo-list-view id="listView" k-data-source="sourceFotosEvento">
                 <div class="product divFlotante div25perc" k-template>
                     
-                    <a name="{{ dataItem._id }}" class="coverWrap a-foto-portfolio" >
+                    <a name="{{ dataItem._id }}" class="coverWrap a-foto-portfolio" ng-click="verImagenGrande(dataItem._id)">
                         <img ng-src="/uploads/{{dataItem.url}}" alt=" {{dataItem.descripcion}} image" 
                             class="photo img-foto-portfolio"/>
                     </a>
@@ -200,6 +200,43 @@
     </div> 
 </div>
 </div>
+</script>
+      
+<script type="text/ng-template" id="myModalContent.html">
+    
+    <div style="width:100%; height:500px; background-color:black;">
+        <a class="qodef-icon-shortcode normal qodef-icon-little" ng-click="verFotoAnterior()"
+            style="top:50%; left:0; position: absolute; cursor:pointer;">
+            <i class="qodef-icon-font-awesome fa fa-arrow-circle-left qodef-icon-element" style=""></i>
+        </a>
+        
+        <img id="imgFotoDetalle" class="img-foto-detalle" style="{{obtenerOffSetFoto(this)}}" src="/uploads/{{url}}" />
+        
+        <a class="qodef-icon-shortcode normal qodef-icon-little" ng-click="verFotoSiguiente()"
+            style="top:50%; right:0; position: absolute; cursor:pointer;">
+            <i class="qodef-icon-font-awesome fa fa-arrow-circle-right qodef-icon-element" style=""></i>
+        </a>
+    </div>
+    
+    
+    <!--
+    <div class="modal-header">
+        <button class="btn btn-primary" type="button" ng-click="ok()"
+            style="float:right;">X</button>
+    </div>
+    <div class="modal-body" style="position:relative;">
+        <a class="coverWrap">
+            <img class="img-responsive img-portfolio img-hover photo" src="/uploads/{{url}}" />
+        </a>
+        
+        
+    </div>
+    <div class="modal-footer">
+        
+    </div>
+    ...-->
+    
+    
 </script>
       
 	

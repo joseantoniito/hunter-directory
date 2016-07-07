@@ -10,10 +10,10 @@ var ObjectId = require('mongoose').Types.ObjectId;
 var fs = require('fs');
 var multipart = require('connect-multiparty');
 var multipartMiddleware = multipart();
-var paisHelper = require('../helpers/LocalidadHelper');
-var userHelper = require('../helpers/UserHelper');
+//var paisHelper = require('../helpers/LocalidadHelper');
+//var userHelper = require('../helpers/UserHelper');
 
-paisHelper.CrearPaisDefult();
+//paisHelper.CrearPaisDefult();
 
 router.get('/home', auth, function(req, res, next) {
   //res.render('index', { title: 'Express' });
@@ -70,7 +70,7 @@ router.post('/register', function(req, res, next){
        return res.status(400).json({message: error});
    }
     
-  userHelper.isUserValid(body, confirm,error);
+  //userHelper.isUserValid(body, confirm,error);
   
   /*
  

@@ -78,7 +78,8 @@ app.controller('EventosCtrl', [
 '$state',
 'auth',
 'factory',
-function($scope, $state, auth, factory){
+'$uibModal',
+function($scope, $state, auth, factory, $uibModal){
     $scope.eventos = factory.eventos;
     $scope.evento = factory.evento;
     $scope.files = [];
@@ -119,6 +120,25 @@ function($scope, $state, auth, factory){
             var offsetBanner = (alturaBanner - 294)/2;
             this.style.top = "-" + offsetBanner + "px";
         }
+    }
+    
+    if($state.current.name == "agregar-evento"){
+        $scope.evento = {
+            nombre: null, 
+            descripcion: null,
+            direccion: null, 
+            fechaInicio: null, 
+            fechaFin: null, 
+            banner: null,
+            fotos: null,
+        }
+        $scope.files = [];
+        $scope.filesFotos = [];
+        $(".k-upload-files").remove();
+        $(".k-upload-status").remove();
+        $(".k-upload.k-header").addClass("k-upload-empty");
+        $(".k-upload-button").removeClass("k-state-focused");
+
     }
     
     $scope.uploadOptions ={
@@ -170,6 +190,8 @@ function($scope, $state, auth, factory){
           
 		}).then(function(){
           alert("Registro eliminado correctamente.");
+          $scope.gridEventos.dataSource.data($scope.eventos);
+          $scope.gridEventos.refresh();
 	  });; 
 	};
    
@@ -190,13 +212,82 @@ function($scope, $state, auth, factory){
       parseFormats: ["yyyy-MM-ddTHH:mm:ss"]
     };
 
-    $scope.obtenerOffsetBanner = function(event){
+    $scope.verImagenGrande = function (id) {
         
-        
-    };
+        var modalInstance = $uibModal.open({
+          animation: true,
+          templateUrl: 'myModalContent.html',
+          controller: 'ModalInstanceCtrl',
+          size: "lg",
+          resolve: {
+            items: function () {
+              return $scope.evento.fotos;
+            }, id : function(){
+                return id;
+            }
+          }
+        });
+
+        modalInstance.result.then(function (selectedItem) {
+          $scope.selected = selectedItem;
+        }, function () {
+          $log.info('Modal dismissed at: ' + new Date());
+        });
+      };
 
 }]);
 
+app.controller('ModalInstanceCtrl', function ($scope, $uibModalInstance, items, id) {
+    debugger;
+    $scope.items = items;
+    $scope.id = id;
+    $scope.index = 0;
+    
+    var foto = $.grep(items, function(item, index){ 
+        var ok = item._id == id;
+        if(ok)$scope.index = index;
+        return ok;
+    })[0];
+    
+    $scope.url = foto.url;
+    
+
+    $scope.ok = function () {
+        $uibModalInstance.close($scope.selected.item);
+    };
+
+    $scope.cancel = function () {
+        $uibModalInstance.dismiss('cancel');
+    };
+    
+    $scope.verFotoAnterior = function(){
+        debugger;
+        var siguienteFoto = $scope.items[$scope.index - 1];
+        if(siguienteFoto){
+            $scope.url = siguienteFoto.url;
+            $scope.index = $scope.index - 1;
+        }
+        else{
+            $scope.url = $scope.items[$scope.items.length-1].url;
+            $scope.index = $scope.items.length-1;
+        }    
+    }
+    
+    $scope.verFotoSiguiente = function(){
+        debugger;
+        var siguienteFoto = $scope.items[$scope.index + 1];
+        if(siguienteFoto){
+            $scope.url = siguienteFoto.url;
+            $scope.index = $scope.index + 1;
+        }
+        else{
+            $scope.url = $scope.items[0].url;
+            $scope.index = 0;
+        }    
+    }
+    
+    
+});
 
 app.factory('auth', ['$http', '$window', function($http, $window){
    var auth = {};

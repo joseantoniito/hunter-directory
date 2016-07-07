@@ -60,6 +60,7 @@ body {
 
 .a-foto-portfolio{
     width:100% !important;float:left;height: 205px;
+    cursor: pointer;
 }
 
 .img-foto-portfolio {
@@ -67,6 +68,12 @@ body {
     position: absolute;
     left: 0;
     width: 90%; margin: 0 5%;
+}
+
+.img-foto-detalle{
+    width:auto; height:auto; 
+    max-width:100%;min-height:100%;
+    display: block;margin: 0 auto;
 }
 
 .div25perc{
