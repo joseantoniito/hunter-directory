@@ -165,6 +165,22 @@ function($scope, auth){
   $scope.isLoggedIn = auth.isLoggedIn;
   $scope.currentUser = auth.currentUser;
   $scope.logOut = auth.logOut;
+    
+    $scope.categorias = [
+            {id:1, nombre: 'Riego Residencial'},
+            {id:2, nombre: 'Riego Institucional'},
+            {id:3, nombre: 'Parques y Jardines'},
+            {id:4, nombre: 'Distribuidores'},
+            {id:5, nombre: 'Punto de venta'},
+            {id:6, nombre: 'Equipos y sistemas de Riego'},
+            {id:6, nombre: 'Iluminación'},
+            {id:7, nombre: 'Distribuidores'},
+            {id:8, nombre: 'Golf'},
+            {id:9, nombre: 'Riego sintetico'},
+            {id:10, nombre: 'Canchas deportivas'},            
+            {id:11, nombre: 'Agricola'}  
+           
+        ]
 }]);
 
 app.controller('MainCtrl', [
@@ -489,8 +505,11 @@ app.factory('projects', ['$http', 'auth', function($http, auth){
             {id:5, nombre: 'Punto de venta'},
             {id:6, nombre: 'Equipos y sistemas de Riego'},
             {id:6, nombre: 'Iluminación'},
-                        
-
+            {id:7, nombre: 'Distribuidores'},
+            {id:8, nombre: 'Golf'},
+            {id:9, nombre: 'Riego sintetico'},
+            {id:10, nombre: 'Canchas deportivas'},            
+            {id:11, nombre: 'Agricola'}  
            
         ],
         distribuidor: null,
