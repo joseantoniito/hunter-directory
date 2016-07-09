@@ -182,9 +182,7 @@
             
              <uib-carousel active="active" interval="myInterval" no-wrap="noWrapSlides">
               <uib-slide ng-repeat="slideCollection in groupedSlides" index="evento._id">
-
-                <a href="/eventos/#/portafolio-evento/{{ slideCollection.image1._id }}" class="a-portfolio coverWrap altura150" style="margin-left:20%;">
-
+                <a href="/eventos/#/portafolio-evento/{{ slideCollection.image1._id }}" class="a-portfolio coverWrap altura150" style="margin-left:20%">
                     <img class="img-responsive img-portfolio img-hover" width="" src="../uploads/{{slideCollection.image1.banner}}" alt="">
                 </a>
                 <a href="/eventos/#/portafolio-evento/{{ slideCollection.image2._id }}" class="a-portfolio coverWrap altura150">
