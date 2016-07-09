@@ -94,7 +94,7 @@ body {
 }
 
 .qodef-icon-font-awesome {
-    color: orange !important;
+    color: #F85709 !important;
 }
 
 .qodef-icon-huge {
@@ -150,7 +150,7 @@ body {
     color:#01648B !important;
 }
 .lblSecundario{
-    color:orange !important;
+    color:#F85709 !important;
 }
 
 .btn-iluminiti {
@@ -167,9 +167,9 @@ body {
 
 
 .btnGeneral{
-    background-color: orange !important;
+    background-color: #F85709 !important;
     color:white !important;
-    border-color: orange !important;
+    border-color: #F85709 !important;
 }
 .btnGeneral:hover, .btn-primary:hover{
     background-color: #01648B !important;
@@ -184,24 +184,24 @@ body {
     color:white !important;
 }
 .btnSecundario:hover{
-    background-color: orange !important;
+    background-color: #F85709 !important;
 }
 .btnSecundario a{
     color:white !important;
 }
 
 .divColorSecundario{
-    background-color: orange !important;
+    background-color: #F85709 !important;
     color:white !important;
 }
 
 .btn-menu:hover{
-    background-color: orange !important;
+    background-color: #F85709 !important;
     color:white !important;
 }
 
 .menuPrincipal{
-    background-color: #01648B;border-bottom: orange 5px solid !important;
+    background-color: #01648B;border-bottom: #F85709 5px solid !important;
 }
 
 /*h1 .ng-binding{
