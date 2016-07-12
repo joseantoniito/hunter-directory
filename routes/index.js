@@ -25,11 +25,7 @@ router.get('/home', auth, function(req, res, next) {
 });
 
 router.get('/', function(req, res, next) {
-  res.render('index', { title: 'Express' });
-});
-
-router.get('/profile', function(req, res, next) {
-  res.render('profile', { title: 'Profile' });
+  res.render('index', { title: 'Imagén Riego' });
 });
 
 
@@ -44,7 +40,7 @@ router.post('/register', function(req, res, next){
   */
 
    var confirm = function(userBody) {
-      console.log(userBody);
+      
       console.log("confirm Data change" + userBody.password);  
       var user = new User();
       user.username = userBody.username;
@@ -106,7 +102,7 @@ router.get('/categorias', function(req, res, next) {
 });
 
 router.post('/distribuidores', function(req, res, next){
-    console.log(req.body);
+    
     if(!req.body.nombre || !req.body.direccion){
         return res.status(400).json({message: 'Favor de llenar todos los campos.'});
     }

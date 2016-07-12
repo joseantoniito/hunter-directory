@@ -6,7 +6,7 @@
       <script src="https://code.jquery.com/jquery-latest.min.js" type="text/javascript"></script>
       
 	   <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" rel="stylesheet">
-    <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
       
     <link rel='stylesheet' href='/stylesheets/style.css' />
 	<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.3/angular.min.js"></script>
@@ -69,13 +69,37 @@
                 <span class="caret"></span></a>
                   <ul class="dropdown-menu">
                     <li class="m10"
-                ng-repeat="categoria in categorias">
-                <a href="/#/directorio/{{ categoria.id }}">{{ categoria.nombre }}</a>
-            </li>
+                    ng-repeat="categoria in categorias">
+                    <a href="/#/directorio/{{ categoria.id }}">{{ categoria.nombre }}</a>
+                    </li>
                   
                   </ul>
             </li>
 
+             <li class="dropdown">
+                <a class="dropdown-toggle btn-menu" data-toggle="dropdown" style="color:white;">Tipo Industria
+                <span class="caret"></span></a>
+                  <ul class="dropdown-menu">
+                    <li class="m10"
+                    ng-repeat="tipo in tipo_industria">
+                    <a href="/#/directorio/{{ tipo.id }}">{{ tipo.nombre }}</a>
+                    </li>
+                  
+                  </ul>
+            </li>
+            
+             <li class="dropdown">
+                <a class="dropdown-toggle btn-menu" data-toggle="dropdown" style="color:white;">Iluminación
+                <span class="caret"></span></a>
+                  <ul class="dropdown-menu">
+                    <li class="m10"
+                    ng-repeat="tipo in iluminacion">
+                    <a href="/#/directorio/{{ tipo.id }}">{{ tipo.nombre }}</a>
+                    </li>
+                  
+                  </ul>
+            </li>
+            
             <li ng-show="isLoggedIn()"><a href="/eventos/#/principal" class="btn btn-menu">Eventos</a></li>
 		      
             
@@ -88,14 +112,14 @@
                         <a href="/profile/#/override">Cuenta</a>
                     </li>
                     <li class="m10">
-                        <a href="/profile/#/override">Cerrar sesión</a>
+                        <a ng-click="logOut()">Cerrar sesión</a>
                     </li>
                       
                 </ul>
             </li>
             
-              <li ng-hide="isLoggedIn()"><a href="/#/login" class="btn btn-menu">Log In</a></li>
-		      <li ng-hide="isLoggedIn()"><a href="/#/register" class="btn btn-menu">Register</a></li>
+              <li ng-hide="isLoggedIn()"><a href="/#/login" class="btn btn-menu">Iniciar sessión</a></li>
+		      <li ng-hide="isLoggedIn()"><a href="/#/register" class="btn btn-menu">Registrarse</a></li>
 		</ul>
 	</nav>
   
@@ -238,18 +262,18 @@
                 <h1 class="lblAzulObscuro">Resultados</h1>
             </div>
             
-                <div class="col-md-4"  ng-repeat="distribuidor in distribuidores">
+                <div class="col-md-3 col-sm-2 col-lg-3"  ng-repeat="distribuidor in distribuidores">
 
 
-                    <div class='thumbnail' style="height:410px;"> 
+                    <div class='thumbnail' style="height:310px;"> 
                         
-                            <img class='imagenListado' src='/uploads/{{ distribuidor.logo }}'  style="width:230px;height:140px;"/> 
+                            <img class='imagenListado' src='/uploads/{{ distribuidor.logo }}'  style="width:100px;height:80px;"/> 
                       
                         <div class='caption'> 
                             <h3>{{ distribuidor.nombre }}</h3>
-                            <h5>{{ distribuidor.direccion }}</h5>
-                            <a>{{ distribuidor.paginaWeb }}</a>
-                            <p>{{ distribuidor.descripcion }}</p>
+                            <h6>{{ checkStringMax(distribuidor.direccion,82) }}</h6>
+                           
+                            <p>{{ checkStringMax(distribuidor.descripcion, 62) }}</p>
 
                             <a class="k-primary k-button" 
                                 href="/#/detalle/{{ distribuidor._id }}">
