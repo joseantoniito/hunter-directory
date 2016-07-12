@@ -51,24 +51,37 @@
                 <h1 class="lblPrincipal">Agregar Evento</h1>
             </div>
 
-            <form ng-submit="agregarEvento()" class="m30">
+            <form name="form" ng-submit="agregarEvento($event)" class="m30"
+                kendo-validator="validator">
                 <div class="form-group">
                     <input type="text" 
                         placeholder="nombre" 
                         ng-model="evento.nombre"
-                        class="form-control"></input>
+                        class="form-control"
+                        required
+                        validationMessage="El nombre es obligatorio."
+                        name="eNombre"></input>
+
                 </div>
                 <div class="form-group">
                     <input type="text" 
                         placeholder="descripcion" 
                         ng-model="evento.descripcion"
-                        class="form-control"></input>
+                        class="form-control"
+                        required 
+                        validationMessage="La descripción es obligatoria."
+                        name="eDescripcion"></input>
+                    
                 </div>
                 <div class="form-group">
                     <input type="text" 
                         placeholder="direccion" 
                         ng-model="evento.direccion"
-                        class="form-control"></input>
+                        class="form-control"
+                        required 
+                        validationMessage="La dirección es obligatoria."
+                        name="eDireccion"></input>
+                    
                 </div>
                 
                 <div class="form-group">
@@ -81,20 +94,24 @@
                 
                 <div class="form-group">
                     <input kendo-date-time-picker
-                       
                        k-ng-model="evento.fechaInicio"
                        placeholder="fecha inicio"
-                       
-                       style="width: 100%;"/>
+                       style="width: 100%;"
+                       required 
+                       validationMessage="La fecha inicial es obligatoria."
+                       name="eFechaInicio" />
+                    
                 </div>
                 
                 <div class="form-group">
                     <input kendo-date-time-picker
                        k-ng-model="evento.fechaFin"
-                       
                        placeholder="fecha fin"
-                       
-                       style="width: 100%;" />
+                       style="width: 100%;"
+                       required 
+                       validationMessage="La fecha final es obligatoria."
+                       name="eFechaFin" />
+                    
                 </div>
                 
                 <div class="form-group">

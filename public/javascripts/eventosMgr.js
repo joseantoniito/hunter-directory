@@ -166,7 +166,12 @@ function($scope, $state, auth, factory, $uibModal){
     }
     
 
-    $scope.agregarEvento = function(){
+    $scope.agregarEvento = function(event){
+        if(!$scope.validator.validate()) return;
+        
+        if($scope.files.length == 0){
+            alert("El banner es obligatorio.");        
+        }
         
         if(!$scope.evento._id){
             $scope.evento.banner = $scope.files[0].name;

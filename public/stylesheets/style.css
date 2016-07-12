@@ -1,5 +1,15 @@
+.divMensajeError{
+    padding: 7px 0 0 7px;
+    color: red;/*F85709*/
+}
+
+.k-widget.k-tooltip-validation{
+    width:89%; display: block;
+}
+
 .carousel-control{
 	background-image: none !important;
+    
 }
 
 body {
