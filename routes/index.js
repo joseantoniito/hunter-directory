@@ -59,18 +59,45 @@ router.post('/register', function(req, res, next){
       };
        
       user.setPassword(userBody.password);
-      user.save(function (err){
-        if(err){ return next(err); }
-        return res.json({token: user.generateJWT()})
+      user.save(function (err, dataU){
+          console.log("usuario guardado");
+          console.log(dataU);
+            if(err){ 
+                console.log("error");
+                console.log(err);
+                return next(err); 
+            }
+        
+            var distribuidor = new Distribuidor();
+            distribuidor.nombre = userBody.name;
+            /*distribuidor.descripcion = req.body.descripcion;
+            distribuidor.direccion = req.body.direccion;
+            distribuidor.paginaWeb = req.body.paginaWeb;*/
+            distribuidor.idCategoria = userBody.idCategoria;
+            distribuidor.idTipo = userBody.tipo;
+            distribuidor.usuario = dataU._id;
+            /*distribuidor.logo = req.body.logo;*/
+
+
+            distribuidor.save(function (err, dataD){
+                if(err){ return next(err); }
+
+                //return res.json(dataD);
+                return res.json({token: user.generateJWT()})
+            });
+          
+          
+        //return res.json({token: user.generateJWT()})
       });
    }
    
    var error = function(error) {
-       console.log("confirm");  
+       console.log("error user helper");
+       console.log("error")
        return res.status(400).json({message: error});
    }
     
-  userHelper.isUserValid(body, confirm,error);
+  userHelper.isUserValid(body, confirm, error);
   
   /*
  

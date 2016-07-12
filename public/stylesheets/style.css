@@ -37,6 +37,9 @@ body {
     z-index: 1;
 }
 
+.altura64{
+    height: 64px !important;
+}
 .altura100{
     height: 100px !important;
 }
@@ -176,7 +179,7 @@ body {
 }
 
 
-.btnGeneral{
+.btnGeneral, .btn-primary{
     background-color: #F85709 !important;
     color:white !important;
     border-color: #F85709 !important;

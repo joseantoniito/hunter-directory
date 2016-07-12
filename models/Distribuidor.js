@@ -12,7 +12,9 @@ var esquema = new mongoose.Schema({
     eMail: String,
     redesSociales: String, 
     horario: String,
-    idCategoria: Number
+    idCategoria: Number,
+    usuario: { type: mongoose.Schema.Types.ObjectId, ref: 'User' },
+    idTipo: Number
 });
 
 mongoose.model('Distribuidor', esquema);

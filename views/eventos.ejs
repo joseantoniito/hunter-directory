@@ -30,8 +30,9 @@
         </h2>
         
         <ul class="nav navbar-nav  pull-right">
-            <li ng-show="isLoggedIn()"><a href="/eventos/#/principal" class="btn btn-menu">Eventos</a></li>
-            <li><a href="/eventos/#/portafolio" class="btn btn-menu">Portafolio</a></li>
+              <li><a href="/eventos/#/portafolio" class="btn btn-menu">Portafolio</a></li>
+              <li ng-show="isLoggedIn()"><a href="/eventos/#/principal" class="btn btn-menu">Administrar Eventos</a></li>
+            
 		      <li ng-show="isLoggedIn()"><a href="/profile/#/override" class="btn btn-menu">{{ currentUser() }}</a></li>
 		      <li ng-show="isLoggedIn()"><a href="" ng-click="logOut()" class="btn btn-menu">Log Out</a></li>
 		      <li ng-hide="isLoggedIn()"><a href="/#/login" class="btn btn-menu">Log In</a></li>
