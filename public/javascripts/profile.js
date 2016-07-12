@@ -10,12 +10,20 @@ function($stateProvider, $urlRouterProvider) {
       url: '/override',
       templateUrl: '/override.html',
       controller: 'ProfileCtrl'
+       
     });
     
     $stateProvider
     .state('direccion', {
       url: '/direccion',
       templateUrl: '/direccion.html',
+      controller: 'ProfileCtrl'
+    });
+    
+    $stateProvider
+    .state('sucursales', {
+      url: '/sucursales',
+      templateUrl: '/sucursales.html',
       controller: 'ProfileCtrl'
     });
     
@@ -51,8 +59,26 @@ function($stateProvider, $urlRouterProvider) {
     
 }]);
 
-    app.controller('ProfileCtrl', ['$scope','$state',function($scope, $state){
-        
+app.controller('NavCtrl', [
+'$scope',
+'auth',
+function($scope, auth){
+  $scope.isLoggedIn = auth.isLoggedIn;
+  $scope.currentUser = auth.currentUser;
+  $scope.logOut = auth.logOut;
+}]);
+
+    app.controller( 'ProfileCtrl', 
+                    ['$scope','$state','auth','factory',
+                    function($scope, $state, auth,factory){
+                        
+        $scope.isLoggedIn = auth.isLoggedIn;
+        var user = auth.currentUser();
+                        console.log(user);
+        $scope.currentUser = user.username;                
+        $scope.perfil = factory.perfil;
+        factory.obtenerUserInfo(user._id);
+        $scope.logOut = auth.logOut;
         $scope.menuItemSelected = 0;
         var showMap;
         var showNotfications;
@@ -65,6 +91,80 @@ function($stateProvider, $urlRouterProvider) {
         $scope.OnClickMenu = function(value) {
             console.log("Is show men");
         }
-        
-      
+          
     }]);
+
+app.factory('auth', ['$http', '$window', function($http, $window){
+   var auth = {};
+
+    auth.saveToken = function (token){
+	  $window.localStorage['flapper-news-token'] = token;
+	};
+
+	auth.getToken = function (){
+	  return $window.localStorage['flapper-news-token'];
+	}
+
+	auth.isLoggedIn = function(){
+	  var token = auth.getToken();
+
+	  if(token){
+		var payload = JSON.parse($window.atob(token.split('.')[1]));
+
+		return payload.exp > Date.now() / 1000;
+	  } else {
+		return false;
+	  }
+	};
+
+	auth.currentUser = function(){
+	  if(auth.isLoggedIn()){
+		var token = auth.getToken();
+		var payload = JSON.parse($window.atob(token.split('.')[1]));
+        return payload;
+	  }
+	};
+
+	auth.register = function(user){
+	  return $http.post('/register', user).success(function(data){
+		auth.saveToken(data.token);
+	  });
+	};
+
+	auth.logIn = function(user){
+	  return $http.post('/login', user).success(function(data){
+		auth.saveToken(data.token);
+	  });
+	};
+
+	auth.logOut = function(){
+	  $window.localStorage.removeItem('flapper-news-token');
+	  window.location.href = "/#/login";
+	};
+
+   
+  return auth;
+}])
+
+
+app.factory('factory', ['$http', 'auth', function($http, auth){
+	  var o = {
+		perfil: null,
+		menu: [
+             {id:1, ref: '#/override', name:"Vista General", icon : ""},
+             {id:2, ref: '#/override', name:"Vista General", icon : ""}
+        ]
+     
+	  };
+    
+    o.obtenerUserInfo = function(id) {
+        console.log(id);
+		return $http.get('userInfo/' + id).success(function(data){
+		    o.perfil = data;
+            console.log(data);
+            
+		});
+	};
+    
+  return o;
+}]);
