@@ -19,6 +19,9 @@
     
     <script src="//kendo.cdn.telerik.com/2016.1.226/js/kendo.all.min.js"></script>
     <script src="//angular-ui.github.io/bootstrap/ui-bootstrap-tpls-1.3.3.js"></script>
+      
+    <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-T8Gy5hrqNKT+hzMclPo118YTQO6cYprQmhrYwIiQ/3axmI1hQomh7Ud2hPOy8SP1" crossorigin="anonymous">
+    
       <style>
           
         body {
@@ -326,52 +329,60 @@
  <div class="container">
     <div class="row" >
         <div class="col-md-10 col-md-offset-1" >
-            <div class="page-header" >
-                <h1 class="lblAzulObscuro">{{ distribuidor.nombre }}</h1>
-            </div>
             <div class='divContenedorListado'style="background:white;"> 
-            <div class='divImagenListado'> 
+            <div class='divImagenListado'>
+                <div class="altura32"></div>
                 <img class='imagenListado' src='/uploads/{{ distribuidor.logo }}'/> 
             </div> 
             <div class='divContenidoListado'> 
+            
                 <div style="text-align:left">
-                    <h2><p>{{ distribuidor.descripcion }}</p></h2>
-                    <h4>Dirección: </h4>
-                    <h5>{{ distribuidor.direccion }}</h5>
-                    <h4>Contacto:</h4>
+                    <h1>{{ distribuidor.nombre }}</h1>
+                    <h3>Dirección: {{ distribuidor.direccion }} </h3>
+                    <p>{{ distribuidor.descripcion }}</p>
+                    <h5></h5>
+                    <h4></h4>
                     <div>
-                        <button type="button" class="btn btn-primary" style="position:relative;" >
-                            <img src="images/facebook.png" style="width:34px;height:24px;"/></button>
-
-                        <button type="button" class="btn btn-info" style="position:relative;"  >
-                            <img src="images/twitter.png" style="width:34px;height:24px;"/></button>
-                            
-                        <button type="button" class="btn btn-warning" style="position:relative;">
-                            <img src="images/web.png" style="width:34px;height:24px;"/></button>
+                        <a class="qodef-icon-shortcode normal qodef-icon-little" 
+                            style="cursor:pointer;margin-right:7px;">
+                            <i class="qodef-icon-font-awesome fa fa-facebook-official qodef-icon-element" style=""></i>
+                        </a>
+                        
+                        <a class="qodef-icon-shortcode normal qodef-icon-little" 
+                            style="cursor:pointer;margin-right:7px;">
+                            <i class="qodef-icon-font-awesome fa fa-twitter-square qodef-icon-element" style=""></i>
+                        </a>
+                        
+                        <a class="qodef-icon-shortcode normal qodef-icon-little" style="cursor:pointer;">
+                            <i class="qodef-icon-font-awesome fa fa-info-circle qodef-icon-element" style=""></i>
+                        </a>   
                     </div>
                     
-                    </div>
-                    <h4>Servicios: </h4>
-                    <div class="btn-group" role="group" aria-label="...">
-                        <button type="button" class="btn btn-success">
-                        <span class="glyphicon glyphicon-grain" aria-hidden="true"></span>
-                        Sistemas de riego</button>
+                    <div class="altura32"></div>
+                </div>
+                
+                <h4>Servicios: </h4>
+                <div class="btn-group" role="group" aria-label="...">
+                    <button type="button" class="btn btn-success">
+                    <span class="glyphicon glyphicon-grain" aria-hidden="true"></span>
+                    Sistemas de riego</button>
 
-                        <button type="button" class="btn btn-danger">
-                            <span class="glyphicon glyphicon-wrench" aria-hidden="true"></span>
-                            Herramientas</button>
-                        <button type="button" class="btn btn-iluminiti">
-                            <span class="glyphicon glyphicon-lamp" aria-hidden="true"></span>
-                            Iluminación</button>
-                        <button type="button" class="btn btn-connector" >
+                    <button type="button" class="btn btn-danger">
                         <span class="glyphicon glyphicon-wrench" aria-hidden="true"></span>
-                        Tuberia</button>
-                        <button type="button" class="btn btnGeneral">
-                        <span class="glyphicon glyphicon-align-justify" aria-hidden="true"></span>
-                        Conexiones</button>
-                    </div>  
+                        Herramientas</button>
+                    <button type="button" class="btn btn-iluminiti">
+                        <span class="glyphicon glyphicon-lamp" aria-hidden="true"></span>
+                        Iluminación</button>
+                    <button type="button" class="btn btn-connector" >
+                    <span class="glyphicon glyphicon-wrench" aria-hidden="true"></span>
+                    Tuberia</button>
+                    <button type="button" class="btn btnGeneral">
+                    <span class="glyphicon glyphicon-align-justify" aria-hidden="true"></span>
+                    Conexiones</button>
+                </div>  
             </div>
         </div>
+        
         <div style="height: 280px;">
             <uib-carousel active="active" interval="myInterval" no-wrap="noWrapSlides">
               <uib-slide ng-repeat="slide in slidesdis" index="slide.id">
@@ -383,27 +394,32 @@
               </uib-slide>
             </uib-carousel>
         </div>
-        <div >
-        <div class="page-header" >
-                <h2 class="lblPrincipal">Mis videos</h2>
-            
-       
-       <div class="col-md-6" sytle="margin:10px; " >
-          <iframe width="420" height="315" src="https://www.youtube.com/embed/H5-q-rB6qkE" frameborder="0" allowfullscreen></iframe>
-          </div>
+        
+    <div class="">
+        <div class="row" >
+            <h2 class="lblPrincipal">Mis videos</h2>
+            <div class="col-md-6" sytle="margin:10px; " >
+                <iframe width="420" height="315" src="https://www.youtube.com/embed/H5-q-rB6qkE" frameborder="0" allowfullscreen></iframe>
+            </div>
 
-        <div class="col-md-6" sytle="margin:10px;" >
-          <iframe width="420" height="315" src="https://www.youtube.com/embed/pwsag7wFb8w" frameborder="0" allowfullscreen></iframe>
+            <div class="col-md-6" sytle="margin:10px;" >
+                <iframe width="420" height="315" src="https://www.youtube.com/embed/pwsag7wFb8w" frameborder="0" allowfullscreen></iframe>
+            </div>
         </div>
     </div>
-    </div>
    
-    <div class="page-header"  >
-                <h2 class="lblPrincipal">Mis sucursales</h2>
+    <div class="row"  >
+        <div class="altura32"></div>
+       <h2 class="lblPrincipal">Mis sucursales</h2>
             
-      <div class="col-md-12" id="map"><h1>mapa</h1></div>  
-       </div>
-       <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyA8Xq5o6lNl4YyFt0F30E_yas-zDNk3sMg&callback=initMap" async defer></script>
+       <div class="col-md-12" id="map">
+         <h1>mapa</h1>
+       </div>  
+      
+    </div>
+    
+    <div class="altura32"></div>
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyA8Xq5o6lNl4YyFt0F30E_yas-zDNk3sMg&callback=initMap" async defer></script>
 
 </script>
 	
