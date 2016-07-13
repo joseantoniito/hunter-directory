@@ -63,6 +63,18 @@ function($stateProvider, $urlRouterProvider) {
     });
     
     $stateProvider
+    .state('directorio-resultados-texto', {
+        url: '/directorio-resultados/{str}',
+        templateUrl: '/directorio-resultados.html',
+        controller: 'MainCtrl',
+        resolve: {
+            post: ['$stateParams', 'projects', function($stateParams, projects) {
+              return projects.obtenerDistribuidoresPorNombre($stateParams.str);
+            }]
+          }
+    });
+    
+    $stateProvider
     .state('agregar-distribuidores', {
       url: '/agregar-distribuidores',
       templateUrl: '/agregar-distribuidores.html',
@@ -523,6 +535,7 @@ app.factory('projects', ['$http', 'auth', function($http, auth){
                 //o.distribuidores.push(dataS);
             });
 	};
+    
     o.obtenerDistribuidoresPorCategoria = function(id) {
         console.log("hola" + id);
 		return $http.get('/distribuidores/' + id)
@@ -532,6 +545,16 @@ app.factory('projects', ['$http', 'auth', function($http, auth){
             });
 	};
 	
+    o.obtenerDistribuidoresPorNombre = function(string) {
+        //console.log("hola" + id);
+		return $http.get('/distribuidoresPorNombre/' + string)
+            .success(function(dataS){
+                angular.copy(dataS, o.distribuidores);
+                o.distribuidor = null;
+            });
+	};
+	
+    
     o.obtenerDistribuidor = function(id) {
 		return $http.get('/distribuidorPorId/' + id)
             .success(function(dataS){

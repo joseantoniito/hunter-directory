@@ -12,12 +12,12 @@
 	<script src="/javascripts/profile.js"></script>
 	<link href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" rel="stylesheet">
     
-    <link rel="stylesheet" href="//kendo.cdn.telerik.com/2016.2.607/styles/kendo.common-material.min.css" />
-    <link rel="stylesheet" href="//kendo.cdn.telerik.com/2016.2.607/styles/kendo.material.min.css" />
-    <link rel="stylesheet" href="//kendo.cdn.telerik.com/2016.2.607/styles/kendo.default.mobile.min.css" />
-
-    <script src="//kendo.cdn.telerik.com/2016.2.607/js/jquery.min.js"></script>
-    <script src="//kendo.cdn.telerik.com/2016.2.607/js/kendo.all.min.js"></script>      
+    <link rel="stylesheet" href="//kendo.cdn.telerik.com/2016.1.226/styles/kendo.common-material.min.css" />
+    <link rel="stylesheet" href="//kendo.cdn.telerik.com/2016.1.226/styles/kendo.material.min.css" />
+    <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-T8Gy5hrqNKT+hzMclPo118YTQO6cYprQmhrYwIiQ/3axmI1hQomh7Ud2hPOy8SP1" crossorigin="anonymous">
+    
+    
+    <script src="//kendo.cdn.telerik.com/2016.1.226/js/kendo.all.min.js"></script>
     <script src="//angular-ui.github.io/bootstrap/ui-bootstrap-tpls-1.3.3.js"></script>
       <script> 
 
@@ -50,13 +50,13 @@
             width: 70%;
             }
         
-    </style
+      </style>
   </head>
   <body ng-app="profile" class="bgrBody"> 
       
    <nav class="navbar navbar-static-top navbar-dark bg-inverse p10" 
          style="background-color: #01648B;" 
-        >
+        ng-controller="NavCtrl">
         <h2><dl>
 		 <a href="/#/home" style="float:left; color: white;">
             IMAGÉN RIEGO        </a>
@@ -69,12 +69,12 @@
 		</ul>
 	</nav>
     
-<div class="container-fluid">
-          <row>
-        <div class="col-sm-4 col-md-3 list-group sidebar">
+    <div class="container-fluid" ng-controller="ProfileCtrl">
+        <row>
+            <div class="col-sm-4 col-md-3 list-group sidebar">
           
           <a href="#" class="list-group-item thumbnail">
-                       <img src="../images/logoemmsariego.png" class="img-rounded" alt="Icono empresa" width="200" height="200">
+                       <img src="../uploads/{{distribuidor.logo}}" class="img-rounded" alt="Icono empresa" width="200" height="200">
                     </a>
           
             <a href="#/override" class="list-group-item" ng-click="menuItemSelected = 1">
@@ -95,9 +95,40 @@
             <a href="#/user-videos" class="list-group-item">
                 <span class="glyphicon glyphicon-film" aria-hidden="true" style="margin-right:20px;" ></span>Mis videos
             </a>
-      </div>
+        </div>
         <div class="col-sm-9">
           <ui-view></ui-view>
+        </div>
+        </row>
+    </div>
+
+    <div ng-show="isNotishow()">
+        <script>
+             $(function() {
+                    $("#notifications-switch").kendoMobileSwitch();
+                    $("#mail-switch").kendoMobileSwitch({
+                        onLabel: "YES",
+                        offLabel: "NO"
+                    });
+                    $("#visible-switch").kendoMobileSwitch({
+                        checked: true
+                    });
+                    $("#name-switch").kendoMobileSwitch();
+                });
+        </script>
+     </div>
+
+      <div ng-show="isMapShow()">
+       <script>
+            var map;
+            function initMap() {
+                map = new google.maps.Map(document.getElementById('map'), {
+                    center: {lat: 20.595679, lng: -100.405836},
+                    zoom: 8
+                });
+            }
+        </script>
+      </div>
             <script type="text/ng-template" id="/override.html">
                  <div style="margin:10px">
                     <img src="../images/bannerevento.jpg" alt=""  height="200px" width="900px">
@@ -132,11 +163,11 @@
             
             <script type="text/ng-template" id="/direccion.html">
                                                  
-            <div class="panel panel-default" >
-            <div class="panel-heading" style="background: #00587c">
-                <h1 class="panel-title"> <div style="color: #ffffff">Dirección</div></h1>
-            </div>
-            <div class="panel-body">
+                <div class="panel panel-default" >
+                <div class="panel-heading" style="background: #00587c">
+                    <h1 class="panel-title"> <div style="color: #ffffff">Dirección</div></h1>
+                </div>
+                <div class="panel-body">
 
                 <form class="form-horizontal" role="form">
                                     
@@ -238,13 +269,13 @@
                                         
                         <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyA8Xq5o6lNl4YyFt0F30E_yas-zDNk3sMg&callback=initMap" async defer></script>
 
-                   
-        </div>                          
-            </div>
-        </div>           
+
+                </div>                          
+                    </div>
+                </div>           
                         
             </script>
-        </div>
+        
           
           <script type="text/ng-template" id="/suscripcion.html">
             <div class="col-md-6 bgrdWhite">
@@ -328,14 +359,58 @@ Las tarjetas de crédito pueden estar sujetas a ajustes debido a las comisiones 
         <script type="text/ng-template" id="/editProfile.html">
             <div class="col-md-6 bgrdWhite">
                 <div class="page-header" >
-                    <h1 class="lblAzulObscuro">Editar Profile</h1>
+                    <h1 class="lblPricipal">Editar Profile</h1>
                 </div>
                 <div ng-show="error" class="alert alert-danger row">
                     <span>"Error no found"</span>
                 </div>
 
+                <form ng-submit="agregarDistribuidor()" class="m30">
+                <div class="form-group">
+                    <input type="text" 
+                        placeholder="nombre" 
+                        ng-model="distribuidor.nombre"
+                        class="form-control"></input>
+                </div>
+                <div class="form-group">
+                    <input type="text" 
+                        placeholder="descripcion" 
+                        ng-model="distribuidor.descripcion"
+                        class="form-control"></input>
+                </div>
+                <div class="form-group">
+                    <input type="text" 
+                        placeholder="direccion" 
+                        ng-model="distribuidor.direccion"
+                        class="form-control"></input>
+                </div>
+                <div class="form-group">
+                    <input type="text" 
+                        placeholder="paginaWeb" 
+                        ng-model="distribuidor.paginaWeb"
+                        class="form-control"></input>
+                </div>
+                
+                <div class="form-group">
+                    <select kendo-drop-down-list
+                        k-ng-model="distribuidor.idCategoria"
+                        k-data-text-field="'nombre'"
+                        k-data-value-field="'id'"
+                        k-data-source="categorias"
+                        style="width: 100%"></select>
+                </div>
+                
+                <div class="form-group">
+                    <input name="files"
+                       type="file"
+                       kendo-upload
+                       k-options="uploadOptions" />
+                </div>
+                
+                <button class="btn btn-primary">Guardar</button>
+            </form>
           
-                <form ng-submit="editProfile()" class="m30">
+                <!--<form ng-submit="editProfile()" class="m30">
                     
                <a href="#" class="thumbnail">
                        <img src="../images/logoemmsariego.png" class="img-rounded" alt="Icono empresa" width="200" height="200">
@@ -375,7 +450,7 @@ Las tarjetas de crédito pueden estar sujetas a ajustes debido a las comisiones 
                                         Al hacer click en Registrarse, aceptas los términos y condiciones y la política de privacidad de Imangén Riego.
                         </laber>                 
                       <button type="submit" class="btn btn-primary">Registrar</button>
-                </form>
+                </form>-->
             </div>
           </script>
           
@@ -416,35 +491,7 @@ Las tarjetas de crédito pueden estar sujetas a ajustes debido a las comisiones 
                 </div>
                  
           </script>
-    </row>
-</div>
-
-        <div ng-show="isNotishow()">
-                                        <script>
-                    $(function() {
-                        $("#notifications-switch").kendoMobileSwitch();
-                        $("#mail-switch").kendoMobileSwitch({
-                            onLabel: "YES",
-                            offLabel: "NO"
-                        });
-                        $("#visible-switch").kendoMobileSwitch({
-                            checked: true
-                        });
-                        $("#name-switch").kendoMobileSwitch();
-                    });
-                </script>
-                                        </div>
-          
-          <div ng-show="isMapShow()">
-           <script>
-                            var map;
-                            function initMap() {
-                                map = new google.maps.Map(document.getElementById('map'), {
-                                    center: {lat: 20.595679, lng: -100.405836},
-                                    zoom: 8
-                                });
-                            }
-                        </script>
+    
         
   </body>
     

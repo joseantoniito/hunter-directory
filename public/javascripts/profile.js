@@ -56,22 +56,62 @@ function($stateProvider, $urlRouterProvider) {
     
 }]);
 
+app.controller('NavCtrl', [
+'$scope',
+'auth',
+'factory',
+function($scope, auth, factory){
+  $scope.isLoggedIn = auth.isLoggedIn;
+  $scope.currentUser = auth.currentUser;
+  $scope.logOut = auth.logOut;
+    
+  $scope.distribuidor = factory.distribuidor;
+}]);
+
 app.controller('ProfileCtrl', ['$scope','$state','auth','factory',function($scope, $state, auth, factory){
         
-        $scope.distribuidor = factory.distribuidor;
+    $scope.distribuidor = factory.distribuidor;
+    $scope.categorias = factory.categorias;
+    $scope.files = [];
+
+    $scope.menuItemSelected = 0;
+    var showMap;
+    var showNotfications;
+
+    $scope.isMapShow = function() {
+        console.log("Is show menu");
+        return $scope.menuItemSelected == 1;   
+    }
+
+    $scope.OnClickMenu = function(value) {
+        console.log("Is show men");
+    }
         
-        $scope.menuItemSelected = 0;
-        var showMap;
-        var showNotfications;
+    $scope.agregarDistribuidor = function(){
+        debugger;
         
-        $scope.isMapShow = function() {
-            console.log("Is show menu");
-            return $scope.menuItemSelected == 1;   
+        $scope.distribuidor.idCategoria = $scope.distribuidor.idCategoria.id;
+        $scope.distribuidor.logo = $scope.files[0].name;
+        
+        factory.agregarDistribuidor($scope.distribuidor)
+            .error(function(error){
+                debugger;
+                $scope.error = error;
+            })
+            .then(function(){
+                alert("Registro actualizado con éxito.")
+                //$state.go('home');
+            });
+    }
+    
+    $scope.uploadOptions ={
+        async: { saveUrl: '/saveFiles', removeUrl: '/removeFiles', autoUpload: true },
+        files: $scope.files,
+        success: function(e){
+            $scope.files = e.files;
+            
         }
-        
-        $scope.OnClickMenu = function(value) {
-            console.log("Is show men");
-        }
+    }
         
       
 }]);
@@ -127,11 +167,26 @@ app.factory('auth', ['$http', '$window', function($http, $window){
 
    
   return auth;
-}])
+}]);
 
 app.factory('factory', ['$http', 'auth', function($http, auth){
 	  var o = {
 		distribuidor : null,
+        categorias: [
+            {id:1, nombre: 'Riego Residencial'},
+            {id:2, nombre: 'Riego Institucional'},
+            {id:3, nombre: 'Parques y Jardines'},
+            {id:4, nombre: 'Distribuidores'},
+            {id:5, nombre: 'Punto de venta'},
+            {id:6, nombre: 'Equipos y sistemas de Riego'},
+            {id:6, nombre: 'Iluminación'},
+            {id:7, nombre: 'Distribuidores'},
+            {id:8, nombre: 'Golf'},
+            {id:9, nombre: 'Riego sintetico'},
+            {id:10, nombre: 'Canchas deportivas'},            
+            {id:11, nombre: 'Agricola'}  
+           
+        ],
 	  };
   
     
@@ -142,6 +197,13 @@ app.factory('factory', ['$http', 'auth', function($http, auth){
 	};
     
     
-  return o;
-}]);
+    o.agregarDistribuidor = function(data) {
+		return $http.post('/distribuidores', data)
+            .success(function(dataS){
+                debugger;
+                //o.distribuidores.push(dataS);
+            });
+	};
 
+    return o;
+}]);
