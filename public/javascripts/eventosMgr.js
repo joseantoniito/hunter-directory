@@ -143,11 +143,10 @@ function($scope, $state, auth, factory, $uibModal){
     
     $scope.uploadOptions ={
         async: { saveUrl: 'saveFiles', removeUrl: 'removeFiles', autoUpload: true },
-        files: $scope.files,
+        files: $scope.filesBanner,
         success: function(e){
             $scope.files = e.files;
-        },
-        files: filesBanner
+        }
     }
     
     $scope.uploadOptionsFotos ={

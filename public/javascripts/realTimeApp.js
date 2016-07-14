@@ -342,32 +342,7 @@ function($scope, $state, auth, projects){
         },
     ];
     
-    var slidesdis = $scope.slidesdis = [
-        {
-          image: 'http://eysh.mx/store/images/promo/0/banner_Conexiones_pagina_web.jpg',
-          text: '',
-          desc: '', 
-          id: 0
-        },
-        {
-          image: 'http://eysh.mx/store/images/promo/0/b2.jpg',
-          desc: '',
-            text: '',
-          id: 1
-        },
-        {
-          image: 'http://eysh.mx/store/images/promo/0/banner_tiendas_pagina_web.jpg',
-          desc: '',
-          text: '',
-          id: 2
-        },
-        {
-          image: 'http://eysh.mx/store/images/promo/0/b1.jpg',
-          text: '',
-           desc:  '',
-          id: 3
-        },
-    ];
+    
     var currIndex = 0;
     
     $scope.currentId = auth.currentId;
@@ -449,6 +424,42 @@ function($scope, $state, auth, projects){
           first.push(second);
         }
         $scope.groupedSlides = first;
+    }
+
+    if($state.current.name == "detalle"){
+        $scope.slidesdis = [{ 
+            image : "../uploads/" + $scope.distribuidor.banner,text: '',
+            text: "",
+            desc: '', 
+            id: 0}];
+            
+        var arr =    [
+        {
+          image: 'http://eysh.mx/store/images/promo/0/banner_Conexiones_pagina_web.jpg',
+          text: '',
+          desc: '', 
+          id: 0
+        },
+        {
+          image: 'http://eysh.mx/store/images/promo/0/b2.jpg',
+          desc: '',
+            text: '',
+          id: 1
+        },
+        {
+          image: 'http://eysh.mx/store/images/promo/0/banner_tiendas_pagina_web.jpg',
+          desc: '',
+          text: '',
+          id: 2
+        },
+        {
+          image: 'http://eysh.mx/store/images/promo/0/b1.jpg',
+          text: '',
+           desc:  '',
+          id: 3
+        },
+    ];
+        
     }
   
 }]);

@@ -72,7 +72,21 @@ app.controller('ProfileCtrl', ['$scope','$state','auth','factory',function($scop
         
     $scope.distribuidor = factory.distribuidor;
     $scope.categorias = factory.categorias;
-    $scope.files = [];
+    $scope.filesLogo = [];
+    $scope.filesBanner = [];
+    
+    if($scope.distribuidor){
+        $("#imgDistribuidor")
+            .attr("src", "../uploads/" + $scope.distribuidor.logo);
+        
+        $("#imgBannerDistribuidor")
+            .attr("src", "../uploads/" + $scope.distribuidor.banner);
+        
+        if($scope.filesLogo)
+            $scope.filesLogo.push({name : $scope.distribuidor.logo, extension: '.' + $scope.distribuidor.logo.split('.')[1]});
+        if($scope.distribuidor.banner)
+            $scope.filesBanner.push({name : $scope.distribuidor.banner, extension: '.' + $scope.distribuidor.banner.split('.')[1]})
+    }
 
     $scope.menuItemSelected = 0;
     var showMap;
@@ -90,8 +104,14 @@ app.controller('ProfileCtrl', ['$scope','$state','auth','factory',function($scop
     $scope.agregarDistribuidor = function(){
         debugger;
         
-        $scope.distribuidor.idCategoria = $scope.distribuidor.idCategoria.id;
-        $scope.distribuidor.logo = $scope.files[0].name;
+        //$scope.distribuidor.idCategoria = $scope.distribuidor.idCategoria.id;
+        if($scope.filesLogo.length > 0){
+            $scope.distribuidor.logo = $scope.filesLogo[0].name;
+        }
+        if($scope.filesBanner.length > 0){
+            $scope.distribuidor.banner = $scope.filesBanner[0].name;
+        }
+        
         
         factory.agregarDistribuidor($scope.distribuidor)
             .error(function(error){
@@ -106,14 +126,21 @@ app.controller('ProfileCtrl', ['$scope','$state','auth','factory',function($scop
     
     $scope.uploadOptions ={
         async: { saveUrl: '/saveFiles', removeUrl: '/removeFiles', autoUpload: true },
-        files: $scope.files,
+        files: $scope.filesLogo,
         success: function(e){
-            $scope.files = e.files;
+            $scope.filesLogo = e.files;
             
         }
     }
-        
-      
+                               
+    $scope.uploadOptionsBanner ={
+        async: { saveUrl: '/saveFiles', removeUrl: '/removeFiles', autoUpload: true },
+        files: $scope.filesBanner,
+        success: function(e){
+            $scope.filesBanner = e.files;
+            
+        }
+    } 
 }]);
 
 app.factory('auth', ['$http', '$window', function($http, $window){

@@ -145,6 +145,7 @@ router.post('/distribuidores', function(req, res, next){
     distribuidor.paginaWeb = req.body.paginaWeb;
     distribuidor.idCategoria = req.body.idCategoria;
     distribuidor.logo = req.body.logo;
+    distribuidor.banner = req.body.banner;
     
     if(req.body._id == null){
         distribuidor.save(function (err, data){
@@ -163,7 +164,9 @@ router.post('/distribuidores', function(req, res, next){
                 direccion: distribuidor.direccion,
                 paginaWeb: distribuidor.paginaWeb,
                 idCategoria: distribuidor.idCategoria,
-                logo: distribuidor.logo
+                logo: distribuidor.logo,
+                banner: distribuidor.banner
+
 			},  
 			function(err, numAffected){
 				if(err){ console.log(err); return next(err); }
