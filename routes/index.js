@@ -141,13 +141,37 @@ router.post('/distribuidores', function(req, res, next){
     distribuidor.paginaWeb = req.body.paginaWeb;
     distribuidor.idCategoria = req.body.idCategoria;
     distribuidor.logo = req.body.logo;
+    distribuidor.banner = req.body.banner;
     
-  
-    distribuidor.save(function (err, data){
-        if(err){ return next(err); }
+    if(req.body._id == null){
+        distribuidor.save(function (err, data){
+            if(err){ return next(err); }
 
-        return res.json(data);
-    });
+            return res.json(data);
+        });
+    }
+    else{
+        distribuidor._id = req.body._id;
+		Distribuidor.update(
+			{_id : new ObjectId(distribuidor._id)}, 
+			{
+				nombre: distribuidor.nombre,
+                descripcion: distribuidor.descripcion,
+                direccion: distribuidor.direccion,
+                paginaWeb: distribuidor.paginaWeb,
+                idCategoria: distribuidor.idCategoria,
+                logo: distribuidor.logo,
+                banner: distribuidor.banner
+
+			},  
+			function(err, numAffected){
+				if(err){ console.log(err); return next(err); }
+				res.json(distribuidor);
+			}
+        );
+        
+    }
+    
 });
 
 router.param('distribuidor', function(req, res, next, id) {

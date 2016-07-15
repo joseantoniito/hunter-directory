@@ -63,6 +63,18 @@ function($stateProvider, $urlRouterProvider) {
     });
     
     $stateProvider
+    .state('directorio-resultados-texto', {
+        url: '/directorio-resultados/{str}',
+        templateUrl: '/directorio-resultados.html',
+        controller: 'MainCtrl',
+        resolve: {
+            post: ['$stateParams', 'projects', function($stateParams, projects) {
+              return projects.obtenerDistribuidoresPorNombre($stateParams.str);
+            }]
+          }
+    });
+    
+    $stateProvider
     .state('agregar-distribuidores', {
       url: '/agregar-distribuidores',
       templateUrl: '/agregar-distribuidores.html',
@@ -330,32 +342,7 @@ function($scope, $state, auth, projects){
         },
     ];
     
-    var slidesdis = $scope.slidesdis = [
-        {
-          image: 'http://eysh.mx/store/images/promo/0/banner_Conexiones_pagina_web.jpg',
-          text: '',
-          desc: '', 
-          id: 0
-        },
-        {
-          image: 'http://eysh.mx/store/images/promo/0/b2.jpg',
-          desc: '',
-            text: '',
-          id: 1
-        },
-        {
-          image: 'http://eysh.mx/store/images/promo/0/banner_tiendas_pagina_web.jpg',
-          desc: '',
-          text: '',
-          id: 2
-        },
-        {
-          image: 'http://eysh.mx/store/images/promo/0/b1.jpg',
-          text: '',
-           desc:  '',
-          id: 3
-        },
-    ];
+    
     var currIndex = 0;
     
     $scope.currentId = auth.currentId;
@@ -437,6 +424,42 @@ function($scope, $state, auth, projects){
           first.push(second);
         }
         $scope.groupedSlides = first;
+    }
+
+    if($state.current.name == "detalle"){
+        $scope.slidesdis = [{ 
+            image : "../uploads/" + $scope.distribuidor.banner,text: '',
+            text: "",
+            desc: '', 
+            id: 0}];
+            
+        var arr =    [
+        {
+          image: 'http://eysh.mx/store/images/promo/0/banner_Conexiones_pagina_web.jpg',
+          text: '',
+          desc: '', 
+          id: 0
+        },
+        {
+          image: 'http://eysh.mx/store/images/promo/0/b2.jpg',
+          desc: '',
+            text: '',
+          id: 1
+        },
+        {
+          image: 'http://eysh.mx/store/images/promo/0/banner_tiendas_pagina_web.jpg',
+          desc: '',
+          text: '',
+          id: 2
+        },
+        {
+          image: 'http://eysh.mx/store/images/promo/0/b1.jpg',
+          text: '',
+           desc:  '',
+          id: 3
+        },
+    ];
+        
     }
   
 }]);
@@ -523,6 +546,7 @@ app.factory('projects', ['$http', 'auth', function($http, auth){
                 //o.distribuidores.push(dataS);
             });
 	};
+    
     o.obtenerDistribuidoresPorCategoria = function(id) {
         console.log("hola" + id);
 		return $http.get('/distribuidores/' + id)
@@ -532,6 +556,16 @@ app.factory('projects', ['$http', 'auth', function($http, auth){
             });
 	};
 	
+    o.obtenerDistribuidoresPorNombre = function(string) {
+        //console.log("hola" + id);
+		return $http.get('/distribuidoresPorNombre/' + string)
+            .success(function(dataS){
+                angular.copy(dataS, o.distribuidores);
+                o.distribuidor = null;
+            });
+	};
+	
+    
     o.obtenerDistribuidor = function(id) {
 		return $http.get('/distribuidorPorId/' + id)
             .success(function(dataS){

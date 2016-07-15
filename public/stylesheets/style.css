@@ -37,6 +37,9 @@ body {
     z-index: 1;
 }
 
+.altura32{
+    height: 32px !important;
+}
 .altura64{
     height: 64px !important;
 }
