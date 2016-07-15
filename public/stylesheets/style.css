@@ -1,5 +1,15 @@
+.divMensajeError{
+    padding: 7px 0 0 7px;
+    color: red;/*F85709*/
+}
+
+.k-widget.k-tooltip-validation{
+    width:89%; display: block;
+}
+
 .carousel-control{
 	background-image: none !important;
+    
 }
 
 body {
@@ -27,6 +37,9 @@ body {
     z-index: 1;
 }
 
+.altura64{
+    height: 64px !important;
+}
 .altura100{
     height: 100px !important;
 }
@@ -166,7 +179,7 @@ body {
 }
 
 
-.btnGeneral{
+.btnGeneral, .btn-primary{
     background-color: #F85709 !important;
     color:white !important;
     border-color: #F85709 !important;

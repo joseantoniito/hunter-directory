@@ -76,6 +76,7 @@
                   </ul>
             </li>
 
+<<<<<<< HEAD
              <li class="dropdown">
                 <a class="dropdown-toggle btn-menu" data-toggle="dropdown" style="color:white;">Tipo Industria
                 <span class="caret"></span></a>
@@ -101,10 +102,13 @@
             </li>
             
             <li ng-show="isLoggedIn()"><a href="/eventos/#/principal" class="btn btn-menu">Eventos</a></li>
+=======
+            <li ng-show="true"><a href="/eventos/#/portafolio" class="btn btn-menu">Eventos</a></li>
+>>>>>>> 405c343dc36230a92f85d04b5deee91d56ca3eab
 		      
             
               
-            <li class="dropdown"  ng-show="isLoggedIn()">
+            <li class="dropdown" ng-show="isLoggedIn()">
                 <a class="dropdown-toggle btn-menu" data-toggle="dropdown" style="color:white;">{{ currentUser() }}
                 <span class="caret"></span></a>
                   <ul class="dropdown-menu">
@@ -112,7 +116,12 @@
                         <a href="/profile/#/override">Cuenta</a>
                     </li>
                     <li class="m10">
+<<<<<<< HEAD
                         <a ng-click="logOut()">Cerrar sesión</a>
+=======
+                        <a class="" ng-href="" ng-click="logOut()">Cerrar Sesión</a>
+                        <!--<a href="/profile/#/override">Cerrar sesión</a>-->
+>>>>>>> 405c343dc36230a92f85d04b5deee91d56ca3eab
                     </li>
                       
                 </ul>
@@ -434,7 +443,7 @@
   <div class="row">
 	<div class="col-md-4 col-md-offset-4 bgrdWhite">
         <div class="page-header" >
-            <h1 class="lblAzulObscuro">Registro</h1>
+            <h1 class="lblPrincipal">Registro</h1>
         </div>
   
           <div ng-show="error" class="alert alert-danger row">
@@ -498,11 +507,14 @@
                 
                 </label>
             </div>
-            Al hacer click en Registrarse, aceptas los <a>términos y condiciones </a> y la <a>política de privacidad</a> de 
-                {{appname}}.
-            <div class="form-group">
-            <button  type="submit" class="btn btn-primary col-sm-4 col-md-10 col-lg-12">Registrarse</button>
+            <div class="form-group">            
+                Al hacer click en Registrarse, aceptas los <a>términos y condiciones </a> y la <a>política de privacidad</a> de 
+                    {{appname}}.
             </div>
+            <div class="form-group">
+                <button  type="submit" class="btn btn-primary col-sm-4 col-md-10 col-lg-12">Registrarse</button>
+            </div>
+            <div class="altura64"></div>
           </form>
           </div>
   </div>
@@ -512,7 +524,7 @@
   <div class="row">
 	<div class="col-md-4 col-md-offset-4 bgrdWhite">
         <div class="page-header" >
-            <h1 class="lblAzulObscuro">Inicio de Sesión</h1>
+            <h1 class="lblPrincipal">Inicio de Sesión</h1>
         </div>
 
       <div ng-show="error" class="alert alert-danger row">

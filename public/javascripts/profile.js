@@ -9,8 +9,17 @@ function($stateProvider, $urlRouterProvider) {
     .state('override', {
       url: '/override',
       templateUrl: '/override.html',
+<<<<<<< HEAD
       controller: 'ProfileCtrl'
        
+=======
+      controller: 'ProfileCtrl',
+      resolve: {
+        postPromise: ['factory', function(factory){
+            return factory.obtenerPerfilDistribuidor();
+        }]
+      }
+>>>>>>> 405c343dc36230a92f85d04b5deee91d56ca3eab
     });
     
     $stateProvider
@@ -59,6 +68,7 @@ function($stateProvider, $urlRouterProvider) {
     
 }]);
 
+<<<<<<< HEAD
 app.controller('NavCtrl', [
 '$scope',
 'auth',
@@ -79,6 +89,12 @@ function($scope, auth){
         $scope.perfil = factory.perfil;
         factory.obtenerUserInfo(user._id);
         $scope.logOut = auth.logOut;
+=======
+app.controller('ProfileCtrl', ['$scope','$state','auth','factory',function($scope, $state, auth, factory){
+        
+        $scope.distribuidor = factory.distribuidor;
+        
+>>>>>>> 405c343dc36230a92f85d04b5deee91d56ca3eab
         $scope.menuItemSelected = 0;
         var showMap;
         var showNotfications;
@@ -91,8 +107,14 @@ function($scope, auth){
         $scope.OnClickMenu = function(value) {
             console.log("Is show men");
         }
+<<<<<<< HEAD
           
     }]);
+=======
+        
+      
+}]);
+>>>>>>> 405c343dc36230a92f85d04b5deee91d56ca3eab
 
 app.factory('auth', ['$http', '$window', function($http, $window){
    var auth = {};
@@ -121,7 +143,12 @@ app.factory('auth', ['$http', '$window', function($http, $window){
 	  if(auth.isLoggedIn()){
 		var token = auth.getToken();
 		var payload = JSON.parse($window.atob(token.split('.')[1]));
+<<<<<<< HEAD
         return payload;
+=======
+
+		return payload.username;
+>>>>>>> 405c343dc36230a92f85d04b5deee91d56ca3eab
 	  }
 	};
 
@@ -146,6 +173,7 @@ app.factory('auth', ['$http', '$window', function($http, $window){
   return auth;
 }])
 
+<<<<<<< HEAD
 
 app.factory('factory', ['$http', 'auth', function($http, auth){
 	  var o = {
@@ -168,3 +196,21 @@ app.factory('factory', ['$http', 'auth', function($http, auth){
     
   return o;
 }]);
+=======
+app.factory('factory', ['$http', 'auth', function($http, auth){
+	  var o = {
+		distribuidor : null,
+	  };
+  
+    
+    o.obtenerPerfilDistribuidor = function() {
+		return $http.get('/profile/obtenerDistribuidor',{headers: {Authorization: 'Bearer '+auth.getToken()}}).success(function(data){
+		  o.distribuidor = data;
+		});
+	};
+    
+    
+  return o;
+}]);
+
+>>>>>>> 405c343dc36230a92f85d04b5deee91d56ca3eab

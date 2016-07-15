@@ -40,7 +40,11 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use(passport.initialize());
 
 app.use('/', routes);
+<<<<<<< HEAD
 app.use('/profile',profile);
+=======
+app.use('/profile', profile);
+>>>>>>> 405c343dc36230a92f85d04b5deee91d56ca3eab
 app.use('/users', users);
 app.use('/eventos', eventos);
 
