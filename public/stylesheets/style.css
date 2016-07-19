@@ -1,3 +1,8 @@
+.angular-google-map-container {
+    height: 400px !important;
+}
+
+
 .divMensajeError{
     padding: 7px 0 0 7px;
     color: red;/*F85709*/
