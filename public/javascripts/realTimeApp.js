@@ -182,17 +182,21 @@ function($scope, auth){
             {id:1, nombre: 'Riego Residencial'},
             {id:2, nombre: 'Riego Institucional'},
             {id:3, nombre: 'Parques y Jardines'},
-            {id:4, nombre: 'Distribuidores'},
-            {id:5, nombre: 'Punto de venta'},
-            {id:6, nombre: 'Equipos y sistemas de Riego'},
-            {id:6, nombre: 'Iluminación'},
-            {id:7, nombre: 'Distribuidores'},
-            {id:8, nombre: 'Golf'},
-            {id:9, nombre: 'Riego sintetico'},
-            {id:10, nombre: 'Canchas deportivas'},            
-            {id:11, nombre: 'Agricola'}  
+            {id:4, nombre: 'Golf'},
+            {id:5, nombre: 'Riego Dintetico'},
+            {id:6, nombre: 'Canchas Deportivas'},            
+            {id:7, nombre: 'Riego Agricola'}  
            
-        ]
+        ];
+          $scope.tipo_industria = [
+            {id: 1, nombre: 'Distribuidores'},  
+            {id: 2, nombre: 'Punto de venta'},
+            {id: 3, nombre: 'Contratista e Instalador'}
+          ];
+          $scope.iluminacion = [
+            {id: 1, nombre: 'FX Iluminación'}  
+            
+          ];
 }]);
 
 app.controller('MainCtrl', [
@@ -556,17 +560,22 @@ app.factory('projects', ['$http', 'auth', function($http, auth){
             {id:1, nombre: 'Riego Residencial'},
             {id:2, nombre: 'Riego Institucional'},
             {id:3, nombre: 'Parques y Jardines'},
-            {id:4, nombre: 'Distribuidores'},
-            {id:5, nombre: 'Punto de venta'},
-            {id:6, nombre: 'Equipos y sistemas de Riego'},
-            {id:6, nombre: 'Iluminación'},
-            {id:7, nombre: 'Distribuidores'},
-            {id:8, nombre: 'Golf'},
-            {id:9, nombre: 'Riego sintetico'},
-            {id:10, nombre: 'Canchas deportivas'},            
-            {id:11, nombre: 'Agricola'}  
+            {id:4, nombre: 'Golf'},
+            {id:5, nombre: 'Riego Dintetico'},
+            {id:6, nombre: 'Canchas Deportivas'},            
+            {id:7, nombre: 'Riego Agricola'}  
            
         ],
+          tipo_industria : [
+            {id: 1, nombre: 'Distribuidores'},  
+            {id: 2, nombre: 'Punto de venta'},
+            {id: 3, nombre: 'Master'}
+          ],
+          iluminacion : [
+            {id: 1, nombre: 'Master (Distribuidor/Importador)'},  
+            {id: 2, nombre: 'Punto de venta'},
+            {id: 3, nombre: 'Contratista e Instadalador'}
+          ],
         distribuidor: null,
         ultimosEventos: []
 	  };
