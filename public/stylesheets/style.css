@@ -164,9 +164,11 @@ body {
 
 .lblPrincipal, .lblAzulObscuro{
     color:#01648B !important;
+    margin-left: 10px;
 }
 .lblSecundario{
     color:#F85709 !important;
+    margin-left: 10px;
 }
 
 .btn-iluminiti {
