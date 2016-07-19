@@ -3,18 +3,18 @@ var router = express.Router();
 var passport = require('passport');
 var mongoose = require('mongoose');
 
-<<<<<<< HEAD
-var Direccion = mongoose.model('Evento');
-var User = mongoose.model('User');
+
+//var Direccion = mongoose.model('Evento');
+//var User = mongoose.model('User');
 //var Sucursal = mongoose.model('Sucursal');
-=======
+
 var User = mongoose.model('User');
 var Distribuidor = mongoose.model('Distribuidor');
 
 var jwt = require('express-jwt');
 var auth = jwt({secret: 'SECRET', userProperty: 'payload'});
 var ObjectId = require('mongoose').Types.ObjectId; 
->>>>>>> 405c343dc36230a92f85d04b5deee91d56ca3eab
+
 
 var jwt = require('express-jwt');
 var auth = jwt({secret: 'SECRET', userProperty: 'payload'});
@@ -61,11 +61,20 @@ router.param('idUser', function(req, res, next, id) {
     return next();
 });
 
-<<<<<<< HEAD
 router.get('/userInfo/:idUser', function(req, res, next) {
     console.log("user id connect" +req.id);
     var query = User.findById(req.id);
-=======
+
+    query.exec(function (err, data){
+        if (err) { console.log(err); return next(err); }
+        if (!data) { return next(new Error('No se encuentra el registro.')); }
+        console.log(data);
+
+        res.json(data);
+    });
+});
+
+
 router.get('/obtenerDistribuidor', auth, function(req, res, next) {
       console.log(req.payload);
 	  var query = Distribuidor.find({usuario : new ObjectId(req.payload._id)});//.populate('fotos');
@@ -78,14 +87,6 @@ router.get('/obtenerDistribuidor', auth, function(req, res, next) {
 		res.json(data[0]);
 	  });
 });
->>>>>>> 405c343dc36230a92f85d04b5deee91d56ca3eab
 
-    query.exec(function (err, data){
-        if (err) { console.log(err); return next(err); }
-        if (!data) { return next(new Error('No se encuentra el registro.')); }
-        console.log(data);
 
-        res.json(data);
-    });
-});
 module.exports = router;
