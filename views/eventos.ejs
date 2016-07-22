@@ -9,7 +9,8 @@
 	<script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.5.3/angular.min.js"></script>
     <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.5.3/angular-animate.js"></script>
 	<script src="http://cdnjs.cloudflare.com/ajax/libs/angular-ui-router/0.2.10/angular-ui-router.js"></script>
-	<script src="/javascripts/eventosMgr.js"></script>
+	<script src="/javascripts/angulike.js"></script>
+    <script src="/javascripts/eventosMgr.js"></script>
 	<link href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" rel="stylesheet">
     
     <link rel="stylesheet" href="//kendo.cdn.telerik.com/2016.1.226/styles/kendo.common-material.min.css" />
@@ -162,6 +163,12 @@
         <a class="coverWrap">
             <img class="img-responsive img-portfolio img-hover photo" src="/uploads/{{evento.banner}}" />
         </a>
+        
+        <div class="row divPadTop20">
+            <div class="col-xs-3">
+                <div fb-like="myModel.Url"></div>
+            </div>
+        </div>
         
         <h1>{{evento.nombre}}</h1>
         <h3>{{evento.direccion}}</h3>
