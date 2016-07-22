@@ -1,4 +1,10 @@
-var app = angular.module('eventos', ['ui.router', 'kendo.directives', 'ui.bootstrap'])
+var app = angular.module('eventos', ['ui.router', 'kendo.directives', 'ui.bootstrap', 'angulike'])
+
+app.run([
+      '$rootScope', function ($rootScope) {
+          $rootScope.facebookAppId = '538366606363211'; // set your facebook app id here
+      }
+  ]);
 
 app.config([
 '$stateProvider',
@@ -85,6 +91,12 @@ function($scope, $state, auth, factory, $uibModal){
     $scope.files = [];
     $scope.filesFotos = [];
     var filesBanner = [], filesFotos = [];
+    
+    $scope.myModel = {
+              Url: 'https://devriego.herokuapp.com',//window.location.href
+              Name: $scope.evento.nombre, 
+              ImageUrl: 'https://devriego.herokuapp.com/uploads/eysh.jpeg'
+          };
     
     $scope.sourceEventosCompletos = new kendo.data.DataSource({
         data: factory.eventosCompletos,
