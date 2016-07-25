@@ -6,6 +6,37 @@ app.config([
 function($stateProvider, $urlRouterProvider) {
 	
     $stateProvider
+    .state('distribuidores', {
+      url: '/distribuidores',
+      templateUrl: '/distribuidores.html',
+      controller: 'ProfileCtrl',
+      resolve: {
+        postPromise: ['factory', function(factory){
+            return factory.obtenerDistribuidoresHijos();
+        }]
+      }
+    });
+    
+    $stateProvider
+    .state('agregar-distribuidor', {
+      url: '/agregar-distribuidor',
+      templateUrl: '/editProfile.html',
+      controller: 'ProfileCtrl'
+    });
+
+    $stateProvider
+    .state('editar-distribuidor', {
+      url: '/editar-distribuidor/{id}',
+      templateUrl: '/editProfile.html',
+      controller: 'ProfileCtrl',
+      resolve: {
+        post: ['$stateParams', 'factory', function($stateParams, factory) {
+              return factory.obtenerDistribuidorPorId($stateParams.id);
+            }]
+      }
+    });
+    
+    $stateProvider
     .state('override', {
       url: '/override',
       templateUrl: '/override.html',
@@ -75,6 +106,11 @@ app.controller('ProfileCtrl', ['$scope','$state','auth','factory',function($scop
     $scope.filesLogo = [];
     $scope.filesBanner = [];
     
+    if($state.current.name == "agregar-distribuidor"){
+        debugger;
+        $scope.distribuidor = {};
+    }
+    
     if($scope.distribuidor){
         $("#imgDistribuidor")
             .attr("src", "../uploads/" + $scope.distribuidor.logo);
@@ -82,10 +118,12 @@ app.controller('ProfileCtrl', ['$scope','$state','auth','factory',function($scop
         $("#imgBannerDistribuidor")
             .attr("src", "../uploads/" + $scope.distribuidor.banner);
         
-        if($scope.filesLogo)
+        if($scope.distribuidor.logo)
             $scope.filesLogo.push({name : $scope.distribuidor.logo, extension: '.' + $scope.distribuidor.logo.split('.')[1]});
         if($scope.distribuidor.banner)
-            $scope.filesBanner.push({name : $scope.distribuidor.banner, extension: '.' + $scope.distribuidor.banner.split('.')[1]})
+            $scope.filesBanner.push({name : $scope.distribuidor.banner, extension: '.' + $scope.distribuidor.banner.split('.')[1]});
+        
+        $scope.distribuidor.idCategoriaK= {id : $scope.distribuidor.idCategoria};
     }
 
     $scope.menuItemSelected = 0;
@@ -102,7 +140,6 @@ app.controller('ProfileCtrl', ['$scope','$state','auth','factory',function($scop
     }
         
     $scope.agregarDistribuidor = function(){
-        debugger;
         
         //$scope.distribuidor.idCategoria = $scope.distribuidor.idCategoria.id;
         if($scope.filesLogo.length > 0){
@@ -141,6 +178,25 @@ app.controller('ProfileCtrl', ['$scope','$state','auth','factory',function($scop
             
         }
     } 
+    
+    //grid distribuidores hijos
+    $scope.distribuidores =  factory.distribuidores;
+    $scope.gridOptionsDistribuidores = {
+        datasource: $scope.distribuidores, 
+        pageable:{pageSize:2, refresh:true, pageSizes:true}, 
+        columns:[
+			{field:"nombre", title:"nombre"}, 
+			{field:"direccion", title:"direccion"},
+			{field:"paginaWeb", title:"paginaWeb"},
+			{field:"telefono", title:"telefono"},
+            {field:"_id", title:"Acciones", width:"100px", 
+             template: "<a href='\\#/editar-distribuidor/{{ dataItem._id }}' class='qodef-icon-shortcode normal qodef-icon-little'><i class='qodef-icon-font-awesome fa fa-pencil-square qodef-icon-element'></i></a> <a class='qodef-icon-shortcode normal qodef-icon-little' ng-click='eliminarDistribuidor(dataItem._id)' style='cursor:pointer;'> <i class='qodef-icon-font-awesome fa fa-trash qodef-icon-element'></i> </a>"}
+        ]};
+               
+    $scope.eliminarDistribuidor = function(id){
+    
+    }
+               
 }]);
 
 app.factory('auth', ['$http', '$window', function($http, $window){
@@ -206,7 +262,7 @@ app.factory('factory', ['$http', 'auth', function($http, auth){
             {id:4, nombre: 'Distribuidores'},
             {id:5, nombre: 'Punto de venta'},
             {id:6, nombre: 'Equipos y sistemas de Riego'},
-            {id:6, nombre: 'Iluminación'},
+            {id:12, nombre: 'Iluminación'},
             {id:7, nombre: 'Distribuidores'},
             {id:8, nombre: 'Golf'},
             {id:9, nombre: 'Riego sintetico'},
@@ -214,6 +270,7 @@ app.factory('factory', ['$http', 'auth', function($http, auth){
             {id:11, nombre: 'Agricola'}  
            
         ],
+        distribuidores: []
 	  };
   
     
@@ -225,11 +282,23 @@ app.factory('factory', ['$http', 'auth', function($http, auth){
     
     
     o.agregarDistribuidor = function(data) {
-		return $http.post('/distribuidores', data)
+		return $http.post('/profile/distribuidores', data, {headers: {Authorization: 'Bearer '+auth.getToken()}})
             .success(function(dataS){
-                debugger;
                 //o.distribuidores.push(dataS);
             });
+	};
+    
+     o.obtenerDistribuidoresHijos = function() {
+		return $http.get('/profile/obtenerDistribuidoresHijos',{headers: {Authorization: 'Bearer '+auth.getToken()}}).success(function(data){
+          angular.copy(data, o.distribuidores);
+		  //o.distribuidores = data;
+		});
+	};
+    
+    o.obtenerDistribuidorPorId = function(id) {
+		return $http.get('/distribuidorPorId/' + id).success(function(data){
+		  o.distribuidor = data;
+		});
 	};
 
     return o;

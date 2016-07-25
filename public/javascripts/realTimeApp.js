@@ -75,13 +75,6 @@ function($stateProvider, $urlRouterProvider) {
     });
     
     $stateProvider
-    .state('agregar-distribuidores', {
-      url: '/agregar-distribuidores',
-      templateUrl: '/agregar-distribuidores.html',
-      controller: 'MainCtrl'
-    });
-    
-    $stateProvider
     .state('detalle', {
         url: '/detalle/{id}',
         templateUrl: '/detalle.html',
@@ -282,14 +275,7 @@ function($scope, $state, auth, projects){
         console.log(data);
     }
     
-    $scope.uploadOptions ={
-        async: { saveUrl: 'saveFiles', removeUrl: 'removeFiles', autoUpload: true },
-        files: $scope.files,
-        success: function(e){
-            $scope.files = e.files;
-            
-        }
-    }
+    
     
     $scope.autoCompleteOptions = {
         //modificación

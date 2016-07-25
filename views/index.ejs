@@ -290,63 +290,7 @@
 </div>
 </script>
       
-<script type="text/ng-template" id="/agregar-distribuidores.html">
- <div class="container">
-    <div class="row">
-        <div class="col-md-4 col-md-offset-4 bgrdWhite">
-            <div class="page-header" >
-                <h1 class="lblPrincipal">Agregar Distribuidor</h1>
-            </div>
 
-            <form ng-submit="agregarDistribuidor()" class="m30">
-                <div class="form-group">
-                    <input type="text" 
-                        placeholder="nombre" 
-                        ng-model="distribuidor.nombre"
-                        class="form-control"></input>
-                </div>
-                <div class="form-group">
-                    <input type="text" 
-                        placeholder="descripcion" 
-                        ng-model="distribuidor.descripcion"
-                        class="form-control"></input>
-                </div>
-                <div class="form-group">
-                    <input type="text" 
-                        placeholder="direccion" 
-                        ng-model="distribuidor.direccion"
-                        class="form-control"></input>
-                </div>
-                <div class="form-group">
-                    <input type="text" 
-                        placeholder="paginaWeb" 
-                        ng-model="distribuidor.paginaWeb"
-                        class="form-control"></input>
-                </div>
-                
-                <div class="form-group">
-                    <select kendo-drop-down-list
-                        k-ng-model="distribuidor.idCategoria"
-                        k-data-text-field="'nombre'"
-                        k-data-value-field="'id'"
-                        k-data-source="categorias"
-                        style="width: 100%"></select>
-                </div>
-                
-                <div class="form-group">
-                    <input name="files"
-                       type="file"
-                       kendo-upload
-                       k-options="uploadOptions" />
-                </div>
-                
-                <button class="btn btn-primary">Guardar</button>
-            </form>
-        </div>
-
-    </div>
-        </div>
-</script>
       
 
 <script type="text/ng-template" id="/detalle.html">

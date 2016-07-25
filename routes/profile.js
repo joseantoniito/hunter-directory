@@ -88,5 +88,67 @@ router.get('/obtenerDistribuidor', auth, function(req, res, next) {
 	  });
 });
 
+router.get('/obtenerDistribuidoresHijos', auth, function(req, res, next) {
+      console.log(req.payload);
+	  var query = Distribuidor.find({usuarioPadre : new ObjectId(req.payload._id)});//.populate('fotos');
+
+	  query.exec(function (err, data){
+		if (err) { return next(err); }
+		//if (data.length == 0) { return next(new Error('No se encuentra el registro.')); }
+
+        console.log(data);
+		res.json(data);
+	  });
+});
+
+router.post('/distribuidores', auth, function(req, res, next){
+    
+    if(!req.body.nombre || !req.body.direccion){
+        return res.status(400).json({message: 'Favor de llenar todos los campos.'});
+    }
+
+    var distribuidor = new Distribuidor();
+    distribuidor.nombre = req.body.nombre;
+    distribuidor.descripcion = req.body.descripcion;
+    distribuidor.direccion = req.body.direccion;
+    distribuidor.paginaWeb = req.body.paginaWeb;
+    distribuidor.idCategoria = req.body.idCategoria;
+    distribuidor.logo = req.body.logo;
+    distribuidor.banner = req.body.banner;
+    distribuidor.usuarioPadre = req.payload._id;
+    distribuidor.idTipo = req.body.idTipo;
+    
+    if(req.body._id == null){
+        distribuidor.save(function (err, data){
+            if(err){ return next(err); }
+
+            return res.json(data);
+        });
+    }
+    else{
+        distribuidor._id = req.body._id;
+		Distribuidor.update(
+			{_id : new ObjectId(distribuidor._id)}, 
+			{
+				nombre: distribuidor.nombre,
+                descripcion: distribuidor.descripcion,
+                direccion: distribuidor.direccion,
+                paginaWeb: distribuidor.paginaWeb,
+                idCategoria: distribuidor.idCategoria,
+                logo: distribuidor.logo,
+                banner: distribuidor.banner,
+                idTipo: distribuidor.idTipo
+			},  
+			function(err, numAffected){
+				if(err){ console.log(err); return next(err); }
+				res.json(distribuidor);
+			}
+        );
+        
+    }
+    
+});
+
+
 
 module.exports = router;

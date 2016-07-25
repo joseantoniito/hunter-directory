@@ -86,6 +86,9 @@
             <a href="#/direccion" class="list-group-item">
                 <span class="glyphicon glyphicon-globe" style="margin-right:20px;"></span>Direccion
             </a>
+            <a href="#/distribuidores" class="list-group-item">
+                <span class="glyphicon glyphicon-bell" aria-hidden="true" style="margin-right:20px;" ></span>Distribuidores
+            </a>
             <a href="#/suscripcion" class="list-group-item">
                 <span class="glyphicon glyphicon-credit-card" aria-hidden="true" style="margin-right:20px;"></span>Suscripción
             </a>
@@ -129,7 +132,26 @@
             }
         </script>
       </div>
-            <script type="text/ng-template" id="/override.html">
+      
+<script type="text/ng-template" id="/distribuidores.html">
+    
+                <div class="row" >
+                    <div style="float:right; margin-right:15px;">
+                        <a class="qodef-icon-shortcode normal qodef-icon-huge" href="/profile/#/agregar-distribuidor">
+                            <i class="qodef-icon-font-awesome fa fa-plus qodef-icon-element" style=""></i>
+                        </a>
+                    </div>
+                </div>
+
+                <div kendo-grid="gridDistribuidores" k-data-source="distribuidores" k-options="gridOptionsDistribuidores">
+                </div>
+            
+</script>
+      
+      
+
+      
+        <script type="text/ng-template" id="/override.html">
                  <div style="margin:10px">
                     <img id="imgBannerDistribuidor" src="" alt=""  height="250px" width="900px">
                     </div>
@@ -394,10 +416,27 @@ Las tarjetas de crédito pueden estar sujetas a ajustes debido a las comisiones 
         <div class="form-group">
             <select kendo-drop-down-list
                 ng-model="distribuidor.idCategoria"
+                k-ng-model="distribuidor.idCategoriaK"
                 k-data-text-field="'nombre'"
                 k-data-value-field="'id'"
                 k-data-source="categorias"
                 style="width: 100%"></select>
+        </div>
+        
+        <div class="form-group">
+            <div class="radio">
+              <label><input type="radio" name="optradio" ng-model="distribuidor.idTipo" value="10">Master(Distribuidor/importador)</label>
+            </div>
+
+            <div class="radio">
+              <label><input type="radio" name="optradio" ng-model="distribuidor.idTipo" value="20">Distribuidor</label>
+            </div>
+
+            <div class="radio">
+              <label><input type="radio" name="optradio" ng-model="distribuidor.idTipo" value="30" >
+              Contratista
+            </label>
+            </div>
         </div>
 
         <div class="form-group">

@@ -14,6 +14,7 @@ var esquema = new mongoose.Schema({
     horario: String,
     idCategoria: Number,
     usuario: { type: mongoose.Schema.Types.ObjectId, ref: 'User' },
+    usuarioPadre: { type: mongoose.Schema.Types.ObjectId, ref: 'User' },
     idTipo: Number,
     banner: String
 });
