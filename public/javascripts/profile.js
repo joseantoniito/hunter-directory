@@ -49,6 +49,18 @@ function($stateProvider, $urlRouterProvider) {
     });
     
     $stateProvider
+    .state('editProfile', {
+      url: '/editProfile',
+      templateUrl: '/editProfile.html',
+      controller: 'ProfileCtrl',
+      resolve: {
+        postPromise: ['factory', function(factory){
+            return factory.obtenerPerfilDistribuidor();
+        }]
+      }
+    });
+    
+    $stateProvider
     .state('direccion', {
       url: '/direccion',
       templateUrl: '/direccion.html',
@@ -68,15 +80,6 @@ function($stateProvider, $urlRouterProvider) {
       templateUrl: '/user-videos.html',
       controller: 'ProfileCtrl'
     });
-    
-    
-    $stateProvider
-    .state('editProfile', {
-      url: '/editProfile',
-      templateUrl: '/editProfile.html',
-      controller: 'ProfileCtrl'
-    });
-    
     
     $stateProvider
     .state('notificaciones', {
@@ -110,14 +113,16 @@ app.controller('ProfileCtrl', ['$scope','$state','auth','factory',function($scop
         debugger;
         $scope.distribuidor = {};
     }
-    
-    if($scope.distribuidor){
+    if($state.current.name == "override"){
+        debugger;
         $("#imgDistribuidor")
             .attr("src", "../uploads/" + $scope.distribuidor.logo);
         
         $("#imgBannerDistribuidor")
             .attr("src", "../uploads/" + $scope.distribuidor.banner);
-        
+    }
+    
+    if($scope.distribuidor){
         if($scope.distribuidor.logo)
             $scope.filesLogo.push({name : $scope.distribuidor.logo, extension: '.' + $scope.distribuidor.logo.split('.')[1]});
         if($scope.distribuidor.banner)
