@@ -121,6 +121,53 @@ app.controller('ProfileCtrl', ['$scope','$state','auth','factory',function($scop
         $("#imgBannerDistribuidor")
             .attr("src", "../uploads/" + $scope.distribuidor.banner);
     }
+    if($state.current.name == "direccion"){
+        $scope.distribuidor = { direccion:{ calle:"" }};
+        
+        var mapOptions = {
+            zoom: 4,
+            center: new google.maps.LatLng(40.0000, -98.0000),
+            mapTypeId: google.maps.MapTypeId.TERRAIN
+        }
+
+        $scope.map = new google.maps.Map(document.getElementById('map'), mapOptions);
+
+        $scope.markerDireccion = {};
+
+        var infoWindow = new google.maps.InfoWindow();
+
+        var createMarker = function (info){
+
+            var marker = new google.maps.Marker({
+                map: $scope.map,
+                position: new google.maps.LatLng(info.lat, info.long),
+                title: info.city
+            });
+            marker.content = '<div class="infoWindowContent">' + info.desc + '</div>';
+
+            google.maps.event.addListener(marker, 'click', function(){
+                infoWindow.setContent('<h2>' + marker.title + '</h2>' + marker.content);
+                infoWindow.open($scope.map, marker);
+            });
+
+            $scope.markerDireccion = marker;
+
+        }  
+
+        createMarker({
+            city : 'Riego',
+            desc : 'Los mejores sistemas de riego!',
+            lat : 41.8819,
+            long : -87.6278});
+
+        $scope.openInfoWindow = function(e, selectedMarker){
+            e.preventDefault();
+            google.maps.event.trigger(selectedMarker, 'click');
+        }
+        
+        //inicializar componentes de geocodificación con google maps
+        var geocoder = new google.maps.Geocoder();
+    }
     
     if($scope.distribuidor){
         if($scope.distribuidor.logo)
@@ -196,10 +243,64 @@ app.controller('ProfileCtrl', ['$scope','$state','auth','factory',function($scop
 			{field:"telefono", title:"telefono"},
             {field:"_id", title:"Acciones", width:"100px", 
              template: "<a href='\\#/editar-distribuidor/{{ dataItem._id }}' class='qodef-icon-shortcode normal qodef-icon-little'><i class='qodef-icon-font-awesome fa fa-pencil-square qodef-icon-element'></i></a> <a class='qodef-icon-shortcode normal qodef-icon-little' ng-click='eliminarDistribuidor(dataItem._id)' style='cursor:pointer;'> <i class='qodef-icon-font-awesome fa fa-trash qodef-icon-element'></i> </a>"}
-        ]};
-               
+        ]};        
     $scope.eliminarDistribuidor = function(id){
     
+    }
+
+    //dirección de distribuidor
+    $scope.actualizarDireccionDistribuidor = function(event){
+         
+         if(!$scope.validator.validate()) return;
+         debugger;
+        
+         factory.actualizarDireccionDistribuidor($scope.distribuidor.direccion)
+            .error(function(error){
+                $scope.error = error;
+            })
+            .then(function(){
+                alert("La dirección fue actualizada con éxito.")
+            });
+    }
+
+    $scope.geolocalizarDireccion = function(event){
+        var oDireccion = $scope.distribuidor.direccion;
+        var direccionCompleta = "{0} {1} {2}, {3}, {4}, {5}, {6}".format(
+                oDireccion.calle || "",
+                oDireccion.numero_interior || "",
+                oDireccion.numero_exterior || "",
+                oDireccion.colonia || "",
+                oDireccion.municipio || "",
+                oDireccion.estado || "",
+                oDireccion.pais || ""
+            );
+        
+        console.log(direccionCompleta);
+        resultsMap = $scope.map;
+        address = direccionCompleta;
+        
+        geocoder.geocode({'address': address}, function(results, status) {
+          console.log("results", results);
+          console.log("status", status);
+
+          if (status === google.maps.GeocoderStatus.OK) {
+              resultsMap.setCenter(results[0].geometry.location);
+              var marker = new google.maps.Marker({
+                map: resultsMap,
+                position: results[0].geometry.location
+              });
+              resultsMap.setZoom(15);
+
+              if(status == "OK"){
+                $scope.distribuidor.direccion.latitud = results[0].geometry.location.lat();
+                $scope.distribuidor.direccion.longitud = results[0].geometry.location.lng();
+              }
+          } 
+          else {
+              alert('Geocode was not successful for the following reason: ' + status);
+            }
+      });
+        
     }
                
 }]);
@@ -277,7 +378,6 @@ app.factory('factory', ['$http', 'auth', function($http, auth){
         ],
         distribuidores: []
 	  };
-  
     
     o.obtenerPerfilDistribuidor = function() {
 		return $http.get('/profile/obtenerDistribuidor',{headers: {Authorization: 'Bearer '+auth.getToken()}}).success(function(data){
@@ -285,18 +385,16 @@ app.factory('factory', ['$http', 'auth', function($http, auth){
 		});
 	};
     
-    
     o.agregarDistribuidor = function(data) {
 		return $http.post('/profile/distribuidores', data, {headers: {Authorization: 'Bearer '+auth.getToken()}})
             .success(function(dataS){
-                //o.distribuidores.push(dataS);
+                console.log(dataS);
             });
 	};
     
      o.obtenerDistribuidoresHijos = function() {
 		return $http.get('/profile/obtenerDistribuidoresHijos',{headers: {Authorization: 'Bearer '+auth.getToken()}}).success(function(data){
           angular.copy(data, o.distribuidores);
-		  //o.distribuidores = data;
 		});
 	};
     
@@ -304,6 +402,13 @@ app.factory('factory', ['$http', 'auth', function($http, auth){
 		return $http.get('/distribuidorPorId/' + id).success(function(data){
 		  o.distribuidor = data;
 		});
+	};
+    
+    o.actualizarDireccionDistribuidor = function(data) {
+		return $http.post('/profile/actualizarDireccionDistribuidor', data, {headers: {Authorization: 'Bearer '+auth.getToken()}})
+            .success(function(dataS){
+                console.log(dataS);
+            });
 	};
 
     return o;

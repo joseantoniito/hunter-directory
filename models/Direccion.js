@@ -6,13 +6,17 @@ var esquema = new mongoose.Schema({
     calle : String,
     numero_interior : String,
     numero_exterior : String,
-    pais : String,
-    estado : String,
+    colonia: String,
     municipio: String,
+    estado : String,
+    pais : String,
     entreCalleUno : String,
     entreCalleDos : String,
     latitud : String,
-    longitud : String    
+    longitud : String,
+    codigoPostal: String,
+    telefono: String,
+    celular: String
 });
 
 

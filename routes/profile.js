@@ -3,11 +3,7 @@ var router = express.Router();
 var passport = require('passport');
 var mongoose = require('mongoose');
 
-
-//var Direccion = mongoose.model('Evento');
-//var User = mongoose.model('User');
-//var Sucursal = mongoose.model('Sucursal');
-
+var Direccion = mongoose.model('Direccion');
 var User = mongoose.model('User');
 var Distribuidor = mongoose.model('Distribuidor');
 
@@ -30,7 +26,7 @@ router.get('/', function(req, res, next) {
 });
 
 
-router.post('/direccion', function(req, res, next){
+router.post('/actualizarDireccionDistribuidor', auth, function(req, res, next){
     
     if(!req.body.colonia || !req.body.calle){
         return res.status(400).json({message: 'Favor de llenar todos los campos.'});
@@ -46,7 +42,10 @@ router.post('/direccion', function(req, res, next){
     direccion.entreCalleUno = dir.entreCalleUno;
     direccion.entreCalleDos = dir.entreCalleDos;
     direccion.latitud = dir.latitud;
-    direccion.longitud = dir.longitud;  
+    direccion.longitud = dir.longitud;
+    direccion.codigoPostal = dir.codigoPostal;
+    direccion.telefono = dir.telefono;
+    direccion.celular = dir.celular;
   
     direccion.save(function (err, data){
         if(err){ return next(err); }

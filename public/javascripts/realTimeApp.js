@@ -424,63 +424,73 @@ function($scope, $state, auth, projects){
             id: 0}];
             
         var arr =    [
-        {
-          image: 'http://eysh.mx/store/images/promo/0/banner_Conexiones_pagina_web.jpg',
-          text: '',
-          desc: '', 
-          id: 0
-        },
-        {
-          image: 'http://eysh.mx/store/images/promo/0/b2.jpg',
-          desc: '',
-            text: '',
-          id: 1
-        },
-        {
-          image: 'http://eysh.mx/store/images/promo/0/banner_tiendas_pagina_web.jpg',
-          desc: '',
-          text: '',
-          id: 2
-        },
-        {
-          image: 'http://eysh.mx/store/images/promo/0/b1.jpg',
-          text: '',
-           desc:  '',
-          id: 3
-        },
-    ];
-        
-         $scope.map = {
-            center: {
-                    latitude: 56.162939,
-                    longitude: 10.203921
+            {
+              image: 'http://eysh.mx/store/images/promo/0/banner_Conexiones_pagina_web.jpg',
+              text: '',
+              desc: '', 
+              id: 0
             },
-            zoom: 8
-        };
-        $scope.marker = {
-          id: 0,
-          coords: {
-            latitude: 40.1451,
-            longitude: -99.6680
-          },
-          options: { draggable: true },
-          events: {
-            dragend: function (marker, eventName, args) {
-              console.log('marker dragend');
-              var lat = marker.getPosition().lat();
-              var lon = marker.getPosition().lng();
-              console.log(lat, lon);
-              
+            {
+              image: 'http://eysh.mx/store/images/promo/0/b2.jpg',
+              desc: '',
+                text: '',
+              id: 1
+            },
+            {
+              image: 'http://eysh.mx/store/images/promo/0/banner_tiendas_pagina_web.jpg',
+              desc: '',
+              text: '',
+              id: 2
+            },
+            {
+              image: 'http://eysh.mx/store/images/promo/0/b1.jpg',
+              text: '',
+               desc:  '',
+              id: 3
+            },
+        ];
+    
+     
+    var mapOptions = {
+        zoom: 4,
+        center: new google.maps.LatLng(40.0000, -98.0000),
+        mapTypeId: google.maps.MapTypeId.TERRAIN
+    }
 
-              $scope.marker.options = {
-                draggable: true,
-                labelContent: "lat: " + $scope.marker.coords.latitude + ' ' + 'lon: ' + $scope.marker.coords.longitude,
-                labelAnchor: "100 0",
-                labelClass: "marker-labels"
-              };
-            }
-          }
-        };
+    $scope.map = new google.maps.Map(document.getElementById('map'), mapOptions);
+
+    $scope.markerDireccion = {};
+    
+    var infoWindow = new google.maps.InfoWindow();
+    
+    var createMarker = function (info){
+        
+        var marker = new google.maps.Marker({
+            map: $scope.map,
+            position: new google.maps.LatLng(info.lat, info.long),
+            title: info.city
+        });
+        marker.content = '<div class="infoWindowContent">' + info.desc + '</div>';
+        
+        google.maps.event.addListener(marker, 'click', function(){
+            infoWindow.setContent('<h2>' + marker.title + '</h2>' + marker.content);
+            infoWindow.open($scope.map, marker);
+        });
+        
+        $scope.markerDireccion = marker;
+        
+    }  
+    
+    createMarker({
+        city : 'Riego',
+        desc : 'Los mejores sistemas de riego!',
+        lat : 41.8819,
+        long : -87.6278});
+
+    $scope.openInfoWindow = function(e, selectedMarker){
+        e.preventDefault();
+        google.maps.event.trigger(selectedMarker, 'click');
+    }
         
     }
   
