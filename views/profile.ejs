@@ -20,7 +20,20 @@
     
     <script src="//kendo.cdn.telerik.com/2016.1.226/js/kendo.all.min.js"></script>
     <script src="//angular-ui.github.io/bootstrap/ui-bootstrap-tpls-1.3.3.js"></script>
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyA8Xq5o6lNl4YyFt0F30E_yas-zDNk3sMg" async defer></script>
+    
       <script> 
+          if (!String.prototype.format) {
+              String.prototype.format = function() {
+                var args = arguments;
+                return this.replace(/{(\d+)}/g, function(match, number) { 
+                  return typeof args[number] != 'undefined'
+                    ? args[number]
+                    : match
+                  ;
+                });
+              };
+            }
       </script>
       <style>
           
@@ -86,6 +99,9 @@
             <a href="#/direccion" class="list-group-item">
                 <span class="glyphicon glyphicon-globe" style="margin-right:20px;"></span>Direccion
             </a>
+            <a href="#/distribuidores" class="list-group-item">
+                <span class="glyphicon glyphicon-bell" aria-hidden="true" style="margin-right:20px;" ></span>Distribuidores
+            </a>
             <a href="#/suscripcion" class="list-group-item">
                 <span class="glyphicon glyphicon-credit-card" aria-hidden="true" style="margin-right:20px;"></span>Suscripción
             </a>
@@ -118,169 +134,206 @@
         </script>
      </div>
 
-      <div ng-show="isMapShow()">
-       <script>
-            var map;
-            function initMap() {
-                map = new google.maps.Map(document.getElementById('map'), {
-                    center: {lat: 20.595679, lng: -100.405836},
-                    zoom: 8
-                });
-            }
-        </script>
-      </div>
-            <script type="text/ng-template" id="/override.html">
-                 <div style="margin:10px">
-                    <img id="imgBannerDistribuidor" src="" alt=""  height="250px" width="900px">
-                    </div>
-                        <div class="col-sm-5">
-                            <div class="panel panel-default">
-                                <div class="panel-body">
-                                    <h3 class="title">Perfil</h3>
-                                    <h4 class="subtitle-inverse">Nombre de Usuario</h4>
-                                    <h5>{{distribuidor.nombre}} </h5>
-                                    <h4 class="subtitle-inverse">Email</h4>
-                                    <h5>jayalar@emmsa.com.mx</h5>
-                                    <h4 class="subtitle-inverse">Cliente desde</h4>
-                                    <h5>01/Enero/2016</h5>
-                                    <h4 class="subtitle-inverse">Pais</h4>
-                                    <h5>México</h5>
-                                    <a href="#/editProfile" role="button" class="btn btn-warning btn-edit">Editar Perfil</a>
-                                </div>
-                            </div>
-                        </div>
-                    <div class="col-sm-5">
-                        <div class="panel panel-default">
-                            <div class="panel-body">
-                                <h3 class="title">Imagén Riego</h3>
-                                <h5 class="subtitle-inverse">Obten Riego por solo 5,000 pesos mensuales, y recibe todas herramientas para seguir creciendo</h5>
-                                <a href="#/suscripcion" role="button" class="btn btn-warning">Obten Premiunm</a>
-                            </div>
+      
+      
+      
+<script type="text/ng-template" id="/distribuidores.html">
+    <div class="row" >
+        <div style="float:right; margin-right:15px;">
+            <a class="qodef-icon-shortcode normal qodef-icon-huge" href="/profile/#/agregar-distribuidor">
+                <i class="qodef-icon-font-awesome fa fa-plus qodef-icon-element" style=""></i>
+            </a>
+        </div>
+    </div>
+
+    <div kendo-grid="gridDistribuidores" k-data-source="distribuidores" k-options="gridOptionsDistribuidores">
+    </div>
+</script>
+      
+
+<script type="text/ng-template" id="/override.html">
+         <div style="margin:10px">
+            <img id="imgBannerDistribuidor" src="" alt=""  height="250px" width="900px">
+            </div>
+                <div class="col-sm-5">
+                    <div class="panel panel-default">
+                        <div class="panel-body">
+                            <h3 class="title">Perfil</h3>
+                            <h4 class="subtitle-inverse">Nombre de Usuario</h4>
+                            <h5>{{distribuidor.nombre}} </h5>
+                            <h4 class="subtitle-inverse">Email</h4>
+                            <h5>jayalar@emmsa.com.mx</h5>
+                            <h4 class="subtitle-inverse">Cliente desde</h4>
+                            <h5>01/Enero/2016</h5>
+                            <h4 class="subtitle-inverse">Pais</h4>
+                            <h5>México</h5>
+                            <a href="#/editProfile" role="button" class="btn btn-warning btn-edit">Editar Perfil</a>
                         </div>
                     </div>
-                
-            </script>
-            
-            <script type="text/ng-template" id="/direccion.html">
-                                                 
-                <div class="panel panel-default" >
-                <div class="panel-heading" style="background: #00587c">
-                    <h1 class="panel-title"> <div style="color: #ffffff">Dirección</div></h1>
                 </div>
-                <div class="panel-body">
+            <div class="col-sm-5">
+                <div class="panel panel-default">
+                    <div class="panel-body">
+                        <h3 class="title">Imagén Riego</h3>
+                        <h5 class="subtitle-inverse">Obten Riego por solo 5,000 pesos mensuales, y recibe todas herramientas para seguir creciendo</h5>
+                        <a href="#/suscripcion" role="button" class="btn btn-warning">Obten Premiunm</a>
+                    </div>
+                </div>
+            </div>
 
-                <form class="form-horizontal" role="form">
-                                    
-                    <div class="form-group">
-                        <label class="control-label col-sm-2" for="colonia">Colonia</label>
-                        <div class="col-md-5">
-                            <input type="email" class="form-control" id="colonia" placeholder="Colonia">
-                        </div>
-                            <label class="control-label col-sm-1" for="cp">CP:</label>
-                        <div class="col-md-2">
-                            <input type="email" class="form-control" id="cp" placeholder="cp">
-                        </div>
-                    </div>
+    </script>
+            
+<script type="text/ng-template" id="/direccion.html">
 
-                    <div class="form-group">
-                        <label class="control-label col-sm-2" for="calle">Calle</label>
-                        <div class="col-md-8">
-                            <input type="email" class="form-control" id="calle" placeholder="Calle">
-                        </div>   
-                    </div>
-                    
-                    <div class="form-group">
-                         <label class="control-label col-sm-2" for="cp">Num. Ext.:</label>
-                        <div class="col-sm-3">
-                            <input type="email" class="form-control" id="num_ext" placeholder="Número exterior">
-                        </div>
-                        <label class="control-label col-sm-2    " for="cp">Num. Int.:</label>
-                        <div class="col-sm-3">
-                            <input type="email" class="form-control" id="num_int" placeholder="Numero interior">
-                        </div>
-                    </div>
+<div class="panel panel-default" >
+    <div class="panel-heading" style="background: #00587c">
+        <h1 class="panel-title"> <div style="color: #ffffff">Dirección</div></h1>
+    </div>
+    <div class="panel-body">
 
-                    <div class="form-group">
-                        <label class="control-label col-sm-2" for="phone">Telefono</label>
-                        <div class="col-sm-3">
-                            <input type="email" class="form-control" id="phone" placeholder="Telefono">
-                        </div>
-                        <label class="control-label col-sm-2" for="cellphone">Celular</label>
-                        <div class="col-sm-3">  
-                            <input type="email" class="form-control" id="cellphone" placeholder="Celular">
-                        </div>
-                    </div>
+    <form name="form" ng-submit="actualizarDireccionDistribuidor($event)" class="form-horizontal"
+        kendo-validator="validator">
+        
+        <div class="form-group">
+            <label class="control-label col-sm-2" for="calle">Calle</label>
+            <div class="col-md-8">
+                <input class="form-control" id="calle" placeholder="Calle"
+                    ng-model="distribuidor.direccion.calle" required validationMessage="La calle es obligatoria." name="eDireccion">
+            </div>   
+        </div>
 
-                    <div class="form-group">
-                        <label class="control-label col-sm-2" for="estado">Estado</label>
-                        <div class="col-md-4">
-                            <select  class="form-control" id="estado" name="Estado" >
-                                <option value="">Seleccione una opcion</option>
-                                <option value="AGS">Aguascalientes</option>
-                                <option value="BC">Baja California</option>
-                                <option value="BCS">Baja California Sur</option>
-                                <option value="CAMP">Campeche</option>
-                                <option value="CHIS">Chiapas</option>
-                                <option value="CHIH">Chihuahua</option>
-                                <option value="COAH">Coahuila de Zaragoza</option>
-                                <option value="COL">Colima</option>
-                                <option value="DF">Distrito Federal</option>
-                                <option value="DGO">Durango</option>
-                                <option value="GTO">Guanajuato</option>
-                                <option value="GRO">Guerrero</option>
-                                <option value="HGO">Hidalgo</option>
-                                <option value="JAL">Jalisco</option>
-                                <option value="MEX">México</option>
-                                <option value="MICH">Michoacán de Ocampo</option>
-                                <option value="MOR">Morelos</option>
-                                <option value="NAY">Nayarit</option>
-                                <option value="NL">Nuevo León</option>
-                                <option value="OAX">Oaxaca</option>
-                                <option value="PUE">Puebla</option>
-                                <option value="QRO">Querétaro</option>
-                                <option value="QR">Quintana Roo</option>
-                                <option value="SLP">San Luis Potosí</option>
-                                <option value="SIN">Sinaloa</option>
-                                <option value="SON">Sonora</option>
-                                <option value="TAB">Tabasco</option>
-                                <option value="TAMS">Tamaulipas</option>
-                                <option value="TLAX">Tlaxcala</option>
-                                <option value="VER">Veracruz de Ignacio de la Llave</option>
-                                <option value="YUC">Yucatán</option>
-                                <option value="ZAC">Zacatecas</option>
-                            </select>
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <label class="control-label col-sm-2" >Centrar en el mapa</label>
-                        <div class="col-sm-2">
-                            <button type="submit" class="btn btn-lg btn-info" >Geolocalizar</button>
-                        </div>
-                        <div class="col-md-9" id="map"></div>       
-                    </div>
-                    <div class="form-group">
-                        <div class="col-sm-offset-10 col-sm-10">
-                            <button type="submit" class="btn btn-lg btn-warning" >Registrar</button>
-                        </div>
-
-                    </div>
-                </form>
-                                        
-                                        
-                        <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyA8Xq5o6lNl4YyFt0F30E_yas-zDNk3sMg&callback=initMap" async defer></script>
+        <div class="form-group">
+             <label class="control-label col-sm-2" for="num_ext">Num. Ext.:</label>
+            <div class="col-sm-3">
+                <input class="form-control" id="num_ext" placeholder="Número exterior"
+                    ng-model="distribuidor.direccion.numero_exterior" required validationMessage="La numero exterior es obligatoria." name="eNumeroExterior">
+            </div>
+            <label class="control-label col-sm-2" for="num_int">Num. Int.:</label>
+            <div class="col-sm-3">
+                <input class="form-control" id="num_int" placeholder="Numero interior"
+                    ng-model="distribuidor.direccion.numero_interior" required validationMessage="La numero interior es obligatoria." name="eNumeroInterior">
+            </div>
+        </div>
 
 
-                </div>                          
-                    </div>
-                </div>           
-                        
-            </script>
+        <div class="form-group">
+            <label class="control-label col-sm-2" for="colonia">Colonia</label>
+            <div class="col-md-5">
+                <input class="form-control" id="colonia" placeholder="Colonia"
+                    ng-model="distribuidor.direccion.colonia" required validationMessage="La colonia es obligatoria." name="eColonia">
+            </div>
+                <label class="control-label col-sm-1" for="cp">CP:</label>
+            <div class="col-md-2">
+                <input class="form-control" id="cp" placeholder="cp"
+                    ng-model="distribuidor.direccion.codigoPostal" required validationMessage="El código postal es obligatorio." name="eCodigoPostal">
+            </div>
+        </div>
+        
+        <div class="form-group">
+            <label class="control-label col-sm-2" for="municipio">Municipio</label>
+            <div class="col-md-5">
+                <input class="form-control" id="municipio" placeholder="municipio"
+                    ng-model="distribuidor.direccion.municipio" required validationMessage="El municipio es obligatorio." name="eMunicipio">
+            </div>
+        </div>
+        
+         <div class="form-group">
+            <label class="control-label col-sm-2" for="estado">Estado</label>
+            <div class="col-md-5">
+                <input class="form-control" id="estado" placeholder="estado"
+                    ng-model="distribuidor.direccion.estado" required validationMessage="El estado es obligatorio." name="eEstado">
+            </div>
+        </div>
+
+        <!--<div class="form-group">
+            <label class="control-label col-sm-2" for="estado">Estado</label>
+            <div class="col-md-4">
+                <select  class="form-control" id="estado" name="Estado" ng-model="distribuidor.direccion.estado" >
+                    <option value="">Seleccione una opcion</option>
+                    <option value="AGS">Aguascalientes</option>
+                    <option value="BC">Baja California</option>
+                    <option value="BCS">Baja California Sur</option>
+                    <option value="CAMP">Campeche</option>
+                    <option value="CHIS">Chiapas</option>
+                    <option value="CHIH">Chihuahua</option>
+                    <option value="COAH">Coahuila de Zaragoza</option>
+                    <option value="COL">Colima</option>
+                    <option value="DF">Distrito Federal</option>
+                    <option value="DGO">Durango</option>
+                    <option value="GTO">Guanajuato</option>
+                    <option value="GRO">Guerrero</option>
+                    <option value="HGO">Hidalgo</option>
+                    <option value="JAL">Jalisco</option>
+                    <option value="MEX">México</option>
+                    <option value="MICH">Michoacán de Ocampo</option>
+                    <option value="MOR">Morelos</option>
+                    <option value="NAY">Nayarit</option>
+                    <option value="NL">Nuevo León</option>
+                    <option value="OAX">Oaxaca</option>
+                    <option value="PUE">Puebla</option>
+                    <option value="QRO">Querétaro</option>
+                    <option value="QR">Quintana Roo</option>
+                    <option value="SLP">San Luis Potosí</option>
+                    <option value="SIN">Sinaloa</option>
+                    <option value="SON">Sonora</option>
+                    <option value="TAB">Tabasco</option>
+                    <option value="TAMS">Tamaulipas</option>
+                    <option value="TLAX">Tlaxcala</option>
+                    <option value="VER">Veracruz de Ignacio de la Llave</option>
+                    <option value="YUC">Yucatán</option>
+                    <option value="ZAC">Zacatecas</option>
+                </select>
+            </div>
+        </div>-->
+        
+        <div class="form-group">
+            <label class="control-label col-sm-2" for="phone">Telefono</label>
+            <div class="col-sm-3">
+                <input class="form-control" id="phone" placeholder="Telefono"
+                    ng-model="distribuidor.direccion.telefono" required validationMessage="El telefono es obligatorio." name="eTelefono">
+            </div>
+            <label class="control-label col-sm-2" for="cellphone">Celular</label>
+            <div class="col-sm-3">  
+                <input class="form-control" id="cellphone" placeholder="Celular"
+                    ng-model="distribuidor.direccion.celular" required validationMessage="El celular es obligatorio."  name="eCelular">
+            </div>
+        </div>
+       
+         <div class="form-group">
+            
+            <div class="col-sm-2">
+                <label class="control-label" >Centrar en el mapa</label>
+                
+            </div>
+            
+            <div class="col-md-9">
+                <span ng-click="geolocalizarDireccion()" class="btn btn-lg btn-info" >Geolocalizar</span>
+
+                <div class="altura32"></div>
+                <div id="map" style="width:90%;"></div>
+            </div>       
+        </div>
+		
+       
+        <div class="form-group">
+            <div class="col-sm-offset-10 col-sm-10">
+                <button class="btn btn-lg btn-warning" >Registrar</button>
+            </div>
+
+        </div>
+    </form>
+
+    </div>                          
+</div>
+</div>           
+
+</script>
         
           
           <script type="text/ng-template" id="/suscripcion.html">
             <div class="col-md-6 bgrdWhite">
                 <div class="page-header" >
-                    <h1 class="lblAzulObscuro">Suscripción</h1>
+                    <h1 class="lblPrincipal">Suscripción</h1>
                 </div>
                 <div ng-show="error" class="alert alert-danger row">
                     <span>"Error no found"</span>
@@ -359,7 +412,9 @@ Las tarjetas de crédito pueden estar sujetas a ajustes debido a las comisiones 
 <script type="text/ng-template" id="/editProfile.html">
     <div class="col-md-6 bgrdWhite">
         <div class="page-header" >
-            <h1 class="lblAzulObscuro">Editar Profile</h1>
+
+            <h1 class="lblPricipal">Editar Distribuidor</h1>
+
         </div>
         <div ng-show="error" class="alert alert-danger row">
             <span>"Error no found"</span>
@@ -394,10 +449,27 @@ Las tarjetas de crédito pueden estar sujetas a ajustes debido a las comisiones 
         <div class="form-group">
             <select kendo-drop-down-list
                 ng-model="distribuidor.idCategoria"
+                k-ng-model="distribuidor.idCategoriaK"
                 k-data-text-field="'nombre'"
                 k-data-value-field="'id'"
                 k-data-source="categorias"
                 style="width: 100%"></select>
+        </div>
+        
+        <div class="form-group">
+            <div class="radio">
+              <label><input type="radio" name="optradio" ng-model="distribuidor.idTipo" value="10">Master(Distribuidor/importador)</label>
+            </div>
+
+            <div class="radio">
+              <label><input type="radio" name="optradio" ng-model="distribuidor.idTipo" value="20">Distribuidor</label>
+            </div>
+
+            <div class="radio">
+              <label><input type="radio" name="optradio" ng-model="distribuidor.idTipo" value="30" >
+              Contratista
+            </label>
+            </div>
         </div>
 
         <div class="form-group">
@@ -461,7 +533,7 @@ Las tarjetas de crédito pueden estar sujetas a ajustes debido a las comisiones 
           <script type="text/ng-template" id="/notificaciones.html">
             <div class="col-md-6 bgrdWhite">
               <div class="page-header" >
-                    <h1 class="lblAzulObscuro">Notificaciones</h1>
+                    <h1 class="lblPrincipal">Notificaciones</h1>
                 </div>
                 <form class="form-horizontal">
                     <div class="form-group">
@@ -486,7 +558,7 @@ Las tarjetas de crédito pueden estar sujetas a ajustes debido a las comisiones 
            <script type="text/ng-template" id="/user-videos.html">
             <div class="col-md-6 bgrdWhite">
               <div class="page-header" >
-                    <h1 class="lblAzulObscuro">Mis Videos</h1>
+                    <h1 class="lblPrincipal">Mis Videos</h1>
                 </div>
                 <div class="embed-responsive embed-responsive-4by3">
                     <iframe class="embed-responsive-item" src="/uploads/temp.mp4"></iframe>
