@@ -19,5 +19,3 @@ var esquema = new mongoose.Schema({
 });
 
 mongoose.model('Distribuidor', esquema);
-
-    

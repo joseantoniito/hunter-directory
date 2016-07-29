@@ -81,8 +81,10 @@ app.controller('ProfileCtrl', ['$scope','$state','auth','factory',function($scop
         
         $("#imgBannerDistribuidor")
             .attr("src", "../uploads/" + $scope.distribuidor.banner);
+        console.log("distribuidor :");
+        console.log($scope.distribuidor);
         
-        if($scope.filesLogo)
+        if($scope.distribuidor.logo)    
             $scope.filesLogo.push({name : $scope.distribuidor.logo, extension: '.' + $scope.distribuidor.logo.split('.')[1]});
         if($scope.distribuidor.banner)
             $scope.filesBanner.push({name : $scope.distribuidor.banner, extension: '.' + $scope.distribuidor.banner.split('.')[1]})

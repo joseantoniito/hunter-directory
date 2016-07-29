@@ -23,7 +23,7 @@
       
     <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-T8Gy5hrqNKT+hzMclPo118YTQO6cYprQmhrYwIiQ/3axmI1hQomh7Ud2hPOy8SP1" crossorigin="anonymous">
 
-    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyA8Xq5o6lNl4YyFt0F30E_yas-zDNk3sMg" async defer></script>
+    
     
     
       <style>
@@ -105,7 +105,7 @@
                   </ul>
             </li>
             
-            <li><a href="/eventos/#/principal" class="btn btn-menu">Eventos</a></li>
+            <li><a href="/eventos/#/portafolio" class="btn btn-menu">Eventos</a></li>
             
             
               
@@ -207,21 +207,23 @@
         </div>
         <div class="divGris">
         <div class="container">
-            <div class="col-lg-12">
+            <div class="col-lg-13">
                 <h2 class="page-header">Eventos</h2>
             </div>
             
              <uib-carousel active="active" interval="myInterval" no-wrap="noWrapSlides">
               <uib-slide ng-repeat="slideCollection in groupedSlides" index="evento._id">
 
-                <a href="/eventos/#/portafolio-evento/{{ slideCollection.image1._id }}" class="a-portfolio coverWrap altura150" style="margin-left:20%;">
+                <a href="/eventos/#/portafolio-evento/{{ slideCollection.image1._id }}" class="a-portfolio coverWrap altura150" style="margin-left:7%;">
 
                     <img class="img-responsive img-portfolio img-hover" width="" src="../uploads/{{slideCollection.image1.banner}}" alt="">
                 </a>
-                <a href="/eventos/#/portafolio-evento/{{ slideCollection.image2._id }}" class="a-portfolio coverWrap altura150">
+               
+               <a href="/eventos/#/portafolio-evento/{{ slideCollection.image2._id }}" class="a-portfolio coverWrap altura150">
                     <img class="img-responsive img-portfolio img-hover" width="margin:auto;min-width:100%;" src="../uploads/{{slideCollection.image2.banner}}" alt="">
                 </a>
-				<a href="/eventos/#/portafolio-evento/{{ slideCollection.image3._id }}" class="a-portfolio coverWrap altura150" style="display:none;">
+				
+                <a href="/eventos/#/portafolio-evento/{{ slideCollection.image3._id }}" class="a-portfolio coverWrap altura150" >
                     <img class="img-responsive img-portfolio img-hover" width="margin:auto;min-width:100%;" src="../uploads/{{slideCollection.image3.banner}}" alt="">
                 </a>
             </uib-carousel>
@@ -251,14 +253,34 @@
             </div>
         </div>
         <hr>
-        
-        </script>
         <div class="footerCategorias">
-            <div class="m10"
+          <div class="row">
+          <div class="col-md-2">
+          <h4 class="m10" style="color:whitesmoke;">Industria Riego</h4>
+          <div class="m10"
+                ng-repeat="categoria in tipo_industria">
+                <a href="/#/directorio/{{ categoria.id }}">{{ categoria.nombre }}</a>
+            </div>
+            </div>
+            <div class="col-md-3">
+            <h4 class="m10" style="color:whitesmoke;">Tipo de industria</h4>
+            <div class="m10" style="margin-left:3px;"
                 ng-repeat="categoria in categorias">
                 <a href="/#/directorio/{{ categoria.id }}">{{ categoria.nombre }}</a>
             </div>
+            </div>
+            
+            
+            
+            
+            <div class="m10"
+                ng-repeat="categoria in iluminacion">
+                <a href="/#/directorio/{{ categoria.id }}">{{ categoria.nombre }}</a>
+            </div>
+            </div>
         </div>
+        </script>
+        
 
       
 <script type="text/ng-template" id="/directorio-resultados.html">
@@ -443,6 +465,7 @@
     
     <div class="altura32"></div>
     
+<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyA8Xq5o6lNl4YyFt0F30E_yas-zDNk3sMg&callback=initMap" async defer></script>
 
 </script>
 	
@@ -613,5 +636,6 @@
                             }
                         </script>
     
+      
   </body>
 </html>

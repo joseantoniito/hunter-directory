@@ -254,6 +254,7 @@ h1, h2{
 
 .footerCategorias{
     width:100%;
+    min-height: 250px;
     padding:5% 5%;
     background-color: #3D4246;
     

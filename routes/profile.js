@@ -35,6 +35,7 @@ router.post('/direccion', function(req, res, next){
     if(!req.body.colonia || !req.body.calle){
         return res.status(400).json({message: 'Favor de llenar todos los campos.'});
     }
+    
     var dir = req.body;
     var direccion = new Direccion();
     direccion.calle = dir.calle;

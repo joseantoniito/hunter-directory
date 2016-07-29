@@ -316,7 +316,7 @@ function($scope, $state, auth, projects){
           }
       }
     
-    $scope.myInterval = 5000;
+    $scope.myInterval = 3000;
     $scope.noWrapSlides = false;
     $scope.active = 0;
     var slides = $scope.slidesHome = [
@@ -353,6 +353,7 @@ function($scope, $state, auth, projects){
     $scope.distribuidores = projects.distribuidores;
     
     $scope.categorias = projects.categorias;
+    $scope.tipo_industria = projects.tipo_industria;
     $scope.distribuidor = projects.distribuidor;
     $scope.files = [];
     //$scope.ultimosEventos = projects.ultimosEventos;
@@ -409,9 +410,9 @@ function($scope, $state, auth, projects){
         //Need to be changed to update the carousel since the resolution changed
         $scope.displayMode = "tablet";
         //##################################################
-        if ($scope.displayMode == "mobile") {many = 1;}
-        else if ($scope.displayMode == "tablet") {many = 2;} 
-        else {many = 3;}
+        if ($scope.displayMode == "mobile") {many = 3;}
+        else if ($scope.displayMode == "tablet") {many = 3;} 
+        else {many = 4;}
 
         for (i = 0; i < $scope.slides.length; i += many) {
           second = {
@@ -427,6 +428,7 @@ function($scope, $state, auth, projects){
           }
           first.push(second);
         }
+        
         $scope.groupedSlides = first;
     }
 
@@ -483,9 +485,7 @@ function($scope, $state, auth, projects){
               console.log('marker dragend');
               var lat = marker.getPosition().lat();
               var lon = marker.getPosition().lng();
-              console.log(lat, lon);
               
-
               $scope.marker.options = {
                 draggable: true,
                 labelContent: "lat: " + $scope.marker.coords.latitude + ' ' + 'lon: ' + $scope.marker.coords.longitude,

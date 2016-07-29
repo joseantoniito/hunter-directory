@@ -158,25 +158,33 @@
 <div style="background-color: #EDEEF2;">
 <div class="row">
 <div class="container">
-    <div class="col-md-9 col-md-offset-1 bgrdWhite divPadTop20">
+    <div class="col-md-8  bgrdWhite divPadTop20">
         
         <a class="coverWrap">
             <img class="img-responsive img-portfolio img-hover photo" src="/uploads/{{evento.banner}}" />
         </a>
         
-        <h2 class="lblPrincipal">{{evento.nombre}}</h2>
-        <h4>Dirección: <p>{{evento.direccion}}</p></h4>
+        <h2 class="lblPrincipal" style="margin:10px;">{{evento.nombre}}</h2>
+        <div class="row">
+        <div class="col-md-4" style="margin:10px;">
+        
+        <h4>Dirección:</h4> <p>{{evento.direccion}}</p>
+        </div>
 
+        <div class="col-md-4" >
+        <p >{{evento.descripcion}}</p>
+        
+        </div>
+        <h4>Horario</h4>
+        <h5 class="lblSecundario" style="margin:10px;">{{evento.fechaInicio  | date:'MM/dd/yyyy h:mma'}}</h5>
+        <h5 class="lblSecundario" style="margin:10px;">{{evento.fechaFin  | date:'MM/dd/yyyy h:mma'}}</h5>
+        </div>
+        
         <div class="row divPadTop20">
             <div class="col-xs-3">
                 <div fb-like="myModel.Url"></div>
             </div>
         </div>
-        <p>{{evento.descripcion}}</p>
-        
-        <h4 class="lblPrincipal">{{evento.fechaInicio  | date:'MM/dd/yyyy h:mma'}}</h4>
-        <h4 class="lblPrincipal">{{evento.fechaFin  | date:'MM/dd/yyyy h:mma'}}</h4>
-
         
          <div class="demo-section k-content wide divPadTop20">
             <div kendo-list-view id="listView" k-data-source="sourceFotosEvento">
@@ -191,8 +199,10 @@
             <div kendo-pager k-data-source="sourceFotosEvento"></div>
         </div>
         
-        <div class="altura64"></div>
+    
+        
     </div> 
+    <div class="col-md-4 fb-comments" data-href="https://developers.facebook.com/docs/plugins/comments#configurator" data-width="300px" data-numposts="5"></div>
 </div>
 </div>
 </div>

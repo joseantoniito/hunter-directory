@@ -94,7 +94,7 @@ function($scope, $state, auth, factory, $uibModal){
     
     $scope.myModel = {
               Url: 'https://devriego.herokuapp.com',//window.location.href
-              Name: $scope.evento.nombre, 
+              Name:  '', 
               ImageUrl: 'https://devriego.herokuapp.com/uploads/eysh.jpeg'
           };
     
