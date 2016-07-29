@@ -64,7 +64,12 @@ function($stateProvider, $urlRouterProvider) {
     .state('direccion', {
       url: '/direccion',
       templateUrl: '/direccion.html',
-      controller: 'ProfileCtrl'
+      controller: 'ProfileCtrl',
+      resolve: {
+        postPromise: ['factory', function(factory){
+            return factory.obtenerPerfilDistribuidor();
+        }]
+      }
     });
     
     $stateProvider
@@ -122,7 +127,7 @@ app.controller('ProfileCtrl', ['$scope','$state','auth','factory',function($scop
             .attr("src", "../uploads/" + $scope.distribuidor.banner);
     }
     if($state.current.name == "direccion"){
-        $scope.distribuidor = { direccion:{ calle:"" }};
+        //$scope.distribuidor = { direccion:{ calle:"" }};
         
         var mapOptions = {
             zoom: 4,
@@ -252,9 +257,15 @@ app.controller('ProfileCtrl', ['$scope','$state','auth','factory',function($scop
     $scope.actualizarDireccionDistribuidor = function(event){
          
          if(!$scope.validator.validate()) return;
+        
+        if(!$scope.distribuidor.direccion.latitud){
+            alert("Debe geolocalizar su dirección y comprobar que sea correcta antes de guardarla.");
+            return;
+        }
+        
          debugger;
         
-         factory.actualizarDireccionDistribuidor($scope.distribuidor.direccion)
+         factory.actualizarDireccionDistribuidor($scope.distribuidor)
             .error(function(error){
                 $scope.error = error;
             })
@@ -267,8 +278,8 @@ app.controller('ProfileCtrl', ['$scope','$state','auth','factory',function($scop
         var oDireccion = $scope.distribuidor.direccion;
         var direccionCompleta = "{0} {1} {2}, {3}, {4}, {5}, {6}".format(
                 oDireccion.calle || "",
-                oDireccion.numero_interior || "",
                 oDireccion.numero_exterior || "",
+                oDireccion.numero_interior || "",
                 oDireccion.colonia || "",
                 oDireccion.municipio || "",
                 oDireccion.estado || "",

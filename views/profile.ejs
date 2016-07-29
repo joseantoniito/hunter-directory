@@ -203,12 +203,12 @@
         </div>
 
         <div class="form-group">
-             <label class="control-label col-sm-2" for="cp">Num. Ext.:</label>
+             <label class="control-label col-sm-2" for="num_ext">Num. Ext.:</label>
             <div class="col-sm-3">
                 <input class="form-control" id="num_ext" placeholder="Número exterior"
-                    ng-model="$scope.distribuidor.direccion.numero_exterior" required validationMessage="La numero exterior es obligatoria." name="eNumeroExterior">
+                    ng-model="distribuidor.direccion.numero_exterior" required validationMessage="La numero exterior es obligatoria." name="eNumeroExterior">
             </div>
-            <label class="control-label col-sm-2    " for="cp">Num. Int.:</label>
+            <label class="control-label col-sm-2" for="num_int">Num. Int.:</label>
             <div class="col-sm-3">
                 <input class="form-control" id="num_int" placeholder="Numero interior"
                     ng-model="distribuidor.direccion.numero_interior" required validationMessage="La numero interior es obligatoria." name="eNumeroInterior">
@@ -228,8 +228,24 @@
                     ng-model="distribuidor.direccion.codigoPostal" required validationMessage="El código postal es obligatorio." name="eCodigoPostal">
             </div>
         </div>
-
+        
         <div class="form-group">
+            <label class="control-label col-sm-2" for="municipio">Municipio</label>
+            <div class="col-md-5">
+                <input class="form-control" id="municipio" placeholder="municipio"
+                    ng-model="distribuidor.direccion.municipio" required validationMessage="El municipio es obligatorio." name="eMunicipio">
+            </div>
+        </div>
+        
+         <div class="form-group">
+            <label class="control-label col-sm-2" for="estado">Estado</label>
+            <div class="col-md-5">
+                <input class="form-control" id="estado" placeholder="estado"
+                    ng-model="distribuidor.direccion.estado" required validationMessage="El estado es obligatorio." name="eEstado">
+            </div>
+        </div>
+
+        <!--<div class="form-group">
             <label class="control-label col-sm-2" for="estado">Estado</label>
             <div class="col-md-4">
                 <select  class="form-control" id="estado" name="Estado" ng-model="distribuidor.direccion.estado" >
@@ -268,7 +284,7 @@
                     <option value="ZAC">Zacatecas</option>
                 </select>
             </div>
-        </div>
+        </div>-->
         
         <div class="form-group">
             <label class="control-label col-sm-2" for="phone">Telefono</label>

@@ -25,6 +25,19 @@
 
     <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyA8Xq5o6lNl4YyFt0F30E_yas-zDNk3sMg" async defer></script>
     
+      <script> 
+          if (!String.prototype.format) {
+              String.prototype.format = function() {
+                var args = arguments;
+                return this.replace(/{(\d+)}/g, function(match, number) { 
+                  return typeof args[number] != 'undefined'
+                    ? args[number]
+                    : match
+                  ;
+                });
+              };
+            }
+      </script>
     
       <style>
           
@@ -306,7 +319,7 @@
             
                 <div style="text-align:left">
                     <h1>{{ distribuidor.nombre }}</h1>
-                    <h3>Dirección: {{ distribuidor.direccion }} </h3>
+                    <h3>Dirección: {{ distribuidor.direccionCompleta }} </h3>
                     <p>{{ distribuidor.descripcion }}</p>
                     <h5></h5>
                     <h4></h4>

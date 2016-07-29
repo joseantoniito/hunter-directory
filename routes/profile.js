@@ -28,17 +28,19 @@ router.get('/', function(req, res, next) {
 
 router.post('/actualizarDireccionDistribuidor', auth, function(req, res, next){
     
-    if(!req.body.colonia || !req.body.calle){
+    var dir = req.body.direccion;
+    if(!dir.colonia || !dir.calle){
         return res.status(400).json({message: 'Favor de llenar todos los campos.'});
     }
-    var dir = req.body;
+    
     var direccion = new Direccion();
     direccion.calle = dir.calle;
     direccion.numero_interior = dir.numero_interior;
     direccion.numero_exterior = dir.numero_exterior;
-    direccion.pais = dir.pais;
-    direccion.estado = dir.estado;
+    direccion.colonia = dir.colonia;
     direccion.municipio = dir.municipio;
+    direccion.estado = dir.estado;
+    direccion.pais = dir.pais;
     direccion.entreCalleUno = dir.entreCalleUno;
     direccion.entreCalleDos = dir.entreCalleDos;
     direccion.latitud = dir.latitud;
@@ -46,12 +48,53 @@ router.post('/actualizarDireccionDistribuidor', auth, function(req, res, next){
     direccion.codigoPostal = dir.codigoPostal;
     direccion.telefono = dir.telefono;
     direccion.celular = dir.celular;
+    direccion.distribuidor = req.body._id;
   
-    direccion.save(function (err, data){
-        if(err){ return next(err); }
-
-        return res.json(data);
-    });
+    if(dir._id == null){
+        direccion.save(function (err, data){
+            if(err){ return next(err); }
+            console.log(data);
+            Distribuidor.update(
+                {_id : new ObjectId(req.body._id)}, 
+                {
+                    direccion: data._id
+                },  
+                function(err, numAffected){
+                    if(err){ return next(err); }
+                    //return res.json(data);
+                }
+            );
+            
+            return res.json(data);
+        });
+    }
+    else{
+        direccion._id = dir._id;
+		Direccion.update(
+			{_id : new ObjectId(direccion._id)}, 
+			{
+				calle : direccion.calle,
+                numero_interior : direccion.numero_interior,
+                numero_exterior : direccion.numero_exterior,
+                colonia: direccion.colonia,
+                municipio: direccion.municipio,
+                estado : direccion.estado,
+                pais : direccion.pais,
+                entreCalleUno : direccion.entreCalleUno,
+                entreCalleDos : direccion.entreCalleDos,
+                latitud : direccion.latitud,
+                longitud : direccion.longitud,
+                codigoPostal: direccion.codigoPostal,
+                telefono: direccion.telefono,
+                celular: direccion.celular
+			},  
+			function(err, numAffected){
+				if(err){ return next(err); }
+				res.json(direccion);
+			}
+        );
+    }
+    
 });
 
 router.param('idUser', function(req, res, next, id) {
@@ -76,7 +119,7 @@ router.get('/userInfo/:idUser', function(req, res, next) {
 
 router.get('/obtenerDistribuidor', auth, function(req, res, next) {
       console.log(req.payload);
-	  var query = Distribuidor.find({usuario : new ObjectId(req.payload._id)});//.populate('fotos');
+	  var query = Distribuidor.find({usuario : new ObjectId(req.payload._id)}).populate('direccion');
 
 	  query.exec(function (err, data){
 		if (err) { return next(err); }

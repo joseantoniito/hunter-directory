@@ -451,47 +451,61 @@ function($scope, $state, auth, projects){
         ];
     
      
-    var mapOptions = {
-        zoom: 4,
-        center: new google.maps.LatLng(40.0000, -98.0000),
-        mapTypeId: google.maps.MapTypeId.TERRAIN
-    }
+        var mapOptions = {
+            zoom: 4,
+            center: new google.maps.LatLng(40.0000, -98.0000),
+            mapTypeId: google.maps.MapTypeId.TERRAIN
+        }
 
-    $scope.map = new google.maps.Map(document.getElementById('map'), mapOptions);
+        $scope.map = new google.maps.Map(document.getElementById('map'), mapOptions);
 
-    $scope.markerDireccion = {};
-    
-    var infoWindow = new google.maps.InfoWindow();
-    
-    var createMarker = function (info){
-        
-        var marker = new google.maps.Marker({
-            map: $scope.map,
-            position: new google.maps.LatLng(info.lat, info.long),
-            title: info.city
-        });
-        marker.content = '<div class="infoWindowContent">' + info.desc + '</div>';
-        
-        google.maps.event.addListener(marker, 'click', function(){
-            infoWindow.setContent('<h2>' + marker.title + '</h2>' + marker.content);
-            infoWindow.open($scope.map, marker);
-        });
-        
-        $scope.markerDireccion = marker;
-        
-    }  
-    
-    createMarker({
-        city : 'Riego',
-        desc : 'Los mejores sistemas de riego!',
-        lat : 41.8819,
-        long : -87.6278});
+        $scope.markerDireccion = {};
 
-    $scope.openInfoWindow = function(e, selectedMarker){
-        e.preventDefault();
-        google.maps.event.trigger(selectedMarker, 'click');
-    }
+        var infoWindow = new google.maps.InfoWindow();
+
+        var createMarker = function (info){
+
+            var marker = new google.maps.Marker({
+                map: $scope.map,
+                position: new google.maps.LatLng(info.lat, info.long),
+                title: info.city
+            });
+            marker.content = '<div class="infoWindowContent">' + info.desc + '</div>';
+
+            google.maps.event.addListener(marker, 'click', function(){
+                infoWindow.setContent('<h2>' + marker.title + '</h2>' + marker.content);
+                infoWindow.open($scope.map, marker);
+            });
+
+            $scope.markerDireccion = marker;
+
+        }  
+
+        createMarker({
+            city : 'Riego',
+            desc : 'Los mejores sistemas de riego!',
+            lat : $scope.distribuidor.direccion.latitud,
+            long : $scope.distribuidor.direccion.longitud});
+
+        $scope.openInfoWindow = function(e, selectedMarker){
+            e.preventDefault();
+            google.maps.event.trigger(selectedMarker, 'click');
+        }
         
+        var latLng = new google.maps.LatLng($scope.distribuidor.direccion.latitud, $scope.distribuidor.direccion.longitud);
+        $scope.map.setCenter(latLng);
+        $scope.map.setZoom(15);
+        
+        var oDireccion = $scope.distribuidor.direccion;
+        $scope.distribuidor.direccionCompleta = "{0} {1} {2}, {3}, {4}, {5}, {6}".format(
+                oDireccion.calle || "",
+                oDireccion.numero_exterior || "",
+                oDireccion.numero_interior || "",
+                oDireccion.colonia || "",
+                oDireccion.municipio || "",
+                oDireccion.estado || "",
+                oDireccion.pais || ""
+            );
     }
   
 }]);

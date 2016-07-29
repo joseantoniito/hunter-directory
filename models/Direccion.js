@@ -16,7 +16,8 @@ var esquema = new mongoose.Schema({
     longitud : String,
     codigoPostal: String,
     telefono: String,
-    celular: String
+    celular: String,
+    distribuidor: { type: mongoose.Schema.Types.ObjectId, ref: 'Distribuidor' },
 });
 
 
