@@ -33,10 +33,6 @@ router.post('/actualizarDireccionDistribuidor', auth, function(req, res, next){
         return res.status(400).json({message: 'Favor de llenar todos los campos.'});
     }
     
-<<<<<<< HEAD
-    var dir = req.body;
-=======
->>>>>>> ab60b70b4bd83d56abd5a553f4ece1f4e0326aab
     var direccion = new Direccion();
     direccion.calle = dir.calle;
     direccion.numero_interior = dir.numero_interior;
