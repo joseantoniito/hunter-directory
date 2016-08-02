@@ -23,7 +23,7 @@
       
     <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-T8Gy5hrqNKT+hzMclPo118YTQO6cYprQmhrYwIiQ/3axmI1hQomh7Ud2hPOy8SP1" crossorigin="anonymous">
 
-    
+      <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyA8Xq5o6lNl4YyFt0F30E_yas-zDNk3sMg" async defer></script>
     
       <script> 
           if (!String.prototype.format) {
@@ -75,7 +75,8 @@
         
 		 <h2><dl>
 		 <a href="/#/home" style="float:left; color: white;">
-            IMAGÉN RIEGO        </a>
+           <span class="glyphicon glyphicon-grain" aria-hidden="true" style="margin-right:2px;"></span>
+             RIEGO SUSTENTABLE       </a> 
           </dl>
         </h2>
         
@@ -268,23 +269,36 @@
         <hr>
         <div class="footerCategorias">
           <div class="row">
-          <div class="col-md-2">
-          <h4 class="m10" style="color:whitesmoke;">Industria Riego</h4>
+          <div class="col-md-3">
+          <h3 class="m10" style="color:gray;">Industria Riego</h3>
           <div class="m10"
                 ng-repeat="categoria in tipo_industria">
                 <a href="/#/directorio/{{ categoria.id }}">{{ categoria.nombre }}</a>
             </div>
             </div>
             <div class="col-md-3">
-            <h4 class="m10" style="color:whitesmoke;">Tipo de industria</h4>
+            <h3 class="m10" style="color:gray;">Tipo de industria</h3>
             <div class="m10" style="margin-left:3px;"
                 ng-repeat="categoria in categorias">
                 <a href="/#/directorio/{{ categoria.id }}">{{ categoria.nombre }}</a>
             </div>
             </div>
             
-            
-            
+            <div class="col-md-3">
+            <h3 class="m10" style="color:gray">Contacto</h3>
+             <div class="m10" style="margin-left:3px;"     >
+                <a>Diplay Imagén y publicidad </a>
+                </div>
+                <div class="m10" style="margin-left:3px;"     >
+
+                <a>Tel: 4423657157</a>
+                </div>
+                <div class="m10" style="margin-left:3px;"     >
+                <a> aespino@displayimagenpublicidad.com</a>
+                </div>
+                <div class="m10" style="margin-left:3px;"     >
+            </div>
+            </div>
             
             <div class="m10"
                 ng-repeat="categoria in iluminacion">
@@ -331,41 +345,73 @@
 <script type="text/ng-template" id="/detalle.html">
  <div class="container">
     <div class="row" >
-        <div class="col-md-10 col-md-offset-1" >
+    
+        <div class="col-md-9" >
+        
+                <div style="height: 280px;">
+            <uib-carousel active="active" interval="myInterval" no-wrap="noWrapSlides">
+              <uib-slide ng-repeat="slide in slidesdis" index="slide.id">
+                <img ng-src="{{slide.image}}" style="margin:auto; width:100%; height:275px;">
+                <div class="carousel-caption">
+                  <h1><div style="color:white;">{{slide.desc}}</div></h1>
+                  <h4><p>{{slide.text}}</p></h4>
+                </div>
+              </uib-slide>
+            </uib-carousel>
+        </div>
+        
             <div class='divContenedorListado'style="background:white;"> 
             <div class='divImagenListado'>
                 <div class="altura32"></div>
-                <img class='imagenListado' src='/uploads/{{ distribuidor.logo }}'/> 
+                <a href="#"  >
+                       <img  src='/uploads/{{ distribuidor.logo }}' class="img-rounded" alt="Icono empresa" width="200" height="180">
+                    </a>
+                      
             </div> 
-            <div class='divContenidoListado'> 
+         
+         <div class='divContenidoListado'> 
             
-                <div style="text-align:left">
-                    <h1>{{ distribuidor.nombre }}</h1>
-                    <h3>Dirección: {{ distribuidor.direccionCompleta }} </h3>
-                    <p>{{ distribuidor.descripcion }}</p>
-                    <h5></h5>
-                    <h4></h4>
-                    <div>
-                        <a class="qodef-icon-shortcode normal qodef-icon-little" 
-                            style="cursor:pointer;margin-right:7px;">
-                            <i class="qodef-icon-font-awesome fa fa-facebook-official qodef-icon-element" style=""></i>
-                        </a>
+                <div>
+                    <h1><b>{{ distribuidor.nombre }}</b></h1>
+                    
+                    <div class="panel panel-default">
+                        <div class="panel-heading">Dirección</div>
+                        <div class="panel-body">
+                            <p>Mar de Las Antillas 209, Central, 64190 Moterrey, N.L.</p>
+                        </div>
+                    </div>
+  
+                    
+                    <div class="panel panel-default">
+                        <div class="panel-heading"><b>Descripción</b></div>
+                        <div class="panel-body">
+                        <p>
+                          {{ distribuidor.descripcion }}
+                        </p>
+                        </div>
+                    
+                    </div>
+                    </div>
                         
-                        <a class="qodef-icon-shortcode normal qodef-icon-little" 
-                            style="cursor:pointer;margin-right:7px;">
-                            <i class="qodef-icon-font-awesome fa fa-twitter-square qodef-icon-element" style=""></i>
-                        </a>
+                            <i class="fa fa-facebook-square fa-4x" style="color: #3b5998;" aria-hidden="true"></i>
                         
-                        <a class="qodef-icon-shortcode normal qodef-icon-little" style="cursor:pointer;">
-                            <i class="qodef-icon-font-awesome fa fa-info-circle qodef-icon-element" style=""></i>
-                        </a>   
+                        
+                            <i class="fa fa-twitter-square  fa-4x " style="color: #4099FF;"></i>
+                                        
+                        
+                            <i class="fa fa-info-circle fa-4x" style=""></i>
+                    
                     </div>
                     
                     <div class="altura32"></div>
-                </div>
                 
-                <h4>Servicios: </h4>
+                
+                
+        
+        
+                
                 <div class="btn-group" role="group" aria-label="...">
+                <h4>Servicios: </h4>
                     <button type="button" class="btn btn-success">
                     <span class="glyphicon glyphicon-grain" aria-hidden="true"></span>
                     Sistemas de riego</button>
@@ -384,19 +430,6 @@
                     Conexiones</button>
                 </div>  
             </div>
-        </div>
-        
-        <div style="height: 280px;">
-            <uib-carousel active="active" interval="myInterval" no-wrap="noWrapSlides">
-              <uib-slide ng-repeat="slide in slidesdis" index="slide.id">
-                <img ng-src="{{slide.image}}" style="margin:auto; width:100%; height:275px;">
-                <div class="carousel-caption">
-                  <h1><div style="color:white;">{{slide.desc}}</div></h1>
-                  <h4><p>{{slide.text}}</p></h4>
-                </div>
-              </uib-slide>
-            </uib-carousel>
-        </div>
         
     <div class="">
         <div class="row" >

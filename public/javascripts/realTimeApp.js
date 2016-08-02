@@ -96,7 +96,7 @@ app.controller('AuthCtrl', [
 '$state',
 'auth',
 function($scope, $state, auth){
-  $scope.appname = "Imagèn riego";
+  $scope.appname = "Riego Sustentable";
   $scope.user = {};
   
     
@@ -199,7 +199,7 @@ app.controller('MainCtrl', [
 'projects',
 function($scope, $state, auth, projects){
     //debugger;
-    $scope.appname = "Imagén riego";
+    $scope.appname = "Riego Sustentable";
     $scope.countryNames = [
               "Albania",
               "Andorra",
@@ -432,9 +432,27 @@ function($scope, $state, auth, projects){
               desc: '', 
               id: 0
             },
-
-            zoom: 8
-        };
+{
+              image: 'http://eysh.mx/store/images/promo/0/b2.jpg',
+              desc: '',
+                text: '',
+              id: 1
+            },
+            {
+              image: 'http://eysh.mx/store/images/promo/0/banner_tiendas_pagina_web.jpg',
+              desc: '',
+              text: '',
+              id: 2
+            },
+            {
+              image: 'http://eysh.mx/store/images/promo/0/b1.jpg',
+              text: '',
+               desc:  '',
+              id: 3
+            },
+        ];
+            
+         /*   
         $scope.marker = {
           id: 0,
           coords: {
@@ -457,25 +475,7 @@ function($scope, $state, auth, projects){
             }
           }
         };
-           {
-              image: 'http://eysh.mx/store/images/promo/0/b2.jpg',
-              desc: '',
-                text: '',
-              id: 1
-            },
-            {
-              image: 'http://eysh.mx/store/images/promo/0/banner_tiendas_pagina_web.jpg',
-              desc: '',
-              text: '',
-              id: 2
-            },
-            {
-              image: 'http://eysh.mx/store/images/promo/0/b1.jpg',
-              text: '',
-               desc:  '',
-              id: 3
-            },
-        ];
+         
     
      
         var mapOptions = {
@@ -519,11 +519,13 @@ function($scope, $state, auth, projects){
             google.maps.event.trigger(selectedMarker, 'click');
         }
         
-        var latLng = new google.maps.LatLng($scope.distribuidor.direccion.latitud, $scope.distribuidor.direccion.longitud);
+        var latLng = new google.maps.LatLng($scope.distribuidor.direccion.latitud,
+        $scope.distribuidor.direccion.longitud);
         $scope.map.setCenter(latLng);
         $scope.map.setZoom(15);
-        
+       */  
         var oDireccion = $scope.distribuidor.direccion;
+        if (oDireccion) {
         $scope.distribuidor.direccionCompleta = "{0} {1} {2}, {3}, {4}, {5}, {6}".format(
                 oDireccion.calle || "",
                 oDireccion.numero_exterior || "",
@@ -533,6 +535,7 @@ function($scope, $state, auth, projects){
                 oDireccion.estado || "",
                 oDireccion.pais || ""
             );
+            }
     }
   
 }]);
@@ -635,7 +638,7 @@ app.factory('projects', ['$http', 'auth', function($http, auth){
 	};
 	
     o.obtenerDistribuidoresPorNombre = function(string) {
-        //console.log("hola" + id);
+        console.log("hola" + id);
 		return $http.get('/distribuidoresPorNombre/' + string)
             .success(function(dataS){
                 angular.copy(dataS, o.distribuidores);
@@ -645,9 +648,12 @@ app.factory('projects', ['$http', 'auth', function($http, auth){
 	
     
     o.obtenerDistribuidor = function(id) {
+        console.log("holas" + id);
+        
 		return $http.get('/distribuidorPorId/' + id)
             .success(function(dataS){
-                o.distribuidor = dataS;
+            console.log(dataS);    
+            o.distribuidor = dataS;
             });
 	};
     
