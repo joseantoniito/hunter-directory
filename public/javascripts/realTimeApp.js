@@ -199,7 +199,7 @@ app.controller('MainCtrl', [
 'projects',
 function($scope, $state, auth, projects){
     //debugger;
-    $scope.appname = "Imagén riego";
+    $scope.appname = "Riego Sustentable";
     $scope.countryNames = [
               "Albania",
               "Andorra",
