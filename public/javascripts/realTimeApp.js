@@ -383,6 +383,9 @@ function($scope, $state, auth, projects){
         debugger;  
         console.log(data);
     };
+    
+    $scope.formatDireccion = projects.formatDireccion;
+    
 
     //carousel multi item
 
@@ -401,6 +404,7 @@ function($scope, $state, auth, projects){
         else {many = 4;}
 
         for (i = 0; i < $scope.slides.length; i += many) {
+            debugger;
           second = {
             image1: $scope.slides[i]
           };
@@ -504,15 +508,7 @@ function($scope, $state, auth, projects){
             $scope.map.setZoom(15);
 
             var oDireccion = $scope.distribuidor.direccion;
-            $scope.distribuidor.direccionCompleta = "{0} {1} {2}, {3}, {4}, {5}, {6}".format(
-                    oDireccion.calle || "",
-                    oDireccion.numero_exterior || "",
-                    oDireccion.numero_interior || "",
-                    oDireccion.colonia || "",
-                    oDireccion.municipio || "",
-                    oDireccion.estado || "",
-                    oDireccion.pais || ""
-                );
+            $scope.distribuidor.direccionCompleta = $scope.formatDireccion(oDireccion);
         }
     }
   
@@ -598,6 +594,21 @@ app.factory('projects', ['$http', 'auth', function($http, auth){
         ultimosEventos: []
 	  };
   
+      o.formatDireccion = function(oDireccion) {
+        if (oDireccion){
+          return "{0} {1} -{2}, {3}, {4}, {5} {6}".format(
+                        oDireccion.calle || "",
+                        oDireccion.numero_exterior || "",
+                        oDireccion.numero_interior || "",
+                        oDireccion.colonia || "",
+                        oDireccion.municipio || "",
+                        oDireccion.estado || "",
+                        oDireccion.pais || ""
+                    );
+        }
+        return "";
+    };
+    
     o.agregarDistribuidor = function(data) {
 		return $http.post('/distribuidores', data)
             .success(function(dataS){
