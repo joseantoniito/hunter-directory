@@ -145,14 +145,14 @@ router.get('/obtenerDistribuidoresHijos', auth, function(req, res, next) {
 
 router.post('/distribuidores', auth, function(req, res, next){
     
-    if(!req.body.nombre || !req.body.direccion){
+    if(!req.body.nombre){
         return res.status(400).json({message: 'Favor de llenar todos los campos.'});
     }
 
     var distribuidor = new Distribuidor();
     distribuidor.nombre = req.body.nombre;
     distribuidor.descripcion = req.body.descripcion;
-    distribuidor.direccion = req.body.direccion;
+    //distribuidor.direccion = req.body.direccion;
     distribuidor.paginaWeb = req.body.paginaWeb;
     distribuidor.idCategoria = req.body.idCategoria;
     distribuidor.logo = req.body.logo;
@@ -174,7 +174,7 @@ router.post('/distribuidores', auth, function(req, res, next){
 			{
 				nombre: distribuidor.nombre,
                 descripcion: distribuidor.descripcion,
-                direccion: distribuidor.direccion,
+                //direccion: distribuidor.direccion,
                 paginaWeb: distribuidor.paginaWeb,
                 idCategoria: distribuidor.idCategoria,
                 logo: distribuidor.logo,

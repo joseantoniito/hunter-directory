@@ -298,7 +298,7 @@ function($scope, $state, auth, projects){
             var text = item.text();
             var id = e.item.data().$$kendoScope.dataItem._id;
             console.log("id",id);
-            window.location.href = "http://localhost:3000/#/detalle/" + id;
+            window.location.href = "/#/detalle/" + id;
           }
       }
     
@@ -465,49 +465,52 @@ function($scope, $state, auth, projects){
 
         var infoWindow = new google.maps.InfoWindow();
 
-        var createMarker = function (info){
+        if($scope.distribuidor.direccion){
+            var createMarker = function (info){
 
-            var marker = new google.maps.Marker({
-                map: $scope.map,
-                position: new google.maps.LatLng(info.lat, info.long),
-                title: info.city
-            });
-            marker.content = '<div class="infoWindowContent">' + info.desc + '</div>';
+                var marker = new google.maps.Marker({
+                    map: $scope.map,
+                    position: new google.maps.LatLng(info.lat, info.long),
+                    title: info.city
+                });
+                marker.content = '<div class="infoWindowContent">' + info.desc + '</div>';
 
-            google.maps.event.addListener(marker, 'click', function(){
-                infoWindow.setContent('<h2>' + marker.title + '</h2>' + marker.content);
-                infoWindow.open($scope.map, marker);
-            });
+                google.maps.event.addListener(marker, 'click', function(){
+                    infoWindow.setContent('<h2>' + marker.title + '</h2>' + marker.content);
+                    infoWindow.open($scope.map, marker);
+                });
 
-            $scope.markerDireccion = marker;
+                $scope.markerDireccion = marker;
 
-        }  
+            }  
 
-        createMarker({
-            city : 'Riego',
-            desc : 'Los mejores sistemas de riego!',
-            lat : $scope.distribuidor.direccion.latitud,
-            long : $scope.distribuidor.direccion.longitud});
+            createMarker({
+                city : 'Riego',
+                desc : 'Los mejores sistemas de riego!',
+                lat : $scope.distribuidor.direccion.latitud,
+                long : $scope.distribuidor.direccion.longitud});
 
-        $scope.openInfoWindow = function(e, selectedMarker){
-            e.preventDefault();
-            google.maps.event.trigger(selectedMarker, 'click');
+            $scope.openInfoWindow = function(e, selectedMarker){
+                e.preventDefault();
+                google.maps.event.trigger(selectedMarker, 'click');
+            }
+
+            var latLng = new google.maps.LatLng($scope.distribuidor.direccion.latitud, $scope.distribuidor.direccion.longitud);
+            $scope.map.setCenter(latLng);
+            $scope.map.setZoom(15);
+
+            var oDireccion = $scope.distribuidor.direccion;
+            $scope.distribuidor.direccionCompleta = "{0} {1} {2}, {3}, {4}, {5}, {6}".format(
+                    oDireccion.calle || "",
+                    oDireccion.numero_exterior || "",
+                    oDireccion.numero_interior || "",
+                    oDireccion.colonia || "",
+                    oDireccion.municipio || "",
+                    oDireccion.estado || "",
+                    oDireccion.pais || ""
+                );
         }
         
-        var latLng = new google.maps.LatLng($scope.distribuidor.direccion.latitud, $scope.distribuidor.direccion.longitud);
-        $scope.map.setCenter(latLng);
-        $scope.map.setZoom(15);
-        
-        var oDireccion = $scope.distribuidor.direccion;
-        $scope.distribuidor.direccionCompleta = "{0} {1} {2}, {3}, {4}, {5}, {6}".format(
-                oDireccion.calle || "",
-                oDireccion.numero_exterior || "",
-                oDireccion.numero_interior || "",
-                oDireccion.colonia || "",
-                oDireccion.municipio || "",
-                oDireccion.estado || "",
-                oDireccion.pais || ""
-            );
     }
   
 }]);
