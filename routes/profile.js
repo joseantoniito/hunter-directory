@@ -33,9 +33,6 @@ router.post('/actualizarDireccionDistribuidor', auth, function(req, res, next){
         return res.status(400).json({message: 'Favor de llenar todos los campos.'});
     }
     
-
-    var dir = req.body;
-
     var direccion = new Direccion();
     direccion.calle = dir.calle;
     direccion.numero_interior = dir.numero_interior;
@@ -155,7 +152,7 @@ router.post('/distribuidores', auth, function(req, res, next){
     var distribuidor = new Distribuidor();
     distribuidor.nombre = req.body.nombre;
     distribuidor.descripcion = req.body.descripcion;
-    distribuidor.sdireccion = req.body.direccion;
+    distribuidor.direccion = req.body.direccion;
     distribuidor.paginaWeb = req.body.paginaWeb;
     distribuidor.idCategoria = req.body.idCategoria;
     distribuidor.logo = req.body.logo;
@@ -176,7 +173,7 @@ router.post('/distribuidores', auth, function(req, res, next){
 			{_id : new ObjectId(distribuidor._id)}, 
 			{
 				nombre: distribuidor.nombre,
-                direccion: distribuidor.descripcion,
+                descripcion: distribuidor.descripcion,
                 direccion: distribuidor.direccion,
                 paginaWeb: distribuidor.paginaWeb,
                 idCategoria: distribuidor.idCategoria,

@@ -432,7 +432,9 @@ function($scope, $state, auth, projects){
               desc: '', 
               id: 0
             },
-{
+
+           {
+
               image: 'http://eysh.mx/store/images/promo/0/b2.jpg',
               desc: '',
                 text: '',
@@ -451,31 +453,8 @@ function($scope, $state, auth, projects){
               id: 3
             },
         ];
-            
-         /*   
-        $scope.marker = {
-          id: 0,
-          coords: {
-            latitude: 40.1451,
-            longitude: -99.6680
-          },
-          options: { draggable: true },
-          events: {
-            dragend: function (marker, eventName, args) {
-              console.log('marker dragend');
-              var lat = marker.getPosition().lat();
-              var lon = marker.getPosition().lng();
-              
-              $scope.marker.options = {
-                draggable: true,
-                labelContent: "lat: " + $scope.marker.coords.latitude + ' ' + 'lon: ' + $scope.marker.coords.longitude,
-                labelAnchor: "100 0",
-                labelClass: "marker-labels"
-              };
-            }
-          }
-        };
-         
+
+
     
      
         var mapOptions = {
@@ -523,7 +502,7 @@ function($scope, $state, auth, projects){
         $scope.distribuidor.direccion.longitud);
         $scope.map.setCenter(latLng);
         $scope.map.setZoom(15);
-       */  
+         
         var oDireccion = $scope.distribuidor.direccion;
         if (oDireccion) {
         $scope.distribuidor.direccionCompleta = "{0} {1} {2}, {3}, {4}, {5}, {6}".format(
