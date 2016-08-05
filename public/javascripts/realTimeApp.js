@@ -528,7 +528,7 @@ function($scope, $state, auth, projects, $sce){
                     ],
                     tracks: [],
                     theme: {
-                        url: "http://www.videogular.com/styles/themes/default/latest/videogular.css"
+                        url: "/stylesheets/videogular.css"
                     },id: indexE
                 });
         }); 
