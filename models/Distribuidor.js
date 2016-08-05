@@ -17,7 +17,8 @@ var esquema = new mongoose.Schema({
     usuario: { type: mongoose.Schema.Types.ObjectId, ref: 'User' },
     usuarioPadre: { type: mongoose.Schema.Types.ObjectId, ref: 'User' },
     idTipo: Number,
-    banner: String
+    banner: String,
+    videos: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Foto' }],
 });
 
 mongoose.model('Distribuidor', esquema);

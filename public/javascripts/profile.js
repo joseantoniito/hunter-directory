@@ -71,6 +71,17 @@ function($stateProvider, $urlRouterProvider) {
         }]
       }
     });
+    $stateProvider
+    .state('direccion-subdistribuidor', {
+      url: '/direccion/{id}',
+      templateUrl: '/direccion.html',
+      controller: 'ProfileCtrl',
+      resolve: {
+        post: ['$stateParams', 'factory', function($stateParams, factory) {
+              return factory.obtenerDistribuidorPorId($stateParams.id);
+            }]
+      }
+    });
     
     $stateProvider
     .state('suscripcion', {
@@ -83,7 +94,23 @@ function($stateProvider, $urlRouterProvider) {
     .state('user-videos', {
       url: '/user-videos',
       templateUrl: '/user-videos.html',
-      controller: 'ProfileCtrl'
+      controller: 'ProfileCtrl',
+      resolve: {
+        postPromise: ['factory', function(factory){
+            return factory.obtenerPerfilDistribuidor();
+        }]
+      }
+    });
+    $stateProvider
+    .state('user-videos-subdistribuidor', {
+      url: '/user-videos/{id}',
+      templateUrl: '/user-videos.html',
+      controller: 'ProfileCtrl',
+      resolve: {
+        post: ['$stateParams', 'factory', function($stateParams, factory) {
+              return factory.obtenerDistribuidorPorId($stateParams.id);
+            }]
+      }
     });
     
     $stateProvider
@@ -113,11 +140,22 @@ app.controller('ProfileCtrl', ['$scope','$state','auth','factory',function($scop
     $scope.categorias = factory.categorias;
     $scope.filesLogo = [];
     $scope.filesBanner = [];
+    $scope.filesVideos = [];
+    $scope.filesVideosK = [];
+    
     
     if($state.current.name == "agregar-distribuidor"){
         debugger;
         $scope.distribuidor = {};
+        $("#divEditarDireccion").hide();
     }
+    if($state.current.name == "editProfile"){
+        $("#divEditarDireccion").hide();
+    }
+    if($state.current.name == "editar-distribuidor"){
+        $("#divEditarDireccion").show();
+    }
+    
     if($state.current.name == "override"){
         debugger;
         $("#imgDistribuidor")
@@ -127,7 +165,7 @@ app.controller('ProfileCtrl', ['$scope','$state','auth','factory',function($scop
             .attr("src", "../uploads/" + $scope.distribuidor.banner);
 
     }
-    if($state.current.name == "direccion"){
+    if($state.current.name == "direccion" || $state.current.name == "direccion-subdistribuidor"){
         //$scope.distribuidor = { direccion:{ calle:"" }};
         
         var mapOptions = {
@@ -173,6 +211,7 @@ app.controller('ProfileCtrl', ['$scope','$state','auth','factory',function($scop
         
         //inicializar componentes de geocodificación con google maps
         var geocoder = new google.maps.Geocoder();
+        
     }
     
     if($scope.distribuidor){
@@ -182,6 +221,26 @@ app.controller('ProfileCtrl', ['$scope','$state','auth','factory',function($scop
             $scope.filesBanner.push({name : $scope.distribuidor.banner, extension: '.' + $scope.distribuidor.banner.split('.')[1]});
         
         $scope.distribuidor.idCategoriaK= {id : $scope.distribuidor.idCategoria};
+
+        if($scope.distribuidor.direccion){
+            var oDireccion = $scope.distribuidor.direccion;
+            var direccionCompleta = "{0} {1} {2}, {3}, {4}, {5}, {6}".format(
+                oDireccion.calle || "",
+                oDireccion.numero_exterior || "",
+                oDireccion.numero_interior || "",
+                oDireccion.colonia || "",
+                oDireccion.municipio || "",
+                oDireccion.estado || "",
+                oDireccion.pais || ""
+            );
+
+            $scope.distribuidor.direccionCompleta = direccionCompleta;
+        }
+        
+        if($scope.distribuidor.videos)
+            $.each($scope.distribuidor.videos, function(indexE, itemE){
+                $scope.filesVideosK.push({name : itemE.url, extension: '.' + itemE.url.split('.')[1]})
+            })
     }
 
     $scope.menuItemSelected = 0;
@@ -236,6 +295,7 @@ app.controller('ProfileCtrl', ['$scope','$state','auth','factory',function($scop
             
         }
     } 
+    
     
     //grid distribuidores hijos
     $scope.distribuidores =  factory.distribuidores;
@@ -314,6 +374,49 @@ app.controller('ProfileCtrl', ['$scope','$state','auth','factory',function($scop
       });
         
     }
+    
+    //videos
+    $scope.uploadOptionsVideos ={
+        async: { saveUrl: '/eventos/saveFiles', removeUrl: '/eventos/removeFiles', autoUpload: true },
+        success: function(e){
+            $scope.filesVideos.push(e.response);
+        },
+        upload: function(e){
+            $scope.filesVideos = [];
+        },
+        complete: function(e){
+            console.log("complete", $scope.filesVideos);
+        },
+        files: $scope.filesVideosK
+    } 
+    
+    if($state.current.name == "user-videos"){
+        $scope.filesVideos = $scope.distribuidor.videos;
+        $scope.filesVideosK = [];
+        $.each($scope.distribuidor.videos, function(indexE, itemE){
+            $scope.filesVideosK.push({name : itemE.url, extension: '.' + itemE.url.split('.')[1]})
+        })
+    }
+
+    $scope.actualizarVideosDistribuidor = function(event){
+        
+        if($scope.filesVideos.length == 0){
+            alert("Es obligatorio al menos un video.");        
+            return;
+        }
+        else
+            $scope.distribuidor.videos = $scope.filesVideos;
+        
+         debugger;
+        
+         factory.actualizarVideosDistribuidor($scope.distribuidor)
+            .error(function(error){
+                $scope.error = error;
+            })
+            .then(function(){
+                alert("Los videos fueron actualizados con éxito.")
+            });
+    }
                
 }]);
 
@@ -377,16 +480,10 @@ app.factory('factory', ['$http', 'auth', function($http, auth){
             {id:1, nombre: 'Riego Residencial'},
             {id:2, nombre: 'Riego Institucional'},
             {id:3, nombre: 'Parques y Jardines'},
-            {id:4, nombre: 'Distribuidores'},
-            {id:5, nombre: 'Punto de venta'},
-            {id:6, nombre: 'Equipos y sistemas de Riego'},
-            {id:12, nombre: 'Iluminación'},
-            {id:7, nombre: 'Distribuidores'},
-            {id:8, nombre: 'Golf'},
-            {id:9, nombre: 'Riego sintetico'},
-            {id:10, nombre: 'Canchas deportivas'},            
-            {id:11, nombre: 'Agricola'}  
-           
+            {id:4, nombre: 'Golf'},
+            {id:5, nombre: 'Riego Sintético'},
+            {id:6, nombre: 'Canchas Deportivas'},            
+            {id:7, nombre: 'Riego Agrícola'} 
         ],
         distribuidores: []
 	  };
@@ -418,6 +515,13 @@ app.factory('factory', ['$http', 'auth', function($http, auth){
     
     o.actualizarDireccionDistribuidor = function(data) {
 		return $http.post('/profile/actualizarDireccionDistribuidor', data, {headers: {Authorization: 'Bearer '+auth.getToken()}})
+            .success(function(dataS){
+                console.log(dataS);
+            });
+	};
+    
+    o.actualizarVideosDistribuidor = function(data) {
+		return $http.post('/profile/actualizarVideosDistribuidor', data, {headers: {Authorization: 'Bearer '+auth.getToken()}})
             .success(function(dataS){
                 console.log(dataS);
             });

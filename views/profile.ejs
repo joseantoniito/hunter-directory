@@ -72,7 +72,8 @@
         ng-controller="NavCtrl">
         <h2><dl>
 		 <a href="/#/home" style="float:left; color: white;">
-            IMAGÉN RIEGO        </a>
+            <span class="glyphicon glyphicon-grain" aria-hidden="true" style="margin-right:2px;"></span>
+             RIEGO SUSTENTABLE</a>
           </dl>
         </h2>
         <ul class="nav navbar-nav  pull-right">
@@ -471,6 +472,22 @@ Las tarjetas de crédito pueden estar sujetas a ajustes debido a las comisiones 
             </label>
             </div>
         </div>
+        
+        <div id="divEditarDireccion" class="form-group">
+        
+            <div ng-repeat="video in distribuidor.videos">
+                <span class="lblSecundario">{{video.url}}</span>
+            </div>
+            <br>
+            <a href="#/user-videos/{{distribuidor._id}}" class="btn btn-primary" >Editar Videos</a>
+            
+            <div class="altura32"></div>
+            
+            
+            {{distribuidor.direccionCompleta}}
+            <br>
+            <a href="#/direccion/{{distribuidor._id}}" class="btn btn-primary" >Editar Dirección</a>
+        </div>
 
         <div class="form-group">
             Logo: 
@@ -487,7 +504,7 @@ Las tarjetas de crédito pueden estar sujetas a ajustes debido a las comisiones 
                kendo-upload
                k-options="uploadOptionsBanner" />
         </div>
-
+        
         <button class="btn btn-primary">Guardar</button>
     </form>
 
@@ -557,13 +574,20 @@ Las tarjetas de crédito pueden estar sujetas a ajustes debido a las comisiones 
                                         
            <script type="text/ng-template" id="/user-videos.html">
             <div class="col-md-6 bgrdWhite">
-              <div class="page-header" >
+                <div class="page-header" >
                     <h1 class="lblPrincipal">Mis Videos</h1>
                 </div>
-                <div class="embed-responsive embed-responsive-4by3">
-                    <iframe class="embed-responsive-item" src="/uploads/temp.mp4"></iframe>
-                </div>
-                </div>
+                <form ng-submit="actualizarVideosDistribuidor()" class="m30">
+                    <div class="form-group">
+                        Seleccionar videos: 
+                        <input name="files"
+                           type="file"
+                           kendo-upload
+                           k-options="uploadOptionsVideos" />
+                    </div>
+                    <button type="submit" class="btn btn-primary">Registrar</button>
+                </form>
+            </div>
                  
           </script>
     

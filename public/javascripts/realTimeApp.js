@@ -1,4 +1,4 @@
-var app = angular.module('realTime', ['ui.router', 'kendo.directives', 'ui.bootstrap'])
+var app = angular.module('realTime', ['ui.router', 'kendo.directives', 'ui.bootstrap','ngSanitize','com.2fdevs.videogular'])
 
 app.config([
 '$stateProvider',
@@ -197,7 +197,8 @@ app.controller('MainCtrl', [
 '$state',
 'auth',
 'projects',
-function($scope, $state, auth, projects){
+'$sce',
+function($scope, $state, auth, projects, $sce){
     //debugger;
     $scope.appname = "Riego Sustentable";
     $scope.countryNames = [
@@ -303,6 +304,7 @@ function($scope, $state, auth, projects){
       }
     
     $scope.myInterval = 3000;
+    $scope.myIntervalSlow = 6000;
     $scope.noWrapSlides = false;
     $scope.active = 0;
     var slides = $scope.slidesHome = [
@@ -514,8 +516,28 @@ function($scope, $state, auth, projects){
                     oDireccion.pais || ""
                 );
         }
+        
+        
+        
+        //videos
+        
+        $scope.videosDistribuidor = [];
+        
+        $.each($scope.distribuidor.videos, function(indexE, itemE){
+            $scope.videosDistribuidor.push(
+                {
+                    preload: "none",
+                    sources: [
+                        {src: $sce.trustAsResourceUrl("/uploads/" + itemE.url), type: "video/" + itemE.url.split('.')[itemE.url.split('.').length-1]},
+                    ],
+                    tracks: [],
+                    theme: {
+                        url: "http://www.videogular.com/styles/themes/default/latest/videogular.css"
+                    },id: indexE
+                });
+        }); 
     }
-  
+    
 }]);
 
 app.factory('auth', ['$http', '$window', function($http, $window){
@@ -579,9 +601,9 @@ app.factory('projects', ['$http', 'auth', function($http, auth){
             {id:2, nombre: 'Riego Institucional'},
             {id:3, nombre: 'Parques y Jardines'},
             {id:4, nombre: 'Golf'},
-            {id:5, nombre: 'Riego Dintetico'},
+            {id:5, nombre: 'Riego Sintético'},
             {id:6, nombre: 'Canchas Deportivas'},            
-            {id:7, nombre: 'Riego Agricola'}  
+            {id:7, nombre: 'Riego Agrícola'}  
            
         ],
           tipo_industria : [

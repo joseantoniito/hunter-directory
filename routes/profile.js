@@ -3,6 +3,7 @@ var router = express.Router();
 var passport = require('passport');
 var mongoose = require('mongoose');
 
+var Foto = mongoose.model('Foto');
 var Direccion = mongoose.model('Direccion');
 var User = mongoose.model('User');
 var Distribuidor = mongoose.model('Distribuidor');
@@ -25,6 +26,21 @@ router.get('/', function(req, res, next) {
   res.render('profile', { title: 'Administrar Cuenta' });  
 });
 
+
+router.post('/actualizarVideosDistribuidor', auth, function(req, res, next){
+    var objeto = req.body;
+    
+    Distribuidor.update(
+        {_id : new ObjectId(objeto._id)}, 
+        {
+            videos: objeto.videos
+        },  
+        function(err, numAffected){
+            if(err){ return next(err); }
+            return res.json(objeto);
+        }
+    );
+})
 
 router.post('/actualizarDireccionDistribuidor', auth, function(req, res, next){
     
@@ -119,7 +135,7 @@ router.get('/userInfo/:idUser', function(req, res, next) {
 
 router.get('/obtenerDistribuidor', auth, function(req, res, next) {
       console.log(req.payload);
-	  var query = Distribuidor.find({usuario : new ObjectId(req.payload._id)}).populate('direccion');
+	  var query = Distribuidor.find({usuario : new ObjectId(req.payload._id)}).populate('direccion').populate('videos');
 
 	  query.exec(function (err, data){
 		if (err) { return next(err); }

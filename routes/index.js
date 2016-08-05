@@ -165,7 +165,7 @@ router.get('/distribuidorPorId/:distribuidor', function(req, res, next) {
 		res.json(data);
 	  });*/
     
-    var query = Distribuidor.findById(req.id).populate('direccion');
+    var query = Distribuidor.findById(req.id).populate('direccion').populate('videos');
 
     query.exec(function (err, data){
         if (err) { return next(err); }
