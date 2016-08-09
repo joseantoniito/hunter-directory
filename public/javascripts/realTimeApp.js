@@ -82,6 +82,8 @@ function($stateProvider, $urlRouterProvider) {
         resolve: {
             //if($stateParams.id != null)
             post: ['$stateParams', 'projects', function($stateParams, projects) {
+                projects.obtenerDistribuidoresPorCategoria($stateParams.id);
+                projects.obtenerUltimosEventos();
               return projects.obtenerDistribuidor($stateParams.id);
             }]
           }
@@ -201,6 +203,7 @@ app.controller('MainCtrl', [
 function($scope, $state, auth, projects, $sce){
     //debugger;
     $scope.appname = "Riego Sustentable";
+    $scope.bannerBack = "back.png"
     $scope.countryNames = [
               "Albania",
               "Andorra",
@@ -284,6 +287,7 @@ function($scope, $state, auth, projects, $sce){
         dataBound : $scope.dataBoundAutoComplete,
         dataTextField: 'nombre',
         dataValueField: '_id',
+        placeholder: "Ej: Riego",
         dataSource: /*$scope.productsDataSource*/ new kendo.data.DataSource({
           serverFiltering: true,
           transport: {
@@ -344,6 +348,7 @@ function($scope, $state, auth, projects, $sce){
     $scope.tipo_industria = projects.tipo_industria;
     $scope.distribuidor = projects.distribuidor;
     $scope.files = [];
+    $scope.categoriaActual = projects.categoriaActual;
     //$scope.ultimosEventos = projects.ultimosEventos;
     $scope.slides = projects.ultimosEventos;
 
@@ -387,6 +392,13 @@ function($scope, $state, auth, projects, $sce){
     };
     
     $scope.formatDireccion = projects.formatDireccion;
+    
+    $scope.changeMaxText = function(texto, maxtext){
+        if (texto.length <= maxtext)
+            return texto;
+        
+        return texto.substring(0,maxtext - 3) + "...";
+    }
     
 
     //carousel multi item
@@ -613,7 +625,8 @@ app.factory('projects', ['$http', 'auth', function($http, auth){
             {id: 3, nombre: 'Contratista e Instadalador'}
           ],
         distribuidor: null,
-        ultimosEventos: []
+        ultimosEventos: [],
+        categoriaActual : {id:1, nombre: 'Riego Residencial'}
 	  };
   
       o.formatDireccion = function(oDireccion) {
@@ -642,6 +655,7 @@ app.factory('projects', ['$http', 'auth', function($http, auth){
     o.obtenerDistribuidoresPorCategoria = function(id) {
 		return $http.get('/distribuidores/' + id)
             .success(function(dataS){
+            o.categoriaActual =  o.categorias[id - 1];
                 angular.copy(dataS, o.distribuidores);
                 o.distribuidor = null;
             });
@@ -663,6 +677,8 @@ app.factory('projects', ['$http', 'auth', function($http, auth){
             .success(function(dataS){
             console.log(dataS);    
             o.distribuidor = dataS;
+            o.distribuidor.banner = dataS.banner || "back.png";
+            o.distribuidor.logo = dataS.logo || "back.png";
             });
 	};
     
