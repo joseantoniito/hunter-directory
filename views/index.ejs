@@ -64,7 +64,9 @@
         .btn-edit {
             background-color: black;
         }
-            
+          
+          
+          
         #map {
             margin : 10px;
             height: 450px;
@@ -160,6 +162,18 @@
                 <img ng-src="{{slide.image}}" style="margin:auto; width:100%; height:400px;">
                 <div class="carousel-caption">
                   <h1><div style="color:white;">{{slide.desc}}</div></h1>
+                  
+                  <div class="col-md-offset-3 col-md-6 input-group">
+                    <input kendo-auto-complete 
+                        k-options="autoCompleteOptions"
+                        ng-model="textoBusqueda"
+                        style="width: 100%;" />
+
+                    <span class="input-group-addon btnGeneral" id="basic-addon2">
+                    <a href="#/directorio-resultados/{{textoBusqueda}}">Buscar</a>
+                </span>
+                  </div>
+                  
                   <h4><p>{{slide.text}}</p></h4>
                 </div>
               </uib-slide>
@@ -170,19 +184,22 @@
             <div class="container-fluid" >
                 <h2 class="lblPrincipal">Todo para tu sistema de riego</h2>
                 <h5>Elige tu distribuidor, compara precios y agenda cita.</h5>
-                <br/>
-                <div class="col-md-offset-3 col-md-6 input-group">
-                <input kendo-auto-complete 
-                    k-options="autoCompleteOptions"
-                    ng-model="textoBusqueda"
-                    style="width: 100%;" />
-
-                <span class="input-group-addon btnGeneral" id="basic-addon2">
-                    <a href="#/directorio-resultados/{{textoBusqueda}}">Buscar</a>
-                </span>
+                
+                
+                <div class="col-sm-3"  ng-repeat="distribuidor in distribuidores">
+                <div class='thumbnail' style="height:120px;">
+                    
+                    <a href="/#/detalle/{{distribuidor._id }}">
+                    <img src='/uploads/{{ distribuidor.banner || bannerBack }}' style="width:100%;height:70%;"/> 
+                    
+                            <h4 style="text-transform: capitalize;">
+                                {{distribuidor.nombre}}</h4>
+                                </a>
+                    </div>
                 </div>
-
-                <br/><br/>
+            </div>
+                
+                                
             </div>
         </div>
         
@@ -377,9 +394,13 @@
         <div class="col-md-9 bgrdWhite">
         
             <div class="page-header" >
-                             <h3 class="lblPrincipal" style="text-transform: uppercase;"><b>{{categoriaActual.nombre}}</b></h3>
+                
+            
+                 <h3 class="lblPrincipal" style="text-transform: uppercase;"><b>{{categoriaActual.nombre}}</b></h3>
                  <div class="col-sm-offset-5 col-md-7 input-group">
-                              
+                    
+               
+                
                 <input kendo-auto-complete 
                     k-options="autoCompleteOptions"
                     ng-model="textoBusqueda"
@@ -393,20 +414,14 @@
             </div>
             </div>
             <div class="col-sm-3"  ng-repeat="distribuidor in distribuidores">
-                              
                 <div class='thumbnail' style="height:100px;">
-                
-                <div>
-                <a href="/#/detalle/{{distribuidor._id }}">
+                  <div>
+                    <a href="/#/detalle/{{distribuidor._id }}">
                             <h5 style="text-transform: capitalize;">
                     <img src='/uploads/{{ distribuidor.logo || bannerBack }}' style="width:80px;height:80px;"/> 
                                 {{distribuidor.nombre}}</h5>
                                 </a>
-                </div>
-
-                
-                
-                    
+                    </div>
                 </div>
             </div>
        </div>

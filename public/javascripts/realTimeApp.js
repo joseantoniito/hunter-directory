@@ -82,7 +82,7 @@ function($stateProvider, $urlRouterProvider) {
         resolve: {
             //if($stateParams.id != null)
             post: ['$stateParams', 'projects', function($stateParams, projects) {
-                projects.obtenerDistribuidoresPorCategoria($stateParams.id);
+                
                 projects.obtenerUltimosEventos();
               return projects.obtenerDistribuidor($stateParams.id);
             }]
@@ -352,7 +352,7 @@ function($scope, $state, auth, projects, $sce){
     //$scope.ultimosEventos = projects.ultimosEventos;
     $scope.slides = projects.ultimosEventos;
 
-    $scope.agregarDistribuidor = function(){
+    $scope.agregarDistribuidor = function() {
         debugger;
         
         $scope.distribuidor.idCategoria = $scope.distribuidor.idCategoria.id;
@@ -366,6 +366,10 @@ function($scope, $state, auth, projects, $sce){
                 $state.go('home');}
             );
     }
+    
+    projects.obtenerDistribuidoresPorCategoria(1).then(function() {
+        
+    })
     
     $scope.deleteProject = function(id){
 	  projects.delete(id).error(function(error){
