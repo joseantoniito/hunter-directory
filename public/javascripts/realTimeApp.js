@@ -370,9 +370,7 @@ function($scope, $state, auth, projects, $sce){
             );
     }
     
-    projects.obtenerDistribuidoresPorCategoria(1).then(function() {
-        
-    })
+    
     
     $scope.deleteProject = function(id){
 	  projects.delete(id).error(function(error){
@@ -412,6 +410,11 @@ function($scope, $state, auth, projects, $sce){
 
     if($state.current.name == "home"){
         debugger;
+        
+        projects.obtenerDistribuidoresPorCategoria(1).then(function() {
+
+        })
+        
         var i, first = [],
           second, third;
         var many = 1;
