@@ -64,7 +64,9 @@
         .btn-edit {
             background-color: black;
         }
-            
+          
+          
+          
         #map {
             margin : 10px;
             height: 450px;
@@ -78,12 +80,12 @@
 	<nav class="navbar navbar-static-top navbar-dark bg-inverse p10 menuPrincipal" 
          ng-controller="NavCtrl">
         
-		 <h2><dl>
+		 <h3><dl>
 		 <a href="/#/home" style="float:left; color: white;">
            <span class="glyphicon glyphicon-grain" aria-hidden="true" style="margin-right:2px;"></span>
              RIEGO SUSTENTABLE       </a> 
           </dl>
-        </h2>
+        </h3>
         
         <ul class="nav navbar-nav  pull-right">
             
@@ -154,39 +156,54 @@
     
 
 <script type="text/ng-template" id="/directorio.html">
-        <div style="height: 600px;">
+        <div style="height: 400px;">
             <uib-carousel active="active" interval="myInterval" no-wrap="noWrapSlides">
               <uib-slide ng-repeat="slide in slidesHome" index="slide.id">
-                <img ng-src="{{slide.image}}" style="margin:auto; width:100%; height:600px;">
+                <img ng-src="{{slide.image}}" style="margin:auto; width:100%; height:400px;">
                 <div class="carousel-caption">
                   <h1><div style="color:white;">{{slide.desc}}</div></h1>
+                  
+                  <div class="col-md-offset-3 col-md-6 input-group">
+                    <input kendo-auto-complete 
+                        k-options="autoCompleteOptions"
+                        ng-model="textoBusqueda"
+                        style="width: 100%;" />
+
+                    <span class="input-group-addon btnGeneral" id="basic-addon2">
+                    <a href="#/directorio-resultados/{{textoBusqueda}}">Buscar</a>
+                </span>
+                  </div>
+                  
                   <h4><p>{{slide.text}}</p></h4>
                 </div>
               </uib-slide>
             </uib-carousel>
         </div>
 
-        <div class="row divGris pad5perc search-box-home">
+        <div class="row search-box-home">
             <div class="container-fluid" >
-                <h1 class="lblPrincipal">Todo para tu sistema de riego</h1>
-                <h3>Elige tu distribuidor, compara precios y agenda cita.</h3>
-                <br/>
-                <div class="col-sm-offset-4 col-sm-4 input-group">
-                <input kendo-auto-complete 
-                    k-options="autoCompleteOptions"
-                    ng-model="textoBusqueda"
-                    style="width: 100%;" />
-
-                <span class="input-group-addon btnGeneral" id="basic-addon2">
-                    <a href="#/directorio-resultados/{{textoBusqueda}}">Buscar</a>
-                </span>
+                <h2 class="lblPrincipal">Todo para tu sistema de riego</h2>
+                <h5>Elige tu distribuidor, compara precios y agenda cita.</h5>
+                
+                
+                <div class="col-sm-3"  ng-repeat="distribuidor in distribuidores">
+                <div class='thumbnail' style="height:120px;">
+                    
+                    <a href="/#/detalle/{{distribuidor._id }}">
+                    <img src='/uploads/{{ distribuidor.banner || bannerBack }}' style="width:100%;height:70%;"/> 
+                    
+                            <h4 style="text-transform: capitalize;">
+                                {{distribuidor.nombre}}</h4>
+                                </a>
+                    </div>
                 </div>
-
-                <br/><br/>
+            </div>
+                
+                                
             </div>
         </div>
         
-        <div class="row">
+        <div class="row divGris">
             <div class="col-lg-12 divAlignCenter">
                 <h1 class="page-header">
                     Sistemas de riego a la medida
@@ -361,10 +378,7 @@
                         </div>
                      </div>
              </div>
-             
-             
-             
-                
+                             
             <div class="row" >
                <div class="panel panel-primary">
                     <div class="panel-heading"><b>Pais</b></div>
@@ -384,8 +398,7 @@
                                </label>
                               </b>
                             </div>
-                            
-                            
+                                
                             <div >
                             <b>
                              <label class="checkbox-inline"><input type="checkbox" value="">
@@ -405,7 +418,7 @@
             <div class="page-header" >
                 
             
-                 <h1 class="lblPrincipal" style="text-transform: uppercase;"><b>{{categoriaActual.nombre}}</b></h1>
+                 <h3 class="lblPrincipal" style="text-transform: uppercase;"><b>{{categoriaActual.nombre}}</b></h3>
                  <div class="col-sm-offset-5 col-md-7 input-group">
                     
                
@@ -422,30 +435,15 @@
                     </input>
             </div>
             </div>
-            <div class="col-md-4"  ng-repeat="distribuidor in distribuidores">
-                              
-                <div class='thumbnail' style="height:400px;">
-                
-                <img class='imagenListado' src='/uploads/{{ distribuidor.banner || bannerBack}}'  style="width:100%;height:180px;"
-                > 
-                <div>
-                <a href="/#/detalle/{{distribuidor._id }}">
-                            <h4 style="text-transform: capitalize;"style="text-transform: capitalize;">
+            <div class="col-sm-3"  ng-repeat="distribuidor in distribuidores">
+                <div class='thumbnail' style="height:100px;">
+                  <div>
+                    <a href="/#/detalle/{{distribuidor._id }}">
+                            <h5 style="text-transform: capitalize;">
                     <img src='/uploads/{{ distribuidor.logo || bannerBack }}' style="width:80px;height:80px;"/> 
-                                {{distribuidor.nombre}}</h4>
+                                {{distribuidor.nombre}}</h5>
                                 </a>
-                </div>
-
-                </img>
-                
-                    <div class='caption'> 
-                        
-                        <p>{{ changeMaxText(distribuidor.descripcion,80) }}</p>
-
-                        <a class="k-primary k-button btnGeneral" 
-                            href="/#/detalle/{{distribuidor._id }}">
-                            Ver Detalle</a>    
-                    </div> 
+                    </div>
                 </div>
             </div>
        </div>
