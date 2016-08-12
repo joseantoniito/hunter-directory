@@ -271,6 +271,28 @@
                 <img class="img-responsive" src="../images/rotator-700x450.jpg" alt="">
             </div>
         </div>
+        
+        <div class="divGris">
+        <div class="container">
+            <div class="col-lg-13">
+                <h2 class="page-header">Noticias</h2>
+            </div>
+            
+            <div ng-repeat="noticia in ultimasNoticias">
+                <div class="divNoticiaHome">
+                    <a href="/eventos/#/portafolio-evento/{{ slideCollection.image1._id }}">
+                        <img src="/uploads/{{noticia.banner}}" />
+                    </a>
+                    <div>
+                        <h3> {{noticia.titulo}} </h3>
+                    </div>
+                </div>
+            </div>
+            
+        </div>
+        </div>
+        
+        
         <hr>
         <div class="footerCategorias">
           <div class="row">

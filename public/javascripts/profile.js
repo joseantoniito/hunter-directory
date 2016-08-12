@@ -36,6 +36,38 @@ function($stateProvider, $urlRouterProvider) {
       }
     });
     
+    //noticias
+    $stateProvider
+    .state('noticias', {
+      url: '/noticias',
+      templateUrl: '/noticias.html',
+      controller: 'ProfileCtrl',
+      resolve: {
+        postPromise: ['factory', function(factory){
+            return factory.obtenerNoticiasDeDistribuidor();
+        }]
+      }
+    });
+    
+    $stateProvider
+    .state('agregar-noticia', {
+      url: '/agregar-noticia',
+      templateUrl: '/editar-noticia.html',
+      controller: 'ProfileCtrl'
+    });
+    
+    $stateProvider
+    .state('editar-noticia', {
+      url: '/editar-noticia/{id}',
+      templateUrl: '/editar-noticia.html',
+      controller: 'ProfileCtrl',
+      resolve: {
+        post: ['$stateParams', 'factory', function($stateParams, factory) {
+              return factory.obtenerNoticiaPorId($stateParams.id);
+            }]
+      }
+    });
+    
     $stateProvider
     .state('override', {
       url: '/override',
@@ -142,7 +174,7 @@ app.controller('ProfileCtrl', ['$scope','$state','auth','factory',function($scop
     $scope.filesBanner = [];
     $scope.filesVideos = [];
     $scope.filesVideosK = [];
-    
+
     
     if($state.current.name == "agregar-distribuidor"){
         debugger;
@@ -417,7 +449,97 @@ app.controller('ProfileCtrl', ['$scope','$state','auth','factory',function($scop
                 alert("Los videos fueron actualizados con éxito.")
             });
     }
-               
+        
+    //noticias de distribuidor
+    
+    $scope.filesVideosNoticia = [];
+    $scope.filesVideosNoticiaK = [];
+    $scope.filesBannerNoticia = [];
+
+
+    if($state.current.name == "editar-noticia"){
+        $scope.noticia = factory.noticia;
+        
+        if($scope.noticia.banner)
+            $scope.filesBannerNoticia.push({name : $scope.noticia.banner, extension: '.' + $scope.noticia.banner.split('.')[1]});
+        
+        if($scope.noticia.video){
+            $scope.filesVideosNoticia.push($scope.noticia.video);
+        
+            $scope.filesVideosNoticiaK.push({name : $scope.noticia.video.url, extension: '.' + $scope.noticia.video.url.split('.')[1]});
+        }
+    }
+
+    $scope.uploadOptionsBannerNoticia ={
+        async: { saveUrl: '/saveFiles', removeUrl: '/removeFiles', autoUpload: true },
+        files: $scope.filesBannerNoticia,
+        success: function(e){
+            $scope.filesBannerNoticia = e.files;
+        }
+    } 
+
+    $scope.uploadOptionsVideosNoticia ={
+        async: { saveUrl: '/eventos/saveFiles', removeUrl: '/eventos/removeFiles', autoUpload: true },
+        success: function(e){
+            $scope.filesVideosNoticia.push(e.response);
+        },
+        upload: function(e){
+            $scope.filesVideosNoticia = [];
+        },
+        complete: function(e){
+            console.log("complete", $scope.filesVideosNoticia);
+        },
+        files: $scope.filesVideosNoticiaK
+    } 
+
+    $scope.actualizarNoticiaDistribuidor = function(){
+        //if(!$scope.validator.validate()) return;
+
+        if($scope.filesBannerNoticia.length > 0){
+            $scope.noticia.banner = $scope.filesBannerNoticia[0].name;
+        }
+        else{
+            alert("El banner es obligatorio.")
+        }
+        
+       if($scope.filesVideosNoticia.length == 0){
+            alert("Es obligatorio el video.");        
+            return;
+        }
+        else
+            $scope.noticia.video = $scope.filesVideosNoticia[0];
+        
+        $scope.noticia.distribuidor = $scope.distribuidor._id;
+    
+        debugger;
+
+        factory.actualizarNoticiaDistribuidor($scope.noticia)
+            .error(function(error){
+                $scope.error = error;
+            })
+            .then(function(){
+                alert("La noticia fue actualizada con éxito.");
+            });
+    }
+
+    $scope.noticias =  factory.noticias;
+    $scope.gridOptionsNoticias = {
+        datasource: $scope.noticias, 
+        pageable:{pageSize:2, refresh:true, pageSizes:true}, 
+        columns:[
+            {field:"titulo", title:"titulo"}, 
+            {field:"fecha", title:"fecha"},
+            {field:"_id", title:"Acciones", width:"100px", 
+             template: "<a href='\\#/editar-noticia/{{ dataItem._id }}' class='qodef-icon-shortcode normal qodef-icon-little'><i class='qodef-icon-font-awesome fa fa-pencil-square qodef-icon-element'></i></a> <a class='qodef-icon-shortcode normal qodef-icon-little' ng-click='eliminarNoticia(dataItem._id)' style='cursor:pointer;'> <i class='qodef-icon-font-awesome fa fa-trash qodef-icon-element'></i> </a>"}
+        ]};        
+    $scope.eliminarDistribuidor = function(id){
+
+    }
+
+    
+    
+    
+    
 }]);
 
 app.factory('auth', ['$http', '$window', function($http, $window){
@@ -475,23 +597,26 @@ app.factory('auth', ['$http', '$window', function($http, $window){
 
 app.factory('factory', ['$http', 'auth', function($http, auth){
 	  var o = {
-		distribuidor : null,
-        categorias: [
-            {id:1, nombre: 'Riego Residencial'},
-            {id:2, nombre: 'Riego Institucional'},
-            {id:3, nombre: 'Parques y Jardines'},
-            {id:4, nombre: 'Golf'},
-            {id:5, nombre: 'Riego Sintético'},
-            {id:6, nombre: 'Canchas Deportivas'},            
-            {id:7, nombre: 'Riego Agrícola'} 
-        ],
-        distribuidores: []
+		  distribuidor : null,
+          categorias: [
+                {id:1, nombre: 'Riego Residencial'},
+                {id:2, nombre: 'Riego Institucional'},
+                {id:3, nombre: 'Parques y Jardines'},
+                {id:4, nombre: 'Golf'},
+                {id:5, nombre: 'Riego Sintético'},
+                {id:6, nombre: 'Canchas Deportivas'},            
+                {id:7, nombre: 'Riego Agrícola'} 
+            ],
+          distribuidores: [],
+          noticia: null,
+          noticias: []
 	  };
     
     o.obtenerPerfilDistribuidor = function() {
-		return $http.get('/profile/obtenerDistribuidor',{headers: {Authorization: 'Bearer '+auth.getToken()}}).success(function(data){
-		  o.distribuidor = data;
-		});
+		return $http.get('/profile/obtenerDistribuidor',{headers: {Authorization: 'Bearer '+auth.getToken()}})
+            .success(function(data){
+                o.distribuidor = data;
+            });
 	};
     
     o.agregarDistribuidor = function(data) {
@@ -502,9 +627,10 @@ app.factory('factory', ['$http', 'auth', function($http, auth){
 	};
     
      o.obtenerDistribuidoresHijos = function() {
-		return $http.get('/profile/obtenerDistribuidoresHijos',{headers: {Authorization: 'Bearer '+auth.getToken()}}).success(function(data){
-          angular.copy(data, o.distribuidores);
-		});
+		return $http.get('/profile/obtenerDistribuidoresHijos',{headers: {Authorization: 'Bearer '+auth.getToken()}})
+            .success(function(data){
+                angular.copy(data, o.distribuidores);
+            });
 	};
     
     o.obtenerDistribuidorPorId = function(id) {
@@ -525,6 +651,30 @@ app.factory('factory', ['$http', 'auth', function($http, auth){
             .success(function(dataS){
                 console.log(dataS);
             });
+	};
+    
+    o.obtenerNoticiasDeDistribuidor = function(){
+        if(!o.distribuidor) return;
+        
+        var id = o.distribuidor._id;
+        
+        return $http.get('/profile/obtenerNoticiasDeDistribuidor/' + id, {headers: {Authorization: 'Bearer '+auth.getToken()}})
+            .success(function(data){
+                o.noticias = data;
+            });
+    }
+    
+    o.actualizarNoticiaDistribuidor = function(data) {
+		return $http.post('/profile/actualizarNoticiaDistribuidor', data, {headers: {Authorization: 'Bearer '+auth.getToken()}})
+            .success(function(dataS){
+                console.log(dataS);
+            });
+	};
+    
+    o.obtenerNoticiaPorId = function(id) {
+		return $http.get('/profile/noticiaPorId/' + id).success(function(data){
+		  o.noticia = data;
+		});
 	};
 
     return o;

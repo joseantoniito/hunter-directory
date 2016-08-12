@@ -103,6 +103,9 @@
             <a href="#/distribuidores" class="list-group-item">
                 <span class="glyphicon glyphicon-bell" aria-hidden="true" style="margin-right:20px;" ></span>Distribuidores
             </a>
+            <a href="#/noticias" class="list-group-item">
+                <span class="glyphicon glyphicon-pencil" aria-hidden="true" style="margin-right:20px;"></span>Noticias
+            </a>
             <a href="#/suscripcion" class="list-group-item">
                 <span class="glyphicon glyphicon-credit-card" aria-hidden="true" style="margin-right:20px;"></span>Suscripción
             </a>
@@ -384,31 +387,30 @@
                             <option>29</option>
                             <option>30</option>
                           </select>
-                                       </div> 
-
-                    </div>
-                    <label class="control-label" for="codigo_seguridad">Código de seguridad</label>   
-                    <div class="form-group">
+                    </div> 
+                </div>
+                <label class="control-label" for="codigo_seguridad">Código de seguridad</label>   
+                <div class="form-group">
                         <div class="col-md-6">                
                         <input type="number"    class="form-control"      placeholder="Código de seguridad">                    </input>
-                                        </div>
                     </div>
-                    <div>
-                             <div class="checkbox">
-      <label><input type="checkbox" value="">
-                                        
-                                        Estoy de acuerdo con la recopilación de mis datos financieros por parte de Spotify para su uso en los propósitos previamente expresados, tal como se encuentra detallado en la Política de Privacidad de Imagén riego
+                </div>
+            <div>
+            <div class="checkbox">
+                <label><input type="checkbox" value="">
 
-          </label>
-                                        
-                                        Por este medio autorizas a IMAGEN RIEGO para que automáticamente te haga un cargo cada mes, hasta que canceles tu suscripción. Si no cancelas tu suscripción antes de que termine la oferta (para ver los detalles, consulta la página de tu cuenta), automáticamente se te hará un cargo cada mes por el precio estándar hasta que la canceles. Puedes consultar los términos completos y las instrucciones para cancelar aquí.
-Las tarjetas de crédito pueden estar sujetas a ajustes debido a las comisiones y cargos adicionales establecidos por tu banco.
-    </div>
-                        </div>
-                    <button type="submit" class="btn btn-primary">Iniciar Sesión</button>
-                </form>
+                Estoy de acuerdo con la recopilación de mis datos financieros por parte de Spotify para su uso en los propósitos previamente expresados, tal como se encuentra detallado en la Política de Privacidad de Imagén riego
+
+                </label>
+
+                Por este medio autorizas a IMAGEN RIEGO para que automáticamente te haga un cargo cada mes, hasta que canceles tu suscripción. Si no cancelas tu suscripción antes de que termine la oferta (para ver los detalles, consulta la página de tu cuenta), automáticamente se te hará un cargo cada mes por el precio estándar hasta que la canceles. Puedes consultar los términos completos y las instrucciones para cancelar aquí.
+                Las tarjetas de crédito pueden estar sujetas a ajustes debido a las comisiones y cargos adicionales establecidos por tu banco.
             </div>
-          </script>
+            </div>
+        <button type="submit" class="btn btn-primary">Iniciar Sesión</button>
+    </form>
+</div>
+</script>
           
 <script type="text/ng-template" id="/editProfile.html">
     <div class="col-md-6 bgrdWhite">
@@ -434,12 +436,6 @@ Las tarjetas de crédito pueden estar sujetas a ajustes debido a las comisiones 
                 ng-model="distribuidor.descripcion"
                 class="form-control"></input>
         </div>
-        <!--<div class="form-group">
-            <input type="text" 
-                placeholder="Direccion" 
-                ng-model="distribuidor.direccion"
-                class="form-control"></input>
-        </div>-->
         <div class="form-group">
             <input type="text" 
                 placeholder="Pagina Web" 
@@ -507,92 +503,115 @@ Las tarjetas de crédito pueden estar sujetas a ajustes debido a las comisiones 
         
         <button class="btn btn-primary">Guardar</button>
     </form>
-
-        <!--<form ng-submit="editProfile()" class="m30">
-       <a href="#" class="thumbnail">
-               <img src="../images/logoemmsariego.png" class="img-rounded" alt="Icono empresa" width="200" height="200">
-            </a>
-            <div class="form-group">
-                <input type="text" class="form-control"   placeholder="Nombre de usuario"></input>
-            </div>
-            <div class="form-group">
-                <input type="password"    class="form-control"      placeholder="Contraseña"></input>
-            </div>
-            <div class="form-group">
-                <input type="password"    class="form-control"      placeholder="Confirmar contraseña"></input>
-            </div>
-            <div class="form-group">
-                <input type="email"    class="form-control"      placeholder="Email"></input>
-            </div>
-            <div class="form-group">
-                <input type="email"    class="form-control"      placeholder="Confirmar Email"></input>
-            </div>
-            <div class="form-group">
-                <label class="radio-inline">
-                      <input type="radio" name="optradio">Solo noticias
-                    </label>
-                    <label class="radio-inline">
-                      <input type="radio" name="optradio">Distribuidor
-                    </label>
-                    <label class="radio-inline">
-                      <input type="radio" name="optradio">Punto de venta
-                    </label>
-            </div>
-               <lable>
-                                Al hacer click en Registrarse, aceptas los términos y condiciones y la política de privacidad de Imangén Riego.
-                </laber>                 
-              <button type="submit" class="btn btn-primary">Registrar</button>
-        </form>-->
     </div>
   </script>
+      
+<script type="text/ng-template" id="/noticias.html">
+    <div class="row" >
+        <div style="float:right; margin-right:15px;">
+            <a class="qodef-icon-shortcode normal qodef-icon-huge" href="/profile/#/agregar-noticia">
+                <i class="qodef-icon-font-awesome fa fa-plus qodef-icon-element" style=""></i>
+            </a>
+        </div>
+    </div>
+
+    <div kendo-grid="gridNoticias" k-data-source="noticias" k-options="gridOptionsNoticias">
+    </div>
+</script>
+      
+<script type="text/ng-template" id="/editar-noticia.html">
+    <div class="col-md-6 bgrdWhite">
+        <div class="page-header" >
+
+            <h1 class="lblPricipal">Noticia</h1>
+
+        </div>
+        <div ng-show="error" class="alert alert-danger row">
+            <span>"Error no found"</span>
+        </div>
+
+        <form ng-submit="actualizarNoticiaDistribuidor()" class="m30">
+        <div class="form-group">
+            <input type="text" 
+                placeholder="Título" 
+                ng-model="noticia.titulo"
+                class="form-control"></input>
+        </div>
+        
+        <div class="form-group">
+            Banner: 
+            <input name="files"
+               type="file"
+               kendo-upload
+               k-options="uploadOptionsBannerNoticia" />
+        </div>
+        
+        <div class="form-group">
+			<textarea 
+                placeholder="Contenido" 
+                ng-model="noticia.contenido"
+                class="form-control" cols="40" rows="5"></textarea>
+        </div>
+
+        <div class="form-group">
+            Video: 
+            <input name="files"
+               type="file"
+               kendo-upload
+               k-options="uploadOptionsVideosNoticia" />
+        </div>
+        
+        <button class="btn btn-primary">Guardar</button>
+    </form>
+</div>
+</script>
           
-          
-          <script type="text/ng-template" id="/notificaciones.html">
-            <div class="col-md-6 bgrdWhite">
-              <div class="page-header" >
-                    <h1 class="lblPrincipal">Notificaciones</h1>
-                </div>
-                <form class="form-horizontal">
-                    <div class="form-group">
-                        <label class="control-label col-sm-4">Comentarios</label>
-                        <div class="col-md-offset-8">
-                            <input type="checkbox" id="notifications-switch" checked="checked" />
-                        </div>
-                    </div>
-          
-                    <div class="form-group">
-                        <label class="control-label col-sm-4">Nuevo seguidor</label>
-                        <div class="col-md-offset-8">
-                            <input type="checkbox" id="mail-switch"  checked="checked" />
-                        </div>
-                    </div>
-                
-                </form>
-                </div>
-                 
-          </script>
-                                        
-           <script type="text/ng-template" id="/user-videos.html">
-            <div class="col-md-6 bgrdWhite">
-                <div class="page-header" >
-                    <h1 class="lblPrincipal">Mis Videos</h1>
-                </div>
-                <form ng-submit="actualizarVideosDistribuidor()" class="m30">
-                    <div class="form-group">
-                        Seleccionar videos: 
-                        <input name="files"
-                           type="file"
-                           kendo-upload
-                           k-options="uploadOptionsVideos" />
-                    </div>
-                    <button type="submit" class="btn btn-primary">Registrar</button>
-                </form>
+<script type="text/ng-template" id="/notificaciones.html">
+<div class="col-md-6 bgrdWhite">
+  <div class="page-header" >
+        <h1 class="lblPrincipal">Notificaciones</h1>
+    </div>
+    <form class="form-horizontal">
+        <div class="form-group">
+            <label class="control-label col-sm-4">Comentarios</label>
+            <div class="col-md-offset-8">
+                <input type="checkbox" id="notifications-switch" checked="checked" />
             </div>
-                 
-          </script>
+        </div>
+
+        <div class="form-group">
+            <label class="control-label col-sm-4">Nuevo seguidor</label>
+            <div class="col-md-offset-8">
+                <input type="checkbox" id="mail-switch"  checked="checked" />
+            </div>
+        </div>
+
+    </form>
+    </div>
+
+</script>
+
+<script type="text/ng-template" id="/user-videos.html">
+<div class="col-md-6 bgrdWhite">
+    <div class="page-header" >
+        <h1 class="lblPrincipal">Mis Videos</h1>
+    </div>
+    <form ng-submit="actualizarVideosDistribuidor()" class="m30">
+        <div class="form-group">
+            Seleccionar videos: 
+            <input name="files"
+               type="file"
+               kendo-upload
+               k-options="uploadOptionsVideos" />
+        </div>
+        <button type="submit" class="btn btn-primary">Registrar</button>
+    </form>
+</div>
+
+</script>
     
         
-  </body>
+</body>
     
     
 </html>

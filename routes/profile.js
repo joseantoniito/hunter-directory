@@ -3,7 +3,9 @@ var router = express.Router();
 var passport = require('passport');
 var mongoose = require('mongoose');
 
+
 var Foto = mongoose.model('Foto');
+var Noticia = mongoose.model('Noticia');
 var Direccion = mongoose.model('Direccion');
 var User = mongoose.model('User');
 var Distribuidor = mongoose.model('Distribuidor');
@@ -207,6 +209,69 @@ router.post('/distribuidores', auth, function(req, res, next){
     
 });
 
+router.get('/obtenerNoticiasDeDistribuidor/:idUser', auth, function(req, res, next) {
+      console.log(req.id);
+	  var query = Noticia.find({distribuidor : new ObjectId(req.id)}).populate('video');
+
+	  query.exec(function (err, data){
+		if (err) { return next(err); }
+		
+        console.log(data);
+		res.json(data);
+	  });
+});
+
+router.post('/actualizarNoticiaDistribuidor', auth, function(req, res, next){
+    var objeto = req.body;
+    if(!objeto.titulo){
+        return res.status(400).json({message: 'Favor de llenar todos los campos.'});
+    }
+
+    var documento = new Noticia();
+    documento.titulo = objeto.titulo;
+    documento.contenido = objeto.contenido;
+    documento.banner = objeto.banner;
+    documento.video = objeto.video;
+    documento.distribuidor = objeto.distribuidor;
+
+    
+    if(objeto._id == null){
+        documento.save(function (err, data){
+            if(err){ return next(err); }
+
+            return res.json(data);
+        });
+    }
+    else{
+        documento._id = objeto._id;
+		Noticia.update(
+			{_id : new ObjectId(documento._id)}, 
+			{
+                titulo: documento.titulo,
+                contenido: documento.contenido,
+                banner: documento.banner,
+                video: documento.video 
+			},  
+			function(err, numAffected){
+				if(err){ console.log(err); return next(err); }
+				
+                res.json(documento);
+			}
+        );
+        
+    }
+})
+
+router.get('/noticiaPorId/:idUser', function(req, res, next) {
+    var query = Noticia.findById(req.id).populate('video');
+
+    query.exec(function (err, data){
+        if (err) { return next(err); }
+        if (!data) { return next(new Error('No se encuentra el registro.')); }
+
+        res.json(data);
+    });
+});
 
 
 module.exports = router;

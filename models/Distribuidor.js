@@ -19,6 +19,7 @@ var esquema = new mongoose.Schema({
     idTipo: Number,
     banner: String,
     videos: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Foto' }],
+    valoracion: Number
 });
 
 mongoose.model('Distribuidor', esquema);

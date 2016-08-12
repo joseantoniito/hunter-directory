@@ -14,6 +14,7 @@ require('./models/Direccion');
 require('./models/Distribuidor');
 require('./models/Evento');
 require('./models/Foto');
+require('./models/Noticia');
 require('./config/passport');
 mongoose.connect('mongodb://localhost/hunter-direcory');
 

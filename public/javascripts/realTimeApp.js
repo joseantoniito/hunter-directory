@@ -44,7 +44,9 @@ function($stateProvider, $urlRouterProvider) {
       controller: 'MainCtrl',
       resolve: {
         post: ['$stateParams', 'projects', function($stateParams, projects) {
-          return projects.obtenerUltimosEventos();
+            
+          projects.obtenerUltimosEventos();
+           return  projects.obtenerUltimasNoticias();
         }]
       }
     });
@@ -84,6 +86,7 @@ function($stateProvider, $urlRouterProvider) {
             post: ['$stateParams', 'projects', function($stateParams, projects) {
                 projects.obtenerDistribuidoresPorCategoria($stateParams.id);
                 projects.obtenerUltimosEventos();
+                projects.obtenerUltimasNoticiasDeDistribuidor($stateParams.id);
               return projects.obtenerDistribuidor($stateParams.id);
             }]
           }
@@ -349,7 +352,7 @@ function($scope, $state, auth, projects, $sce){
     $scope.distribuidor = projects.distribuidor;
     $scope.files = [];
     $scope.categoriaActual = projects.categoriaActual;
-    //$scope.ultimosEventos = projects.ultimosEventos;
+    $scope.ultimasNoticias = projects.ultimasNoticias;
     $scope.slides = projects.ultimosEventos;
 
     $scope.agregarDistribuidor = function(){
@@ -624,12 +627,13 @@ app.factory('projects', ['$http', 'auth', function($http, auth){
             {id: 2, nombre: 'Punto de venta'},
             {id: 3, nombre: 'Contratista e Instadalador'}
           ],
-        distribuidor: null,
-        ultimosEventos: [],
-        categoriaActual : {id:1, nombre: 'Riego Residencial'}
+          distribuidor: null,
+          ultimosEventos: [],
+          categoriaActual : {id:1, nombre: 'Riego Residencial'},
+          ultimasNoticias:[] 
 	  };
   
-      o.formatDireccion = function(oDireccion) {
+    o.formatDireccion = function(oDireccion) {
         if (oDireccion){
           return "{0} {1} -{2}, {3}, {4}, {5} {6}".format(
                         oDireccion.calle || "",
@@ -694,6 +698,21 @@ app.factory('projects', ['$http', 'auth', function($http, auth){
             debugger;
             angular.copy(data, o.ultimosEventos);
 		}); 
+    }
+    
+    o.obtenerUltimasNoticias = function(){
+        return $http.get('/obtenerUltimasNoticias').success(function(data){
+            debugger;
+            angular.copy(data, o.ultimasNoticias);
+		}); 
+    }
+        
+    o.obtenerUltimasNoticiasDeDistribuidor = function(id){
+        return $http.get('/obtenerUltimasNoticias/' + id).success(function(data){
+            debugger;
+            angular.copy(data, o.ultimasNoticias);
+		}); 
+        
     }
     
     return o;
