@@ -295,14 +295,22 @@
                 <h2 class="page-header">Noticias</h2>
             </div>
             
-            <div ng-repeat="noticia in ultimasNoticias">
-                <div class="divNoticiaHome">
-                    <a href="/eventos/#/portafolio-evento/{{ slideCollection.image1._id }}">
-                        <img src="/uploads/{{noticia.banner}}" />
-                    </a>
-                    <div>
-                        <h3> {{noticia.titulo}} </h3>
+            <div class="row">
+                <div ng-repeat="noticia in ultimasNoticias">
+                    <div class="divNoticiaHome">
+                        <a href="/#/noticia/{{ noticia._id }}">
+                            <img src="/uploads/{{noticia.banner}}" />
+                        </a>
+                        <div>
+                            <h3> {{noticia.titulo}} </h3>
+                        </div>
                     </div>
+                </div>
+            </div>
+            
+            <div class="row">
+                <div style="float:right;">
+                      <a href="/#/noticias" class="btn btn-primary" >Más Noticias</a>
                 </div>
             </div>
             
@@ -593,14 +601,101 @@
              
        </div>             
     </div> 
-     
-        
-            </div>
-    
-
+</div>
 
 </script>
-	
+
+<script type="text/ng-template" id="/noticias.html">
+   <div class="container" style="width: 1048px;padding: 0 20px;background:white;">
+        <div class="" >
+            <div class="" >
+                <div class="">
+                    <div class="">
+                        <div class="col-lg-13">
+                            <h2 class="page-header">Noticias</h2>
+                        </div>
+
+                        <div ng-repeat="noticia in ultimasNoticias">
+                            <div class="divNoticiaHome">
+                                <a href="/#/noticia/{{ noticia._id }}">
+                                    <img src="/uploads/{{noticia.banner}}" />
+                                </a>
+                                <div>
+                                    <h3> {{noticia.titulo}} </h3>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</script>
+      
+<script type="text/ng-template" id="/noticia.html">
+<div class="container" style="width: 1048px;padding: 0 20px;">
+    <div class="" >
+        <div class=" divAlignCenter pad50-0">
+            <h1 style="text-transform: uppercase;font-size: 53px;"><b>{{ noticia.titulo }}</b></h1>
+        </div>
+    
+        <div class="col-md-9" >
+			<div class='' style="background:white;"> 
+				<div class=''>
+					<div class="altura32"></div>
+					<a href="#">
+						<img  src='/uploads/{{ noticia.banner }}' class="img-rounded" alt="Icono empresa" width="100%" height="440px">
+					</a>
+				</div> 
+                
+				<div class=''> 
+					<div>
+						<!--<div class="panel panel-default">
+							<div class="panel-body">
+								<p>{{ noticia.fecha }}</p>
+							</div>
+						</div>-->
+						
+						<div class="panel panel-default">
+							<div class="panel-body copy">
+                                <p ng-bind-html="noticia.contenido"></p>
+								
+							</div>
+                            
+                            <div class="videogular-container">
+                                <videogular vg-theme="configVideoNoticia.theme.url">
+                                    <vg-media vg-src="configVideoNoticia.sources"
+                                              vg-tracks="configVideoNoticia.tracks"
+                                              vg-native-controls="true">
+                                    </vg-media>
+                                </videogular>
+                            </div>
+                            <div class="altura64"></div>
+						</div>
+					</div>
+				</div>
+                
+                
+			</div>
+		</div>
+        <div class="col-md-3" >
+            <div ng-repeat="noticia in ultimasNoticias">
+                <div class="divNoticiaHome" style="width:100%;">
+                    <a href="/#/noticia/{{ noticia._id }}">
+                        <img src="/uploads/{{noticia.banner}}" ng-show="$first || $last" />
+                    
+                    <div>
+                        <h3> {{noticia.titulo}} </h3>
+                    </div>
+                    </a>
+                </div>
+            </div>
+        </div>
+	</div>
+</div>
+
+</script>
+      
 <script type="text/ng-template" id="/register.html">
   <div class="row">
 	<div class="col-md-5 col-md-offset-4 bgrdWhite">

@@ -92,6 +92,33 @@ function($stateProvider, $urlRouterProvider) {
           }
     });
     
+    $stateProvider
+    .state('noticias', {
+        url: '/noticias',
+        templateUrl: '/noticias.html',
+        controller: 'MainCtrl',
+        resolve: {
+            //if($stateParams.id != null)
+            post: ['$stateParams', 'projects', function($stateParams, projects) {
+              return projects.obtenerUltimasNoticias();
+            }]
+          }
+    });
+    
+    $stateProvider
+    .state('noticia', {
+        url: '/noticia/{id}',
+        templateUrl: '/noticia.html',
+        controller: 'MainCtrl',
+        resolve: {
+            //if($stateParams.id != null)
+            post: ['$stateParams', 'projects', function($stateParams, projects) {
+               projects.obtenerUltimasNoticias();
+               return projects.obtenerNoticiaPorId($stateParams.id);
+            }]
+          }
+    });
+    
     $urlRouterProvider.otherwise('home');
 }]);
 
@@ -353,6 +380,7 @@ function($scope, $state, auth, projects, $sce){
     $scope.files = [];
     $scope.categoriaActual = projects.categoriaActual;
     $scope.ultimasNoticias = projects.ultimasNoticias;
+    $scope.noticia = projects.noticia;
     $scope.slides = projects.ultimosEventos;
 
     $scope.agregarDistribuidor = function() {
@@ -556,6 +584,21 @@ function($scope, $state, auth, projects, $sce){
         }); 
     }
     
+    if($state.current.name == "noticia"){
+        var itemE = $scope.noticia.video;
+        $scope.configVideoNoticia =
+            {
+                preload: "none",
+                sources: [
+                    {src: $sce.trustAsResourceUrl("/uploads/" + itemE.url), type: "video/" + itemE.url.split('.')[itemE.url.split('.').length-1]},
+                ],
+                tracks: [],
+                theme: {
+                    url: "/stylesheets/videogular.css"
+                },id: 0
+            }   
+    }
+    
 }]);
 
 app.factory('auth', ['$http', '$window', function($http, $window){
@@ -721,6 +764,12 @@ app.factory('projects', ['$http', 'auth', function($http, auth){
 		}); 
         
     }
+    
+    o.obtenerNoticiaPorId = function(id) {
+		return $http.get('/profile/noticiaPorId/' + id).success(function(data){
+		  o.noticia = data;
+		});
+	};
     
     return o;
 }]);
