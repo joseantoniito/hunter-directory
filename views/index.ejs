@@ -24,8 +24,6 @@
     <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-T8Gy5hrqNKT+hzMclPo118YTQO6cYprQmhrYwIiQ/3axmI1hQomh7Ud2hPOy8SP1" crossorigin="anonymous">
       <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyA8Xq5o6lNl4YyFt0F30E_yas-zDNk3sMg" async defer></script>
 
-      <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyA8Xq5o6lNl4YyFt0F30E_yas-zDNk3sMg" async defer></script>
-
       <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.26/angular-sanitize.min.js"></script>
       <script src="https://cdnjs.cloudflare.com/ajax/libs/videogular/1.4.4/videogular.min.js"></script>
       <!--<script src="http://static.videogular.com/scripts/videogular/latest/videogular.js"></script>-->
@@ -76,78 +74,85 @@
       </style>
   </head>
     
-  <body ng-app="realTime" class="bgrdBody"> 
-	<nav class="navbar navbar-static-top navbar-dark bg-inverse p10 menuPrincipal" 
-         ng-controller="NavCtrl">
-        
-		 <h3><dl>
-		 <a href="/#/home" style="float:left; color: white;">
-           <span class="glyphicon glyphicon-grain" aria-hidden="true" style="margin-right:2px;"></span>
-             RIEGO SUSTENTABLE       </a> 
-          </dl>
-        </h3>
-        
-        <ul class="nav navbar-nav  pull-right">
-            
-            <li class="dropdown">
-                <a class="dropdown-toggle btn-menu" data-toggle="dropdown" style="color:white;">Industria
-                <span class="caret"></span></a>
-                  <ul class="dropdown-menu">
-                    <li class="m10"
-                    ng-repeat="categoria in categorias">
-                    <a href="/#/directorio/{{ categoria.id }}">{{ categoria.nombre }}</a>
-                    </li>
-                  
-                  </ul>
-            </li>
+  <body ng-app="realTime" class="bgrdBody">
+      <header class="headerPrincipal">
+        <nav class="navbar navbar-static-top navbar-dark bg-inverse p10 menuPrincipal" 
+             ng-controller="NavCtrl">
+            <div class="container">
+            <div class="container-fluid">
+            <h3 style="float:left; margin:10px 0;">
+                <dl>
+                     <a href="/#/home" style="float:left; color: white;">
+                       <span class="glyphicon glyphicon-grain" aria-hidden="true" style="margin-right:2px;"></span>
+                         RIEGO SUSTENTABLE       
+                     </a> 
+                </dl>
+            </h3>
+
+            <ul class="nav navbar-nav  pull-right">
+
+                <li class="dropdown">
+                    <a class="dropdown-toggle btn-menu" data-toggle="dropdown" style="color:white;">Industria
+                    <span class="caret"></span></a>
+                      <ul class="dropdown-menu">
+                        <li class="m10"
+                        ng-repeat="categoria in categorias">
+                        <a href="/#/directorio/{{ categoria.id }}">{{ categoria.nombre }}</a>
+                        </li>
+
+                      </ul>
+                </li>
 
 
-             <li class="dropdown">
-                <a class="dropdown-toggle btn-menu" data-toggle="dropdown" style="color:white;">Tipo Industria
-                <span class="caret"></span></a>
-                  <ul class="dropdown-menu">
-                    <li class="m10"
-                    ng-repeat="tipo in tipo_industria">
-                    <a href="/#/directorio/{{ tipo.id }}">{{ tipo.nombre }}</a>
-                    </li>
-                  
-                  </ul>
-            </li>
-            
-             <li class="dropdown">
-                <a class="dropdown-toggle btn-menu" data-toggle="dropdown" style="color:white;">Iluminación
-                <span class="caret"></span></a>
-                  <ul class="dropdown-menu">
-                    <li class="m10"
-                    ng-repeat="tipo in iluminacion">
-                    <a href="/#/directorio/{{ tipo.id }}">{{ tipo.nombre }}</a>
-                    </li>
-                  
-                  </ul>
-            </li>
-            
-            <li><a href="/eventos/#/portafolio" class="btn btn-menu">Eventos</a></li>
-            
-            
-              
-            <li class="dropdown" ng-show="isLoggedIn()">
-                <a class="dropdown-toggle btn-menu" data-toggle="dropdown" style="color:white;">{{ currentUser() }}
-                <span class="caret"></span></a>
-                  <ul class="dropdown-menu">
-                    <li class="m10">
-                        <a href="/profile/#/override">Cuenta</a>
-                    </li>
-                    <li class="m10">
-                        <a ng-click="logOut()">Cerrar sesión</a>
-                          
-                    </li>
-                      
-                </ul>
-            </li>
-              <li ng-hide="isLoggedIn()"><a href="/#/login" class="btn btn-menu">Iniciar sessión</a></li>
-		      <li ng-hide="isLoggedIn()"><a href="/#/register" class="btn btn-menu">Registrarse</a></li>
-		</ul>
-	</nav>
+                 <li class="dropdown">
+                    <a class="dropdown-toggle btn-menu" data-toggle="dropdown" style="color:white;">Tipo Industria
+                    <span class="caret"></span></a>
+                      <ul class="dropdown-menu">
+                        <li class="m10"
+                        ng-repeat="tipo in tipo_industria">
+                        <a href="/#/directorio/{{ tipo.id }}">{{ tipo.nombre }}</a>
+                        </li>
+
+                      </ul>
+                </li>
+
+                 <li class="dropdown">
+                    <a class="dropdown-toggle btn-menu" data-toggle="dropdown" style="color:white;">Iluminación
+                    <span class="caret"></span></a>
+                      <ul class="dropdown-menu">
+                        <li class="m10"
+                        ng-repeat="tipo in iluminacion">
+                        <a href="/#/directorio/{{ tipo.id }}">{{ tipo.nombre }}</a>
+                        </li>
+
+                      </ul>
+                </li>
+
+                <li><a href="/eventos/#/portafolio" class="btn btn-menu">Eventos</a></li>
+
+
+
+                <li class="dropdown" ng-show="isLoggedIn()">
+                    <a class="dropdown-toggle btn-menu" data-toggle="dropdown" style="color:white;">{{ currentUser() }}
+                    <span class="caret"></span></a>
+                      <ul class="dropdown-menu">
+                        <li class="m10">
+                            <a href="/profile/#/override">Cuenta</a>
+                        </li>
+                        <li class="m10">
+                            <a ng-click="logOut()">Cerrar sesión</a>
+
+                        </li>
+
+                    </ul>
+                </li>
+                  <li ng-hide="isLoggedIn()"><a href="/#/login" class="btn btn-menu">Iniciar sessión</a></li>
+                  <li ng-hide="isLoggedIn()"><a href="/#/register" class="btn btn-menu">Registrarse</a></li>
+            </ul>
+            </div>
+            </div>
+        </nav>
+      </header>
   
   
 	
@@ -156,209 +161,224 @@
     
 
 <script type="text/ng-template" id="/directorio.html">
-        <div style="height: 400px;">
-            <uib-carousel active="active" interval="myInterval" no-wrap="noWrapSlides">
-              <uib-slide ng-repeat="slide in slidesHome" index="slide.id">
-                <img ng-src="{{slide.image}}" style="margin:auto; width:100%; height:400px;">
-                <div class="carousel-caption">
-                  <h1><div style="color:white;">{{slide.desc}}</div></h1>
-                  
-                  <div class="col-md-offset-3 col-md-6 input-group">
-                    <input kendo-auto-complete 
-                        k-options="autoCompleteOptions"
-                        ng-model="textoBusqueda"
-                        style="width: 100%;" />
+    <div style="height: 600px;">
+	<uib-carousel active="active" interval="myInterval" no-wrap="noWrapSlides">
+	  <uib-slide ng-repeat="slide in slidesHome" index="slide.id">
+		<img ng-src="{{slide.image}}" style="margin:auto; width:100%; height:600px;">
+		<div class="carousel-caption" style="bottom:35%;">
+		  <h1><div style="color:white;">{{slide.desc}}</div></h1>
+		  
+		  <div class="col-md-offset-3 col-md-6 input-group">
+			<input kendo-auto-complete 
+				k-options="autoCompleteOptions"
+				ng-model="textoBusqueda"
+				style="width: 100%;" />
 
-                    <span class="input-group-addon btnGeneral" id="basic-addon2">
-                    <a href="#/directorio-resultados/{{textoBusqueda}}">Buscar</a>
-                </span>
-                  </div>
-                  
-                  <h4><p>{{slide.text}}</p></h4>
-                </div>
-              </uib-slide>
-            </uib-carousel>
+			<span class="input-group-addon btnGeneral" id="basic-addon2">
+			<a href="#/directorio-resultados/{{textoBusqueda}}">Buscar</a>
+		</span>
+		  </div>
+		  
+		  <h4><p class="lblBlanco">{{slide.text}}</p></h4>
+		</div>
+	  </uib-slide>
+	</uib-carousel>
+</div>
+		
+<div class="divBloque">
+        <div class="divAlignCenter">
+            <h2 class="lblPrincipal"> Nuestras Categorías </h2>
         </div>
 
-        <div class="row search-box-home">
-            <div class="container-fluid" >
-                <h2 class="lblPrincipal">Todo para tu sistema de riego</h2>
-                <h5>Elige tu distribuidor, compara precios y agenda cita.</h5>
-                
-                
-                <div class="col-sm-3"  ng-repeat="distribuidor in distribuidores">
-                <div class='thumbnail' style="height:120px;">
-                    
-                    <a href="/#/detalle/{{distribuidor._id }}">
-                    <img src='/uploads/{{ distribuidor.banner || bannerBack }}' style="width:100%;height:70%;"/> 
-                    
+        <div class="dividerGeneral"></div>
+
+        <div class="divBloque" style="padding-top:0;">
+            <div style="width:{{categorias.length * 143}}px; margin:0 auto;">
+                <div style="width:143px; float:left;"
+                    ng-repeat="categoria in categorias">
+                    <div class="itemSliderCategorias">
+                        <a href="/#/detalle/{{categoria._id }}">
+                            <img src='/uploads/{{ categoria.url || bannerBack }}'/> 
+
                             <h4 style="text-transform: capitalize;">
-                                {{distribuidor.nombre}}</h4>
-                                </a>
-                    </div>
-                </div>
-            </div>
-                
-                                
-            </div>
-        </div>
-        
-        <div class="row divGris">
-            <div class="col-lg-12 divAlignCenter">
-                <h1 class="page-header">
-                    Sistemas de riego a la medida
-                </h1>
-            </div>
-            <div class="col-lg-4 vc_column_container">
-                <div class="vc_custom_1459900974046">
-                    <div class="divEspacios">
-                        <h4 class="lblBlanco"> Sistemas automatizables</h4>
-                        <p class="lblBlanco">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Itaque, optio corporis quae nulla aspernatur in alias at numquam rerum ea excepturi expedita tenetur assumenda voluptatibus eveniet incidunt dicta nostrum quod?</p>
-                        <a href="#" class="btn btn-default btnGeneral">Ver Más</a>
-                        &nbsp;
-                    </div>
-                </div>
-            </div>
-            <div class="col-md-4 vc_column_container">
-                <div class="vc_custom_1459900992558">
-                    <div class="divEspacios">
-                        <h4 class="lblPrincipal"> Distribuidores de toda Latinoamérica</h4>
-                        <p class="lblPrincipal">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Itaque, optio corporis quae nulla aspernatur in alias at numquam rerum ea excepturi expedita tenetur assumenda voluptatibus eveniet incidunt dicta nostrum quod?</p>
-                        <a href="#" class="btn btn-default btnGeneral">Ver Más</a>
-                        &nbsp;
-                    </div>
-                </div>
-            </div>
-            <div class="col-md-4 vc_column_container">
-                <div class="vc_custom_1459901011310">
-                    <div class="divEspacios">
-                        <h4 class="lblBlanco"> Atención inmediata</h4>
-                        <p class="lblBlanco">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Itaque, optio corporis quae nulla aspernatur in alias at numquam rerum ea excepturi expedita tenetur assumenda voluptatibus eveniet incidunt dicta nostrum quod?</p>
-                        <a href="#" class="btn btn-default btnGeneral">Ver Más</a>
-                        &nbsp;
-                    </div>
-                </div>
-            </div>
-  
-        </div>
-        <div class="divGris">
-        <div class="container">
-            <div class="col-lg-13">
-                <h2 class="page-header">Eventos</h2>
-            </div>
-            
-             <uib-carousel active="active" interval="myInterval" no-wrap="noWrapSlides">
-              <uib-slide ng-repeat="slideCollection in groupedSlides" index="evento._id">
-
-                <a href="/eventos/#/portafolio-evento/{{ slideCollection.image1._id }}" class="a-portfolio coverWrap altura150" style="margin-left:7%;">
-
-                    <img class="img-responsive img-portfolio img-hover" width="" src="../uploads/{{slideCollection.image1.banner}}" alt="">
-                </a>
-               
-               <a href="/eventos/#/portafolio-evento/{{ slideCollection.image2._id }}" class="a-portfolio coverWrap altura150">
-                    <img class="img-responsive img-portfolio img-hover" width="margin:auto;min-width:100%;" src="../uploads/{{slideCollection.image2.banner}}" alt="">
-                </a>
-				
-                <a href="/eventos/#/portafolio-evento/{{ slideCollection.image3._id }}" class="a-portfolio coverWrap altura150" >
-                    <img class="img-responsive img-portfolio img-hover" width="margin:auto;min-width:100%;" src="../uploads/{{slideCollection.image3.banner}}" alt="">
-                </a>
-            </uib-carousel>
-        
-        </div>
-        </div>
-        
-        <div class="container">
-            <div class="col-lg-12">
-                <h2 class="page-header">Características de sistemas de riego</h2>
-            </div>
-            <div class="col-md-6">
-                <p>El servicio consiste en:</p>
-                <ul>
-                    <li><strong>Para jardines</strong>
-                    </li>
-                    <li>Públicos</li>
-                    <li>Privados</li>
-                    <li>Canchas</li>
-                    <li>Todo tipo de accesorios</li>
-                    <li>Garantia</li>
-                </ul>
-                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Corporis, omnis doloremque non cum id reprehenderit, quisquam totam aspernatur tempora minima unde aliquid ea culpa sunt. Reiciendis quia dolorum ducimus unde.</p>
-            </div>
-            <div class="col-md-6">
-                <img class="img-responsive" src="../images/rotator-700x450.jpg" alt="">
-            </div>
-        </div>
-        
-        <div class="divGris">
-        <div class="container">
-            <div class="col-lg-13">
-                <h2 class="page-header">Noticias</h2>
-            </div>
-            
-            <div class="row">
-                <div ng-repeat="noticia in ultimasNoticias">
-                    <div class="divNoticiaHome">
-                        <a href="/#/noticia/{{ noticia._id }}">
-                            <img src="/uploads/{{noticia.banner}}" />
+                                {{categoria.nombre}}</h4>
                         </a>
-                        <div>
-                            <h3> {{noticia.titulo}} </h3>
-                        </div>
                     </div>
                 </div>
             </div>
-            
-            <div class="row">
-                <div style="float:right;">
-                      <a href="/#/noticias" class="btn btn-primary" >Más Noticias</a>
-                </div>
-            </div>
-            
         </div>
-        </div>
-        
-        
-        <hr>
-        <div class="footerCategorias">
-          <div class="row">
-          <div class="col-md-3">
-          <h3 class="m10" style="color:gray;">Industria Riego</h3>
-          <div class="m10"
-                ng-repeat="categoria in tipo_industria">
-                <a href="/#/directorio/{{ categoria.id }}">{{ categoria.nombre }}</a>
-            </div>
-            </div>
-            <div class="col-md-3">
-            <h3 class="m10" style="color:gray;">Tipo de industria</h3>
-            <div class="m10" style="margin-left:3px;"
-                ng-repeat="categoria in categorias">
-                <a href="/#/directorio/{{ categoria.id }}">{{ categoria.nombre }}</a>
-            </div>
-            </div>
-            
-            <div class="col-md-3">
-            <h3 class="m10" style="color:gray">Contacto</h3>
-             <div class="m10" style="margin-left:3px;"     >
-                <a>Diplay Imagén y publicidad </a>
-                </div>
-                <div class="m10" style="margin-left:3px;"     >
+</div>
 
-                <a>Tel: 4423657157</a>
+<div class="divBloque divGrisClaro">
+    <div class="renglonPad50px">
+        <div class="divAlignCenter">
+            <h2 class="lblPrincipal"> Ventajas del servicio </h2>
+        </div>
+
+        <div class="dividerGeneral"></div>
+
+        <div class="divFila">
+            <div class="col-md-3" ng-repeat="descS in descServicios">
+                <div class="row divAlignCenter" style="padding:0 15px;">
+                    <a class="qodef-icon-shortcode normal qodef-icon-huge">
+                        <i class="qodef-icon-font-awesome fa {{descS.icono}} qodef-icon-element" style=""></i>
+                    </a>
+                    <h3 class="lblPrincipal"> {{descS.titulo}} </h3>
+                    <p style="text-align:left;"> {{descS.descripcion}}  </p>
                 </div>
-                <div class="m10" style="margin-left:3px;"     >
-                <a> aespino@displayimagenpublicidad.com</a>
-                </div>
-                <div class="m10" style="margin-left:3px;"     >
             </div>
-            </div>
-            
-            <div class="m10"
-                ng-repeat="categoria in iluminacion">
-                <a href="/#/directorio/{{ categoria.id }}">{{ categoria.nombre }}</a>
-            </div>
+
+        </div>
+    </div>
+</div>
+
+<div class="container">
+    <div class="row">
+        <div class="col-md-12">
+
+        <div class="divAlignCenter renglonPad50px">
+            <h2 class="lblPrincipal"> Todo para tu sistema de riego </h2>
+
+            <div class="dividerGeneral"></div>
+
+            <p> Elige tu distribuidor, compara precios y agenda cita. </p>
+        </div>
+
+        <div class="dominoItemGallery"  ng-repeat="distribuidor in distribuidores">
+            <div class="shadow"></div>
+           <div>
+                <a href="/#/detalle/{{distribuidor._id }}">
+                    <img src='/uploads/{{ distribuidor.banner || bannerBack }}' 
+                        style="width:100%;height:266px;"/> 
+
+                    <div class="divBloque divTitulo" style="">
+                        <h4 style="">
+                            {{distribuidor.nombre}}</h4>
+                    </div>
+                </a>
             </div>
         </div>
-        </script>
+
+    </div>					
+    </div>
+</div>
+
+<div class="divBloque divGrisClaro" style="padding-top:0;">
+    <div class="divAlignCenter pad50-0">
+        <h2 class="lblPrincipal"> Últimos eventos </h2>
+        <div class="dividerGeneral"></div>
+        <p>Enterese de las novedades en la industria del riego en Latino América</p>
+    </div>
+
+    <div id="carouselHomeFull" class="divBloque" style="padding-top:0;">
+         <uib-carousel active="active" interval="myInterval" no-wrap="noWrapSlides">
+          <uib-slide ng-repeat="slideCollection in groupedSlides" index="evento._id">
+
+            <div class="dominoItemGallery col-md-3">
+                <div class="shadow"></div>
+                <div>
+                    <a href="/eventos/#/portafolio-evento/{{ slideCollection.image1._id }}">
+                        <img src="../uploads/{{slideCollection.image1.banner}}" />
+
+                        <div class="divBloque divTitulo">
+                            <h4> {{slideCollection.image1.nombre}} </h4>
+                        </div>
+                    </a>
+                </div>
+            </div>
+
+            <div class="dominoItemGallery col-md-3">
+                <div class="shadow"></div>
+                <div>
+                    <a href="/eventos/#/portafolio-evento/{{ slideCollection.image2._id }}">
+                        <img src="../uploads/{{slideCollection.image2.banner}}" />
+
+                        <div class="divBloque divTitulo">
+                            <h4> {{slideCollection.image2.nombre}} </h4>
+                        </div>
+                    </a>
+                </div>
+            </div>
+
+            <div class="dominoItemGallery col-md-3">
+                <div class="shadow"></div>
+                <div>
+                    <a href="/eventos/#/portafolio-evento/{{ slideCollection.image3._id }}">
+                        <img src="../uploads/{{slideCollection.image3.banner}}">
+
+                        <div class="divBloque divTitulo">
+                            <h4> {{slideCollection.image3.nombre}} </h4>
+                        </div>
+                    </a>
+                </div>
+            </div>
+            <div class="dominoItemGallery col-md-3">
+                <div class="shadow"></div>
+                <div>
+                    <a href="/eventos/#/portafolio-evento/{{ slideCollection.image4._id }}">
+                        <img src="../uploads/{{slideCollection.image4.banner}}">
+
+                        <div class="divBloque divTitulo">
+                            <h4> {{slideCollection.image4.nombre}} </h4>
+                        </div>
+                    </a>
+                </div>
+            </div>
+        </uib-carousel>
+    </div>
+
+</div>
+
+<div class="divBloque pad100-0">
+    <div class="col-md-offset-2"></div>
+    <div class="itemRedesSociales col-md-2 {{$first ? 'col-md-offset-1' : ''}}"
+        ng-repeat="redSocial in redesSociales">
+            <a class="qodef-icon-shortcode normal qodef-icon-huge">
+                <i class="qodef-icon-font-awesome fa {{redSocial.icono}} qodef-icon-element" style=""></i>
+            </a>
+    </div>
+</div>
+
+<div class="footerCategorias">
+			  <div class="row">
+			  <div class="col-md-3">
+			  <h3 class="m10" style="color:gray;">Industria Riego</h3>
+			  <div class="m10"
+					ng-repeat="categoria in tipo_industria">
+					<a href="/#/directorio/{{ categoria.id }}">{{ categoria.nombre }}</a>
+				</div>
+				</div>
+				<div class="col-md-3">
+				<h3 class="m10" style="color:gray;">Tipo de industria</h3>
+				<div class="m10" style="margin-left:3px;"
+					ng-repeat="categoria in categorias">
+					<a href="/#/directorio/{{ categoria.id }}">{{ categoria.nombre }}</a>
+				</div>
+				</div>
+				
+				<div class="col-md-3">
+				<h3 class="m10" style="color:gray">Contacto</h3>
+				 <div class="m10" style="margin-left:3px;"     >
+					<a>Diplay Imagén y publicidad </a>
+					</div>
+					<div class="m10" style="margin-left:3px;"     >
+
+					<a>Tel: 4423657157</a>
+					</div>
+					<div class="m10" style="margin-left:3px;"     >
+					<a> aespino@displayimagenpublicidad.com</a>
+					</div>
+					<div class="m10" style="margin-left:3px;"     >
+				</div>
+				</div>
+				
+				<div class="m10"
+					ng-repeat="categoria in iluminacion">
+					<a href="/#/directorio/{{ categoria.id }}">{{ categoria.nombre }}</a>
+				</div>
+				</div>
+			</div>
+</script>
         
 
       

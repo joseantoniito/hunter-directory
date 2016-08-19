@@ -26,7 +26,7 @@ router.get('/home', auth, function(req, res, next) {
 });
 
 router.get('/', function(req, res, next) {
-  res.render('index', { title: 'Imagén Riego' });
+  res.render('index', { title: 'Riego Sustentable' });
 });
 
 
