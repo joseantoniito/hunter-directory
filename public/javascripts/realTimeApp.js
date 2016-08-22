@@ -113,6 +113,7 @@ function($stateProvider, $urlRouterProvider) {
         resolve: {
             //if($stateParams.id != null)
             post: ['$stateParams', 'projects', function($stateParams, projects) {
+                projects.obtenerUltimosEventos();
                projects.obtenerUltimasNoticias();
                return projects.obtenerNoticiaPorId($stateParams.id);
             }]
@@ -380,7 +381,7 @@ function($scope, $state, auth, projects, $sce){
     $scope.categoriaActual = projects.categoriaActual;
     $scope.ultimasNoticias = projects.ultimasNoticias;
     $scope.noticia = projects.noticia;
-    $scope.slides = projects.ultimosEventos;
+    $scope.slides = $scope.ultimosEventos = projects.ultimosEventos;
 
     $scope.agregarDistribuidor = function() {
         $scope.distribuidor.idCategoria = $scope.distribuidor.idCategoria.id;
@@ -624,6 +625,8 @@ function($scope, $state, auth, projects, $sce){
     }
     
     if($state.current.name == "noticia"){
+        
+        $("body").addClass("single-post")
         var itemE = $scope.noticia.video;
         $scope.configVideoNoticia =
             {
@@ -636,6 +639,8 @@ function($scope, $state, auth, projects, $sce){
                     url: "/stylesheets/videogular.css"
                 },id: 0
             }   
+        
+        $scope.ultimosEventos = $scope.ultimosEventos.slice(0,3)
     }
     
 }]);
