@@ -2,6 +2,7 @@ var express = require('express');
 var router = express.Router();
 var passport = require('passport');
 var mongoose = require('mongoose');
+var Noticia = mongoose.model('Noticia');
 var User = mongoose.model('User');
 var Distribuidor = mongoose.model('Distribuidor');
 var jwt = require('express-jwt');
@@ -25,7 +26,7 @@ router.get('/home', auth, function(req, res, next) {
 });
 
 router.get('/', function(req, res, next) {
-  res.render('index', { title: 'Imagén Riego' });
+  res.render('index', { title: 'Riego Sustentable' });
 });
 
 
@@ -206,6 +207,30 @@ router.post('/removeFiles', function(req, res, next){
     console.log(req.body);
     
     res.json(req.body);
+});
+
+router.get('/obtenerUltimasNoticias', function(req, res, next) {
+	  var query = Noticia.find().populate('video');
+
+	  query.limit(10).exec(function (err, data){
+		if (err) { return next(err); }
+		if (!data) { return next(new Error('No se encuentra el registro.')); }
+
+        console.log(data);
+		res.json(data);
+	  });
+});
+
+router.get('/obtenerUltimasNoticias/:distribuidor', function(req, res, next) {
+	  var query = Noticia.find({distribuidor : new ObjectId(req.id)}).populate('video');
+
+	  query.limit(10).exec(function (err, data){
+		if (err) { return next(err); }
+		if (!data) { return next(new Error('No se encuentra el registro.')); }
+
+        console.log(data);
+		res.json(data);
+	  });
 });
 
 

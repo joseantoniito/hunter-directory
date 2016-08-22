@@ -10,6 +10,7 @@
     
       
     <link rel='stylesheet' href='/stylesheets/style.css' />
+    <link rel='stylesheet' href='/stylesheets/extra.css' />
 	<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.3/angular.min.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.3/angular-animate.js"></script>
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/angular-ui-router/0.2.10/angular-ui-router.js"></script>
@@ -22,8 +23,6 @@
     <script src="https://angular-ui.github.io/bootstrap/ui-bootstrap-tpls-1.3.3.js"></script>
       
     <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-T8Gy5hrqNKT+hzMclPo118YTQO6cYprQmhrYwIiQ/3axmI1hQomh7Ud2hPOy8SP1" crossorigin="anonymous">
-      <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyA8Xq5o6lNl4YyFt0F30E_yas-zDNk3sMg" async defer></script>
-
       <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyA8Xq5o6lNl4YyFt0F30E_yas-zDNk3sMg" async defer></script>
 
       <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.26/angular-sanitize.min.js"></script>
@@ -75,263 +74,425 @@
       </style>
   </head>
     
-  <body ng-app="realTime" class="bgrdBody"> 
-	<nav class="navbar navbar-static-top navbar-dark bg-inverse p10 menuPrincipal" 
-         ng-controller="NavCtrl">
-        
-		 <h3><dl>
-		 <a href="/#/home" style="float:left; color: white;">
-           <span class="glyphicon glyphicon-grain" aria-hidden="true" style="margin-right:2px;"></span>
-             RIEGO SUSTENTABLE       </a> 
-          </dl>
-        </h3>
-        
-        <ul class="nav navbar-nav  pull-right">
-            
-            <li class="dropdown">
-                <a class="dropdown-toggle btn-menu" data-toggle="dropdown" style="color:white;">Industria
-                <span class="caret"></span></a>
-                  <ul class="dropdown-menu">
-                    <li class="m10"
-                    ng-repeat="categoria in categorias">
-                    <a href="/#/directorio/{{ categoria.id }}">{{ categoria.nombre }}</a>
-                    </li>
-                  
-                  </ul>
-            </li>
+  <body ng-app="realTime" class="bgrdBody">
+      <header class="headerPrincipal">
+        <nav class="navbar navbar-static-top navbar-dark bg-inverse p10 menuPrincipal" 
+             ng-controller="NavCtrl">
+            <div class="container">
+            <div class="container-fluid">
+            <h3 style="float:left; margin:10px 0;">
+                <dl>
+                     <a href="/#/home" style="float:left; color: white;">
+                       <span class="glyphicon glyphicon-grain" aria-hidden="true" style="margin-right:2px;"></span>
+                         RIEGO SUSTENTABLE       
+                     </a> 
+                </dl>
+            </h3>
+
+            <ul class="nav navbar-nav  pull-right">
+
+                <li class="dropdown">
+                    <a class="dropdown-toggle btn-menu" data-toggle="dropdown" style="color:white;">Industria
+                    <span class="caret"></span></a>
+                      <ul class="dropdown-menu">
+                        <li class="m10"
+                        ng-repeat="categoria in categorias">
+                        <a href="/#/directorio/{{ categoria.id }}">{{ categoria.nombre }}</a>
+                        </li>
+
+                      </ul>
+                </li>
 
 
-             <li class="dropdown">
-                <a class="dropdown-toggle btn-menu" data-toggle="dropdown" style="color:white;">Tipo Industria
-                <span class="caret"></span></a>
-                  <ul class="dropdown-menu">
-                    <li class="m10"
-                    ng-repeat="tipo in tipo_industria">
-                    <a href="/#/directorio/{{ tipo.id }}">{{ tipo.nombre }}</a>
-                    </li>
-                  
-                  </ul>
-            </li>
-            
-             <li class="dropdown">
-                <a class="dropdown-toggle btn-menu" data-toggle="dropdown" style="color:white;">Iluminación
-                <span class="caret"></span></a>
-                  <ul class="dropdown-menu">
-                    <li class="m10"
-                    ng-repeat="tipo in iluminacion">
-                    <a href="/#/directorio/{{ tipo.id }}">{{ tipo.nombre }}</a>
-                    </li>
-                  
-                  </ul>
-            </li>
-            
-            <li><a href="/eventos/#/portafolio" class="btn btn-menu">Eventos</a></li>
-            
-            
-              
-            <li class="dropdown" ng-show="isLoggedIn()">
-                <a class="dropdown-toggle btn-menu" data-toggle="dropdown" style="color:white;">{{ currentUser() }}
-                <span class="caret"></span></a>
-                  <ul class="dropdown-menu">
-                    <li class="m10">
-                        <a href="/profile/#/override">Cuenta</a>
-                    </li>
-                    <li class="m10">
-                        <a ng-click="logOut()">Cerrar sesión</a>
-                          
-                    </li>
-                      
-                </ul>
-            </li>
-              <li ng-hide="isLoggedIn()"><a href="/#/login" class="btn btn-menu">Iniciar sessión</a></li>
-		      <li ng-hide="isLoggedIn()"><a href="/#/register" class="btn btn-menu">Registrarse</a></li>
-		</ul>
-	</nav>
+                 <li class="dropdown">
+                    <a class="dropdown-toggle btn-menu" data-toggle="dropdown" style="color:white;">Tipo Industria
+                    <span class="caret"></span></a>
+                      <ul class="dropdown-menu">
+                        <li class="m10"
+                        ng-repeat="tipo in tipo_industria">
+                        <a href="/#/directorio/{{ tipo.id }}">{{ tipo.nombre }}</a>
+                        </li>
+
+                      </ul>
+                </li>
+
+                 <li class="dropdown">
+                    <a class="dropdown-toggle btn-menu" data-toggle="dropdown" style="color:white;">Iluminación
+                    <span class="caret"></span></a>
+                      <ul class="dropdown-menu">
+                        <li class="m10"
+                        ng-repeat="tipo in iluminacion">
+                        <a href="/#/directorio/{{ tipo.id }}">{{ tipo.nombre }}</a>
+                        </li>
+
+                      </ul>
+                </li>
+
+                <li><a href="/eventos/#/portafolio" class="btn btn-menu">Eventos</a></li>
+
+
+
+                <li class="dropdown" ng-show="isLoggedIn()">
+                    <a class="dropdown-toggle btn-menu" data-toggle="dropdown" style="color:white;">{{ currentUser() }}
+                    <span class="caret"></span></a>
+                      <ul class="dropdown-menu">
+                        <li class="m10">
+                            <a href="/profile/#/override">Cuenta</a>
+                        </li>
+                        <li class="m10">
+                            <a ng-click="logOut()">Cerrar sesión</a>
+
+                        </li>
+
+                    </ul>
+                </li>
+                  <li ng-hide="isLoggedIn()"><a href="/#/login" class="btn btn-menu">Iniciar sessión</a></li>
+                  <li ng-hide="isLoggedIn()"><a href="/#/register" class="btn btn-menu">Registrarse</a></li>
+            </ul>
+            </div>
+            </div>
+        </nav>
+      </header>
   
   
 	
 	<ui-view></ui-view>
     
-    
-
-<script type="text/ng-template" id="/directorio.html">
-        <div style="height: 400px;">
-            <uib-carousel active="active" interval="myInterval" no-wrap="noWrapSlides">
-              <uib-slide ng-repeat="slide in slidesHome" index="slide.id">
-                <img ng-src="{{slide.image}}" style="margin:auto; width:100%; height:400px;">
-                <div class="carousel-caption">
-                  <h1><div style="color:white;">{{slide.desc}}</div></h1>
-                  
-                  <div class="col-md-offset-3 col-md-6 input-group">
-                    <input kendo-auto-complete 
-                        k-options="autoCompleteOptions"
-                        ng-model="textoBusqueda"
-                        style="width: 100%;" />
-
-                    <span class="input-group-addon btnGeneral" id="basic-addon2">
-                    <a href="#/directorio-resultados/{{textoBusqueda}}">Buscar</a>
-                </span>
-                  </div>
-                  
-                  <h4><p>{{slide.text}}</p></h4>
-                </div>
-              </uib-slide>
-            </uib-carousel>
-        </div>
-
-        <div class="row search-box-home">
-            <div class="container-fluid" >
-                <h2 class="lblPrincipal">Todo para tu sistema de riego</h2>
-                <h5>Elige tu distribuidor, compara precios y agenda cita.</h5>
-                
-                
-                <div class="col-sm-3"  ng-repeat="distribuidor in distribuidores">
-                <div class='thumbnail' style="height:120px;">
-                    
-                    <a href="/#/detalle/{{distribuidor._id }}">
-                    <img src='/uploads/{{ distribuidor.banner || bannerBack }}' style="width:100%;height:70%;"/> 
-                    
-                            <h4 style="text-transform: capitalize;">
-                                {{distribuidor.nombre}}</h4>
-                                </a>
-                    </div>
-                </div>
-            </div>
-                
-                                
-            </div>
-        </div>
-        
-        <div class="row divGris">
-            <div class="col-lg-12 divAlignCenter">
-                <h1 class="page-header">
-                    Sistemas de riego a la medida
-                </h1>
-            </div>
-            <div class="col-lg-4 vc_column_container">
-                <div class="vc_custom_1459900974046">
-                    <div class="divEspacios">
-                        <h4 class="lblBlanco"> Sistemas automatizables</h4>
-                        <p class="lblBlanco">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Itaque, optio corporis quae nulla aspernatur in alias at numquam rerum ea excepturi expedita tenetur assumenda voluptatibus eveniet incidunt dicta nostrum quod?</p>
-                        <a href="#" class="btn btn-default btnGeneral">Ver Más</a>
-                        &nbsp;
-                    </div>
-                </div>
-            </div>
-            <div class="col-md-4 vc_column_container">
-                <div class="vc_custom_1459900992558">
-                    <div class="divEspacios">
-                        <h4 class="lblPrincipal"> Distribuidores de toda Latinoamérica</h4>
-                        <p class="lblPrincipal">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Itaque, optio corporis quae nulla aspernatur in alias at numquam rerum ea excepturi expedita tenetur assumenda voluptatibus eveniet incidunt dicta nostrum quod?</p>
-                        <a href="#" class="btn btn-default btnGeneral">Ver Más</a>
-                        &nbsp;
-                    </div>
-                </div>
-            </div>
-            <div class="col-md-4 vc_column_container">
-                <div class="vc_custom_1459901011310">
-                    <div class="divEspacios">
-                        <h4 class="lblBlanco"> Atención inmediata</h4>
-                        <p class="lblBlanco">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Itaque, optio corporis quae nulla aspernatur in alias at numquam rerum ea excepturi expedita tenetur assumenda voluptatibus eveniet incidunt dicta nostrum quod?</p>
-                        <a href="#" class="btn btn-default btnGeneral">Ver Más</a>
-                        &nbsp;
-                    </div>
-                </div>
-            </div>
-  
-        </div>
-        <div class="divGris">
-        <div class="container">
-            <div class="col-lg-13">
-                <h2 class="page-header">Eventos</h2>
-            </div>
-            
-             <uib-carousel active="active" interval="myInterval" no-wrap="noWrapSlides">
-              <uib-slide ng-repeat="slideCollection in groupedSlides" index="evento._id">
-
-                <a href="/eventos/#/portafolio-evento/{{ slideCollection.image1._id }}" class="a-portfolio coverWrap altura150" style="margin-left:7%;">
-
-                    <img class="img-responsive img-portfolio img-hover" width="" src="../uploads/{{slideCollection.image1.banner}}" alt="">
-                </a>
-               
-               <a href="/eventos/#/portafolio-evento/{{ slideCollection.image2._id }}" class="a-portfolio coverWrap altura150">
-                    <img class="img-responsive img-portfolio img-hover" width="margin:auto;min-width:100%;" src="../uploads/{{slideCollection.image2.banner}}" alt="">
-                </a>
-				
-                <a href="/eventos/#/portafolio-evento/{{ slideCollection.image3._id }}" class="a-portfolio coverWrap altura150" >
-                    <img class="img-responsive img-portfolio img-hover" width="margin:auto;min-width:100%;" src="../uploads/{{slideCollection.image3.banner}}" alt="">
-                </a>
-            </uib-carousel>
-        
-        </div>
-        </div>
-        
-        <div class="container">
-            <div class="col-lg-12">
-                <h2 class="page-header">Características de sistemas de riego</h2>
-            </div>
-            <div class="col-md-6">
-                <p>El servicio consiste en:</p>
-                <ul>
-                    <li><strong>Para jardines</strong>
-                    </li>
-                    <li>Públicos</li>
-                    <li>Privados</li>
-                    <li>Canchas</li>
-                    <li>Todo tipo de accesorios</li>
-                    <li>Garantia</li>
-                </ul>
-                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Corporis, omnis doloremque non cum id reprehenderit, quisquam totam aspernatur tempora minima unde aliquid ea culpa sunt. Reiciendis quia dolorum ducimus unde.</p>
-            </div>
-            <div class="col-md-6">
-                <img class="img-responsive" src="../images/rotator-700x450.jpg" alt="">
-            </div>
-        </div>
-        <hr>
-        <div class="footerCategorias">
-          <div class="row">
+    <div class="footerCategorias container" ng-controller="MainCtrl">
+      <div class="row">
           <div class="col-md-3">
-          <h3 class="m10" style="color:gray;">Industria Riego</h3>
-          <div class="m10"
-                ng-repeat="categoria in tipo_industria">
-                <a href="/#/directorio/{{ categoria.id }}">{{ categoria.nombre }}</a>
+                <!--<h3 class="m10" style="color:gray;">Industria Riego</h3>
+                <div class="m10" ng-repeat="categoria in tipo_industria">
+                    <a href="/#/directorio/{{ categoria.id }}">{{ categoria.nombre }}</a>
+                </div>-->
+              <div class="row widgets-wraps">
+                <div class="widgettitle_wrap col-md-12">
+                    <h2 class="widgettitle">
+                        <span>Nuevos Elementos</span>
+                    </h2>
+                </div>
+                <div class="widget_posts_wrap">
+
+                    <ul class="latest-posts items list-unstyled">
+                        <li class="col-xs-4 col-sm-4 col-md-4" ng-repeat="noticia in ultimasNoticias">
+                            <span class="thumb">
+                                <a href="/#/noticia/{{noticia._id}}">
+                                    <div class="img-wrap-shadow">
+                                        <img width="80" height="80" src="/uploads/{{noticia.banner}}" 
+                                             class="attachment-javo-tiny size-javo-tiny wp-post-image">								
+                                    </div>
+                                </a>
+                            </span>
+                        </li>
+
+                    </ul>
+
+                </div>
             </div>
-            </div>
+        </div>
             <div class="col-md-3">
-            <h3 class="m10" style="color:gray;">Tipo de industria</h3>
-            <div class="m10" style="margin-left:3px;"
-                ng-repeat="categoria in categorias">
-                <a href="/#/directorio/{{ categoria.id }}">{{ categoria.nombre }}</a>
+                <!--<h3 class="m10" style="color:gray;">Tipo de industria</h3>
+                <div class="m10" style="margin-left:3px;"
+                    ng-repeat="categoria in categorias">
+                    <a href="/#/directorio/{{ categoria.id }}">{{ categoria.nombre }}</a>
+                </div>-->
+                <div class="row widgets-wraps">
+                    <div class="widgettitle_wrap col-md-12">
+                        <h2 class="widgettitle">
+                            <span>Eventos Recientes</span>
+                        </h2>
+                    </div>			
+                    <div class="widget_posts_wrap">
+                        <div class="latest-posts posts row" ng-repeat="evento in ultimosEventos">
+                            <div class="col-md-12">
+                                <span class="thumb">
+                                    <a href="/eventos/#/portafolio-evento/{{evento._id}}">
+                                        <img width="80" height="80" src="/uploads/{{evento.banner}}" 
+                                             class="attachment-javo-tiny size-javo-tiny wp-post-image" >
+                                    </a>
+                                </span>
+                                <h3>
+                                    <a href="/eventos/#/portafolio-evento/{{evento._id}}">{{evento.nombre.slice(0,34)}}</a>
+                                </h3>
+                                <a href="/eventos/#/portafolio-evento/{{evento._id}}">
+                                    <span>{{evento.nombre.slice(0,34)}} ...</span>
+                                </a>							
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
-            </div>
-            
+
             <div class="col-md-3">
-            <h3 class="m10" style="color:gray">Contacto</h3>
-             <div class="m10" style="margin-left:3px;"     >
+                <div class="row widgets-wraps">
+                    <div class="widgettitle_wrap col-md-12">
+                        <h2 class="widgettitle">
+                            <span>Últimas Noticias</span>
+                        </h2>
+                    </div>			
+                    <div class="widget_posts_wrap">
+                        <div class="latest-posts posts row" ng-repeat="noticia in ultimasNoticias">
+                            <div class="col-md-12">
+                                <span class="thumb">
+                                    <a href="/#/noticia/{{noticia._id}}">
+                                        <img width="80" height="80" src="/uploads/{{noticia.banner}}" 
+                                             class="attachment-javo-tiny size-javo-tiny wp-post-image">
+                                    </a>
+                                </span>
+                                <h3>
+                                    <a href="/#/noticia/{{noticia._id}}">{{noticia.titulo.slice(0,34)}}</a>
+                                </h3>
+                                    <a href="/#/noticia/{{noticia._id}}"><span>{{noticia.titulo.slice(0,34)}} ...</span>
+                                </a>							
+                            </div>
+                        </div>
+                    </div>
+                </div>	
+            </div>
+          
+            <div class="col-md-3">
+            <div class="widgettitle_wrap col-md-12">
+                        <h2 class="widgettitle">
+                            <span>Contacto</span>
+                        </h2>
+                </div>	
+                <div></div>
+             <div class="m10" style="margin-left:3px;"    >
+                 <span class="glyphicon glyphicon-home" style="color:#fff;"></span>
                 <a>Diplay Imagén y publicidad </a>
                 </div>
+                <div></div>
                 <div class="m10" style="margin-left:3px;"     >
-
+                    <span class="glyphicon glyphicon-phone" style="color:#fff;"></span>
                 <a>Tel: 4423657157</a>
                 </div>
-                <div class="m10" style="margin-left:3px;"     >
-                <a> aespino@displayimagenpublicidad.com</a>
+                <div></div>
+                <div class="m10"  >
+                <span class="glyphicon glyphicon-link" style="color:#fff;"></span>
+                    <a>aespino@riegosustentable.com</a>
                 </div>
+                <div></div>
                 <div class="m10" style="margin-left:3px;"     >
+                    <span class="glyphicon glyphicon-dashboard" style="color:#fff;"></span>
+                    <a> AM8:00 ~ PM6:00</a>
             </div>
             </div>
-            
+
             <div class="m10"
                 ng-repeat="categoria in iluminacion">
                 <a href="/#/directorio/{{ categoria.id }}">{{ categoria.nombre }}</a>
             </div>
+        </div>
+        
+        <div class="m10">
+            Copyright 2016 Riego Sustenable | All Rights Reserved
+        </div>
+    </div>
+
+<script type="text/ng-template" id="/directorio.html">
+
+<div>
+<div style="height: 400px;">
+	<uib-carousel active="active" interval="myInterval" no-wrap="noWrapSlides">
+	  <uib-slide ng-repeat="slide in slidesHome" index="slide.id">
+		<img ng-src="{{slide.image}}" style="margin:auto; width:100%; height:400px;">
+		<div class="carousel-caption" style="bottom:10%;">
+		  <h1><div style="color:white;">{{slide.desc}}</div></h1>
+		  
+		  <div class="col-md-offset-3 col-md-6 input-group">
+			<input kendo-auto-complete 
+				k-options="autoCompleteOptions"
+				ng-model="textoBusqueda"
+				style="width: 100%;" />
+
+			<span class="input-group-addon btnGeneral" id="basic-addon2">
+                <a href="#/directorio-resultados/{{textoBusqueda}}">Buscar</a>
+		      </span>
+		  </div>
+		  
+		  <h4><p class="lblBlanco">{{slide.text}}</p></h4>
+		</div>
+	  </uib-slide>
+	</uib-carousel>
+</div>
+		
+<div >
+        <div class="divAlignCenter">
+            <h3 class="lblPrincipal"> Nuestras Categorías </h3>
+        </div>
+        <div  >
+            <div style="width:{{categorias.length * 143}}px; margin:0 auto;">
+                <div style="width:143px; float:left;"
+                    ng-repeat="categoria in categorias">
+                    <div class="itemSliderCategorias">
+                        <a href="/#/detalle/{{categoria._id }}">
+                            <img src='/uploads/{{ categoria.url || bannerBack }}'/> 
+                            <h4 style="text-transform: capitalize;">
+                                {{categoria.nombre}}</h4>
+                        </a>
+                    </div>
+                </div>
             </div>
         </div>
-        </script>
+</div>
+
+<div class="divBloque divGrisClaro">
+    <div >
+        <div class="divAlignCenter">
+            <h2 class="lblPrincipal"> Ventajas del servicio </h2>
+        </div>
+
+        <div class="dividerGeneral"></div>
+
+        <div class="divFila">
+            <div class="col-md-3" ng-repeat="descS in descServicios">
+                <div class="row divAlignCenter" style="padding:0 15px;">
+                    <a class="qodef-icon-shortcode normal qodef-icon-huge">
+                        <i class="qodef-icon-font-awesome fa {{descS.icono}} qodef-icon-element" style=""></i>
+                    </a>
+                    <h3 class="lblPrincipal"> {{descS.titulo}} </h3>
+                    <p style="text-align:left;"> {{descS.descripcion}}  </p>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+<div class="container">
+    <div class="row">
+        <div class="col-md-12">
+
+        <div class="divAlignCenter renglonPad50px">
+            <h2 class="lblPrincipal"> Todo para tu sistema de riego </h2>
+
+            <div class="dividerGeneral"></div>
+
+            <p> Elige tu distribuidor, compara precios y agenda cita. </p>
+        </div>
+
+        <div class="dominoItemGallery"  ng-repeat="distribuidor in distribuidores">
+            <div class="shadow"></div>
+           <div>
+                <a href="/#/detalle/{{distribuidor._id }}">
+                    <img src='/uploads/{{ distribuidor.banner || bannerBack }}' 
+                        style="width:100%;height:266px;"/> 
+
+                    <div class="divBloque divTitulo" style="">
+                        <h4 style="">
+                            {{distribuidor.nombre}}</h4>
+                    </div>
+                </a>
+            </div>
+        </div>
+
+    </div>					
+    </div>
+</div>
+
+<div class="divBloque divGrisClaro" style="padding-top:0;">
+    <div class="divAlignCenter pad50-0">
+        <h2 class="lblPrincipal"> Últimos eventos </h2>
+        <div class="dividerGeneral"></div>
+        <p>Enterese de las novedades en la industria del riego en Latino América</p>
+    </div>
+
+    <div id="carouselHomeFull" class="divBloque" style="padding-top:0;">
+         <uib-carousel active="active" interval="myInterval" no-wrap="noWrapSlides">
+          <uib-slide ng-repeat="slideCollection in groupedSlides" index="evento._id">
+
+            <div class="dominoItemGallery col-md-3">
+                <div class="shadow"></div>
+                <div>
+                    <a href="/eventos/#/portafolio-evento/{{ slideCollection.image1._id }}">
+                        <img src="../uploads/{{slideCollection.image1.banner}}" />
+
+                        <div class="divBloque divTitulo">
+                            <h4> {{slideCollection.image1.nombre}} </h4>
+                        </div>
+                    </a>
+                </div>
+            </div>
+
+            <div class="dominoItemGallery col-md-3">
+                <div class="shadow"></div>
+                <div>
+                    <a href="/eventos/#/portafolio-evento/{{ slideCollection.image2._id }}">
+                        <img src="../uploads/{{slideCollection.image2.banner}}" />
+
+                        <div class="divBloque divTitulo">
+                            <h4> {{slideCollection.image2.nombre}} </h4>
+                        </div>
+                    </a>
+                </div>
+            </div>
+
+            <div class="dominoItemGallery col-md-3">
+                <div class="shadow"></div>
+                <div>
+                    <a href="/eventos/#/portafolio-evento/{{ slideCollection.image3._id }}">
+                        <img src="../uploads/{{slideCollection.image3.banner}}">
+
+                        <div class="divBloque divTitulo">
+                            <h4> {{slideCollection.image3.nombre}} </h4>
+                        </div>
+                    </a>
+                </div>
+            </div>
+            <div class="dominoItemGallery col-md-3">
+                <div class="shadow"></div>
+                <div>
+                    <a href="/eventos/#/portafolio-evento/{{ slideCollection.image4._id }}">
+                        <img src="../uploads/{{slideCollection.image4.banner}}">
+
+                        <div class="divBloque divTitulo">
+                            <h4> {{slideCollection.image4.nombre}} </h4>
+                        </div>
+                    </a>
+                </div>
+            </div>
+        </uib-carousel>
+    </div>
+
+</div>
+
+<div class="divBloque pad100-0">
+    <div class="col-md-offset-2"></div>
+    <div class="itemRedesSociales col-md-2 {{$first ? 'col-md-offset-1' : ''}}"
+        ng-repeat="redSocial in redesSociales">
+            <a class="qodef-icon-shortcode normal qodef-icon-huge">
+                <i class="qodef-icon-font-awesome fa {{redSocial.icono}} qodef-icon-element" style=""></i>
+            </a>
+    </div>
+</div>
+    
+<div class="divBloque" style="padding-top:84px; padding-bottom:140px; background-color:rgb(76, 159, 205);">
+    <div class="divAlignCenter">
+        <h2 class="lblBlanco">Busqueda de distribuidores</h2>
+        <div class="dividerGeneral"></div>
+        <p class="lblBlanco" style="margin-bottom: 58px;"> 
+            Busca distribuidores en toda América Latina, los mejores productos en el mercado. </p>
+        
+        <div class="col-md-offset-3 col-md-6 input-group">
+			<input kendo-auto-complete 
+				k-options="autoCompleteOptions"
+				ng-model="textoBusqueda"
+				style="width: 100%;" />
+
+            <span class="input-group-addon btnGeneral" id="basic-addon2">
+                <a href="#/directorio-resultados/{{textoBusqueda}}">Buscar</a>
+            </span>
+        </div>
+    </div>
+</div>
+</div>
+
+</script>
         
 
       
 <script type="text/ng-template" id="/directorio-resultados.html">
+<!--<script> </script> -->
 <div class="altura32"></div>
  <div class="container">
  
@@ -429,9 +590,8 @@
 </script>
       
 
-      
-
 <script type="text/ng-template" id="/detalle.html">
+<!--<script> </script> -->
  <div class="container">
  
     <div class="row" >
@@ -583,15 +743,351 @@
              
        </div>             
     </div> 
-     
-  
-            </div>
-    
 
+</div>
+</script>
+
+<script type="text/ng-template" id="/noticias.html">
+
+    <div class="javo_post_header_fancy" style="
+			position:relative;
+			background-color:#FFFFFF;
+			background-image:url('http://javothemes.com/directory/demo1/wp-content/uploads/sites/2/2014/10/image82.jpg');
+			background-repeat:no-repeat;
+			background-position:center center;
+			height:250px;">
+			<div class="container" style="display:table;">
+				<div style="
+			left:0px;
+			width:100%;
+			height:250px;
+			display:table-cell;
+			vertical-align:middle;
+			text-align:left;">
+					<h1 style="
+			color:#ffffff !important;
+			font-size:17pt;
+			line-height:22px">Custom Title</h1>
+					<h4 style="
+			color:#ffffff;
+			font-size:12pt;
+			line-height:17px">You can also add a custom subtitle or text</h4>
+				</div>
+			</div>
+		</div>
+
+   <div class="container" style="padding-top:32px;">
+    
+        <div ng-repeat="noticia in ultimasNoticias"
+             class="col-md-4 col-sm-6 col-xs-6 pull-left itemListado">
+            <div >
+                <div class="panel panel-default panel-relative">
+
+                    <img src="/uploads/{{noticia.banner}}" />
+
+                    <div class="panel-body itemListado">
+                        <div class="col-md-12">
+
+                            <a href="/#/noticia/{{noticia._id}}" class="javo-tooltip javo-igl-title" >
+                                <div>
+                                    <h2 class="panel-title text-center">
+                                        <strong>{{ noticia.titulo}} </strong>
+                                    </h2>
+                                    <div class="text-center" style="padding-top:5px;"> categoría </div>
+                                </div>
+                            </a>
+                            <ul class="list list-unstyled">
+                                <li class="text-center text-excerpt javo-grid-listing-excerpt">
+                                    {{noticia.contenido}}
+                                </li>
+                                <li class="text-center">
+                                    <h2 class="javo-sns-wrap social-wrap">
+                                        <i class="sns-facebook" data-title="SUPER CAR RENTAL" data-url="http://javothemes.com/directory/demo1/item/super-car-rental/">
+                                            <a class="facebook javo-tooltip" title="" data-original-title="Share Facebook"></a>
+                                        </i>
+                                        <i class="sns-twitter" data-title="SUPER CAR RENTAL" data-url="http://javothemes.com/directory/demo1/item/super-car-rental/">
+                                            <a class="twitter javo-tooltip" title="" data-original-title="Share Twitter"></a>
+                                        </i>
+                                        <i class="sns-heart">
+                                            <a class="javo-tooltip favorite javo_favorite" data-post-id="2153" title="" data-original-title="Add My Favorite"></a>
+                                        </i>
+                                    </h2>
+                                </li>
+                            </ul><!-- List group -->
+                        </div>
+                    </div>
+
+                    <div class="javo-left-overlay">
+                        <div class="javo-txt-meta-area admin-color-setting">
+                            Riego								
+                        </div>
+                        <div class="corner-wrap">
+                            <div class="corner admin-color-setting"></div>
+                            <div class="corner-background admin-color-setting"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+        </div>
+                
+    </div>
+</script>
+      
+<script type="text/ng-template" id="/noticia.html">
+
+
+<div class="text-center well">
+    <h1 id="javo-post-title-header">{{noticia.titulo}}</h1>
+</div>
+
+<div class="container">
+    <div class="row">
+        <div class="col-md-9 main-content-wrap">					
+            <article id="post-2176" class="post-2176 post type-post status-publish format-standard has-post-thumbnail hentry category-news category-notice">
+
+                <div class="row">
+
+                    <div class="col-md-12">
+                        <header class="entry-header text-center">
+                            <img width="2000" height="1334" src="/uploads/{{noticia.banner}}" class="img-responsive wp-post-image" alt="JAVO_1705">				<div class="label-ribbon-row {f}">
+                                <div class="label-info-ribbon-row-wrapper">
+                                    <div class="label-info-ribbon-row">
+                                        <div class="ribbons" id="ribbon-15">
+                                            <div class="ribbon-wrap">
+                                                <div class="content">
+                                                    <div class="ribbon">
+                                                        <span class="ribbon-span">
+                                                            Aug 11 2014											</span>
+                                                    </div>
+                                                </div><!-- /.content -->
+                                            </div><!-- /.ribbon-wrap -->
+                                        </div><!-- /.ribbons -->
+                                    </div><!-- /.label-info-ribbon -->
+                                </div><!-- /.ribbon-wrapper -->
+                            </div><!-- /.label-ribbon -->
+                        </header><!-- .entry-header -->
+                    </div><!-- col-md-4 -->
+
+                </div>
+                <div class="row entry-author-info-wrap">
+                    <div class="col-md-2 col-xs-2 entry-author-image">
+                        <a>
+                            <div class="javo-thb" style="width:80px; height:80px; background-image:url('http://javothemes.cafe24.com/wp-content/themes/javo-directory/assets/images/no-image.png');"></div>
+                        </a>
+                    </div>
+                    <div class="col-md-10 col-xs-10 entry-author-meta-wrap">
+                        <div class="entry-author-name">javo</div>
+                        <div class="entry-author-social">
+                            <div class="entry-author-category">
+                                <i class="fa fa-bookmark-o"></i>
+                                <a href="http://javothemes.com/directory/demo1/category/news/" rel="category tag">News</a>, <a href="http://javothemes.com/directory/demo1/category/notice/" rel="category tag">Notice</a>				</div>
+                                                <div class="pull-left" style="margin:0 10px;">
+                                    <span class="separator">/</span>
+                                </div>
+                                <div class="entry-author-comment">
+                                    <i class="fa fa-comments-o"></i>
+                                    <a href="http://javothemes.com/directory/demo1/sed-ut-perspiciatis/#respond">0 Comment</a>					</div>
+                                        </div>
+                    </div>
+                </div>
+                <div class="row entry-description-wrap">
+                    <div class="col-md-12 entry-description">
+                            <h1 class="entry-title">Sed ut perspiciatis</h1>
+                            <div class="single-post-meta row">
+                                <div class="col-md-10 post-meta-infor">
+
+                                </div>
+
+                                <div class="col-md-2 text-right post-social">
+                                    <span class="javo-sns-wrap social-wrap">
+                                        <i class="sns-facebook" data-title="Sed ut perspiciatis" data-url="http://javothemes.com/directory/demo1/sed-ut-perspiciatis/">
+                                            <a class="facebook javo-tooltip" title="" data-original-title="Share Facebook"></a>
+                                        </i>
+                                        <i class="sns-twitter" data-title="Sed ut perspiciatis" data-url="http://javothemes.com/directory/demo1/sed-ut-perspiciatis/">
+                                            <a class="twitter javo-tooltip" title="" data-original-title="Share Twitter"></a>
+                                        </i>
+                                    </span>
+                                </div> 
+                            </div> 
+
+                            <div class="entry-content">
+                                <p ng-bind-html="noticia.contenido"></p>
+                                
+                                <div class="altura32"></div>
+                                <div class="videogular-container">
+                                    <videogular vg-theme="configVideoNoticia.theme.url">
+                                        <vg-media vg-src="configVideoNoticia.sources"
+                                                  vg-tracks="configVideoNoticia.tracks"
+                                                  vg-native-controls="true">
+                                        </vg-media>
+                                    </videogular>
+                                </div>
+                                <div class="altura64"></div>
+
+                            </div>
+                        </div>
+                </div>
+                <footer class="entry-meta">
+                    <div class="inner-footer">
+                        <div class="inner-footer-more">
+                            <a href="http://javothemes.com/directory/demo1/sed-ut-perspiciatis/">
+                                more				
+                            </a>
+                        </div>
+                    </div>
+                </footer><!-- .entry-meta -->
+
+            </article><!-- #post -->				
+				
+			</div>
+			
+            <div class="col-md-3 sidebar-right">
+                <div class="row">
+                    <div class="col-lg-12 siderbar-inner">
+                        <div class="row widgets-wraps">
+                            <div class="widgettitle_wrap col-md-12">
+                                <h2 class="widgettitle">
+                                    <span>Nuevos Elementos</span>
+                                </h2>
+                            </div>
+                            <div class="widget_posts_wrap">
+
+                                <ul class="latest-posts items list-unstyled">
+                                    <li class="col-xs-4 col-sm-4 col-md-4" ng-repeat="noticia in ultimasNoticias">
+                                        <span class="thumb">
+                                            <a href="/#/noticia/{{noticia._id}}">
+                                                <div class="img-wrap-shadow">
+                                                    <img width="80" height="80" src="/uploads/{{noticia.banner}}" 
+                                                         class="attachment-javo-tiny size-javo-tiny wp-post-image">								
+                                                </div>
+                                            </a>
+                                        </span>
+                                    </li>
+                                    
+                                </ul>
+
+                            </div>
+                        </div>
+                        <div class="row widgets-wraps">
+                            <div class="widgettitle_wrap col-md-12">
+                                <h2 class="widgettitle">
+                                    <span>Eventos Recientes</span>
+                                </h2>
+                            </div>			
+                            <div class="widget_posts_wrap">
+                                <div class="latest-posts posts row" ng-repeat="evento in ultimosEventos">
+                                    <div class="col-md-12">
+                                        <span class="thumb">
+                                            <a href="/eventos/#/portafolio-evento/{{evento._id}}">
+                                                <img width="80" height="80" src="/uploads/{{evento.banner}}" 
+                                                     class="attachment-javo-tiny size-javo-tiny wp-post-image" >
+                                            </a>
+                                        </span>
+                                        <h3>
+                                            <a href="/eventos/#/portafolio-evento/{{evento._id}}">{{evento.nombre.slice(0,34)}}</a>
+                                        </h3>
+                                        <a href="/eventos/#/portafolio-evento/{{evento._id}}">
+                                            <span>{{evento.nombre.slice(0,34)}} ...</span>
+                                        </a>							
+                                    </div>
+                                </div>
+                            </div>
+        
+                        </div>
+                        <div class="row widgets-wraps">
+                            <div class="widgettitle_wrap col-md-12">
+                                <h2 class="widgettitle">
+                                    <span>Últimas Noticias</span>
+                                </h2>
+                            </div>			
+                            <div class="widget_posts_wrap">
+                                <div class="latest-posts posts row" ng-repeat="noticia in ultimasNoticias">
+                                    <div class="col-md-12">
+                                        <span class="thumb">
+                                            <a href="/#/noticia/{{noticia._id}}">
+                                                <img width="80" height="80" src="/uploads/{{noticia.banner}}" 
+                                                     class="attachment-javo-tiny size-javo-tiny wp-post-image">
+                                            </a>
+                                        </span>
+                                        <h3>
+                                            <a href="/#/noticia/{{noticia._id}}">{{noticia.titulo.slice(0,34)}}</a>
+                                        </h3>
+                                            <a href="/#/noticia/{{noticia._id}}"><span>{{noticia.titulo.slice(0,34)}} ...</span>
+                                        </a>							
+                                    </div>
+                                </div>
+                            </div>
+                        </div>		
+                        
+                    </div>
+                </div>
+
+            </div>
+		</div>
+	</div>
+
+<!--<div class="container" style="width: 1048px;padding: 0 20px;">
+    <div class="" >
+        <div class=" divAlignCenter pad50-0">
+            <h1 style="text-transform: uppercase;font-size: 53px;"><b>{{ noticia.titulo }}</b></h1>
+        </div>
+    
+        <div class="col-md-9" >
+			<div class='' style="background:white;"> 
+				<div class=''>
+					<div class="altura32"></div>
+					<a href="#">
+						<img  src='/uploads/{{ noticia.banner }}' class="img-rounded" alt="Icono empresa" width="100%" height="440px">
+					</a>
+				</div> 
+                
+				<div class=''> 
+					<div>
+						
+						
+						<div class="panel panel-default">
+							<div class="panel-body copy">
+                                <p ng-bind-html="noticia.contenido"></p>
+								
+							</div>
+                            
+                            <div class="videogular-container">
+                                <videogular vg-theme="configVideoNoticia.theme.url">
+                                    <vg-media vg-src="configVideoNoticia.sources"
+                                              vg-tracks="configVideoNoticia.tracks"
+                                              vg-native-controls="true">
+                                    </vg-media>
+                                </videogular>
+                            </div>
+                            <div class="altura64"></div>
+						</div>
+					</div>
+				</div>
+                
+                
+			</div>
+		</div>
+        <div class="col-md-3" >
+            <div ng-repeat="noticia in ultimasNoticias">
+                <div class="divNoticiaHome" style="width:100%;">
+                    <a href="/#/noticia/{{ noticia._id }}">
+                        <img src="/uploads/{{noticia.banner}}" ng-show="$first || $last" />
+                    
+                    <div>
+                        <h3> {{noticia.titulo}} </h3>
+                    </div>
+                    </a>
+                </div>
+            </div>
+        </div>
+	</div>
+</div>-->
 
 </script>
-	
+      
 <script type="text/ng-template" id="/register.html">
+<!--<script> </script> -->
   <div class="row">
 	<div class="col-md-5 col-md-offset-4 bgrdWhite">
         <div class="page-header" >
@@ -673,6 +1169,7 @@
 </script>
 
 <script type="text/ng-template" id="/login.html">
+<!--<script> </script> -->
   <div class="row">
 	<div class="col-md-4 col-md-offset-4 bgrdWhite">
         <div class="page-header" >

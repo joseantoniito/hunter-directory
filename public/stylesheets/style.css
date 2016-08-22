@@ -1,3 +1,328 @@
+.siderbar-inner .widgets-wraps .widget_posts_wrap .latest-posts {
+    margin-left: -8px;
+}
+.widgets-wraps .widget_posts_wrap div.latest-posts {
+    margin-bottom: 20px;
+}
+
+
+.widget_posts_wrap .posts span.thumb {
+    width: 56px;
+    height: 56px;
+    padding: 3px;
+    background: #777;
+    display: inline-block;
+    float: left;
+    margin-right: 10px;
+    border-radius: 100%;
+    -moz-border-radius: 100%;
+    -webkit-border-radius: 100%;
+    overflow: hidden;
+    position: relative;
+}
+
+.widget_posts_wrap .posts span.thumb {
+    background: #eee !important;
+}
+
+.widget_posts_wrap .posts a {
+    color: #999;
+}
+
+.widget_posts_wrap .posts span.thumb img {
+    -webkit-transition: all 0.5s;
+    border-radius: 100% !important;
+}
+.widget_posts_wrap .posts img {
+    width: 50px;
+    height: 50px;
+    display: block;
+    border-radius: 100%;
+    -moz-border-radius: 100%;
+    -webkit-border-radius: 100%;
+}
+img {
+    border: none;
+}
+
+/*end thumbs*/
+
+.javo-left-overlay {
+    position: absolute;
+    top: 11px;
+    left: -4px;
+    z-index: 10;
+}
+
+.admin-color-setting, .btn.admin-color-setting, .javo-txt-meta-area.admin-color-setting, .javo-left-overlay.bg-black .javo-txt-meta-area.admin-color-setting, .javo-left-overlay.bg-red .javo-txt-meta-area.admin-color-setting, .javo-txt-meta-area.custom-bg-color-setting {
+    background-color: #bba454;
+    border-style: solid;
+    border-width: 1px;
+    border-color: #a88e4b;
+}
+.javo-left-overlay .javo-txt-meta-area {
+    display: block;
+    padding: 0.2em 7px;
+    min-width: 38px;
+    border: 1px solid rgba(0,0,0,0.1);
+    color: #fff;
+    text-align: center;
+    text-shadow: 0 -1px 0 rgba(0,0,0,0.15);
+    font-size: 1.0em;
+    text-transform: capitalize;
+    line-height: 18px;
+}
+
+/*social*/
+.social-wrap {
+    display: inline-block;
+    padding-top: 5px;
+}
+.social-wrap a.facebook {
+    background-image: url(http://javothemes.com/directory/demo1/wp-content/themes/javo-directory/assets/images/icon/fb-cicle.png);
+    background-position: 0px 0px;
+    width: 22px;
+    height: 22px;
+    display: block;
+    float: left;
+}
+
+.social-wrap a.twitter {
+    background-image: url(http://javothemes.com/directory/demo1/wp-content/themes/javo-directory/assets/images/icon/tw-cicle.png);
+    background-position: 0px 0px;
+    width: 22px;
+    height: 22px;
+    display: block;
+    float: left;
+}
+
+.social-wrap a.favorite {
+    background-image: url(http://javothemes.com/directory/demo1/wp-content/themes/javo-directory/assets/images/icon/save-icons.png);
+    background-position: 0px 0px;
+    width: 22px;
+    height: 22px;
+    display: block;
+    float: left;
+}
+
+.social-wrap a.facebook:hover, .social-wrap a.twitter:hover{ background-position: 0px -22px; }
+
+/*fin social*/
+
+
+/*inicio javo*/
+
+.javo-igl-title {
+    display: table;
+    table-layout: fixed;
+    width: 100%;
+    padding-bottom: 15px;
+}
+
+.item-list-page-wrap .javo-item-grid-listing .javo-grid-listing-excerpt {
+    font-size: 13px;
+    line-height: 22px;
+}
+.item-list-page-wrap .javo-item-grid-listing li {
+    list-style-type: none;
+}
+.javo-grid-listing-excerpt {
+    height: 105px;
+    overflow: hidden;
+}
+.text-excerpt {
+    border-top: dashed 1px #bbb;
+    padding: 15px 0;
+    line-height: 1.8em;
+}
+
+
+.javo-igl-title > div {
+    display: table-cell;
+    width: 100%;
+    vertical-align: middle;
+    height: 60px;
+    overflow: hidden;
+}
+
+/*fin javo*/
+
+.itemListado{
+    
+}
+
+
+.itemListado img{
+    width:100%;
+    height: 200px;
+}
+
+p{
+    color: #818181;
+}
+
+.itemRedesSociales{
+    /*width:143px; 
+    float:left; 
+    color: #454545;
+    margin-right: 70px;*/
+    text-align: center;
+}
+
+.itemRedesSociales a{
+    width: 100px;
+    height: 100px;
+    font-size: 6em !important;
+}
+
+#carouselHomeFull .dominoItemGallery{
+    width:25% !important;
+    padding:0 !important;
+    margin:0 !important;
+}
+
+.dominoItemGallery{
+    margin-top: 20px;
+    margin-bottom: 20px;
+    width: 23.5%;
+    margin-right: 13px;
+    float:left;
+    position: relative;
+}
+
+.dominoItemGallery img{
+    z-index:9;
+    width:100%;height:266px;
+}
+
+.dominoItemGallery .shadow{
+	position:absolute;
+	top:0;
+	left:0;
+	width:100%;
+	height:100%;
+	background:rgba(0, 0, 0, 0);
+	z-index:10;
+	-webkit-transition: all 0.6s;
+	-moz-transition: all 0.6s;
+	-ms-transition: all 0.6s;
+	-o-transition: all 0.6s;
+	transition: all 0.6s;
+    z-index: 10;
+}
+.dominoItemGallery:hover .shadow{
+	background:rgba(0,0,0,0.7);
+}
+
+.dominoItemGallery .divTitulo{
+    /*padding: 5px 10px 7px 10px;
+    width: 100%;
+    position: absolute;
+    bottom: 0; left:0;
+    color: white !important;*/
+    
+    font-weight:300;
+	letter-spacing:0.5px;
+	position:absolute;
+	bottom:0;
+	left:0;
+	line-height:30px;
+	padding:5px 10px 7px 10px;
+	color:rgba(255,255,255,1);
+	z-index:10;
+	font-size:15px;
+	width:100%;
+    
+    z-index:10;
+    text-transform:uppercase;
+	line-height:20px;
+	background-image: -webkit-linear-gradient(transparent, rgba(0,0,0,0.6));
+	background-image: linear-gradient(transparent, rgba(0,0,0,0.6));
+    
+    -webkit-transition: all 0.2s;
+	-moz-transition: all 0.2s;
+	-ms-transition: all 0.2s;
+	-o-transition: all 0.2s;
+	transition: all 0.2s;
+}
+
+a {
+    text-decoration: none;
+}
+
+img {
+    border: none;
+}
+
+.itemSliderCategorias {
+    padding: 30px 0px;
+    margin: 10px;
+    color: #FFF;
+    -webkit-border-radius: 3px;
+    -moz-border-radius: 3px;
+    border-radius: 3px;
+    text-align: center;
+}
+
+
+.itemSliderCategorias img {
+	width: 111px;
+    height: 111px;
+    border-radius: 50%;
+}
+
+
+.divFila{
+    margin-bottom: 0px !important;
+    padding-top: 30px !important;
+    display: inline-block;
+}
+
+.copy p {
+    font-size: 18px;
+    line-height: 28px;
+    color: #302E2D;
+    margin-bottom: 40px;
+    text-align: justify;
+}
+
+.pad50-0{
+    padding: 50px 0 !important;
+}
+
+.pad100-0{
+    padding: 100px 0 !important;
+}
+
+.renglonPad50px{
+	margin-bottom: 50px !important;
+    padding-top: 50px !important;
+    /*padding-bottom: 50px !important;*/
+}
+
+.divNoticiaHome{
+	width:30%;
+	float:left;
+    margin: 0 1.5%;
+    margin-bottom: 45px!important;
+}
+
+.divNoticiaHome:hover{
+    opacity: 0.4;
+}
+
+.divNoticiaHome img{
+	width:100%;
+	margin-bottom:12px;
+    height: 170px;
+}
+
+.divNoticiaHome h3{
+	margin-bottom:6px;
+}
+
+
+
 /*videogular styles*/
 .videogular-container {
     /*width: 100% !important;margin: auto;*/
@@ -270,8 +595,21 @@ body {
     color:white !important;
 }
 
+.headerPrincipal{
+    /*background:  url("/images/top-shadow.png") no-repeat scroll center 0 #01648B;
+    background:  url("/images/top-shadow.png") no-repeat scroll center 0 rgba(0, 0, 0, 0);
+    height: 93px;
+    box-shadow: 0 7px 7px #888888; /*0 7px 7px #F85709;*/
+}
 .menuPrincipal{
-    background-color: #01648B;border-bottom: #F85709 5px solid !important;
+    background-color: #01648B;/*border-bottom: #F85709 5px solid !important;*/
+    box-shadow: 0 7px 7px #888888;
+    /*bottom: -42px;
+    content: "";
+    left: 0;
+    position: absolute;
+    width: 100%;
+    z-index: 999;*/
 }
 
 /*h1 .ng-binding{
@@ -389,6 +727,7 @@ h1, h2{
 .bgrdBody{
 	/*background: url("../images/photo_bg.jpeg") no-repeat center center fixed;
 	background-size: cover;*/
+    background-color: white !important;
 }
 
 .minH{
@@ -406,9 +745,9 @@ h1, h2{
 }
 
 
-a {
+/*a {
   color: #00B7FF;
-}
+}*/
 
 #carouselHome{
 	margin-top: -20px !important;
@@ -650,10 +989,16 @@ a {
 }
 
 .dividerGeneral {
-	border: 0;
+	/*border: 0;
 	height: 1px;
-	background-image: linear-gradient(to right,rgba(0,0,0,0),#7DC700,rgba(0,0,0,0));
-	margin: 35px 0;
+	background-image: linear-gradient(to right,rgba(0,0,0,0),#F85709 ,rgba(0,0,0,0));
+	margin: 35px 0;*/
+    
+    border: 0;
+    height: 2px;
+    margin: 20px auto;
+    width: 22px;
+    background-color: #F85709
 }
 
 .lblAzulOscuro, .lblAzulObscuro, .lblAzulFuerte {
@@ -746,7 +1091,8 @@ footer .qodef-footer-bottom-holder {
 }
 
 .divGrisClaro {
-	background-color: #f3f3f3;
+	/*background-color: #f3f3f3;*/
+    background-color: #f4f4f4;
 }
 
 .lblGrisClaro {

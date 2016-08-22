@@ -44,7 +44,9 @@ function($stateProvider, $urlRouterProvider) {
       controller: 'MainCtrl',
       resolve: {
         post: ['$stateParams', 'projects', function($stateParams, projects) {
-          return projects.obtenerUltimosEventos();
+            
+          projects.obtenerUltimosEventos();
+           return  projects.obtenerUltimasNoticias();
         }]
       }
     });
@@ -84,7 +86,36 @@ function($stateProvider, $urlRouterProvider) {
             post: ['$stateParams', 'projects', function($stateParams, projects) {
                 
                 projects.obtenerUltimosEventos();
+                projects.obtenerUltimasNoticiasDeDistribuidor($stateParams.id);
               return projects.obtenerDistribuidor($stateParams.id);
+            }]
+          }
+    });
+    
+    $stateProvider
+    .state('noticias', {
+        url: '/noticias',
+        templateUrl: '/noticias.html',
+        controller: 'MainCtrl',
+        resolve: {
+            //if($stateParams.id != null)
+            post: ['$stateParams', 'projects', function($stateParams, projects) {
+              return projects.obtenerUltimasNoticias();
+            }]
+          }
+    });
+    
+    $stateProvider
+    .state('noticia', {
+        url: '/noticia/{id}',
+        templateUrl: '/noticia.html',
+        controller: 'MainCtrl',
+        resolve: {
+            //if($stateParams.id != null)
+            post: ['$stateParams', 'projects', function($stateParams, projects) {
+                projects.obtenerUltimosEventos();
+               projects.obtenerUltimasNoticias();
+               return projects.obtenerNoticiaPorId($stateParams.id);
             }]
           }
     });
@@ -201,9 +232,8 @@ app.controller('MainCtrl', [
 'projects',
 '$sce',
 function($scope, $state, auth, projects, $sce){
-    //debugger;
     $scope.appname = "Riego Sustentable";
-    $scope.bannerBack = "back.png"
+    $scope.bannerBack = "back.jpg"
     $scope.countryNames = [
               "Albania",
               "Andorra",
@@ -349,12 +379,11 @@ function($scope, $state, auth, projects, $sce){
     $scope.distribuidor = projects.distribuidor;
     $scope.files = [];
     $scope.categoriaActual = projects.categoriaActual;
-    //$scope.ultimosEventos = projects.ultimosEventos;
-    $scope.slides = projects.ultimosEventos;
+    $scope.ultimasNoticias = projects.ultimasNoticias;
+    $scope.noticia = projects.noticia;
+    $scope.slides = $scope.ultimosEventos = projects.ultimosEventos;
 
     $scope.agregarDistribuidor = function() {
-        debugger;
-        
         $scope.distribuidor.idCategoria = $scope.distribuidor.idCategoria.id;
         $scope.distribuidor.logo = $scope.files[0].name;
         
@@ -367,9 +396,7 @@ function($scope, $state, auth, projects, $sce){
             );
     }
     
-    projects.obtenerDistribuidoresPorCategoria(1).then(function() {
-        
-    })
+    
     
     $scope.deleteProject = function(id){
 	  projects.delete(id).error(function(error){
@@ -390,8 +417,7 @@ function($scope, $state, auth, projects, $sce){
 	  });; 
 	};
     
-    $scope.successUploadFiles = function(data){
-        debugger;  
+    $scope.successUploadFiles = function(data){ 
         console.log(data);
     };
     
@@ -408,36 +434,84 @@ function($scope, $state, auth, projects, $sce){
     //carousel multi item
 
     if($state.current.name == "home"){
-        debugger;
+        
+        $scope.descServicios = [
+            {
+                icono: "fa-briefcase",
+                titulo: "Distribuidores a nivel Latino América",
+                descripcion: "Los mejores distribuidores latinos estan aqui, si buscas equipo de riego, instalaciones y mantenimientos para todo tipo de área verde."
+            },
+            {
+                icono: "fa-leaf",
+                titulo: "Especialistas en todo tipo de riego",
+                descripcion: "Se publicitan los expertos en riego riego residencial, institucional, asi como implementaciones en campos de golf, futbol, para todo tipo de instalaciones deportivas."
+            },
+            {
+                icono: "fa-lightbulb-o",
+                titulo: "Los mejores sistemas de iluminación",
+                descripcion: "Como parte de los desarrollos integrales en instalaciones verdes, es de vital importancia contar con la infraestructura en iluminación mas innovadora para asegurar un espacio ameno y funcional."
+            },
+            {
+                icono: "fa-bullhorn",
+                titulo: "Anuncios personalizados y dinámicos",
+                descripcion: "Los distribuidores cuentan con la infraestructura para dar a conocer sus servicios cono gran legibilidad y dinamísmo en el sitio."
+            }
+        ];
+        
+        $scope.redesSociales = [
+            
+                {icono: "fa-facebook"},
+                {icono: "fa-twitter"},
+                {icono: "fa-google-plus"},
+                {icono: "fa-tumblr"},
+                {icono: "fa-pinterest"}
+            
+        ]
+        
+        
+        projects.obtenerDistribuidoresPorCategoria(2).then(function() {
+
+        })
+        
         var i, first = [],
           second, third;
         var many = 1;
 
-        //##################################################    
-        //Need to be changed to update the carousel since the resolution changed
-        $scope.displayMode = "tablet";
-        //##################################################
+        
+        /*$scope.displayMode = "tablet";
         if ($scope.displayMode == "mobile") {many = 3;}
         else if ($scope.displayMode == "tablet") {many = 3;} 
-        else {many = 4;}
+        else {many = 4;}*/
+        many = 4;
 
         for (i = 0; i < $scope.slides.length; i += many) {
-            debugger;
           second = {
             image1: $scope.slides[i]
           };
           if (many == 1) {}
-          if ($scope.slides[i + 1] && (many == 2 || many == 3)) {
-            second.image2 = $scope.slides[i + 1];
-
+          if ($scope.slides[i + 1] && (many == 2 || many > 3)) {
+              second.image2 = $scope.slides[i + 1];
           }
-          if ($scope.slides[i + (many - 1)] && many == 3) {
-            second.image3 = $scope.slides[i + 2];
+          else
+              second.image2 = {};
+            
+          if ($scope.slides[i + (many - 2)]  && many > 3) {
+              second.image3 = $scope.slides[i + 2];
           }
+          else
+              second.image3 = {};
+            
+          if ($scope.slides[i + (many - 1)]  && many > 3) {
+              second.image4 = $scope.slides[i + 3];
+          }
+          else
+              second.image4 = {};
+            
           first.push(second);
         }
         
         $scope.groupedSlides = first;
+        console.log(first);
     }
 
     if($state.current.name == "detalle"){
@@ -550,6 +624,25 @@ function($scope, $state, auth, projects, $sce){
         }); 
     }
     
+    if($state.current.name == "noticia"){
+        
+        $("body").addClass("single-post")
+        var itemE = $scope.noticia.video;
+        $scope.configVideoNoticia =
+            {
+                preload: "none",
+                sources: [
+                    {src: $sce.trustAsResourceUrl("/uploads/" + itemE.url), type: "video/" + itemE.url.split('.')[itemE.url.split('.').length-1]},
+                ],
+                tracks: [],
+                theme: {
+                    url: "/stylesheets/videogular.css"
+                },id: 0
+            }   
+        
+        $scope.ultimosEventos = $scope.ultimosEventos.slice(0,3)
+    }
+    
 }]);
 
 app.factory('auth', ['$http', '$window', function($http, $window){
@@ -609,13 +702,13 @@ app.factory('projects', ['$http', 'auth', function($http, auth){
 	  var o = {
 		distribuidores: [],
 		categorias: [
-            {id:1, nombre: 'Riego Residencial'},
-            {id:2, nombre: 'Riego Institucional'},
-            {id:3, nombre: 'Parques y Jardines'},
-            {id:4, nombre: 'Golf'},
-            {id:5, nombre: 'Riego Sintético'},
-            {id:6, nombre: 'Canchas Deportivas'},            
-            {id:7, nombre: 'Riego Agrícola'}  
+            {id:1, nombre: 'Riego Residencial', url:"portfolio1.jpg"},
+            {id:2, nombre: 'Riego Institucional', url:"portfolio2.jpg"},
+            {id:3, nombre: 'Parques y Jardines', url:"portfolio3.jpg"},
+            {id:4, nombre: 'Golf', url:"portfolio4.jpg"},
+            {id:5, nombre: 'Riego Sintético', url:"portfolio3.jpg"},
+            {id:6, nombre: 'Canchas Deportivas', url:"portfolio2.jpg"},            
+            {id:7, nombre: 'Riego Agrícola', url:"portfolio1.jpg"}  
            
         ],
           tipo_industria : [
@@ -628,12 +721,13 @@ app.factory('projects', ['$http', 'auth', function($http, auth){
             {id: 2, nombre: 'Punto de venta'},
             {id: 3, nombre: 'Contratista e Instadalador'}
           ],
-        distribuidor: null,
-        ultimosEventos: [],
-        categoriaActual : {id:1, nombre: 'Riego Residencial'}
+          distribuidor: null,
+          ultimosEventos: [],
+          categoriaActual : {id:1, nombre: 'Riego Residencial'},
+          ultimasNoticias:[] 
 	  };
   
-      o.formatDireccion = function(oDireccion) {
+    o.formatDireccion = function(oDireccion) {
         if (oDireccion){
           return "{0} {1} -{2}, {3}, {4}, {5} {6}".format(
                         oDireccion.calle || "",
@@ -651,7 +745,7 @@ app.factory('projects', ['$http', 'auth', function($http, auth){
     o.agregarDistribuidor = function(data) {
 		return $http.post('/distribuidores', data)
             .success(function(dataS){
-                debugger;
+                console.log(dataS);
                 //o.distribuidores.push(dataS);
             });
 	};
@@ -695,10 +789,28 @@ app.factory('projects', ['$http', 'auth', function($http, auth){
     
     o.obtenerUltimosEventos = function(){
         return $http.get('/eventos/obtenerUltimosEventos').success(function(data){
-            debugger;
             angular.copy(data, o.ultimosEventos);
 		}); 
     }
+    
+    o.obtenerUltimasNoticias = function(){
+        return $http.get('/obtenerUltimasNoticias').success(function(data){
+            angular.copy(data, o.ultimasNoticias);
+		}); 
+    }
+        
+    o.obtenerUltimasNoticiasDeDistribuidor = function(id){
+        return $http.get('/obtenerUltimasNoticias/' + id).success(function(data){
+            angular.copy(data, o.ultimasNoticias);
+		}); 
+        
+    }
+    
+    o.obtenerNoticiaPorId = function(id) {
+		return $http.get('/profile/noticiaPorId/' + id).success(function(data){
+		  o.noticia = data;
+		});
+	};
     
     return o;
 }]);
