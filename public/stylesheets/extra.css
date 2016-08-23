@@ -2051,7 +2051,9 @@ html body.mobile header#header-one-line #javo-navibar ul.nav > li.menu-item > .d
 
 .widgets-wraps .widgettitle_wrap .widgettitle {border-bottom:none;}
 .widgets-wraps .widgettitle_wrap .widgettitle:after {border-bottom: 2px solid #e5e5e5; top: 5px;}
-.widgets-wraps .widgettitle_wrap .widgettitle span {color:#aaa; font-weight:600; font-size:14px; top:0px;}
+
+.widgets-wraps .widgettitle_wrap .widgettitle span,
+.widgets-wraps .widgettitle_wrap .widgettitle a{color:#aaa; font-weight:600; font-size:14px; top:0px;}
 
 
 /* -----------------------------------------

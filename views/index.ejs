@@ -14,6 +14,7 @@
 	<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.3/angular.min.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.3/angular-animate.js"></script>
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/angular-ui-router/0.2.10/angular-ui-router.js"></script>
+    <script src="/javascripts/angulike.js"></script>
 	<script src="/javascripts/realTimeApp.js"></script>
     
     <link rel="stylesheet" href="//kendo.cdn.telerik.com/2016.1.226/styles/kendo.common-material.min.css" />
@@ -128,7 +129,9 @@
                       </ul>
                 </li>
 
-                <li><a href="/eventos/#/portafolio" class="btn btn-menu">Eventos</a></li>
+
+                <li><a href="/eventos/#/principal" class="btn btn-menu">Eventos</a></li>
+
 
 
 
@@ -174,7 +177,8 @@
                 <div class="widget_posts_wrap">
 
                     <ul class="latest-posts items list-unstyled">
-                        <li class="col-xs-4 col-sm-4 col-md-4" ng-repeat="noticia in ultimasNoticias">
+
+                        <li class="col-xs-4 col-sm-4 col-md-4" ng-repeat="noticia in ultimasNoticias.slice(0,3)">
                             <span class="thumb">
                                 <a href="/#/noticia/{{noticia._id}}">
                                     <div class="img-wrap-shadow">
@@ -199,23 +203,23 @@
                 <div class="row widgets-wraps">
                     <div class="widgettitle_wrap col-md-12">
                         <h2 class="widgettitle">
-                            <span>Eventos Recientes</span>
+                            <a href="/#/eventos">Eventos Recientes</a>
                         </h2>
                     </div>			
                     <div class="widget_posts_wrap">
-                        <div class="latest-posts posts row" ng-repeat="evento in ultimosEventos">
+                        <div class="latest-posts posts row" ng-repeat="evento in ultimosEventos.slice(0,3)">
                             <div class="col-md-12">
                                 <span class="thumb">
-                                    <a href="/eventos/#/portafolio-evento/{{evento._id}}">
+                                    <a href="/#/evento/{{evento._id}}">
                                         <img width="80" height="80" src="/uploads/{{evento.banner}}" 
                                              class="attachment-javo-tiny size-javo-tiny wp-post-image" >
                                     </a>
                                 </span>
                                 <h3>
-                                    <a href="/eventos/#/portafolio-evento/{{evento._id}}">{{evento.nombre.slice(0,34)}}</a>
+                                    <a href="/#/evento/{{evento._id}}">{{evento.nombre.slice(0,30)}}</a>
                                 </h3>
-                                <a href="/eventos/#/portafolio-evento/{{evento._id}}">
-                                    <span>{{evento.nombre.slice(0,34)}} ...</span>
+                                <a href="/#/evento/{{evento._id}}">
+                                    <span>{{evento.nombre.slice(0,30)}} ...</span>
                                 </a>							
                             </div>
                         </div>
@@ -270,12 +274,6 @@
                 <div class="m10"  >
                 <span class="glyphicon glyphicon-link" style="color:#fff;"></span>
                     <a>aespino@riegosustentable.com</a>
-                </div>
-                <div></div>
-                <div class="m10" style="margin-left:3px;"     >
-                    <span class="glyphicon glyphicon-dashboard" style="color:#fff;"></span>
-                    <a> AM8:00 ~ PM6:00</a>
-            </div>
             </div>
 
             <div class="m10"
@@ -386,7 +384,10 @@
             </div>
         </div>
 
-    </div>					
+
+            
+          
+            					
     </div>
 </div>
 
@@ -427,6 +428,7 @@
                 </div>
             </div>
 
+
             <div class="dominoItemGallery col-md-3">
                 <div class="shadow"></div>
                 <div>
@@ -443,6 +445,240 @@
                 <div class="shadow"></div>
                 <div>
                     <a href="/eventos/#/portafolio-evento/{{ slideCollection.image4._id }}">
+                        <img src="../uploads/{{slideCollection.image4.banner}}">
+
+                        <div class="divBloque divTitulo">
+                            <h4> {{slideCollection.image4.nombre}} </h4>
+                        </div>
+                    </a>
+
+            <div class="m10"
+                ng-repeat="categoria in iluminacion">
+                <a href="/#/directorio/{{ categoria.id }}">{{ categoria.nombre }}</a>
+            </div>
+        </div>
+    </div>
+    </div>
+    </div>
+<div class="divBloque pad100-0">
+    <div class="col-md-offset-2"></div>
+    <div class="itemRedesSociales col-md-2 {{$first ? 'col-md-offset-1' : ''}}"
+        ng-repeat="redSocial in redesSociales">
+            <a class="qodef-icon-shortcode normal qodef-icon-huge">
+                <i class="qodef-icon-font-awesome fa {{redSocial.icono}} qodef-icon-element" style=""></i>
+            </a>
+    </div>
+</div>
+    
+<div class="divBloque" style="padding-top:84px; padding-bottom:140px; background-color:rgb(76, 159, 205);">
+    <div class="divAlignCenter">
+        <h2 class="lblBlanco">Busqueda de distribuidores</h2>
+        <div class="dividerGeneral"></div>
+        <p class="lblBlanco" style="margin-bottom: 58px;"> 
+            Busca distribuidores en toda América Latina, los mejores productos en el mercado. </p>
+        
+        <div class="col-md-offset-3 col-md-6 input-group">
+			<input kendo-auto-complete 
+				k-options="autoCompleteOptions"
+				ng-model="textoBusqueda"
+				style="width: 100%;" />
+
+            <span class="input-group-addon btnGeneral" id="basic-addon2">
+                <a href="#/directorio-resultados/{{textoBusqueda}}">Buscar</a>
+            </span>
+        </div>
+    </div>
+</div>
+<script type="text/ng-template" id="/directorio.html">
+<!--<script> </script> -->
+<div>
+<div style="height: 600px;">
+	<uib-carousel active="active" interval="myInterval" no-wrap="noWrapSlides">
+	  <uib-slide ng-repeat="slide in slidesHome" index="slide.id">
+		<img ng-src="{{slide.image}}" style="margin:auto; width:100%; height:600px;">
+		<div class="carousel-caption" style="bottom:35%;">
+		  <h1><div style="color:white;">{{slide.desc}}</div></h1>
+		  
+		  <div class="col-md-offset-3 col-md-6 input-group">
+			<input kendo-auto-complete 
+				k-options="autoCompleteOptions"
+				ng-model="textoBusqueda"
+				style="width: 100%;" />
+
+			<span class="input-group-addon btnGeneral" id="basic-addon2">
+			<a href="#/directorio-resultados/{{textoBusqueda}}">Buscar</a>
+		</span>
+		  </div>
+		  
+		  <h4><p class="lblBlanco">{{slide.text}}</p></h4>
+		</div>
+	  </uib-slide>
+	</uib-carousel>
+</div>
+		
+<div class="divBloque">
+        <div class="divAlignCenter">
+            <h2 class="lblPrincipal"> Nuestras Categorías </h2>
+        </div>
+
+        <div class="dividerGeneral"></div>
+
+        <div class="divBloque" style="padding-top:0;">
+            <div style="width:{{categorias.length * 143}}px; margin:0 auto;">
+                <div style="width:143px; float:left;"
+                    ng-repeat="categoria in categorias">
+                    <div class="itemSliderCategorias">
+                        <a href="/#/directorio/{{categoria.id }}">
+                            <img src='/uploads/{{ categoria.url || bannerBack }}'/> 
+
+                            <h4 style="text-transform: capitalize;">
+                                {{categoria.nombre}}</h4>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </uib-carousel>
+    </div>
+
+</div>
+
+<div class="divBloque pad100-0">
+    <div class="col-md-offset-2"></div>
+    <div class="itemRedesSociales col-md-2 {{$first ? 'col-md-offset-1' : ''}}"
+        ng-repeat="redSocial in redesSociales">
+            <a class="qodef-icon-shortcode normal qodef-icon-huge">
+                <i class="qodef-icon-font-awesome fa {{redSocial.icono}} qodef-icon-element" style=""></i>
+            </a>
+    </div>
+</div>
+    
+<div class="divBloque" style="padding-top:84px; padding-bottom:140px; background-color:rgb(76, 159, 205);">
+    <div class="divAlignCenter">
+        <h2 class="lblBlanco">Busqueda de distribuidores</h2>
+        <div class="dividerGeneral"></div>
+        <p class="lblBlanco" style="margin-bottom: 58px;"> 
+            Busca distribuidores en toda América Latina, los mejores productos en el mercado. </p>
+        
+        <div class="col-md-offset-3 col-md-6 input-group">
+			<input kendo-auto-complete 
+				k-options="autoCompleteOptions"
+				ng-model="textoBusqueda"
+				style="width: 100%;" />
+
+            <span class="input-group-addon btnGeneral" id="basic-addon2">
+                <a href="#/directorio-resultados/{{textoBusqueda}}">Buscar</a>
+            </span>
+        </div>
+
+</div>
+
+<div class="divBloque divGrisClaro">
+    <div class="renglonPad50px">
+        <div class="divAlignCenter">
+            <h2 class="lblPrincipal"> Ventajas del servicio </h2>
+        </div>
+
+        <div class="dividerGeneral"></div>
+
+        <div class="divFila">
+            <div class="col-md-3" ng-repeat="descS in descServicios">
+                <div class="row divAlignCenter" style="padding:0 15px;">
+                    <a class="qodef-icon-shortcode normal qodef-icon-huge">
+                        <i class="qodef-icon-font-awesome fa {{descS.icono}} qodef-icon-element" style=""></i>
+                    </a>
+                    <h3 class="lblPrincipal"> {{descS.titulo}} </h3>
+                    <p style="text-align:left;"> {{descS.descripcion}}  </p>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+<div class="container">
+    <div class="row">
+        <div class="col-md-12">
+
+        <div class="divAlignCenter renglonPad50px">
+            <h2 class="lblPrincipal"> Todo para tu sistema de riego </h2>
+
+            <div class="dividerGeneral"></div>
+
+            <p> Elige tu distribuidor, compara precios y agenda cita. </p>
+        </div>
+
+        <div class="dominoItemGallery"  ng-repeat="distribuidor in distribuidores">
+            <div class="shadow"></div>
+           <div>
+                <a href="/#/detalle/{{distribuidor._id }}">
+                    <img src='/uploads/{{ distribuidor.banner || bannerBack }}' 
+                        style="width:100%;height:266px;"/> 
+
+                    <div class="divBloque divTitulo" style="">
+                        <h4 style="">
+                            {{distribuidor.nombre}}</h4>
+                    </div>
+                </a>
+            </div>
+        </div>
+
+    </div>					
+    </div>
+</div>
+
+<div class="divBloque divGrisClaro" style="padding-top:0;">
+    <div class="divAlignCenter pad50-0">
+        <h2 class="lblPrincipal"> Últimos eventos </h2>
+        <div class="dividerGeneral"></div>
+        <p>Enterese de las novedades en la industria del riego en Latino América</p>
+    </div>
+
+    <div id="carouselHomeFull" class="divBloque" style="padding-top:0;">
+         <uib-carousel active="active" interval="myInterval" no-wrap="noWrapSlides">
+          <uib-slide ng-repeat="slideCollection in groupedSlides" index="evento._id">
+
+            <div class="dominoItemGallery col-md-3">
+                <div class="shadow"></div>
+                <div>
+                    <a href="/#/evento/{{ slideCollection.image1._id }}">
+                        <img src="../uploads/{{slideCollection.image1.banner}}" />
+
+                        <div class="divBloque divTitulo">
+                            <h4> {{slideCollection.image1.nombre}} </h4>
+                        </div>
+                    </a>
+                </div>
+            </div>
+
+            <div class="dominoItemGallery col-md-3">
+                <div class="shadow"></div>
+                <div>
+                    <a href="/#/evento/{{ slideCollection.image2._id }}">
+                        <img src="../uploads/{{slideCollection.image2.banner}}" />
+
+                        <div class="divBloque divTitulo">
+                            <h4> {{slideCollection.image2.nombre}} </h4>
+                        </div>
+                    </a>
+                </div>
+            </div>
+
+            <div class="dominoItemGallery col-md-3">
+                <div class="shadow"></div>
+                <div>
+                    <a href="/#/evento/{{ slideCollection.image3._id }}">
+                        <img src="../uploads/{{slideCollection.image3.banner}}">
+
+                        <div class="divBloque divTitulo">
+                            <h4> {{slideCollection.image3.nombre}} </h4>
+                        </div>
+                    </a>
+                </div>
+            </div>
+            <div class="dominoItemGallery col-md-3">
+                <div class="shadow"></div>
+                <div>
+                    <a href="/#/evento/{{ slideCollection.image4._id }}">
                         <img src="../uploads/{{slideCollection.image4.banner}}">
 
                         <div class="divBloque divTitulo">
@@ -587,6 +823,7 @@
        </div>
     </div>
 </div>
+<div class="altura32"></div>
 </script>
       
 
@@ -749,10 +986,11 @@
 
 <script type="text/ng-template" id="/noticias.html">
 
+<!--<script> </script> -->
     <div class="javo_post_header_fancy" style="
 			position:relative;
 			background-color:#FFFFFF;
-			background-image:url('http://javothemes.com/directory/demo1/wp-content/uploads/sites/2/2014/10/image82.jpg');
+			background-image:url('/images/riego-de-jardines.jpg');
 			background-repeat:no-repeat;
 			background-position:center center;
 			height:250px;">
@@ -767,11 +1005,12 @@
 					<h1 style="
 			color:#ffffff !important;
 			font-size:17pt;
-			line-height:22px">Custom Title</h1>
+
+			line-height:22px">Noticias</h1>
 					<h4 style="
 			color:#ffffff;
 			font-size:12pt;
-			line-height:17px">You can also add a custom subtitle or text</h4>
+			line-height:17px">&nbsp;</h4>
 				</div>
 			</div>
 		</div>
@@ -798,7 +1037,8 @@
                             </a>
                             <ul class="list list-unstyled">
                                 <li class="text-center text-excerpt javo-grid-listing-excerpt">
-                                    {{noticia.contenido}}
+
+                                    <p ng-bind-html="noticia.contenido"></p>
                                 </li>
                                 <li class="text-center">
                                     <h2 class="javo-sns-wrap social-wrap">
@@ -836,6 +1076,7 @@
       
 <script type="text/ng-template" id="/noticia.html">
 
+<!--<script> </script> -->
 
 <div class="text-center well">
     <h1 id="javo-post-title-header">{{noticia.titulo}}</h1>
@@ -954,7 +1195,8 @@
                             <div class="widget_posts_wrap">
 
                                 <ul class="latest-posts items list-unstyled">
-                                    <li class="col-xs-4 col-sm-4 col-md-4" ng-repeat="noticia in ultimasNoticias">
+
+                                    <li class="col-xs-4 col-sm-4 col-md-4" ng-repeat="noticia in ultimasNoticias.slice(0,9)">
                                         <span class="thumb">
                                             <a href="/#/noticia/{{noticia._id}}">
                                                 <div class="img-wrap-shadow">
@@ -976,19 +1218,23 @@
                                 </h2>
                             </div>			
                             <div class="widget_posts_wrap">
-                                <div class="latest-posts posts row" ng-repeat="evento in ultimosEventos">
+
+                                <div class="latest-posts posts row" ng-repeat="evento in ultimosEventos.slice(0,3)">
                                     <div class="col-md-12">
                                         <span class="thumb">
-                                            <a href="/eventos/#/portafolio-evento/{{evento._id}}">
+                                            <a href="/#/evento/{{evento._id}}">
                                                 <img width="80" height="80" src="/uploads/{{evento.banner}}" 
                                                      class="attachment-javo-tiny size-javo-tiny wp-post-image" >
                                             </a>
                                         </span>
                                         <h3>
-                                            <a href="/eventos/#/portafolio-evento/{{evento._id}}">{{evento.nombre.slice(0,34)}}</a>
-                                        </h3>
+
                                         <a href="/eventos/#/portafolio-evento/{{evento._id}}">
                                             <span>{{evento.nombre.slice(0,34)}} ...</span>
+                                            <a href="/#/evento/{{evento._id}}">{{evento.nombre.slice(0,30)}}</a>
+                                        </h3>
+                                        <a href="/#/evento/{{evento._id}}">
+                                            <span>{{evento.nombre.slice(0,30)}} ...</span>
                                         </a>							
                                     </div>
                                 </div>
@@ -1002,7 +1248,8 @@
                                 </h2>
                             </div>			
                             <div class="widget_posts_wrap">
-                                <div class="latest-posts posts row" ng-repeat="noticia in ultimasNoticias">
+
+                                <div class="latest-posts posts row" ng-repeat="noticia in ultimasNoticias.slice(0,3)">
                                     <div class="col-md-12">
                                         <span class="thumb">
                                             <a href="/#/noticia/{{noticia._id}}">
@@ -1011,9 +1258,10 @@
                                             </a>
                                         </span>
                                         <h3>
-                                            <a href="/#/noticia/{{noticia._id}}">{{noticia.titulo.slice(0,34)}}</a>
+
+                                            <a href="/#/noticia/{{noticia._id}}">{{noticia.titulo.slice(0,30)}}</a>
                                         </h3>
-                                            <a href="/#/noticia/{{noticia._id}}"><span>{{noticia.titulo.slice(0,34)}} ...</span>
+                                            <a href="/#/noticia/{{noticia._id}}"><span>{{noticia.titulo.slice(0,30)}} ...</span>
                                         </a>							
                                     </div>
                                 </div>
@@ -1022,7 +1270,66 @@
                         
                     </div>
                 </div>
+            </div>
+		</div>
+	</div>
 
+<!--<div class="container" style="width: 1048px;padding: 0 20px;">
+    <div class="" >
+        <div class=" divAlignCenter pad50-0">
+            <h1 style="text-transform: uppercase;font-size: 53px;"><b>{{ noticia.titulo }}</b></h1>
+        </div>
+    
+        <div class="col-md-9" >
+			<div class='' style="background:white;"> 
+				<div class=''>
+					<div class="altura32"></div>
+					<a href="#">
+						<img  src='/uploads/{{ noticia.banner }}' class="img-rounded" alt="Icono empresa" width="100%" height="440px">
+					</a>
+				</div> 
+                
+				<div class=''> 
+					<div>
+						
+						
+						<div class="panel panel-default">
+							<div class="panel-body copy">
+                                <p ng-bind-html="noticia.contenido"></p>
+								
+							</div>
+                            
+                            <div class="videogular-container">
+                                <videogular vg-theme="configVideoNoticia.theme.url">
+                                    <vg-media vg-src="configVideoNoticia.sources"
+                                              vg-tracks="configVideoNoticia.tracks"
+                                              vg-native-controls="true">
+                                    </vg-media>
+                                </videogular>
+                            </div>
+                            <div class="altura64"></div>
+						</div>
+					</div>
+				</div>
+                
+                
+			</div>
+		</div>
+        <div class="col-md-3" >
+            <div ng-repeat="noticia in ultimasNoticias">
+                <div class="divNoticiaHome" style="width:100%;">
+                    <a href="/#/noticia/{{ noticia._id }}">
+                        <img src="/uploads/{{noticia.banner}}" ng-show="$first || $last" />
+                    
+                    <div>
+                        <h3> {{noticia.titulo}} </h3>
+                    </div>
+                    </a>
+                </div>
+            </div>
+        </div>
+	</div>
+</div>-->
             </div>
 		</div>
 	</div>
@@ -1085,6 +1392,113 @@
 </div>-->
 
 </script>
+
+<script type="text/ng-template" id="/portafolio.html">
+<!--<script> </script> -->
+<div class="container">
+<div class="row">
+    <div class="col-md-8 col-md-offset-2 bgrdWhite">
+
+        <div class="demo-section k-content wide">
+            <div kendo-list-view id="listView" k-data-source="sourceEventosCompletos">
+                <div class="product divPadTop20 row" k-template>
+                    <div class="col-md-4">
+                        <a href="\\#/evento/{{ dataItem._id }}" style="display:block;" class="coverWrap altura100">
+                            <img ng-src="/uploads/{{dataItem.banner}}" alt=" {{dataItem.nombre}} image" class="photo" />
+                        </a>
+                    </div>
+                    <div class="col-md-6" style="padding-right:0;">
+                        <h4 class="lblPrincipal">{{dataItem.nombre}}</h4>
+                        <!--<p>{{dataItem.fechaInicio}} - {{dataItem.fechaFin}}</p>--> 
+                        <p>{{dataItem.fechaInicio  | date:'MM/dd/yyyy h:mma'}} - {{dataItem.fechaFin  | date:'MM/dd/yyyy h:mma'}}</p>
+                        <!--<p>{{dataItem.fechaInicio  | date:'MM/dd/yyyy h:mma Z':'UTC'}} - {{dataItem.fechaFin  | date:'MM/dd/yyyy h:mma Z':'UTC'}}</p>--> 
+                        <p>{{dataItem.direccion}}</p>
+                    </div>
+                </div>
+            </div>
+            <div kendo-pager k-data-source="sourceEventosCompletos"></div>
+        </div>
+    
+    </div> 
+</div>
+<div class="altura32"></div>
+</div>
+</script>
+
+<script type="text/ng-template" id="/portafolio-evento.html">
+<!--<script> </script> -->
+<div style="background-color: #EDEEF2;">
+<div class="row">
+<div class="container">
+    <div class="col-md-8  bgrdWhite divPadTop20">
+        
+        <a class="coverWrap">
+            <img class="img-responsive img-portfolio img-hover photo" src="/uploads/{{evento.banner}}" />
+        </a>
+        
+        <h2 class="lblPrincipal" style="margin:10px;">{{evento.nombre}}</h2>
+        <div class="row">
+        <div class="col-md-4" style="margin:10px;">
+        
+        <h4>Dirección:</h4> <p>{{evento.direccion}}</p>
+        </div>
+
+        <div class="col-md-4" >
+        <p >{{evento.descripcion}}</p>
+        
+        </div>
+        <h4>Horario</h4>
+        <h5 class="lblSecundario" style="margin:10px;">{{evento.fechaInicio  | date:'MM/dd/yyyy h:mma'}}</h5>
+        <h5 class="lblSecundario" style="margin:10px;">{{evento.fechaFin  | date:'MM/dd/yyyy h:mma'}}</h5>
+        </div>
+        
+        <div class="row divPadTop20">
+            <div class="col-xs-3">
+                <div fb-like="myModel.Url"></div>
+            </div>
+        </div>
+        
+         <div class="demo-section k-content wide divPadTop20">
+            <div kendo-list-view id="listView" k-data-source="sourceFotosEvento">
+                <div class="product divFlotante div25perc" k-template>
+                    
+                    <a name="{{ dataItem._id }}" class="coverWrap a-foto-portfolio" ng-click="verImagenGrande(dataItem._id)">
+                        <img ng-src="/uploads/{{dataItem.url}}" alt=" {{dataItem.descripcion}} image" 
+                            class="photo img-foto-portfolio"/>
+                    </a>
+                </div>
+            </div>
+            <div kendo-pager k-data-source="sourceFotosEvento"></div>
+        </div>
+        
+    
+        
+    </div> 
+    <div class="col-md-4 fb-comments" data-href="https://developers.facebook.com/docs/plugins/comments#configurator" data-width="300px" data-numposts="5"></div>
+</div>
+</div>
+</div>
+</script>
+    
+<script type="text/ng-template" id="myModalContent.html">
+<!--<script> </script> -->
+    
+    <div style="width:100%; height:500px; background-color:black;">
+        <a class="qodef-icon-shortcode normal qodef-icon-little" ng-click="verFotoAnterior()"
+            style="top:50%; left:0; position: absolute; cursor:pointer;">
+            <i class="qodef-icon-font-awesome fa fa-arrow-circle-left qodef-icon-element" style=""></i>
+        </a>
+        
+        <img id="imgFotoDetalle" class="img-foto-detalle" style="{{obtenerOffSetFoto(this)}}" src="/uploads/{{url}}" />
+        
+        <a class="qodef-icon-shortcode normal qodef-icon-little" ng-click="verFotoSiguiente()"
+            style="top:50%; right:0; position: absolute; cursor:pointer;">
+            <i class="qodef-icon-font-awesome fa fa-arrow-circle-right qodef-icon-element" style=""></i>
+        </a>
+    </div>
+    
+</script>
+
       
 <script type="text/ng-template" id="/register.html">
 <!--<script> </script> -->
@@ -1202,8 +1616,7 @@
   </div>
 </script>
 	
-     
-    
+
       
   </body>
 </html>

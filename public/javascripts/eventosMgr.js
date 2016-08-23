@@ -41,32 +41,6 @@ function($stateProvider, $urlRouterProvider) {
             }]
       }
     });
-    
-    $stateProvider
-    .state('portafolio-evento', {
-      url: '/portafolio-evento/{id}',
-      templateUrl: '/portafolio-evento.html',
-      controller: 'EventosCtrl',
-      resolve: {
-        post: ['$stateParams', 'factory', function($stateParams, factory) {
-              return factory.obtenerEventoPorId($stateParams.id);
-            }]
-      }
-    });
-    
-    $stateProvider
-    .state('portafolio', {
-      url: '/portafolio',
-      templateUrl: '/portafolio.html',
-      controller: 'EventosCtrl',
-      resolve: {
-        postPromise: ['factory', function(factory){
-            return factory.obtenerEventosCompletos();
-        }]
-      }
-    });
-    
-    
 }]);
 
 app.controller('NavCtrl', [
@@ -92,25 +66,7 @@ function($scope, $state, auth, factory, $uibModal){
     $scope.filesFotos = [];
     var filesBanner = [], filesFotos = [];
     
-    $scope.myModel = {
-              Url: 'https://devriego.herokuapp.com',//window.location.href
-
-              Name: 'Riego sustentable',//$scope.evento.nombre, 
-
-              ImageUrl: 'https://devriego.herokuapp.com/uploads/eysh.jpeg'
-          };
-    
-    $scope.sourceEventosCompletos = new kendo.data.DataSource({
-        data: factory.eventosCompletos,
-        pageSize: 21
-    });
-    
     if($scope.evento){
-        $scope.sourceFotosEvento = new kendo.data.DataSource({
-            data: factory.evento.fotos,
-            pageSize: 21
-        });
-        
         
         $.each($scope.evento.fotos, function(indexE, itemE){
             filesFotos.push({name : itemE.url, extension: '.' + itemE.url.split('.')[1]})
@@ -124,16 +80,6 @@ function($scope, $state, auth, factory, $uibModal){
     
     if($state.current.name == "principal"){
         $scope.evento = null;
-    }
-    
-    if($state.current.name == "portafolio-evento"){
-        var imgBanner = document.getElementsByClassName("photo")[0];
-
-        imgBanner.onload = function(){
-            var alturaBanner = this.clientHeight;
-            var offsetBanner = (alturaBanner - 294)/2;
-            this.style.top = "-" + offsetBanner + "px";
-        }
     }
     
     if($state.current.name == "agregar-evento"){
@@ -229,29 +175,6 @@ function($scope, $state, auth, factory, $uibModal){
     $scope.datePickerOptions = {
       parseFormats: ["yyyy-MM-ddTHH:mm:ss"]
     };
-
-    $scope.verImagenGrande = function (id) {
-        
-        var modalInstance = $uibModal.open({
-          animation: true,
-          templateUrl: 'myModalContent.html',
-          controller: 'ModalInstanceCtrl',
-          size: "lg",
-          resolve: {
-            items: function () {
-              return $scope.evento.fotos;
-            }, id : function(){
-                return id;
-            }
-          }
-        });
-
-        modalInstance.result.then(function (selectedItem) {
-          $scope.selected = selectedItem;
-        }, function () {
-          $log.info('Modal dismissed at: ' + new Date());
-        });
-      };
 
 }]);
 
@@ -394,11 +317,7 @@ app.factory('factory', ['$http', 'auth', function($http, auth){
 		    o.evento = data;
 		});
 	};
-    o.obtenerEventosCompletos = function() {
-		return $http.get('/eventos/eventosCompletos').success(function(data){
-		  angular.copy(data, o.eventosCompletos);
-		});
-	};
+    
     o.eliminarEvento = function(id) {
 		return $http.delete('/eventos/eliminarEvento/' + id, {headers: {Authorization: 'Bearer '+auth.getToken()}}).success(function(data){
 			console.log(data);
