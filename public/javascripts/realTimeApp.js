@@ -1,4 +1,10 @@
-var app = angular.module('realTime', ['ui.router', 'kendo.directives', 'ui.bootstrap','ngSanitize','com.2fdevs.videogular'])
+var app = angular.module('realTime', ['ui.router', 'kendo.directives', 'ui.bootstrap','ngSanitize','com.2fdevs.videogular', 'angulike'])
+
+app.run([
+      '$rootScope', function ($rootScope) {
+          $rootScope.facebookAppId = '538366606363211'; // set your facebook app id here
+      }
+  ]);
 
 app.config([
 '$stateProvider',
@@ -44,9 +50,8 @@ function($stateProvider, $urlRouterProvider) {
       controller: 'MainCtrl',
       resolve: {
         post: ['$stateParams', 'projects', function($stateParams, projects) {
-            
-          projects.obtenerUltimosEventos();
-           return  projects.obtenerUltimasNoticias();
+            projects.obtenerUltimosEventos();
+            return  projects.obtenerUltimasNoticias();
         }]
       }
     });
@@ -59,7 +64,9 @@ function($stateProvider, $urlRouterProvider) {
         resolve: {
             //if($stateParams.id != null)
             post: ['$stateParams', 'projects', function($stateParams, projects) {
-              return projects.obtenerDistribuidoresPorCategoria($stateParams.id);
+                projects.obtenerUltimasNoticias();
+                projects.obtenerUltimosEventos();
+                return projects.obtenerDistribuidoresPorCategoria($stateParams.id);
             }]
           }
     });
@@ -71,7 +78,9 @@ function($stateProvider, $urlRouterProvider) {
         controller: 'MainCtrl',
         resolve: {
             post: ['$stateParams', 'projects', function($stateParams, projects) {
-              return projects.obtenerDistribuidoresPorNombre($stateParams.str);
+                projects.obtenerUltimasNoticias();
+                projects.obtenerUltimosEventos();
+                return projects.obtenerDistribuidoresPorNombre($stateParams.str);
             }]
           }
     });
@@ -84,7 +93,7 @@ function($stateProvider, $urlRouterProvider) {
         resolve: {
             //if($stateParams.id != null)
             post: ['$stateParams', 'projects', function($stateParams, projects) {
-                
+                projects.obtenerUltimasNoticias();
                 projects.obtenerUltimosEventos();
                 projects.obtenerUltimasNoticiasDeDistribuidor($stateParams.id);
               return projects.obtenerDistribuidor($stateParams.id);
@@ -115,10 +124,36 @@ function($stateProvider, $urlRouterProvider) {
             //if($stateParams.id != null)
             post: ['$stateParams', 'projects', function($stateParams, projects) {
                 projects.obtenerUltimosEventos();
-               projects.obtenerUltimasNoticias();
-               return projects.obtenerNoticiaPorId($stateParams.id);
+                projects.obtenerUltimasNoticias();
+                return projects.obtenerNoticiaPorId($stateParams.id);
             }]
           }
+    });
+    
+    $stateProvider
+    .state('eventos', {
+      url: '/eventos',
+      templateUrl: '/portafolio.html',
+      controller: 'MainCtrl',
+      resolve: {
+        postPromise: ['projects', function(projects){
+            projects.obtenerUltimasNoticias();
+            projects.obtenerUltimosEventos();
+            return projects.obtenerEventosCompletos();
+        }]
+      }
+    });
+    
+    $stateProvider
+    .state('evento', {
+      url: '/evento/{id}',
+      templateUrl: '/portafolio-evento.html',
+      controller: 'MainCtrl',
+      resolve: {
+        post: ['$stateParams', 'projects', function($stateParams, projects) {
+              return projects.obtenerEventoPorId($stateParams.id);
+            }]
+      }
     });
     
     $urlRouterProvider.otherwise('home');
@@ -232,7 +267,8 @@ app.controller('MainCtrl', [
 'auth',
 'projects',
 '$sce',
-function($scope, $state, auth, projects, $sce){
+'$uibModal',
+function($scope, $state, auth, projects, $sce, $uibModal){
     $scope.appname = "Riego Sustentable";
     $scope.bannerBack = "back.jpg"
     $scope.countryNames = [
@@ -644,7 +680,114 @@ function($scope, $state, auth, projects, $sce){
         //$scope.ultimosEventos = $scope.ultimosEventos.slice(0,3)
     }
     
+    if($state.current.name == "eventos"){
+        $scope.sourceEventosCompletos = new kendo.data.DataSource({
+            data: projects.eventosCompletos,
+            pageSize: 21
+        });
+    }
+    
+    if($state.current.name == "evento"){
+        $scope.evento = projects.evento;
+        
+        $scope.myModel = {
+              Url: 'https://devriego.herokuapp.com',//window.location.href
+
+              Name: 'Riego sustentable',//$scope.evento.nombre, 
+
+              ImageUrl: 'https://devriego.herokuapp.com/uploads/eysh.jpeg'
+          };
+        
+        $scope.sourceFotosEvento = new kendo.data.DataSource({
+            data: projects.evento.fotos,
+            pageSize: 21
+        });
+        
+        var imgBanner = document.getElementsByClassName("photo")[0];
+
+        imgBanner.onload = function(){
+            var alturaBanner = this.clientHeight;
+            var offsetBanner = (alturaBanner - 294)/2;
+            this.style.top = "-" + offsetBanner + "px";
+        }
+        
+        $scope.verImagenGrande = function (id) {
+        
+            var modalInstance = $uibModal.open({
+              animation: true,
+              templateUrl: 'myModalContent.html',
+              controller: 'ModalInstanceCtrl',
+              size: "lg",
+              resolve: {
+                items: function () {
+                  return $scope.evento.fotos;
+                }, id : function(){
+                    return id;
+                }
+              }
+            });
+
+            modalInstance.result.then(function (selectedItem) {
+                  $scope.selected = selectedItem;
+                }, function () {
+                  console.log('Modal dismissed at: ' + new Date());
+                });
+              };
+        }
+    
 }]);
+
+app.controller('ModalInstanceCtrl', function ($scope, $uibModalInstance, items, id) {
+    debugger;
+    $scope.items = items;
+    $scope.id = id;
+    $scope.index = 0;
+    
+    var foto = $.grep(items, function(item, index){ 
+        var ok = item._id == id;
+        if(ok)$scope.index = index;
+        return ok;
+    })[0];
+    
+    $scope.url = foto.url;
+    
+
+    $scope.ok = function () {
+        $uibModalInstance.close($scope.selected.item);
+    };
+
+    $scope.cancel = function () {
+        $uibModalInstance.dismiss('cancel');
+    };
+    
+    $scope.verFotoAnterior = function(){
+        debugger;
+        var siguienteFoto = $scope.items[$scope.index - 1];
+        if(siguienteFoto){
+            $scope.url = siguienteFoto.url;
+            $scope.index = $scope.index - 1;
+        }
+        else{
+            $scope.url = $scope.items[$scope.items.length-1].url;
+            $scope.index = $scope.items.length-1;
+        }    
+    }
+    
+    $scope.verFotoSiguiente = function(){
+        debugger;
+        var siguienteFoto = $scope.items[$scope.index + 1];
+        if(siguienteFoto){
+            $scope.url = siguienteFoto.url;
+            $scope.index = $scope.index + 1;
+        }
+        else{
+            $scope.url = $scope.items[0].url;
+            $scope.index = 0;
+        }    
+    }
+    
+    
+});
 
 app.factory('auth', ['$http', '$window', function($http, $window){
    var auth = {};
@@ -725,7 +868,9 @@ app.factory('projects', ['$http', 'auth', function($http, auth){
           distribuidor: null,
           ultimosEventos: [],
           categoriaActual : {id:1, nombre: 'Riego Residencial'},
-          ultimasNoticias:[] 
+          ultimasNoticias:[] ,
+          eventosCompletos:[],
+          evento: null
 	  };
   
     o.formatDireccion = function(oDireccion) {
@@ -810,6 +955,19 @@ app.factory('projects', ['$http', 'auth', function($http, auth){
     o.obtenerNoticiaPorId = function(id) {
 		return $http.get('/profile/noticiaPorId/' + id).success(function(data){
 		  o.noticia = data;
+		});
+	};
+    
+    //eventos
+    o.obtenerEventosCompletos = function() {
+		return $http.get('/eventos/eventosCompletos').success(function(data){
+		  angular.copy(data, o.eventosCompletos);
+		});
+	};
+    
+    o.obtenerEventoPorId = function(id) {
+		return $http.get('/eventos/eventoPorId/' + id).success(function(data){
+		    o.evento = data;
 		});
 	};
     
