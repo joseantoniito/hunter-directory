@@ -1,3 +1,8 @@
+
+.widgets-wraps {
+    padding: 0 15px;
+    margin-bottom: 30px;
+}
 .siderbar-inner .widgets-wraps .widget_posts_wrap .latest-posts {
     margin-left: -8px;
 }

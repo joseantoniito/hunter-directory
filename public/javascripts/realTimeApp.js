@@ -100,6 +100,7 @@ function($stateProvider, $urlRouterProvider) {
         resolve: {
             //if($stateParams.id != null)
             post: ['$stateParams', 'projects', function($stateParams, projects) {
+                projects.obtenerUltimosEventos();
               return projects.obtenerUltimasNoticias();
             }]
           }
@@ -640,7 +641,7 @@ function($scope, $state, auth, projects, $sce){
                 },id: 0
             }   
         
-        $scope.ultimosEventos = $scope.ultimosEventos.slice(0,3)
+        //$scope.ultimosEventos = $scope.ultimosEventos.slice(0,3)
     }
     
 }]);

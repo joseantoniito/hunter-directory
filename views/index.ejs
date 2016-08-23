@@ -175,7 +175,7 @@
                 <div class="widget_posts_wrap">
 
                     <ul class="latest-posts items list-unstyled">
-                        <li class="col-xs-4 col-sm-4 col-md-4" ng-repeat="noticia in ultimasNoticias">
+                        <li class="col-xs-4 col-sm-4 col-md-4" ng-repeat="noticia in ultimasNoticias.slice(0,3)">
                             <span class="thumb">
                                 <a href="/#/noticia/{{noticia._id}}">
                                     <div class="img-wrap-shadow">
@@ -200,11 +200,11 @@
                 <div class="row widgets-wraps">
                     <div class="widgettitle_wrap col-md-12">
                         <h2 class="widgettitle">
-                            <span>Eventos Recientes</span>
+                            <a href="/eventos/#/portafolio">Eventos Recientes</a>
                         </h2>
                     </div>			
                     <div class="widget_posts_wrap">
-                        <div class="latest-posts posts row" ng-repeat="evento in ultimosEventos">
+                        <div class="latest-posts posts row" ng-repeat="evento in ultimosEventos.slice(0,3)">
                             <div class="col-md-12">
                                 <span class="thumb">
                                     <a href="/eventos/#/portafolio-evento/{{evento._id}}">
@@ -213,10 +213,10 @@
                                     </a>
                                 </span>
                                 <h3>
-                                    <a href="/eventos/#/portafolio-evento/{{evento._id}}">{{evento.nombre.slice(0,34)}}</a>
+                                    <a href="/eventos/#/portafolio-evento/{{evento._id}}">{{evento.nombre.slice(0,30)}}</a>
                                 </h3>
                                 <a href="/eventos/#/portafolio-evento/{{evento._id}}">
-                                    <span>{{evento.nombre.slice(0,34)}} ...</span>
+                                    <span>{{evento.nombre.slice(0,30)}} ...</span>
                                 </a>							
                             </div>
                         </div>
@@ -228,7 +228,7 @@
                 <div class="row widgets-wraps">
                     <div class="widgettitle_wrap col-md-12">
                         <h2 class="widgettitle">
-                            <span>Últimas Noticias</span>
+                            <a href="/#/noticias">Últimas Noticias</a>
                         </h2>
                     </div>			
                     <div class="widget_posts_wrap">
@@ -241,9 +241,9 @@
                                     </a>
                                 </span>
                                 <h3>
-                                    <a href="/#/noticia/{{noticia._id}}">{{noticia.titulo.slice(0,34)}}</a>
+                                    <a href="/#/noticia/{{noticia._id}}">{{noticia.titulo.slice(0,30)}}</a>
                                 </h3>
-                                    <a href="/#/noticia/{{noticia._id}}"><span>{{noticia.titulo.slice(0,34)}} ...</span>
+                                    <a href="/#/noticia/{{noticia._id}}"><span>{{noticia.titulo.slice(0,30)}} ...</span>
                                 </a>							
                             </div>
                         </div>
@@ -727,7 +727,7 @@
     <div class="javo_post_header_fancy" style="
 			position:relative;
 			background-color:#FFFFFF;
-			background-image:url('http://javothemes.com/directory/demo1/wp-content/uploads/sites/2/2014/10/image82.jpg');
+			background-image:url('/images/riego-de-jardines.jpg');
 			background-repeat:no-repeat;
 			background-position:center center;
 			height:250px;">
@@ -742,11 +742,11 @@
 					<h1 style="
 			color:#ffffff !important;
 			font-size:17pt;
-			line-height:22px">Custom Title</h1>
+			line-height:22px">Noticias</h1>
 					<h4 style="
 			color:#ffffff;
 			font-size:12pt;
-			line-height:17px">You can also add a custom subtitle or text</h4>
+			line-height:17px">&nbsp;</h4>
 				</div>
 			</div>
 		</div>
@@ -773,7 +773,7 @@
                             </a>
                             <ul class="list list-unstyled">
                                 <li class="text-center text-excerpt javo-grid-listing-excerpt">
-                                    {{noticia.contenido}}
+                                    <p ng-bind-html="noticia.contenido"></p>
                                 </li>
                                 <li class="text-center">
                                     <h2 class="javo-sns-wrap social-wrap">
@@ -929,7 +929,7 @@
                             <div class="widget_posts_wrap">
 
                                 <ul class="latest-posts items list-unstyled">
-                                    <li class="col-xs-4 col-sm-4 col-md-4" ng-repeat="noticia in ultimasNoticias">
+                                    <li class="col-xs-4 col-sm-4 col-md-4" ng-repeat="noticia in ultimasNoticias.slice(0,9)">
                                         <span class="thumb">
                                             <a href="/#/noticia/{{noticia._id}}">
                                                 <div class="img-wrap-shadow">
@@ -951,7 +951,7 @@
                                 </h2>
                             </div>			
                             <div class="widget_posts_wrap">
-                                <div class="latest-posts posts row" ng-repeat="evento in ultimosEventos">
+                                <div class="latest-posts posts row" ng-repeat="evento in ultimosEventos.slice(0,3)">
                                     <div class="col-md-12">
                                         <span class="thumb">
                                             <a href="/eventos/#/portafolio-evento/{{evento._id}}">
@@ -960,10 +960,10 @@
                                             </a>
                                         </span>
                                         <h3>
-                                            <a href="/eventos/#/portafolio-evento/{{evento._id}}">{{evento.nombre.slice(0,34)}}</a>
+                                            <a href="/eventos/#/portafolio-evento/{{evento._id}}">{{evento.nombre.slice(0,30)}}</a>
                                         </h3>
                                         <a href="/eventos/#/portafolio-evento/{{evento._id}}">
-                                            <span>{{evento.nombre.slice(0,34)}} ...</span>
+                                            <span>{{evento.nombre.slice(0,30)}} ...</span>
                                         </a>							
                                     </div>
                                 </div>
@@ -977,7 +977,7 @@
                                 </h2>
                             </div>			
                             <div class="widget_posts_wrap">
-                                <div class="latest-posts posts row" ng-repeat="noticia in ultimasNoticias">
+                                <div class="latest-posts posts row" ng-repeat="noticia in ultimasNoticias.slice(0,3)">
                                     <div class="col-md-12">
                                         <span class="thumb">
                                             <a href="/#/noticia/{{noticia._id}}">
@@ -986,9 +986,9 @@
                                             </a>
                                         </span>
                                         <h3>
-                                            <a href="/#/noticia/{{noticia._id}}">{{noticia.titulo.slice(0,34)}}</a>
+                                            <a href="/#/noticia/{{noticia._id}}">{{noticia.titulo.slice(0,30)}}</a>
                                         </h3>
-                                            <a href="/#/noticia/{{noticia._id}}"><span>{{noticia.titulo.slice(0,34)}} ...</span>
+                                            <a href="/#/noticia/{{noticia._id}}"><span>{{noticia.titulo.slice(0,30)}} ...</span>
                                         </a>							
                                     </div>
                                 </div>
