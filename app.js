@@ -16,7 +16,7 @@ require('./models/Evento');
 require('./models/Foto');
 require('./models/Noticia');
 require('./config/passport');
-mongoose.connect('mongodb://localhost/hunter-direcory');
+mongoose.connect('mongodb://apptletico:12345@ds033145.mlab.com:33145/hunter');
 
 
 var routes = require('./routes/index');

@@ -233,7 +233,7 @@ app.controller('MainCtrl', [
 '$sce',
 function($scope, $state, auth, projects, $sce){
     $scope.appname = "Riego Sustentable";
-    $scope.bannerBack = "back.jpg"
+    $scope.bannerBack = "back.png"
     $scope.countryNames = [
               "Albania",
               "Andorra",
@@ -469,7 +469,7 @@ function($scope, $state, auth, projects, $sce){
         ]
         
         
-        projects.obtenerDistribuidoresPorCategoria(2).then(function() {
+        projects.obtenerDistribuidoresPorCategoria(1).then(function() {
 
         })
         
