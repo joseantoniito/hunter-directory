@@ -50,6 +50,7 @@ function($stateProvider, $urlRouterProvider) {
       controller: 'MainCtrl',
       resolve: {
         post: ['$stateParams', 'projects', function($stateParams, projects) {
+
             projects.obtenerUltimosEventos();
             return  projects.obtenerUltimasNoticias();
         }]
@@ -109,7 +110,7 @@ function($stateProvider, $urlRouterProvider) {
         resolve: {
             //if($stateParams.id != null)
             post: ['$stateParams', 'projects', function($stateParams, projects) {
-                projects.obtenerUltimosEventos();
+
               return projects.obtenerUltimasNoticias();
             }]
           }
@@ -124,12 +125,15 @@ function($stateProvider, $urlRouterProvider) {
             //if($stateParams.id != null)
             post: ['$stateParams', 'projects', function($stateParams, projects) {
                 projects.obtenerUltimosEventos();
+
                 projects.obtenerUltimasNoticias();
                 return projects.obtenerNoticiaPorId($stateParams.id);
+
             }]
           }
     });
     
+
     $stateProvider
     .state('eventos', {
       url: '/eventos',
@@ -156,6 +160,7 @@ function($stateProvider, $urlRouterProvider) {
       }
     });
     
+
     $urlRouterProvider.otherwise('home');
 }]);
 
@@ -267,10 +272,11 @@ app.controller('MainCtrl', [
 'auth',
 'projects',
 '$sce',
-'$uibModal',
+
 function($scope, $state, auth, projects, $sce, $uibModal){
+
     $scope.appname = "Riego Sustentable";
-    $scope.bannerBack = "back.jpg"
+    $scope.bannerBack = "back.png"
     $scope.countryNames = [
               "Albania",
               "Andorra",
@@ -506,7 +512,9 @@ function($scope, $state, auth, projects, $sce, $uibModal){
         ]
         
         
-        projects.obtenerDistribuidoresPorCategoria(2).then(function() {
+
+        projects.obtenerDistribuidoresPorCategoria(1).then(function() {
+
 
         })
         
@@ -528,6 +536,7 @@ function($scope, $state, auth, projects, $sce, $uibModal){
           if (many == 1) {}
           if ($scope.slides[i + 1] && (many == 2 || many > 3)) {
               second.image2 = $scope.slides[i + 1];
+
           }
           else
               second.image2 = {};
@@ -536,6 +545,7 @@ function($scope, $state, auth, projects, $sce, $uibModal){
               second.image3 = $scope.slides[i + 2];
           }
           else
+
               second.image3 = {};
             
           if ($scope.slides[i + (many - 1)]  && many > 3) {
@@ -677,6 +687,8 @@ function($scope, $state, auth, projects, $sce, $uibModal){
                 },id: 0
             }   
         
+
+
         //$scope.ultimosEventos = $scope.ultimosEventos.slice(0,3)
     }
     
@@ -735,6 +747,7 @@ function($scope, $state, auth, projects, $sce, $uibModal){
               };
         }
     
+
 }]);
 
 app.controller('ModalInstanceCtrl', function ($scope, $uibModalInstance, items, id) {
@@ -868,9 +881,11 @@ app.factory('projects', ['$http', 'auth', function($http, auth){
           distribuidor: null,
           ultimosEventos: [],
           categoriaActual : {id:1, nombre: 'Riego Residencial'},
+
           ultimasNoticias:[] ,
           eventosCompletos:[],
           evento: null
+
 	  };
   
     o.formatDireccion = function(oDireccion) {
@@ -958,6 +973,7 @@ app.factory('projects', ['$http', 'auth', function($http, auth){
 		});
 	};
     
+
     //eventos
     o.obtenerEventosCompletos = function() {
 		return $http.get('/eventos/eventosCompletos').success(function(data){
@@ -971,5 +987,6 @@ app.factory('projects', ['$http', 'auth', function($http, auth){
 		});
 	};
     
+
     return o;
 }]);

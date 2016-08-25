@@ -1,8 +1,11 @@
+<<<<<<< HEAD
+=======
 
 .widgets-wraps {
     padding: 0 15px;
     margin-bottom: 30px;
 }
+>>>>>>> 9baa2b87791911defe2afd493474b9b457753771
 .siderbar-inner .widgets-wraps .widget_posts_wrap .latest-posts {
     margin-left: -8px;
 }
@@ -260,8 +263,13 @@ img {
 }
 
 .itemSliderCategorias {
+<<<<<<< HEAD
+    padding: 20px 0px;
+    margin: 2px;
+=======
     padding: 30px 0px;
     margin: 10px;
+>>>>>>> 9baa2b87791911defe2afd493474b9b457753771
     color: #FFF;
     -webkit-border-radius: 3px;
     -moz-border-radius: 3px;

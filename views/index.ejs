@@ -68,11 +68,10 @@
           
           
         #map {
-            margin : 10px;
-            height: 450px;
-            width: 95%;
+            height: 350px;
+            width: 100%;
             }
-        
+          
       </style>
   </head>
     
@@ -130,7 +129,9 @@
                       </ul>
                 </li>
 
+
                 <li><a href="/eventos/#/principal" class="btn btn-menu">Eventos</a></li>
+
 
 
 
@@ -176,6 +177,7 @@
                 <div class="widget_posts_wrap">
 
                     <ul class="latest-posts items list-unstyled">
+
                         <li class="col-xs-4 col-sm-4 col-md-4" ng-repeat="noticia in ultimasNoticias.slice(0,3)">
                             <span class="thumb">
                                 <a href="/#/noticia/{{noticia._id}}">
@@ -229,7 +231,7 @@
                 <div class="row widgets-wraps">
                     <div class="widgettitle_wrap col-md-12">
                         <h2 class="widgettitle">
-                            <a href="/#/noticias">Últimas Noticias</a>
+                            <span>Últimas Noticias</span>
                         </h2>
                     </div>			
                     <div class="widget_posts_wrap">
@@ -242,9 +244,9 @@
                                     </a>
                                 </span>
                                 <h3>
-                                    <a href="/#/noticia/{{noticia._id}}">{{noticia.titulo.slice(0,30)}}</a>
+                                    <a href="/#/noticia/{{noticia._id}}">{{noticia.titulo.slice(0,34)}}</a>
                                 </h3>
-                                    <a href="/#/noticia/{{noticia._id}}"><span>{{noticia.titulo.slice(0,30)}} ...</span>
+                                    <a href="/#/noticia/{{noticia._id}}"><span>{{noticia.titulo.slice(0,34)}} ...</span>
                                 </a>							
                             </div>
                         </div>
@@ -253,19 +255,25 @@
             </div>
           
             <div class="col-md-3">
-            <h3 class="m10" style="color:gray">Contacto</h3>
-             <div class="m10" style="margin-left:3px;"     >
+            <div class="widgettitle_wrap col-md-12">
+                        <h2 class="widgettitle">
+                            <span>Contacto</span>
+                        </h2>
+                </div>	
+                <div></div>
+             <div class="m10" style="margin-left:3px;"    >
+                 <span class="glyphicon glyphicon-home" style="color:#fff;"></span>
                 <a>Diplay Imagén y publicidad </a>
                 </div>
+                <div></div>
                 <div class="m10" style="margin-left:3px;"     >
-
+                    <span class="glyphicon glyphicon-phone" style="color:#fff;"></span>
                 <a>Tel: 4423657157</a>
                 </div>
-                <div class="m10" style="margin-left:3px;"     >
-                <a> aespino@displayimagenpublicidad.com</a>
-                </div>
-                <div class="m10" style="margin-left:3px;"     >
-            </div>
+                <div></div>
+                <div class="m10"  >
+                <span class="glyphicon glyphicon-link" style="color:#fff;"></span>
+                    <a>aespino@riegosustentable.com</a>
             </div>
 
             <div class="m10"
@@ -273,8 +281,214 @@
                 <a href="/#/directorio/{{ categoria.id }}">{{ categoria.nombre }}</a>
             </div>
         </div>
+        
+        <div class="m10">
+            Copyright 2016 Riego Sustenable | All Rights Reserved
+        </div>
     </div>
 
+<script type="text/ng-template" id="/directorio.html">
+
+<div>
+<div style="height: 400px;">
+	<uib-carousel active="active" interval="myInterval" no-wrap="noWrapSlides">
+	  <uib-slide ng-repeat="slide in slidesHome" index="slide.id">
+		<img ng-src="{{slide.image}}" style="margin:auto; width:100%; height:400px;">
+		<div class="carousel-caption" style="bottom:10%;">
+		  <h1><div style="color:white;">{{slide.desc}}</div></h1>
+		  
+		  <div class="col-md-offset-3 col-md-6 input-group">
+			<input kendo-auto-complete 
+				k-options="autoCompleteOptions"
+				ng-model="textoBusqueda"
+				style="width: 100%;" />
+
+			<span class="input-group-addon btnGeneral" id="basic-addon2">
+                <a href="#/directorio-resultados/{{textoBusqueda}}">Buscar</a>
+		      </span>
+		  </div>
+		  
+		  <h4><p class="lblBlanco">{{slide.text}}</p></h4>
+		</div>
+	  </uib-slide>
+	</uib-carousel>
+</div>
+		
+<div >
+        <div class="divAlignCenter">
+            <h3 class="lblPrincipal"> Nuestras Categorías </h3>
+        </div>
+        <div  >
+            <div style="width:{{categorias.length * 143}}px; margin:0 auto;">
+                <div style="width:143px; float:left;"
+                    ng-repeat="categoria in categorias">
+                    <div class="itemSliderCategorias">
+                        <a href="/#/detalle/{{categoria._id }}">
+                            <img src='/uploads/{{ categoria.url || bannerBack }}'/> 
+                            <h4 style="text-transform: capitalize;">
+                                {{categoria.nombre}}</h4>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+</div>
+
+<div class="divBloque divGrisClaro">
+    <div >
+        <div class="divAlignCenter">
+            <h2 class="lblPrincipal"> Ventajas del servicio </h2>
+        </div>
+
+        <div class="dividerGeneral"></div>
+
+        <div class="divFila">
+            <div class="col-md-3" ng-repeat="descS in descServicios">
+                <div class="row divAlignCenter" style="padding:0 15px;">
+                    <a class="qodef-icon-shortcode normal qodef-icon-huge">
+                        <i class="qodef-icon-font-awesome fa {{descS.icono}} qodef-icon-element" style=""></i>
+                    </a>
+                    <h3 class="lblPrincipal"> {{descS.titulo}} </h3>
+                    <p style="text-align:left;"> {{descS.descripcion}}  </p>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+<div class="container">
+    <div class="row">
+        <div class="col-md-12">
+
+        <div class="divAlignCenter renglonPad50px">
+            <h2 class="lblPrincipal"> Todo para tu sistema de riego </h2>
+
+            <div class="dividerGeneral"></div>
+
+            <p> Elige tu distribuidor, compara precios y agenda cita. </p>
+        </div>
+
+        <div class="dominoItemGallery"  ng-repeat="distribuidor in distribuidores">
+            <div class="shadow"></div>
+           <div>
+                <a href="/#/detalle/{{distribuidor._id }}">
+                    <img src='/uploads/{{ distribuidor.banner || bannerBack }}' 
+                        style="width:100%;height:266px;"/> 
+
+                    <div class="divBloque divTitulo" style="">
+                        <h4 style="">
+                            {{distribuidor.nombre}}</h4>
+                    </div>
+                </a>
+            </div>
+        </div>
+
+
+            
+          
+            					
+    </div>
+</div>
+
+<div class="divBloque divGrisClaro" style="padding-top:0;">
+    <div class="divAlignCenter pad50-0">
+        <h2 class="lblPrincipal"> Últimos eventos </h2>
+        <div class="dividerGeneral"></div>
+        <p>Enterese de las novedades en la industria del riego en Latino América</p>
+    </div>
+
+    <div id="carouselHomeFull" class="divBloque" style="padding-top:0;">
+         <uib-carousel active="active" interval="myInterval" no-wrap="noWrapSlides">
+          <uib-slide ng-repeat="slideCollection in groupedSlides" index="evento._id">
+
+            <div class="dominoItemGallery col-md-3">
+                <div class="shadow"></div>
+                <div>
+                    <a href="/eventos/#/portafolio-evento/{{ slideCollection.image1._id }}">
+                        <img src="../uploads/{{slideCollection.image1.banner}}" />
+
+                        <div class="divBloque divTitulo">
+                            <h4> {{slideCollection.image1.nombre}} </h4>
+                        </div>
+                    </a>
+                </div>
+            </div>
+
+            <div class="dominoItemGallery col-md-3">
+                <div class="shadow"></div>
+                <div>
+                    <a href="/eventos/#/portafolio-evento/{{ slideCollection.image2._id }}">
+                        <img src="../uploads/{{slideCollection.image2.banner}}" />
+
+                        <div class="divBloque divTitulo">
+                            <h4> {{slideCollection.image2.nombre}} </h4>
+                        </div>
+                    </a>
+                </div>
+            </div>
+
+
+            <div class="dominoItemGallery col-md-3">
+                <div class="shadow"></div>
+                <div>
+                    <a href="/eventos/#/portafolio-evento/{{ slideCollection.image3._id }}">
+                        <img src="../uploads/{{slideCollection.image3.banner}}">
+
+                        <div class="divBloque divTitulo">
+                            <h4> {{slideCollection.image3.nombre}} </h4>
+                        </div>
+                    </a>
+                </div>
+            </div>
+            <div class="dominoItemGallery col-md-3">
+                <div class="shadow"></div>
+                <div>
+                    <a href="/eventos/#/portafolio-evento/{{ slideCollection.image4._id }}">
+                        <img src="../uploads/{{slideCollection.image4.banner}}">
+
+                        <div class="divBloque divTitulo">
+                            <h4> {{slideCollection.image4.nombre}} </h4>
+                        </div>
+                    </a>
+
+            <div class="m10"
+                ng-repeat="categoria in iluminacion">
+                <a href="/#/directorio/{{ categoria.id }}">{{ categoria.nombre }}</a>
+            </div>
+        </div>
+    </div>
+    </div>
+    </div>
+<div class="divBloque pad100-0">
+    <div class="col-md-offset-2"></div>
+    <div class="itemRedesSociales col-md-2 {{$first ? 'col-md-offset-1' : ''}}"
+        ng-repeat="redSocial in redesSociales">
+            <a class="qodef-icon-shortcode normal qodef-icon-huge">
+                <i class="qodef-icon-font-awesome fa {{redSocial.icono}} qodef-icon-element" style=""></i>
+            </a>
+    </div>
+</div>
+    
+<div class="divBloque" style="padding-top:84px; padding-bottom:140px; background-color:rgb(76, 159, 205);">
+    <div class="divAlignCenter">
+        <h2 class="lblBlanco">Busqueda de distribuidores</h2>
+        <div class="dividerGeneral"></div>
+        <p class="lblBlanco" style="margin-bottom: 58px;"> 
+            Busca distribuidores en toda América Latina, los mejores productos en el mercado. </p>
+        
+        <div class="col-md-offset-3 col-md-6 input-group">
+			<input kendo-auto-complete 
+				k-options="autoCompleteOptions"
+				ng-model="textoBusqueda"
+				style="width: 100%;" />
+
+            <span class="input-group-addon btnGeneral" id="basic-addon2">
+                <a href="#/directorio-resultados/{{textoBusqueda}}">Buscar</a>
+            </span>
+        </div>
+    </div>
+</div>
 <script type="text/ng-template" id="/directorio.html">
 <!--<script> </script> -->
 <div>
@@ -323,7 +537,39 @@
                     </div>
                 </div>
             </div>
+        </uib-carousel>
+    </div>
+
+</div>
+
+<div class="divBloque pad100-0">
+    <div class="col-md-offset-2"></div>
+    <div class="itemRedesSociales col-md-2 {{$first ? 'col-md-offset-1' : ''}}"
+        ng-repeat="redSocial in redesSociales">
+            <a class="qodef-icon-shortcode normal qodef-icon-huge">
+                <i class="qodef-icon-font-awesome fa {{redSocial.icono}} qodef-icon-element" style=""></i>
+            </a>
+    </div>
+</div>
+    
+<div class="divBloque" style="padding-top:84px; padding-bottom:140px; background-color:rgb(76, 159, 205);">
+    <div class="divAlignCenter">
+        <h2 class="lblBlanco">Busqueda de distribuidores</h2>
+        <div class="dividerGeneral"></div>
+        <p class="lblBlanco" style="margin-bottom: 58px;"> 
+            Busca distribuidores en toda América Latina, los mejores productos en el mercado. </p>
+        
+        <div class="col-md-offset-3 col-md-6 input-group">
+			<input kendo-auto-complete 
+				k-options="autoCompleteOptions"
+				ng-model="textoBusqueda"
+				style="width: 100%;" />
+
+            <span class="input-group-addon btnGeneral" id="basic-addon2">
+                <a href="#/directorio-resultados/{{textoBusqueda}}">Buscar</a>
+            </span>
         </div>
+
 </div>
 
 <div class="divBloque divGrisClaro">
@@ -584,57 +830,59 @@
 <script type="text/ng-template" id="/detalle.html">
 <!--<script> </script> -->
  <div class="container">
+ 
     <div class="row" >
     
-        <div class="col-md-9" >
+    <div class="col-lg-2">
+    
+        <div class="altura32"></div>
+        <div class="row" >
+               <div class="panel panel-primary">
+                    <div class="panel-heading"><b>Información</b></div>
+                        <div class="panel-body list-group">
+                               <a href="#" class="thumbnail">
+                                <img  src='/uploads/{{ distribuidor.logo }}'     alt="Icono empresa" width="150" height="140">
+                                </a>
+                                <div class="list-group-item">
+                                <p>{{ distribuidor.direccionCompleta }}</p>
+                                </div>
+                                <div  class="list-group-item">
+                                <p>{{ distribuidor.descripcion }}</p>
+                                </div>
+                        </div>
+                     </div>
+             </div>
+    
+        </div>
+    
+    <div class="altura32"></div>
+    
+        <div class="col-md-7" >
         
-              <div style="height: 280px;">
+             
+             <div>
                 <uib-carousel active="active" interval="myInterval" no-wrap="noWrapSlides">
                 <uib-slide ng-repeat="slide in slidesdis" index="slide.id">
-                    <img ng-src="{{slide.image}}" style="margin:auto; width:100%; height:275px;">
-                    <div class="carousel-caption">
-                    <h1><div style="color:white;">{{slide.desc}}</div></h1>
-                    <h4><p>{{slide.text}}</p></h4>
-                    </div>
-                  </uib-slide>
+                        <img ng-src="{{slide.image}}" style="margin:auto; width:100%; height:340px;">
+                    </uib-slide>
                   </uib-carousel>
                 </div>
+             
         
-            <div class='divContenedorListado'style="background:white;"> 
-                <div class='divImagenListado'>
-                    <div class="altura32"></div>
-                        <a href="#">
-                            <img  src='/uploads/{{ distribuidor.logo }}' class="img-rounded" alt="Icono empresa" width="200" height="180">
-                        </a>
-                    </div> 
-                <div class='divContenidoListado'> 
+                <div style="background:white;"> 
+                  <h2 style="text-transform: capitalize;" ><b>{{ distribuidor.nombre}}</b></h2>
                     <div>
-                        <h1 style="text-transform: capitalize;"><b>{{ distribuidor.nombre }}</b></h1>
-                        <div class="panel panel-default">
-                            <div class="panel-heading"><b>Dirección</b></div>
-                            <div class="panel-body">
-                                <p>{{ distribuidor.direccionCompleta }}</p>
-                            </div>
-                        </div>
-                    
-                    <div class="panel panel-default">
-                        <div class="panel-heading"><b>Descripción</b></div>
-                        <div class="panel-body">
-                            <p>
-                              {{ distribuidor.descripcion }}
-                            </p>
-                        </div>
+                          <i class="fa fa-facebook-square fa-3x" style="color: #3b5998;" aria-hidden="true"></i>
+                         <i class="fa fa-twitter-square fa-3x " style="color: #4099FF;"></i>
+                         <i class="fa fa-link-square fa-3x" ></i>
                     </div>
-                </div>
+           
                 
-                <i class="fa fa-facebook-square fa-4x" style="color: #3b5998;" aria-hidden="true"></i>
-                <i class="fa fa-twitter-square  fa-4x " style="color: #4099FF;"></i>
-                <i class="fa fa-info-circle fa-4x" style=""></i>
                 
-                </div>
+                
                         
                 <div class="btn-group" role="group" aria-label="...">
-                    <h4>Servicios: </h4>
+                    <h4><b>Servicios: </b></h4>
                     <button type="button" class="btn btn-success">
                     <span class="glyphicon glyphicon-grain" aria-hidden="true"></span>
                     Sistemas de riego</button>
@@ -655,11 +903,13 @@
                 
             </div>
         
-
+    <div class="altura32"></div>
     <div class="">
         <div class="row" >
-            <h2 class="lblPrincipal">Mis videos</h2>
-
+        <div class="list-group-item active">
+            <h4><b> Mis videos</b></h4>
+        </div>
+        <div class="altura32"></div>
             <div class="">
                 <uib-carousel active="active" interval="myIntervalSlow" no-wrap="noWrapSlides">
                   <uib-slide ng-repeat="config in videosDistribuidor" index="config.id">
@@ -678,23 +928,32 @@
             </div>
         </div>
     </div>
-        <div class="row"  >
-            <div class="altura32"></div>
-            <h2 class="lblPrincipal">Mis sucursales</h2>
-           <div class="col-md-12" id="map">  </div>
-        </div>
+        
     
     
     </div>
     <div class="col-md-3">
+    
+        
+        <div class="row" >
+               <div class="panel panel-primary">
+                    <div class="panel-heading"><b>Sucursales</b></div>
+                        <div class="panel-body">
+                          <div id="map"></div>
+                        </div>
+                     </div>
+             </div>
+             
+        
+    
         <div class="altura32"></div>
             <div class="row" >
-               <div class="panel panel-success">
+               <div class="panel panel-primary">
                     <div class="panel-heading"><b>Sugerencias</b></div>
                         <div class="panel-body">
                           <div ng-repeat="distribuidor in distribuidores">
                             <a href="/#/detalle/{{distribuidor._id }}">
-                            <h3 style="text-transform: capitalize;"style="text-transform: capitalize;">
+                            <h3 style="text-transform: capitalize;" >
                             <img src='/uploads/{{ distribuidor.logo }}'  style="width:50px;height:8 0px;"/> 
                                 {{distribuidor.nombre}}</h3>
                                 </a>
@@ -705,7 +964,7 @@
              
              <div class="altura32"></div>
             <div class="row" >
-               <div class="panel panel-success">
+               <div class="panel panel-primary">
                     <div class="panel-heading"><b>Eventos</b></div>
                         <div class="panel-body">
                           <div ng-repeat="distribuidor in groupedSlides">
@@ -721,10 +980,12 @@
              
        </div>             
     </div> 
+
 </div>
 </script>
 
 <script type="text/ng-template" id="/noticias.html">
+
 <!--<script> </script> -->
     <div class="javo_post_header_fancy" style="
 			position:relative;
@@ -744,6 +1005,7 @@
 					<h1 style="
 			color:#ffffff !important;
 			font-size:17pt;
+
 			line-height:22px">Noticias</h1>
 					<h4 style="
 			color:#ffffff;
@@ -775,6 +1037,7 @@
                             </a>
                             <ul class="list list-unstyled">
                                 <li class="text-center text-excerpt javo-grid-listing-excerpt">
+
                                     <p ng-bind-html="noticia.contenido"></p>
                                 </li>
                                 <li class="text-center">
@@ -812,6 +1075,7 @@
 </script>
       
 <script type="text/ng-template" id="/noticia.html">
+
 <!--<script> </script> -->
 
 <div class="text-center well">
@@ -931,6 +1195,7 @@
                             <div class="widget_posts_wrap">
 
                                 <ul class="latest-posts items list-unstyled">
+
                                     <li class="col-xs-4 col-sm-4 col-md-4" ng-repeat="noticia in ultimasNoticias.slice(0,9)">
                                         <span class="thumb">
                                             <a href="/#/noticia/{{noticia._id}}">
@@ -953,6 +1218,7 @@
                                 </h2>
                             </div>			
                             <div class="widget_posts_wrap">
+
                                 <div class="latest-posts posts row" ng-repeat="evento in ultimosEventos.slice(0,3)">
                                     <div class="col-md-12">
                                         <span class="thumb">
@@ -962,6 +1228,9 @@
                                             </a>
                                         </span>
                                         <h3>
+
+                                        <a href="/eventos/#/portafolio-evento/{{evento._id}}">
+                                            <span>{{evento.nombre.slice(0,34)}} ...</span>
                                             <a href="/#/evento/{{evento._id}}">{{evento.nombre.slice(0,30)}}</a>
                                         </h3>
                                         <a href="/#/evento/{{evento._id}}">
@@ -979,6 +1248,7 @@
                                 </h2>
                             </div>			
                             <div class="widget_posts_wrap">
+
                                 <div class="latest-posts posts row" ng-repeat="noticia in ultimasNoticias.slice(0,3)">
                                     <div class="col-md-12">
                                         <span class="thumb">
@@ -988,6 +1258,7 @@
                                             </a>
                                         </span>
                                         <h3>
+
                                             <a href="/#/noticia/{{noticia._id}}">{{noticia.titulo.slice(0,30)}}</a>
                                         </h3>
                                             <a href="/#/noticia/{{noticia._id}}"><span>{{noticia.titulo.slice(0,30)}} ...</span>
@@ -999,6 +1270,66 @@
                         
                     </div>
                 </div>
+            </div>
+		</div>
+	</div>
+
+<!--<div class="container" style="width: 1048px;padding: 0 20px;">
+    <div class="" >
+        <div class=" divAlignCenter pad50-0">
+            <h1 style="text-transform: uppercase;font-size: 53px;"><b>{{ noticia.titulo }}</b></h1>
+        </div>
+    
+        <div class="col-md-9" >
+			<div class='' style="background:white;"> 
+				<div class=''>
+					<div class="altura32"></div>
+					<a href="#">
+						<img  src='/uploads/{{ noticia.banner }}' class="img-rounded" alt="Icono empresa" width="100%" height="440px">
+					</a>
+				</div> 
+                
+				<div class=''> 
+					<div>
+						
+						
+						<div class="panel panel-default">
+							<div class="panel-body copy">
+                                <p ng-bind-html="noticia.contenido"></p>
+								
+							</div>
+                            
+                            <div class="videogular-container">
+                                <videogular vg-theme="configVideoNoticia.theme.url">
+                                    <vg-media vg-src="configVideoNoticia.sources"
+                                              vg-tracks="configVideoNoticia.tracks"
+                                              vg-native-controls="true">
+                                    </vg-media>
+                                </videogular>
+                            </div>
+                            <div class="altura64"></div>
+						</div>
+					</div>
+				</div>
+                
+                
+			</div>
+		</div>
+        <div class="col-md-3" >
+            <div ng-repeat="noticia in ultimasNoticias">
+                <div class="divNoticiaHome" style="width:100%;">
+                    <a href="/#/noticia/{{ noticia._id }}">
+                        <img src="/uploads/{{noticia.banner}}" ng-show="$first || $last" />
+                    
+                    <div>
+                        <h3> {{noticia.titulo}} </h3>
+                    </div>
+                    </a>
+                </div>
+            </div>
+        </div>
+	</div>
+</div>-->
             </div>
 		</div>
 	</div>
