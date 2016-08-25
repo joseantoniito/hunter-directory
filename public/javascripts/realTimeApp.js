@@ -6,6 +6,19 @@ app.run([
       }
   ]);
 
+app.directive('onFinishRender', function ($timeout) {
+    return {
+        restrict: 'A',
+        link: function (scope, element, attr) {
+            if (scope.$last === true) {
+                $timeout(function () {
+                    scope.$emit(attr.onFinishRender);
+                });
+            }
+        }
+    }
+});
+
 app.config([
 '$stateProvider',
 '$urlRouterProvider',
@@ -510,55 +523,51 @@ function($scope, $state, auth, projects, $sce, $uibModal){
                 {icono: "fa-pinterest"}
             
         ]
-        
-        
 
-        projects.obtenerDistribuidoresPorCategoria(1).then(function() {
-
+        projects.obtenerDistribuidoresPorCategoria(2).then(function() {
 
         })
         
-        var i, first = [],
-          second, third;
-        var many = 1;
+        $scope.$on('ngRepeatSlideDistribuidoresFinished', function(ngRepeatFinishedEvent) {
+            console.log(jQuery('.carousel[data-type="multi"] .item'));
+            
+            jQuery('#corouselDistribuidores.carousel[data-type="multi"] .item').each(function(){
+                var next = jQuery(this).next();
+                if (!next.length) {
+                    next = jQuery(this).siblings(':first');
+                }
+                next.children(':first-child').clone().appendTo(jQuery(this));
 
+                for (var i=0;i<2;i++) {
+                    next=next.next();
+                    if (!next.length) {
+                        next = jQuery(this).siblings(':first');
+                    }
+                    next.children(':first-child').clone().appendTo($(this));
+                }
+            });
+        });
         
-        /*$scope.displayMode = "tablet";
-        if ($scope.displayMode == "mobile") {many = 3;}
-        else if ($scope.displayMode == "tablet") {many = 3;} 
-        else {many = 4;}*/
-        many = 4;
-
-        for (i = 0; i < $scope.slides.length; i += many) {
-          second = {
-            image1: $scope.slides[i]
-          };
-          if (many == 1) {}
-          if ($scope.slides[i + 1] && (many == 2 || many > 3)) {
-              second.image2 = $scope.slides[i + 1];
-
-          }
-          else
-              second.image2 = {};
+        /*$scope.$on('ngRepeatSlideEventosFinished', function(ngRepeatFinishedEvent) {
+            console.log(jQuery('.carousel[data-type="multi"] .item'));
             
-          if ($scope.slides[i + (many - 2)]  && many > 3) {
-              second.image3 = $scope.slides[i + 2];
-          }
-          else
+            jQuery('#corouselEventos.carousel[data-type="multi"] .item').each(function(){
+                var next = jQuery(this).next();
+                if (!next.length) {
+                    next = jQuery(this).siblings(':first');
+                }
+                next.children(':first-child').clone().appendTo(jQuery(this));
 
-              second.image3 = {};
-            
-          if ($scope.slides[i + (many - 1)]  && many > 3) {
-              second.image4 = $scope.slides[i + 3];
-          }
-          else
-              second.image4 = {};
-            
-          first.push(second);
-        }
-        
-        $scope.groupedSlides = first;
-        console.log(first);
+                for (var i=0;i<2;i++) {
+                    next=next.next();
+                    if (!next.length) {
+                        next = jQuery(this).siblings(':first');
+                    }
+                    next.children(':first-child').clone().appendTo($(this));
+                }
+            });
+        });*/
+
     }
 
     if($state.current.name == "detalle"){
@@ -747,6 +756,50 @@ function($scope, $state, auth, projects, $sce, $uibModal){
               };
         }
     
+    
+    $scope.generarSlidesBootstrapMulti = function(){
+        var i, first = [],
+          second, third;
+        var many = 1;
+
+        
+        /*$scope.displayMode = "tablet";
+        if ($scope.displayMode == "mobile") {many = 3;}
+        else if ($scope.displayMode == "tablet") {many = 3;} 
+        else {many = 4;}*/
+        many = 4;
+
+        for (i = 0; i < $scope.slides.length; i += many) {
+          second = {
+            image1: $scope.slides[i]
+          };
+          if (many == 1) {}
+          if ($scope.slides[i + 1] && (many == 2 || many > 3)) {
+              second.image2 = $scope.slides[i + 1];
+
+          }
+          else
+              second.image2 = {};
+            
+          if ($scope.slides[i + (many - 2)]  && many > 3) {
+              second.image3 = $scope.slides[i + 2];
+          }
+          else
+
+              second.image3 = {};
+            
+          if ($scope.slides[i + (many - 1)]  && many > 3) {
+              second.image4 = $scope.slides[i + 3];
+          }
+          else
+              second.image4 = {};
+            
+          first.push(second);
+        }
+        
+        $scope.groupedSlides = first;
+        console.log(first);
+    }
 
 }]);
 

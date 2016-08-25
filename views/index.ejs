@@ -350,7 +350,7 @@
     </div>
 </div>
 
-<div class="container">
+<div id="divDistribuidoresDestacados" class="container">
     <div class="row">
         <div class="col-md-12">
 
@@ -362,7 +362,28 @@
             <p> Elige tu distribuidor, compara precios y agenda cita. </p>
         </div>
 
-        <div class="dominoItemGallery"  ng-repeat="distribuidor in distribuidores">
+        <div class="container text-center">
+            <div class="carousel slide row" data-ride="carousel" data-type="multi" data-interval="2000" id="corouselDistribuidores">
+
+                <div class="carousel-inner">
+                    <div class="item {{$first ? 'active' : ''}}"  ng-repeat="distribuidor in distribuidores" 
+                         on-finish-render="ngRepeatSlideDistribuidoresFinished">
+                        <div class="col-md-3 col-sm-4 col-xs-12">
+                            <a href="/#/detalle/{{distribuidor._id }}">
+                                <img src="/uploads/{{ distribuidor.banner || bannerBack }}" class="img-responsive">
+                            </a>
+                        </div>
+                    </div>
+                    
+                </div>
+
+                <a class="left carousel-control" href="#fruitscarousel" data-slide="prev"><i class="glyphicon glyphicon-chevron-left"></i></a>
+                <a class="right carousel-control" href="#fruitscarousel" data-slide="next"><i class="glyphicon glyphicon-chevron-right"></i></a> 
+
+            </div>
+        </div>
+            
+        <!--<div class="dominoItemGallery"  ng-repeat="distribuidor in distribuidores">
             <div class="shadow"></div>
            <div>
                 <a href="/#/detalle/{{distribuidor._id }}">
@@ -375,7 +396,7 @@
                     </div>
                 </a>
             </div>
-        </div>
+        </div>-->
 
     </div>					
     </div>
@@ -388,62 +409,7 @@
         <p>Enterese de las novedades en la industria del riego en Latino América</p>
     </div>
 
-    <div id="carouselHomeFull" class="divBloque" style="padding-top:0;">
-         <uib-carousel active="active" interval="myInterval" no-wrap="noWrapSlides">
-          <uib-slide ng-repeat="slideCollection in groupedSlides" index="evento._id">
-
-            <div class="dominoItemGallery col-md-3">
-                <div class="shadow"></div>
-                <div>
-                    <a href="/#/evento/{{ slideCollection.image1._id }}">
-                        <img src="../uploads/{{slideCollection.image1.banner}}" />
-
-                        <div class="divBloque divTitulo">
-                            <h4> {{slideCollection.image1.nombre}} </h4>
-                        </div>
-                    </a>
-                </div>
-            </div>
-
-            <div class="dominoItemGallery col-md-3">
-                <div class="shadow"></div>
-                <div>
-                    <a href="/#/evento/{{ slideCollection.image2._id }}">
-                        <img src="../uploads/{{slideCollection.image2.banner}}" />
-
-                        <div class="divBloque divTitulo">
-                            <h4> {{slideCollection.image2.nombre}} </h4>
-                        </div>
-                    </a>
-                </div>
-            </div>
-
-            <div class="dominoItemGallery col-md-3">
-                <div class="shadow"></div>
-                <div>
-                    <a href="/#/evento/{{ slideCollection.image3._id }}">
-                        <img src="../uploads/{{slideCollection.image3.banner}}">
-
-                        <div class="divBloque divTitulo">
-                            <h4> {{slideCollection.image3.nombre}} </h4>
-                        </div>
-                    </a>
-                </div>
-            </div>
-            <div class="dominoItemGallery col-md-3">
-                <div class="shadow"></div>
-                <div>
-                    <a href="/#/evento/{{ slideCollection.image4._id }}">
-                        <img src="../uploads/{{slideCollection.image4.banner}}">
-
-                        <div class="divBloque divTitulo">
-                            <h4> {{slideCollection.image4.nombre}} </h4>
-                        </div>
-                    </a>
-                </div>
-            </div>
-        </uib-carousel>
-    </div>
+   
 
 </div>
 
