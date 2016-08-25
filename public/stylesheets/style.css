@@ -1,5 +1,10 @@
 /*carousel bootstrap*/
 
+#corouselDistribuidores.carousel img,
+#corouselEventos.carousel img{
+	height:175px !important;
+}
+
 .carousel-control.left, .carousel-control.right {
 	background-image:none;
 }

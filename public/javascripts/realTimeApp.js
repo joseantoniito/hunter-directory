@@ -529,7 +529,7 @@ function($scope, $state, auth, projects, $sce, $uibModal){
         })
         
         $scope.$on('ngRepeatSlideDistribuidoresFinished', function(ngRepeatFinishedEvent) {
-            console.log(jQuery('.carousel[data-type="multi"] .item'));
+            console.log(jQuery('#corouselDistribuidores.carousel[data-type="multi"] .item'));
             
             jQuery('#corouselDistribuidores.carousel[data-type="multi"] .item').each(function(){
                 var next = jQuery(this).next();
@@ -546,10 +546,12 @@ function($scope, $state, auth, projects, $sce, $uibModal){
                     next.children(':first-child').clone().appendTo($(this));
                 }
             });
+            
+            $('#corouselDistribuidores.carousel[data-type="multi"]').carousel({ interval: 3000, cycle: true })
         });
         
-        /*$scope.$on('ngRepeatSlideEventosFinished', function(ngRepeatFinishedEvent) {
-            console.log(jQuery('.carousel[data-type="multi"] .item'));
+        $scope.$on('ngRepeatSlideEventosFinished', function(ngRepeatFinishedEvent) {
+            console.log(jQuery('#corouselEventos.carousel[data-type="multi"] .item'));
             
             jQuery('#corouselEventos.carousel[data-type="multi"] .item').each(function(){
                 var next = jQuery(this).next();
@@ -566,7 +568,9 @@ function($scope, $state, auth, projects, $sce, $uibModal){
                     next.children(':first-child').clone().appendTo($(this));
                 }
             });
-        });*/
+            
+            $('#corouselEventos.carousel[data-type="multi"]').carousel({ interval: 3000, cycle: true });
+        });
 
     }
 
