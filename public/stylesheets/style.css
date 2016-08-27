@@ -1,8 +1,16 @@
+#divBusquedaDistribuidores span {
+	color: white !important;
+}
+
+#divBusquedaDistribuidores input, textarea {
+	margin-top: 10px;
+    border:0;
+}
+
 /*carousel bootstrap*/
 
-#corouselDistribuidores.carousel img,
-#corouselEventos.carousel img{
-	height:175px !important;
+.divAmplioCentrado p{
+    color: white !important;
 }
 
 .carousel-control.left, .carousel-control.right {
@@ -257,17 +265,19 @@ p{
 }
 
 .dominoItemGallery{
-    margin-top: 20px;
+    /*margin-top: 20px;
     margin-bottom: 20px;
     width: 23.5%;
-    margin-right: 13px;
+    margin-right: 13px;*/
     float:left;
     position: relative;
+    padding: 0 !important;
 }
 
 .dominoItemGallery img{
     z-index:9;
-    width:100%;height:266px;
+    width:100%;height: 200px;/*height:175px >> height:266px;*/
+   
 }
 
 .dominoItemGallery .shadow{
@@ -868,6 +878,9 @@ h1, h2{
 .divBloque{
     display:inline-block; width:100%;
     padding:10px 0 0 0;
+}
+.divRenglon{
+    display:inline-block; width:100%;
 }
 
 .sidebar {

@@ -13,6 +13,15 @@ var multipart = require('connect-multiparty');
 var multipartMiddleware = multipart();
 //var paisHelper = require('../helpers/LocalidadHelper');
 var userHelper = require('../helpers/UserHelper');
+var nodemailer = require('nodemailer');
+var smtpTransport = require('nodemailer-smtp-transport');
+var transporter = nodemailer.createTransport(smtpTransport({
+   service: 'Gmail',
+   auth: {
+       user: 'joseantoniito@gmail.com',
+       pass: 'cream-26'
+   }
+}));
 
 //paisHelper.CrearPaisDefult();
 
@@ -233,5 +242,27 @@ router.get('/obtenerUltimasNoticias/:distribuidor', function(req, res, next) {
 	  });
 });
 
+
+router.post('/enviarFormularioContacto', function(req, res, next){
+    console.log(req.body);
+    var contacto = req.body;
+    
+    var mailOptions = {
+        from: contacto.email,
+        to: "jose.antonio.sandoval.flores@gmail.com",
+        subject: contacto.asunto,
+        text: "nombre: " +contacto.nombre + " email: " + contacto.email + " mensaje: " +contacto.mensaje
+    };
+
+    transporter.sendMail(mailOptions, function(error, info){
+        if(error){
+            res.json({mensaje: "error"});
+        }else{
+            res.json({mensaje: "ok"});
+        };
+    });
+    
+    //res.json(req.body);
+});
 
 module.exports = router;

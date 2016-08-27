@@ -522,9 +522,11 @@ function($scope, $state, auth, projects, $sce, $uibModal){
                 {icono: "fa-tumblr"},
                 {icono: "fa-pinterest"}
             
-        ]
+        ];
+        
+        $scope.contacto = {};
 
-        projects.obtenerDistribuidoresPorCategoria(2).then(function() {
+        projects.obtenerDistribuidoresPorCategoria(1).then(function() {
 
         })
         
@@ -571,6 +573,44 @@ function($scope, $state, auth, projects, $sce, $uibModal){
             
             $('#corouselEventos.carousel[data-type="multi"]').carousel({ interval: 3000, cycle: true });
         });
+        
+        $scope.$on('ngRepeatSlideNoticiasFinished', function(ngRepeatFinishedEvent) {
+            console.log(jQuery('#corouselNoticias.carousel[data-type="multi"] .item'));
+            
+            jQuery('#corouselNoticias.carousel[data-type="multi"] .item').each(function(){
+                var next = jQuery(this).next();
+                if (!next.length) {
+                    next = jQuery(this).siblings(':first');
+                }
+                next.children(':first-child').clone().appendTo(jQuery(this));
+
+                for (var i=0;i<2;i++) {
+                    next=next.next();
+                    if (!next.length) {
+                        next = jQuery(this).siblings(':first');
+                    }
+                    next.children(':first-child').clone().appendTo($(this));
+                }
+            });
+            
+            $('#corouselNoticias.carousel[data-type="multi"]').carousel({ interval: 3000, cycle: true });
+        });
+        
+        $scope.enviarFormularioContacto = function(){
+            if(!$scope.contacto.nombre || !$scope.contacto.email || !$scope.contacto.asunto ){
+                alert("Falta información en campos requeridos.");
+                return;
+            }
+            
+            projects.enviarFormularioContacto($scope.contacto)
+                .error(function(error){
+                    debugger;
+                    $scope.error = error;
+                })
+                .then(function(){
+                    alert("Mensaje de contacto enviado con éxito.")
+                });
+        }
 
     }
 
@@ -959,6 +999,13 @@ app.factory('projects', ['$http', 'auth', function($http, auth){
         }
         return "";
     };
+    
+    o.enviarFormularioContacto = function(data) {
+		return $http.post('/enviarFormularioContacto', data)
+            .success(function(dataS){
+                console.log(dataS);
+            });
+	};
     
     o.agregarDistribuidor = function(data) {
 		return $http.post('/distribuidores', data)

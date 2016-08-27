@@ -279,7 +279,7 @@
 <script type="text/ng-template" id="/directorio.html">
 <!--<script> </script> -->
 <div>
-<div style="height: 400px;">
+<div id="divSliderPrincipal" style="height: 400px;">
 	<uib-carousel active="active" interval="myInterval" no-wrap="noWrapSlides">
 	  <uib-slide ng-repeat="slide in slidesHome" index="slide.id">
 		<img ng-src="{{slide.image}}" style="margin:auto; width:100%; height:400px;">
@@ -303,7 +303,7 @@
 	</uib-carousel>
 </div>
 		
-<div class="divBloque">
+<div id="divNuestrasCategorias" class="divBloque">
         <div class="divAlignCenter">
             <h2 class="lblPrincipal"> Nuestras Categorías </h2>
         </div>
@@ -327,7 +327,7 @@
         </div>
 </div>
 
-<div class="divBloque divGrisClaro">
+<div id="divVentajasDelServicio" class="divBloque divGrisClaro">
     <div class="renglonPad50px">
         <div class="divAlignCenter">
             <h2 class="lblPrincipal"> Ventajas del servicio </h2>
@@ -350,76 +350,115 @@
     </div>
 </div>
 
-<div id="divDistribuidoresDestacados" class="container">
-    <div class="row">
-        <div class="col-md-12">
+<div id="divDistribuidoresDestacados" class="divRenglon divPadBottomNormal">
+    <div class="divAlignCenter renglonPad50px">
+        <h2 class="lblPrincipal"> Distribuidores de México y Latinoamérica </h2>
 
-        <div class="divAlignCenter renglonPad50px">
-            <h2 class="lblPrincipal"> Todo para tu sistema de riego </h2>
+        <div class="dividerGeneral"></div>
 
-            <div class="dividerGeneral"></div>
+        <p> Elige tu distribuidor, compara precios y agenda cita. </p>
+    </div>
 
-            <p> Elige tu distribuidor, compara precios y agenda cita. </p>
-        </div>
+    <div class="container text-center">
+        <div class="carousel slide row" data-ride="carousel" data-type="multi" data-interval="2000" id="corouselDistribuidores">
 
-        <div class="container text-center">
-            <div class="carousel slide row" data-ride="carousel" data-type="multi" data-interval="2000" id="corouselDistribuidores">
+            <div class="carousel-inner">
+                <div class="item {{$first ? 'active' : ''}}"  ng-repeat="objeto in distribuidores" 
+                     on-finish-render="ngRepeatSlideDistribuidoresFinished">
+                    <div class="col-md-3 col-sm-4 col-xs-12 dominoItemGallery">
+                        <div class="shadow"></div>
+                        <div>
+                            <a href="/#/detalle/{{objeto._id }}">
+                                <img src="/uploads/{{ objeto.banner || bannerBack }}" class="img-responsive">
 
-                <div class="carousel-inner">
-                    <div class="item {{$first ? 'active' : ''}}"  ng-repeat="distribuidor in distribuidores" 
-                         on-finish-render="ngRepeatSlideDistribuidoresFinished">
-                        <div class="col-md-3 col-sm-4 col-xs-12">
-                            <a href="/#/detalle/{{distribuidor._id }}">
-                                <img src="/uploads/{{ distribuidor.banner || bannerBack }}" class="img-responsive">
+                                <div class="divBloque divTitulo">
+                                    <h4>{{objeto.nombre.slice(0,35) + '.'}}</h4>
+                                </div>
                             </a>
                         </div>
                     </div>
-                    
                 </div>
 
-                <a class="left carousel-control" href="#fruitscarousel" data-slide="prev"><i class="glyphicon glyphicon-chevron-left"></i></a>
-                <a class="right carousel-control" href="#fruitscarousel" data-slide="next"><i class="glyphicon glyphicon-chevron-right"></i></a> 
-
             </div>
-        </div>
-            
-        
 
-    </div>					
+            <a class="left carousel-control" href="#fruitscarousel" data-slide="prev"><i class="glyphicon glyphicon-chevron-left"></i></a>
+            <a class="right carousel-control" href="#fruitscarousel" data-slide="next"><i class="glyphicon glyphicon-chevron-right"></i></a> 
+
+        </div>
     </div>
 </div>
 
-<div class="divBloque divGrisClaro" style="padding-top:0;">
+<div id="divUltimosEventos" class="divRenglon divGrisClaro divPadBottomNormal">
     <div class="divAlignCenter pad50-0">
-        <h2 class="lblPrincipal"> Últimos eventos </h2>
+        <h2 class="lblPrincipal"> Entrenamientos y eventos profesionales de riego </h2>
         <div class="dividerGeneral"></div>
         <p>Enterese de las novedades en la industria del riego en Latino América</p>
     </div>
 
    <div class="container text-center">
-            <div class="carousel slide row" data-ride="carousel" data-type="multi" data-interval="3000" id="corouselEventos">
+        <div class="carousel slide row" data-ride="carousel" data-type="multi" data-interval="3000" id="corouselEventos">
 
-                <div class="carousel-inner">
-                    <div class="item {{$first ? 'active' : ''}}"  ng-repeat="distribuidor in ultimosEventos" 
-                         on-finish-render="ngRepeatSlideEventosFinished">
-                        <div class="col-md-3 col-sm-4 col-xs-12">
-                            <a href="/#/detalle/{{distribuidor._id }}">
-                                <img src="/uploads/{{ distribuidor.banner || bannerBack }}" class="img-responsive">
+            <div class="carousel-inner">
+                <div class="item {{$first ? 'active' : ''}}"  ng-repeat="objeto in ultimosEventos" 
+                     on-finish-render="ngRepeatSlideEventosFinished">
+                    <div class="col-md-3 col-sm-4 col-xs-12 dominoItemGallery">
+                        <div class="shadow"></div>
+                        <div>
+                            <a href="/#/evento/{{objeto._id }}">
+                                <img src="/uploads/{{ objeto.banner || bannerBack }}" class="img-responsive">
+
+                                <div class="divBloque divTitulo">
+                                    <h4>{{objeto.nombre.slice(0,35) + '.'}}</h4>
+                                </div>
                             </a>
                         </div>
                     </div>
-                    
                 </div>
-
-                <a class="left carousel-control" href="#fruitscarousel" data-slide="prev"><i class="glyphicon glyphicon-chevron-left"></i></a>
-                <a class="right carousel-control" href="#fruitscarousel" data-slide="next"><i class="glyphicon glyphicon-chevron-right"></i></a> 
-
             </div>
-        </div>
 
+            <a class="left carousel-control" href="#fruitscarousel" data-slide="prev"><i class="glyphicon glyphicon-chevron-left"></i></a>
+            <a class="right carousel-control" href="#fruitscarousel" data-slide="next"><i class="glyphicon glyphicon-chevron-right"></i></a> 
+
+        </div>
+    </div>
+</div>
+    
+<div id="divUltimasNoticias" class="divRenglon divPadBottomNormal">
+    <div class="divAlignCenter pad50-0">
+        <h2 class="lblPrincipal"> Testimoniales y retos en los sistemas de riego </h2>
+        <div class="dividerGeneral"></div>
+        <p>Le presentamos las reseñas de y entrevistas de los casos de éxito en el riego internacional</p>
+    </div>
+
+   <div class="container text-center">
+        <div class="carousel slide row" data-ride="carousel" data-type="multi" data-interval="3000" id="corouselNoticias">
+
+            <div class="carousel-inner">
+                <div class="item {{$first ? 'active' : ''}}"  ng-repeat="objeto in ultimasNoticias" 
+                     on-finish-render="ngRepeatSlideNoticiasFinished">
+                    <div class="col-md-3 col-sm-4 col-xs-12 dominoItemGallery">
+                        <div class="shadow"></div>
+                        <div>
+                            <a href="/#/noticia/{{objeto._id }}">
+                                <img src="/uploads/{{ objeto.banner || bannerBack }}" class="img-responsive">
+
+                                <div class="divBloque divTitulo">
+                                    <h4>{{objeto.titulo.slice(0,35) + '.'}}</h4>
+                                </div>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <a class="left carousel-control" href="#fruitscarousel" data-slide="prev"><i class="glyphicon glyphicon-chevron-left"></i></a>
+            <a class="right carousel-control" href="#fruitscarousel" data-slide="next"><i class="glyphicon glyphicon-chevron-right"></i></a> 
+
+        </div>
+    </div>
 </div>
 
-<div class="divBloque pad100-0">
+<div id="divRedesSociales" class="divBloque pad100-0 divGrisClaro">
     <div class="col-md-offset-2"></div>
     <div class="itemRedesSociales col-md-2 {{$first ? 'col-md-offset-1' : ''}}"
         ng-repeat="redSocial in redesSociales">
@@ -429,9 +468,43 @@
     </div>
 </div>
     
-<div class="divBloque" style="padding-top:84px; padding-bottom:140px; background-color:rgb(76, 159, 205);">
+<div id="divBusquedaDistribuidores" class="divBloque" 
+     style="padding-top:44px; padding-bottom:84px; background-color:rgb(76, 159, 205);">
     <div class="divAlignCenter">
-        <h2 class="lblBlanco">Busqueda de distribuidores</h2>
+        
+        <form ng-submit="enviarFormularioContacto()">
+            <div style="padding:0 22%;">
+                <div class="divAlignCenter" style="padding-bottom: 10px;">
+                    <h2 class="lblBlanco">Contáctanos</h2>
+                </div>
+                <div class="alto10"></div>
+                <p><span>Tu nombre (requerido)</span><br>
+                    <span class="wpcf7-form-control-wrap your-name">
+                        <input type="text"  size="40" ng-model="contacto.nombre" />
+                    </span> 
+                </p>
+                <p><span>Tu Email (requerido)</span><br>
+                    <span class="wpcf7-form-control-wrap your-email">
+                        <input type="email" size="40" ng-model="contacto.email">
+                    </span> 
+                </p>
+                <p><span>Asunto</span><br>
+                    <span class="wpcf7-form-control-wrap your-subject">
+                        <input type="text" size="40" ng-model="contacto.asunto">
+                    </span> 
+                </p>
+                <p><span>Tu Mensaje</span><br>
+                    <span class="wpcf7-form-control-wrap your-message">
+                        <textarea name="your-message" cols="40" rows="10" ng-model="contacto.mensaje"></textarea>
+                    </span> 
+                </p>
+                <p class="divAlignCenter">
+                    <button class="btn btn-primary">Enviar</button>
+                </p>
+            </div>
+        </form>
+        
+        <!--<h2 class="lblBlanco">Busqueda de distribuidores</h2>
         <div class="dividerGeneral"></div>
         <p class="lblBlanco" style="margin-bottom: 58px;"> 
             Busca distribuidores en toda América Latina, los mejores productos en el mercado. </p>
@@ -445,7 +518,7 @@
             <span class="input-group-addon btnGeneral" id="basic-addon2">
                 <a href="#/directorio-resultados/{{textoBusqueda}}">Buscar</a>
             </span>
-        </div>
+        </div>-->
     </div>
 </div>
 </div>
