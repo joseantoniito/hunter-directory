@@ -132,10 +132,10 @@ function($scope, $state, auth, factory, $uibModal){
             alert("El banner es obligatorio.");        
         }
         
-        if(!$scope.evento._id){
+        //if(!$scope.evento._id){
             $scope.evento.banner = $scope.files[0].name;
             $scope.evento.fotos = $scope.filesFotos;
-        }
+        //}
 
         factory.agregarEvento($scope.evento)
             .error(function(error){
