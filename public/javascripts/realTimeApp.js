@@ -740,9 +740,13 @@ function($scope, $state, auth, projects, $sce, $uibModal){
                 },id: 0
             }   
         
+        var imgBanner = document.getElementsByClassName("photo")[0];
+        imgBanner.onload = function(){
+            var alturaBanner = this.clientHeight;
+            var offsetBanner = (alturaBanner - 294)/2;
+            this.style.top = "-" + offsetBanner + "px";
+        }
 
-
-        //$scope.ultimosEventos = $scope.ultimosEventos.slice(0,3)
     }
     
     if($state.current.name == "eventos"){

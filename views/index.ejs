@@ -878,7 +878,7 @@
 
 <!--<script> </script> -->
 
-<div class="text-center well">
+<div class="divRenglon divAlignCenter divPad32-0">
     <h1 id="javo-post-title-header">{{noticia.titulo}}</h1>
 </div>
 
@@ -888,87 +888,70 @@
             <article id="post-2176" class="post-2176 post type-post status-publish format-standard has-post-thumbnail hentry category-news category-notice">
 
                 <div class="row">
-
                     <div class="col-md-12">
                         <header class="entry-header text-center">
-                            <img width="2000" height="1334" src="/uploads/{{noticia.banner}}" class="img-responsive wp-post-image" alt="JAVO_1705">				<div class="label-ribbon-row {f}">
+                            <div id="divFechaHeaderImagen" class="label-ribbon-row {f}">
                                 <div class="label-info-ribbon-row-wrapper">
                                     <div class="label-info-ribbon-row">
                                         <div class="ribbons" id="ribbon-15">
                                             <div class="ribbon-wrap">
                                                 <div class="content">
                                                     <div class="ribbon">
-                                                        <span class="ribbon-span">
-                                                            Aug 11 2014											</span>
+                                                        <span class="ribbon-span"> {{noticia.fecha  | date:'MM/dd/yyyy h:mma'}} </span>
                                                     </div>
-                                                </div><!-- /.content -->
-                                            </div><!-- /.ribbon-wrap -->
-                                        </div><!-- /.ribbons -->
-                                    </div><!-- /.label-info-ribbon -->
-                                </div><!-- /.ribbon-wrapper -->
-                            </div><!-- /.label-ribbon -->
-                        </header><!-- .entry-header -->
-                    </div><!-- col-md-4 -->
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <a class="coverWrap">
+                                <img src="/uploads/{{noticia.banner}}" class="img-responsive img-portfolio img-hover photo">	
+                            </a>
+                        </header>
+                    </div>
 
                 </div>
-                <div class="row entry-author-info-wrap">
-                    <div class="col-md-2 col-xs-2 entry-author-image">
-                        <a>
-                            <div class="javo-thb" style="width:80px; height:80px; background-image:url('https://javothemes.cafe24.com/wp-content/themes/javo-directory/assets/images/no-image.png');"></div>
-                        </a>
-                    </div>
-                    <div class="col-md-10 col-xs-10 entry-author-meta-wrap">
-                        <div class="entry-author-name">javo</div>
-                        <div class="entry-author-social">
-                            <div class="entry-author-category">
-                                <i class="fa fa-bookmark-o"></i>
-                                <a href="https://javothemes.com/directory/demo1/category/news/" rel="category tag">News</a>, <a href="https://javothemes.com/directory/demo1/category/notice/" rel="category tag">Notice</a>				</div>
-                                                <div class="pull-left" style="margin:0 10px;">
-                                    <span class="separator">/</span>
-                                </div>
-                                <div class="entry-author-comment">
-                                    <i class="fa fa-comments-o"></i>
-                                    <a href="https://javothemes.com/directory/demo1/sed-ut-perspiciatis/#respond">0 Comment</a>					</div>
-                                        </div>
-                    </div>
-                </div>
+                
                 <div class="row entry-description-wrap">
                     <div class="col-md-12 entry-description">
-                            <h1 class="entry-title">Sed ut perspiciatis</h1>
-                            <div class="single-post-meta row">
-                                <div class="col-md-10 post-meta-infor">
-
-                                </div>
-
-                                <div class="col-md-2 text-right post-social">
-                                    <span class="javo-sns-wrap social-wrap">
-                                        <i class="sns-facebook" data-title="Sed ut perspiciatis" data-url="https://javothemes.com/directory/demo1/sed-ut-perspiciatis/">
-                                            <a class="facebook javo-tooltip" title="" data-original-title="Share Facebook"></a>
-                                        </i>
-                                        <i class="sns-twitter" data-title="Sed ut perspiciatis" data-url="https://javothemes.com/directory/demo1/sed-ut-perspiciatis/">
-                                            <a class="twitter javo-tooltip" title="" data-original-title="Share Twitter"></a>
-                                        </i>
-                                    </span>
-                                </div> 
-                            </div> 
-
-                            <div class="entry-content">
-                                <p ng-bind-html="noticia.contenido"></p>
-                                
-                                <div class="altura32"></div>
-                                <div class="videogular-container">
-                                    <videogular vg-theme="configVideoNoticia.theme.url">
-                                        <vg-media vg-src="configVideoNoticia.sources"
-                                                  vg-tracks="configVideoNoticia.tracks"
-                                                  vg-native-controls="true">
-                                        </vg-media>
-                                    </videogular>
-                                </div>
-                                <div class="altura64"></div>
+                        <h1 class="entry-title">Sed ut perspiciatis</h1>
+                        <div id="divBotonesRedesSociales" class="single-post-meta row">
+                            <div class="col-md-10 post-meta-infor">
 
                             </div>
+
+                            <div class="col-md-2 text-right post-social">
+                                <span class="javo-sns-wrap social-wrap">
+                                    <i class="sns-facebook" data-title="Sed ut perspiciatis" data-url="https://javothemes.com/directory/demo1/sed-ut-perspiciatis/">
+                                        <a class="facebook javo-tooltip" title="" data-original-title="Share Facebook"></a>
+                                    </i>
+                                    <i class="sns-twitter" data-title="Sed ut perspiciatis" data-url="https://javothemes.com/directory/demo1/sed-ut-perspiciatis/">
+                                        <a class="twitter javo-tooltip" title="" data-original-title="Share Twitter"></a>
+                                    </i>
+                                </span>
+                            </div> 
+                        </div> 
+
+                        <div id="divContenidoNoticia" class="entry-content" style="padding-top:64px;">
+                            <p ng-bind-html="noticia.contenido"></p>
+
+                            <div class="altura32"></div>
+                            <div class="videogular-container">
+                                <videogular vg-theme="configVideoNoticia.theme.url">
+                                    <vg-media vg-src="configVideoNoticia.sources"
+                                              vg-tracks="configVideoNoticia.tracks"
+                                              vg-native-controls="true">
+                                    </vg-media>
+                                </videogular>
+                            </div>
+                            <div class="altura64"></div>
+
                         </div>
+                    </div>
                 </div>
+                
                 <footer class="entry-meta">
                     <div class="inner-footer">
                         <div class="inner-footer-more">
