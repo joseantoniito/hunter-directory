@@ -171,7 +171,7 @@
               <div class="row widgets-wraps">
                 <div class="widgettitle_wrap col-md-12">
                     <h2 class="widgettitle">
-                        <span>Nuevos Elementos</span>
+                        <a href="/#/">Nuevos Elementos</a>
                     </h2>
                 </div>
                 <div class="widget_posts_wrap">
@@ -878,14 +878,22 @@
 
 <!--<script> </script> -->
 
-<div class="divRenglon divAlignCenter divPad32-0">
-    <h1 id="javo-post-title-header">{{noticia.titulo}}</h1>
-</div>
 
 <div class="container">
     <div class="row">
-        <div class="col-md-9 main-content-wrap">					
-            <article id="post-2176" class="post-2176 post type-post status-publish format-standard has-post-thumbnail hentry category-news category-notice">
+        <div id="contenedorNoticia" class="col-md-9 main-content-wrap">	
+            <div class="divRenglon divPad20-0">
+                <h1>{{noticia.titulo}}</h1>
+            </div>
+            
+            <div class="row">
+                <div class="col-xs-3">
+                    <div fb-like="oCompartirFacebookNoticia.Url"></div>
+                </div>
+            </div>
+
+            
+            <article id="post-2176" class="post-2176 post type-post status-publish format-standard has-post-thumbnail hentry category-news category-notice" style="margin-bottom:5px !important;">
 
                 <div class="row">
                     <div class="col-md-12">
@@ -946,91 +954,63 @@
                                     </vg-media>
                                 </videogular>
                             </div>
-                            <div class="altura64"></div>
+                            
 
                         </div>
                     </div>
                 </div>
-                
-                <footer class="entry-meta">
-                    <div class="inner-footer">
-                        <div class="inner-footer-more">
-                            <a href="https://javothemes.com/directory/demo1/sed-ut-perspiciatis/">
-                                more				
-                            </a>
-                        </div>
-                    </div>
-                </footer><!-- .entry-meta -->
 
-            </article><!-- #post -->				
+            </article>
+            
+            <div class="row">
+                <div class="col-xs-3">
+                    <div fb-like="oCompartirFacebookNoticia.Url"></div>
+                </div>
+            </div>
 				
-			</div>
+            <div class="altura64"></div>
+        </div>
 			
-            <div class="col-md-3 sidebar-right">
-                <div class="row">
+        <div class="col-md-3 sidebar-right">
+                <div id="sideBarFixed" class="row" style=";">
                     <div class="col-lg-12 siderbar-inner">
                         <div class="row widgets-wraps">
                             <div class="widgettitle_wrap col-md-12">
                                 <h2 class="widgettitle">
-                                    <span>Nuevos Elementos</span>
+                                    <span>Mantente conectado</span>
                                 </h2>
                             </div>
                             <div class="widget_posts_wrap">
-
-                                <ul class="latest-posts items list-unstyled">
-
-                                    <li class="col-xs-4 col-sm-4 col-md-4" ng-repeat="noticia in ultimasNoticias.slice(0,9)">
-                                        <span class="thumb">
-                                            <a href="/#/noticia/{{noticia._id}}">
-                                                <div class="img-wrap-shadow">
-                                                    <img width="80" height="80" src="/uploads/{{noticia.banner}}" 
-                                                         class="attachment-javo-tiny size-javo-tiny wp-post-image">								
-                                                </div>
-                                            </a>
-                                        </span>
-                                    </li>
-                                    
-                                </ul>
-
+                                <div class="col-md-4">
+                                    <a class="qodef-icon-shortcode normal qodef-icon-huge" style="margin-left:20px;">
+                                        <i class="qodef-icon-font-awesome fa fa-facebook qodef-icon-element" style=""></i>
+                                    </a>
+                                </div>
+                                 <div class="col-md-4">
+                                    <a class="qodef-icon-shortcode normal qodef-icon-huge" style="margin-left:20px;">
+                                        <i class="qodef-icon-font-awesome fa fa-twitter qodef-icon-element" style=""></i>
+                                    </a>
+                                </div>
+                                <div class="col-md-4">
+                                    <a class="qodef-icon-shortcode normal qodef-icon-huge" style="margin-left:20px;">
+                                        <i class="qodef-icon-font-awesome fa fa-youtube qodef-icon-element" style=""></i>
+                                    </a>
+                                </div>
                             </div>
                         </div>
                         <div class="row widgets-wraps">
-                            <div class="widgettitle_wrap col-md-12">
-                                <h2 class="widgettitle">
-                                    <span>Eventos Recientes</span>
-                                </h2>
-                            </div>			
-                            <div class="widget_posts_wrap">
-
-                                <div class="latest-posts posts row" ng-repeat="evento in ultimosEventos.slice(0,3)">
-                                    <div class="col-md-12">
-                                        <span class="thumb">
-                                            <a href="/#/evento/{{evento._id}}">
-                                                <img width="80" height="80" src="/uploads/{{evento.banner}}" 
-                                                     class="attachment-javo-tiny size-javo-tiny wp-post-image" >
-                                            </a>
-                                        </span>
-                                        <h3>
-
-                                        <a href="/eventos/#/portafolio-evento/{{evento._id}}">
-                                            <span>{{evento.nombre.slice(0,34)}} ...</span>
-                                            <a href="/#/evento/{{evento._id}}">{{evento.nombre.slice(0,30)}}</a>
-                                        </h3>
-                                        <a href="/#/evento/{{evento._id}}">
-                                            <span>{{evento.nombre.slice(0,30)}} ...</span>
-                                        </a>							
-                                    </div>
-                                </div>
-                            </div>
-        
+                            <a style="margin:0 auto; display:block;">
+                                <img width="300" height="250" src="http://www.tgmdigital.com/wp-content/uploads/2016/02/manrique-web.gif" class="" >
+                            </a>	        
                         </div>
+                        
                         <div class="row widgets-wraps">
                             <div class="widgettitle_wrap col-md-12">
                                 <h2 class="widgettitle">
                                     <span>Últimas Noticias</span>
                                 </h2>
                             </div>			
-                            <div class="widget_posts_wrap">
+                            <div id="eventosRecientes" class="widget_posts_wrap">
 
                                 <div class="latest-posts posts row" ng-repeat="noticia in ultimasNoticias.slice(0,3)">
                                     <div class="col-md-12">
@@ -1041,11 +1021,12 @@
                                             </a>
                                         </span>
                                         <h3>
-
-                                            <a href="/#/noticia/{{noticia._id}}">{{noticia.titulo.slice(0,30)}}</a>
+                                            <a href="/#/noticia/{{noticia._id}}">{{noticia.titulo.slice(0,60)}}</a>
+                                            <br>
+                                            <span>{{noticia.fecha  | date:'MM/dd/yyyy h:mma'}}</span>
                                         </h3>
-                                            <a href="/#/noticia/{{noticia._id}}"><span>{{noticia.titulo.slice(0,30)}} ...</span>
-                                        </a>							
+                                        
+                                            							
                                     </div>
                                 </div>
                             </div>
@@ -1054,8 +1035,8 @@
                     </div>
                 </div>
             </div>
-		</div>
-	</div>
+    </div>
+</div>
 
 <!--<div class="container" style="width: 1048px;padding: 0 20px;">
     <div class="" >

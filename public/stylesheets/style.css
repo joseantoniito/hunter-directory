@@ -1,3 +1,45 @@
+#eventosRecientes.widget_posts_wrap .thumb,
+#eventosRecientes.widget_posts_wrap .thumb img{
+    width: 100px;
+    height: 100px;
+    border-radius: 0 !important;
+}
+
+#eventosRecientes.widget_posts_wrap h3{
+    margin-left: 115px;
+    font-size: 17px;
+    /* line-height: 23px; */
+    margin-top: 0;
+    color: #111 !important;
+}
+#eventosRecientes.widget_posts_wrap h3 a{
+    font-size: 17px;
+    line-height: 23px;
+    color: #111 !important;
+}
+#eventosRecientes.widget_posts_wrap h3 a:hover{
+    color: #01648B !important;
+}
+
+#eventosRecientes.widget_posts_wrap h3 span{
+    font-size: 13px;
+    color: gray;
+    line-height: 23px;
+}
+
+.widgettitle {
+    border-bottom: 2px solid #01648B !important;
+    width: 100%;
+    color: black !important;
+    padding-bottom: 5px;
+    text-transform: uppercase;
+}
+
+.widgettitle span{
+    color: #222 !important; 
+}
+/*fin sidebar noticias*/
+
 #divBusquedaDistribuidores span {
 	color: white !important;
 }
@@ -210,7 +252,7 @@ img {
     list-style-type: none;
 }
 .javo-grid-listing-excerpt {
-    height: 105px;
+    height: 98px; /*105px;*/
     overflow: hidden;
 }
 .text-excerpt {
@@ -1240,7 +1282,9 @@ footer .qodef-footer-bottom-holder {
 	padding: 5% 7.6%;
     display: inline-block;
 }
-
+.divPad20-0 {
+	padding: 20px 0;
+}
 .divPad35-0 {
 	padding: 35px 0;
 }

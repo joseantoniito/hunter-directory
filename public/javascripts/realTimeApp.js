@@ -726,6 +726,25 @@ function($scope, $state, auth, projects, $sce, $uibModal){
     
     if($state.current.name == "noticia"){
         
+        $(window).scroll(function (event) {
+            var scroll = $(window).scrollTop();
+            var tamanioContenedor = $("#contenedorNoticia").height()-200;//109 = header
+            
+            if( 514 < scroll && scroll < tamanioContenedor){
+                $("#sideBarFixed").css("position", "fixed");
+                $("#sideBarFixed").css("top", "-524px");//514px = header+social+publicidad
+            }
+            else{
+                $("#sideBarFixed").css("position", "static");
+            }
+        });
+        
+        $scope.oCompartirFacebookNoticia = {
+              Url: 'https://devriego.herokuapp.com',//window.location.href
+              Name: 'Riego sustentable',//$scope.evento.nombre, 
+              ImageUrl: 'https://devriego.herokuapp.com/uploads/eysh.jpeg'
+          };
+        
         $("body").addClass("single-post")
         var itemE = $scope.noticia.video;
         $scope.configVideoNoticia =
