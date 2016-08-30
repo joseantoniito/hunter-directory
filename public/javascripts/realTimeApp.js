@@ -138,7 +138,6 @@ function($stateProvider, $urlRouterProvider) {
             //if($stateParams.id != null)
             post: ['$stateParams', 'projects', function($stateParams, projects) {
                 projects.obtenerUltimosEventos();
-
                 projects.obtenerUltimasNoticias();
                 return projects.obtenerNoticiaPorId($stateParams.id);
 
@@ -168,8 +167,10 @@ function($stateProvider, $urlRouterProvider) {
       controller: 'MainCtrl',
       resolve: {
         post: ['$stateParams', 'projects', function($stateParams, projects) {
-              return projects.obtenerEventoPorId($stateParams.id);
-            }]
+            projects.obtenerUltimosEventos();
+            projects.obtenerUltimasNoticias();
+            return projects.obtenerEventoPorId($stateParams.id);
+        }]
       }
     });
     
@@ -778,11 +779,22 @@ function($scope, $state, auth, projects, $sce, $uibModal){
     if($state.current.name == "evento"){
         $scope.evento = projects.evento;
         
-        $scope.myModel = {
+        $(window).scroll(function (event) {
+            var scroll = $(window).scrollTop();
+            var tamanioContenedor = $("#contenedorEvento").height()-200;//109 = header
+            
+            if( 514 < scroll && scroll < tamanioContenedor){
+                $("#sideBarFixed").css("position", "fixed");
+                $("#sideBarFixed").css("top", "-524px");//514px = header+social+publicidad
+            }
+            else{
+                $("#sideBarFixed").css("position", "static");
+            }
+        });
+        
+        $scope.oCompartirFacebookEvento = {
               Url: 'https://devriego.herokuapp.com',//window.location.href
-
               Name: 'Riego sustentable',//$scope.evento.nombre, 
-
               ImageUrl: 'https://devriego.herokuapp.com/uploads/eysh.jpeg'
           };
         
