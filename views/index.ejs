@@ -174,7 +174,7 @@
                         <a href="/#/">Nuevos Elementos</a>
                     </h2>
                 </div>
-                <div class="widget_posts_wrap">
+                <div class="widget_posts_wrap" style="margin: 0 auto;">
 
                     <ul class="latest-posts items list-unstyled">
                         <li class="col-xs-4 col-sm-4 col-md-4" ng-repeat="noticia in ultimasNoticias.slice(0,3)">
@@ -205,7 +205,7 @@
                             <a href="/#/eventos">Eventos Recientes</a>
                         </h2>
                     </div>			
-                    <div class="widget_posts_wrap">
+                    <div class="widget_posts_wrap" style="margin: 0 auto;">
                         <div class="latest-posts posts row" ng-repeat="evento in ultimosEventos.slice(0,3)">
                             <div class="col-md-12">
                                 <span class="thumb">
@@ -335,7 +335,7 @@
 
         <div class="dividerGeneral"></div>
 
-        <div class="divFila">
+        <div class="container text-center">
             <div class="col-md-3" ng-repeat="descS in descServicios">
                 <div class="row divAlignCenter" style="padding:0 15px;">
                     <a class="qodef-icon-shortcode normal qodef-icon-huge">
@@ -1036,155 +1036,95 @@
     </div>
 </div>
 
-<!--<div class="container" style="width: 1048px;padding: 0 20px;">
-    <div class="" >
-        <div class=" divAlignCenter pad50-0">
-            <h1 style="text-transform: uppercase;font-size: 53px;"><b>{{ noticia.titulo }}</b></h1>
-        </div>
-    
-        <div class="col-md-9" >
-			<div class='' style="background:white;"> 
-				<div class=''>
-					<div class="altura32"></div>
-					<a href="#">
-						<img  src='/uploads/{{ noticia.banner }}' class="img-rounded" alt="Icono empresa" width="100%" height="440px">
-					</a>
-				</div> 
-                
-				<div class=''> 
-					<div>
-						
-						
-						<div class="panel panel-default">
-							<div class="panel-body copy">
-                                <p ng-bind-html="noticia.contenido"></p>
-								
-							</div>
-                            
-                            <div class="videogular-container">
-                                <videogular vg-theme="configVideoNoticia.theme.url">
-                                    <vg-media vg-src="configVideoNoticia.sources"
-                                              vg-tracks="configVideoNoticia.tracks"
-                                              vg-native-controls="true">
-                                    </vg-media>
-                                </videogular>
-                            </div>
-                            <div class="altura64"></div>
-						</div>
-					</div>
-				</div>
-                
-                
-			</div>
-		</div>
-        <div class="col-md-3" >
-            <div ng-repeat="noticia in ultimasNoticias">
-                <div class="divNoticiaHome" style="width:100%;">
-                    <a href="/#/noticia/{{ noticia._id }}">
-                        <img src="/uploads/{{noticia.banner}}" ng-show="$first || $last" />
-                    
-                    <div>
-                        <h3> {{noticia.titulo}} </h3>
-                    </div>
-                    </a>
-                </div>
-            </div>
-        </div>
-	</div>
-</div>-->
-            </div>
-		</div>
-</div>
-
-<!--<div class="container" style="width: 1048px;padding: 0 20px;">
-    <div class="" >
-        <div class=" divAlignCenter pad50-0">
-            <h1 style="text-transform: uppercase;font-size: 53px;"><b>{{ noticia.titulo }}</b></h1>
-        </div>
-    
-        <div class="col-md-9" >
-			<div class='' style="background:white;"> 
-				<div class=''>
-					<div class="altura32"></div>
-					<a href="#">
-						<img  src='/uploads/{{ noticia.banner }}' class="img-rounded" alt="Icono empresa" width="100%" height="440px">
-					</a>
-				</div> 
-                
-				<div class=''> 
-					<div>
-						
-						
-						<div class="panel panel-default">
-							<div class="panel-body copy">
-                                <p ng-bind-html="noticia.contenido"></p>
-								
-							</div>
-                            
-                            <div class="videogular-container">
-                                <videogular vg-theme="configVideoNoticia.theme.url">
-                                    <vg-media vg-src="configVideoNoticia.sources"
-                                              vg-tracks="configVideoNoticia.tracks"
-                                              vg-native-controls="true">
-                                    </vg-media>
-                                </videogular>
-                            </div>
-                            <div class="altura64"></div>
-						</div>
-					</div>
-				</div>
-                
-                
-			</div>
-		</div>
-        <div class="col-md-3" >
-            <div ng-repeat="noticia in ultimasNoticias">
-                <div class="divNoticiaHome" style="width:100%;">
-                    <a href="/#/noticia/{{ noticia._id }}">
-                        <img src="/uploads/{{noticia.banner}}" ng-show="$first || $last" />
-                    
-                    <div>
-                        <h3> {{noticia.titulo}} </h3>
-                    </div>
-                    </a>
-                </div>
-            </div>
-        </div>
-	</div>
-</div>-->
-
 </script>
 
 <script type="text/ng-template" id="/portafolio.html">
 <!--<script> </script> -->
-<div class="container">
-<div class="row">
-    <div class="col-md-8 col-md-offset-2 bgrdWhite">
+<div class="javo_post_header_fancy" style="
+			position:relative;
+			background-color:#FFFFFF;
+			background-image:url('/images/aspersion.jpg');
+			background-repeat:no-repeat;
+			background-position:center center;
+			height:250px;">
+			<div class="container" style="display:table;">
+				<div style="
+			left:0px;
+			width:100%;
+			height:250px;
+			display:table-cell;
+			vertical-align:middle;
+			text-align:left;">
+					<h1 style="
+			color:#ffffff !important;
+			font-size:17pt;
 
-        <div class="demo-section k-content wide">
-            <div kendo-list-view id="listView" k-data-source="sourceEventosCompletos">
-                <div class="product divPadTop20 row" k-template>
-                    <div class="col-md-4">
-                        <a href="\\#/evento/{{ dataItem._id }}" style="display:block;" class="coverWrap altura100">
-                            <img ng-src="/uploads/{{dataItem.banner}}" alt=" {{dataItem.nombre}} image" class="photo" />
-                        </a>
+			line-height:22px">Eventos</h1>
+					<h4 style="
+			color:#ffffff;
+			font-size:12pt;
+			line-height:17px">&nbsp;</h4>
+				</div>
+			</div>
+		</div>
+
+   <div class="container" style="padding-top:32px;">
+    
+        <div ng-repeat="noticia in ultimosEventos"
+             class="col-md-4 col-sm-6 col-xs-6 pull-left itemListado">
+            <div >
+                <div class="panel panel-default panel-relative">
+
+                    <img src="/uploads/{{noticia.banner}}" />
+
+                    <div class="panel-body itemListado">
+                        <div class="col-md-12">
+
+                            <a href="/#/evento/{{noticia._id}}" class="javo-tooltip javo-igl-title" >
+                                <div>
+                                    <h2 class="panel-title text-center">
+                                        <strong>{{ noticia.nombre}} </strong>
+                                    </h2>
+                                    <div class="text-center" style="padding-top:5px;"> categoría </div>
+                                </div>
+                            </a>
+                            <ul class="list list-unstyled">
+                                <li class="text-center text-excerpt javo-grid-listing-excerpt">
+
+                                    <p ng-bind-html="noticia.descripcion"></p>
+                                </li>
+                                <li class="text-center">
+                                    <h2 class="javo-sns-wrap social-wrap">
+                                        <i class="sns-facebook" data-title="SUPER CAR RENTAL" data-url="https://javothemes.com/directory/demo1/item/super-car-rental/">
+                                            <a class="facebook javo-tooltip" title="" data-original-title="Share Facebook"></a>
+                                        </i>
+                                        <i class="sns-twitter" data-title="SUPER CAR RENTAL" data-url="https://javothemes.com/directory/demo1/item/super-car-rental/">
+                                            <a class="twitter javo-tooltip" title="" data-original-title="Share Twitter"></a>
+                                        </i>
+                                        <i class="sns-heart">
+                                            <a class="javo-tooltip favorite javo_favorite" data-post-id="2153" title="" data-original-title="Add My Favorite"></a>
+                                        </i>
+                                    </h2>
+                                </li>
+                            </ul><!-- List group -->
+                        </div>
                     </div>
-                    <div class="col-md-6" style="padding-right:0;">
-                        <h4 class="lblPrincipal">{{dataItem.nombre}}</h4>
-                        <!--<p>{{dataItem.fechaInicio}} - {{dataItem.fechaFin}}</p>--> 
-                        <p>{{dataItem.fechaInicio  | date:'MM/dd/yyyy h:mma'}} - {{dataItem.fechaFin  | date:'MM/dd/yyyy h:mma'}}</p>
-                        <!--<p>{{dataItem.fechaInicio  | date:'MM/dd/yyyy h:mma Z':'UTC'}} - {{dataItem.fechaFin  | date:'MM/dd/yyyy h:mma Z':'UTC'}}</p>--> 
-                        <p>{{dataItem.direccion}}</p>
+
+                    <div class="javo-left-overlay">
+                        <div class="javo-txt-meta-area admin-color-setting">
+                            Riego								
+                        </div>
+                        <div class="corner-wrap">
+                            <div class="corner admin-color-setting"></div>
+                            <div class="corner-background admin-color-setting"></div>
+                        </div>
                     </div>
                 </div>
             </div>
-            <div kendo-pager k-data-source="sourceEventosCompletos"></div>
+            
         </div>
-    
-    </div> 
-</div>
-<div class="altura32"></div>
-</div>
+                
+    </div>
 </script>
 
 <script type="text/ng-template" id="/portafolio-evento.html">
