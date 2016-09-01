@@ -63,7 +63,7 @@ function($stateProvider, $urlRouterProvider) {
       controller: 'MainCtrl',
       resolve: {
         post: ['$stateParams', 'projects', function($stateParams, projects) {
-
+            projects.obtenerUltimosDistribuidoresDestacados();
             projects.obtenerUltimosEventos();
             return  projects.obtenerUltimasNoticias();
         }]
@@ -95,6 +95,20 @@ function($stateProvider, $urlRouterProvider) {
                 projects.obtenerUltimasNoticias();
                 projects.obtenerUltimosEventos();
                 return projects.obtenerDistribuidoresPorNombre($stateParams.str);
+            }]
+          }
+    });
+    
+    $stateProvider
+    .state('directorio-resultados-tipo', {
+        url: '/directorio-resultados-tipo/{id}',
+        templateUrl: '/directorio-resultados.html',
+        controller: 'MainCtrl',
+        resolve: {
+            post: ['$stateParams', 'projects', function($stateParams, projects) {
+                projects.obtenerUltimasNoticias();
+                projects.obtenerUltimosEventos();
+                return projects.obtenerDistribuidoresPorTipo($stateParams.id);
             }]
           }
     });
@@ -264,15 +278,15 @@ function($scope, auth){
             {id:2, nombre: 'Riego Institucional'},
             {id:3, nombre: 'Parques y Jardines'},
             {id:4, nombre: 'Golf'},
-            {id:5, nombre: 'Riego Dintetico'},
+            {id:5, nombre: 'Riego Sintético'},
             {id:6, nombre: 'Canchas Deportivas'},            
-            {id:7, nombre: 'Riego Agricola'}  
+            {id:7, nombre: 'Riego Agrícola'}  
            
         ];
           $scope.tipo_industria = [
-            {id: 1, nombre: 'Distribuidores'},  
-            {id: 2, nombre: 'Punto de venta'},
-            {id: 3, nombre: 'Contratista e Instalador'}
+            {id: 10, nombre: 'Distribuidores'},  
+            {id: 20, nombre: 'Punto de venta'},
+            {id: 30, nombre: 'Contratista e Instalador'}
           ];
           $scope.iluminacion = [
             {id: 1, nombre: 'FX Iluminación'}  
@@ -527,9 +541,7 @@ function($scope, $state, auth, projects, $sce, $uibModal){
         
         $scope.contacto = {};
 
-        projects.obtenerDistribuidoresPorCategoria(1).then(function() {
-
-        })
+        /*projects.obtenerUltimosDistribuidoresDestacados().then(function() { }) }*/
         
         $scope.$on('ngRepeatSlideDistribuidoresFinished', function(ngRepeatFinishedEvent) {
             console.log(jQuery('#corouselDistribuidores.carousel[data-type="multi"] .item'));
@@ -1050,10 +1062,25 @@ app.factory('projects', ['$http', 'auth', function($http, auth){
             });
 	};
     
+    o.obtenerUltimosDistribuidoresDestacados = function(){
+        return $http.get('/ultimosDistribuidoresDestacados').success(function(data){
+            angular.copy(data, o.distribuidores);
+		}); 
+    }
+    
     o.obtenerDistribuidoresPorCategoria = function(id) {
 		return $http.get('/distribuidores/' + id)
             .success(function(dataS){
             o.categoriaActual =  o.categorias[id - 1];
+                angular.copy(dataS, o.distribuidores);
+                o.distribuidor = null;
+            });
+	};
+    
+    o.obtenerDistribuidoresPorTipo = function(id) {
+		return $http.get('/distribuidoresPorTipo/' + id)
+            .success(function(dataS){
+            o.categoriaActual =  o.categorias[id - 1];//checar porque el -1
                 angular.copy(dataS, o.distribuidores);
                 o.distribuidor = null;
             });

@@ -36,7 +36,7 @@ router.get('/eventos', auth, function(req, res, next) {
 router.get('/obtenerUltimosEventos', function(req, res, next) {
 	  var query = Evento.find();//.populate('fotos');
 
-	  query.limit(10).exec(function (err, data){
+	  query.sort({fecha: -1}).limit(10).exec(function (err, data){
 		if (err) { return next(err); }
 		if (!data) { return next(new Error('No se encuentra el registro.')); }
 

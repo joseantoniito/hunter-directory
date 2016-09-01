@@ -146,6 +146,28 @@ router.param('distribuidor', function(req, res, next, id) {
   });
 
 
+router.get('/ultimosDistribuidoresDestacados/', function(req, res, next) {
+	  var query = Distribuidor.find();
+
+	  query.sort({fechaAlta: -1, valoracion: -1}).limit(10).exec(function (err, data){
+		if (err) { return next(err); }
+		if (!data) { return next(new Error('No se encuentra el registro.')); }
+
+        console.log(data);
+		res.json(data);
+	  });
+});
+
+router.get('/distribuidoresPorTipo/:distribuidor', function(req, res, next) {
+    console.log(req.id);
+   Distribuidor.find({ idTipo: req.id },
+	  function(err, data){
+		if(err){ return next(err); }
+
+		res.json(data);
+	  });
+});
+
 router.get('/distribuidoresPorNombre/:distribuidor', function(req, res, next) {
     console.log(req.id);
     var r = new RegExp(req.id,'i');
@@ -233,7 +255,7 @@ router.get('/obtenerUltimasNoticias', function(req, res, next) {
 router.get('/obtenerUltimasNoticias/:distribuidor', function(req, res, next) {
 	  var query = Noticia.find({distribuidor : new ObjectId(req.id)}).populate('video');
 
-	  query.limit(10).exec(function (err, data){
+	  query.sort({fecha: -1}).limit(10).exec(function (err, data){
 		if (err) { return next(err); }
 		if (!data) { return next(new Error('No se encuentra el registro.')); }
 

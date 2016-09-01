@@ -19,7 +19,8 @@ var esquema = new mongoose.Schema({
     idTipo: Number,
     banner: String,
     videos: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Foto' }],
-    valoracion: Number
+    valoracion: Number,
+    fechaAlta: { type: Date, default: Date.now }
 });
 
 mongoose.model('Distribuidor', esquema);
