@@ -11,36 +11,7 @@ app.config([
 '$urlRouterProvider',
 function($stateProvider, $urlRouterProvider) {
     
-    $stateProvider
-    .state('principal', {
-      url: '/principal',
-      templateUrl: '/eventos.html',
-      controller: 'EventosCtrl',
-      resolve: {
-        postPromise: ['factory', function(factory){
-            return factory.obtenerEventosDeUsuario();
-        }]
-      }
-    });
     
-    $stateProvider
-    .state('agregar-evento', {
-      url: '/agregar-evento',
-      templateUrl: '/agregar-evento.html',
-      controller: 'EventosCtrl'
-    });
-    
-    $stateProvider
-    .state('editar-evento', {
-      url: '/agregar-evento/{id}',
-      templateUrl: '/agregar-evento.html',
-      controller: 'EventosCtrl',
-      resolve: {
-        post: ['$stateParams', 'factory', function($stateParams, factory) {
-              return factory.obtenerEventoPorId($stateParams.id);
-            }]
-      }
-    });
 }]);
 
 app.controller('NavCtrl', [
@@ -62,9 +33,9 @@ app.controller('EventosCtrl', [
 function($scope, $state, auth, factory, $uibModal){
     $scope.eventos = factory.eventos;
     $scope.evento = factory.evento;
-    $scope.files = [];
-    $scope.filesFotos = [];
-    var filesBanner = [], filesFotos = [];
+    $scope.filesEvento = [];
+    $scope.filesFotosEvento = [];
+    var filesBannerEvento = [], filesFotos = [];
     
     if($scope.evento){
         
@@ -72,13 +43,13 @@ function($scope, $state, auth, factory, $uibModal){
             filesFotos.push({name : itemE.url, extension: '.' + itemE.url.split('.')[1]})
         })
         
-        filesBanner.push({name : $scope.evento.banner, extension: '.' + $scope.evento.banner.split('.')[1]});
+        filesBannerEvento.push({name : $scope.evento.banner, extension: '.' + $scope.evento.banner.split('.')[1]});
        
         $scope.evento.fechaInicio = new Date($scope.evento.fechaInicio);
         $scope.evento.fechaFin = new Date($scope.evento.fechaFin);
     }
     
-    if($state.current.name == "principal"){
+    if($state.current.name == "eventos"){
         $scope.evento = null;
     }
     
@@ -92,8 +63,8 @@ function($scope, $state, auth, factory, $uibModal){
             banner: null,
             fotos: null,
         }
-        $scope.files = [];
-        $scope.filesFotos = [];
+        $scope.filesEvento = [];
+        $scope.filesFotosEvento = [];
         $(".k-upload-files").remove();
         $(".k-upload-status").remove();
         $(".k-upload.k-header").addClass("k-upload-empty");
@@ -101,25 +72,25 @@ function($scope, $state, auth, factory, $uibModal){
 
     }
     
-    $scope.uploadOptions ={
+    $scope.uploadOptionsBannerEvento ={
         async: { saveUrl: 'saveFiles', removeUrl: 'removeFiles', autoUpload: true },
-        files: $scope.filesBanner,
+        files: $scope.filesBannerEvento,
         success: function(e){
-            $scope.files = e.files;
+            $scope.filesEvento = e.files;
         }
     }
     
-    $scope.uploadOptionsFotos ={
+    $scope.uploadOptionsFotosEvento ={
         async: { saveUrl: 'saveFiles', removeUrl: 'removeFiles', autoUpload: true },
-        files: $scope.filesFotos,
+        files: $scope.filesFotosEvento,
         success: function(e){
-            $scope.filesFotos.push(e.response);
+            $scope.filesFotosEvento.push(e.response);
         },
         upload: function(e){
-            $scope.filesFotos = [];
+            $scope.filesFotosEvento = [];
         },
         complete: function(e){
-            console.log("complete", $scope.filesFotos);
+            console.log("complete", $scope.filesFotosEvento);
         },
         files: filesFotos
     }
@@ -134,7 +105,7 @@ function($scope, $state, auth, factory, $uibModal){
         
         //if(!$scope.evento._id){
             $scope.evento.banner = $scope.files[0].name;
-            $scope.evento.fotos = $scope.filesFotos;
+            $scope.evento.fotos = $scope.filesFotosEvento;
         //}
 
         factory.agregarEvento($scope.evento)
@@ -160,7 +131,7 @@ function($scope, $state, auth, factory, $uibModal){
 	};
    
     
-    $scope.gridOptions = {
+    $scope.gridOptionsEventos = {
         datasource: $scope.eventos, 
         pageable:{pageSize:2, refresh:true, pageSizes:true}, 
         columns:[

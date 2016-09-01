@@ -152,6 +152,37 @@ function($stateProvider, $urlRouterProvider) {
       controller: 'ProfileCtrl'
     });
     
+    $stateProvider
+    .state('eventos', {
+      url: '/eventos',
+      templateUrl: '/eventos.html',
+      controller: 'ProfileCtrl',
+      resolve: {
+        postPromise: ['factory', function(factory){
+            return factory.obtenerEventosDeUsuario();
+        }]
+      }
+    });
+    
+    $stateProvider
+    .state('agregar-evento', {
+      url: '/agregar-evento',
+      templateUrl: '/agregar-evento.html',
+      controller: 'ProfileCtrl'
+    });
+    
+    $stateProvider
+    .state('editar-evento', {
+      url: '/agregar-evento/{id}',
+      templateUrl: '/agregar-evento.html',
+      controller: 'ProfileCtrl',
+      resolve: {
+        post: ['$stateParams', 'factory', function($stateParams, factory) {
+              return factory.obtenerEventoPorId($stateParams.id);
+            }]
+      }
+    });
+    
 }]);
 
 app.controller('NavCtrl', [
@@ -538,7 +569,122 @@ app.controller('ProfileCtrl', ['$scope','$state','auth','factory',function($scop
 
     
     
+    //eventos
+    $scope.eventos = factory.eventos;
+    $scope.evento = factory.evento;
+    $scope.filesEvento = [];
+    $scope.filesFotosEvento = [];
+    var filesBannerEvento = [], filesFotos = [];
     
+    if($scope.evento){
+        
+        $.each($scope.evento.fotos, function(indexE, itemE){
+            filesFotos.push({name : itemE.url, extension: '.' + itemE.url.split('.')[1]})
+        })
+        
+        filesBannerEvento.push({name : $scope.evento.banner, extension: '.' + $scope.evento.banner.split('.')[1]});
+       
+        $scope.evento.fechaInicio = new Date($scope.evento.fechaInicio);
+        $scope.evento.fechaFin = new Date($scope.evento.fechaFin);
+    }
+    
+    if($state.current.name == "eventos"){
+        $scope.evento = null;
+    }
+    
+    if($state.current.name == "agregar-evento"){
+        $scope.evento = {
+            nombre: null, 
+            descripcion: null,
+            direccion: null, 
+            fechaInicio: null, 
+            fechaFin: null, 
+            banner: null,
+            fotos: null,
+        }
+        $scope.filesEvento = [];
+        $scope.filesFotosEvento = [];
+        $(".k-upload-files").remove();
+        $(".k-upload-status").remove();
+        $(".k-upload.k-header").addClass("k-upload-empty");
+        $(".k-upload-button").removeClass("k-state-focused");
+
+    }
+    
+    $scope.uploadOptionsBannerEvento ={
+        async: { saveUrl: '/eventos/saveFiles', removeUrl: '/eventos/removeFiles', autoUpload: true },
+        files: $scope.filesBannerEvento,
+        success: function(e){
+            $scope.filesEvento = e.files;
+        }
+    }
+    
+    $scope.uploadOptionsFotosEvento ={
+        async: { saveUrl: '/eventos/saveFiles', removeUrl: '/eventos/removeFiles', autoUpload: true },
+        files: $scope.filesFotosEvento,
+        success: function(e){
+            $scope.filesFotosEvento.push(e.response);
+        },
+        upload: function(e){
+            $scope.filesFotosEvento = [];
+        },
+        complete: function(e){
+            console.log("complete", $scope.filesFotosEvento);
+        },
+        files: filesFotos
+    }
+    
+
+    $scope.agregarEvento = function(event){
+        if(!$scope.validator.validate()) return;
+        
+        if($scope.filesEvento.length == 0){
+            alert("El banner es obligatorio.");        
+        }
+        
+        //if(!$scope.evento._id){
+            $scope.evento.banner = $scope.filesEvento[0].name;
+            $scope.evento.fotos = $scope.filesFotosEvento;
+        //}
+
+        factory.agregarEvento($scope.evento)
+            .error(function(error){
+                $scope.error = error;
+            })
+            .then(function(){
+                $state.go('principal');}
+            );
+    }
+    
+    $scope.eliminarEvento = function(id){
+	  factory.eliminarEvento(id).error(function(error){
+          $scope.error = error;
+          alert("Ocurrió un error al eliminar el registro.");
+          $state.go('principal');
+          
+		}).then(function(){
+          alert("Registro eliminado correctamente.");
+          $scope.gridEventos.dataSource.data($scope.eventos);
+          $scope.gridEventos.refresh();
+	  });; 
+	};
+   
+    
+    $scope.gridOptionsEventos = {
+        datasource: $scope.eventos, 
+        pageable:{pageSize:2, refresh:true, pageSizes:true}, 
+        columns:[
+			{field:"nombre", title:"nombre"}, 
+			{field:"direccion", title:"direccion"},
+			{field:"fechaInicio", title:"fechaInicio"},
+			{field:"fechaFin", title:"fechaFin"},
+            {field:"_id", title:"Acciones", width:"100px", 
+             template: "<a href='\\#/agregar-evento/{{ dataItem._id }}' class='qodef-icon-shortcode normal qodef-icon-little'><i class='qodef-icon-font-awesome fa fa-pencil-square qodef-icon-element'></i></a> <a class='qodef-icon-shortcode normal qodef-icon-little' ng-click='eliminarEvento(dataItem._id)' style='cursor:pointer;'> <i class='qodef-icon-font-awesome fa fa-trash qodef-icon-element'></i> </a>"}
+        ]};
+
+    $scope.datePickerOptions = {
+      parseFormats: ["yyyy-MM-ddTHH:mm:ss"]
+    };
     
 }]);
 
@@ -609,7 +755,9 @@ app.factory('factory', ['$http', 'auth', function($http, auth){
             ],
           distribuidores: [],
           noticia: null,
-          noticias: []
+          noticias: [],
+          evento: null,
+          eventos: []
 	  };
     
     o.obtenerPerfilDistribuidor = function() {
@@ -662,7 +810,7 @@ app.factory('factory', ['$http', 'auth', function($http, auth){
             .success(function(data){
                 o.noticias = data;
             });
-    }
+    };
     
     o.actualizarNoticiaDistribuidor = function(data) {
 		return $http.post('/profile/actualizarNoticiaDistribuidor', data, {headers: {Authorization: 'Bearer '+auth.getToken()}})
@@ -676,6 +824,41 @@ app.factory('factory', ['$http', 'auth', function($http, auth){
 		  o.noticia = data;
 		});
 	};
+    
+    //eventos
+    o.agregarEvento = function(data) {
+		return $http.post('/eventos/eventos', data, {headers: {Authorization: 'Bearer '+auth.getToken()}})
+            .success(function(dataS){
+                debugger;
+            });
+	};
+    o.obtenerEventosDeUsuario = function() {
+		return $http.get('/eventos/eventos',{headers: {Authorization: 'Bearer '+auth.getToken()}}).success(function(data){
+		  angular.copy(data, o.eventos);
+		});
+	};
+    o.obtenerEventoPorId = function(id) {
+		return $http.get('/eventos/eventoPorId/' + id).success(function(data){
+		    o.evento = data;
+		});
+	};
+    
+    o.eliminarEvento = function(id) {
+		return $http.delete('/eventos/eliminarEvento/' + id, {headers: {Authorization: 'Bearer '+auth.getToken()}}).success(function(data){
+			console.log(data);
+			//todo: checar
+			var index;
+			for(i=0; i<o.eventos.length; i++){
+				if(o.eventos[i]._id == id){
+					index = i;
+					break;
+				}
+			};
+			o.eventos.splice(index, 1);
+
+		});
+	};
+    
 
     return o;
 }]);
