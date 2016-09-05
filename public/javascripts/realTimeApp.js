@@ -137,7 +137,7 @@ function($stateProvider, $urlRouterProvider) {
         resolve: {
             //if($stateParams.id != null)
             post: ['$stateParams', 'projects', function($stateParams, projects) {
-
+              projects.obtenerUltimosEventos();
               return projects.obtenerUltimasNoticias();
             }]
           }
@@ -737,6 +737,10 @@ function($scope, $state, auth, projects, $sce, $uibModal){
         }); 
     }
     
+    if($state.current.name == "noticias"){
+        $scope.noticia = $scope.ultimasNoticias[0];
+    }
+    
     if($state.current.name == "noticia"){
         
         $(window).scroll(function (event) {
@@ -782,6 +786,8 @@ function($scope, $state, auth, projects, $sce, $uibModal){
     }
     
     if($state.current.name == "eventos"){
+        $scope.noticia = $scope.ultimosEventos[0];
+        
         $scope.sourceEventosCompletos = new kendo.data.DataSource({
             data: projects.eventosCompletos,
             pageSize: 21

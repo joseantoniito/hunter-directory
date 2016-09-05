@@ -1,3 +1,14 @@
+.top-bar {
+    background: #3D4246;
+    border-top: #4A4A4A 1px solid;
+    color: #fff;
+    text-align: right;
+    height: 55px;
+    position: relative;
+    z-index: 5;
+    width: 100%;
+}
+
 .widget_posts_wrap{
     margin: 0 auto;
 }
@@ -363,7 +374,7 @@ img {
 /*fin javo*/
 
 .itemListado{
-    
+    padding-left: 0;
 }
 
 

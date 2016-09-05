@@ -787,38 +787,79 @@
 <script type="text/ng-template" id="/noticias.html">
 
 <!--<script> </script> -->
-    <div class="javo_post_header_fancy" style="
-			position:relative;
-			background-color:#FFFFFF;
-			background-image:url('/images/riego-de-jardines.jpg');
-			background-repeat:no-repeat;
-			background-position:center center;
-			height:250px;">
-			<div class="container" style="display:table;">
-				<div style="
-			left:0px;
-			width:100%;
-			height:250px;
-			display:table-cell;
-			vertical-align:middle;
-			text-align:left;">
-					<h1 style="
-			color:#ffffff !important;
-			font-size:17pt;
+    <div class="javo_post_header_fancy" >
+        <div class=" top-bar" style="display:table;">
+            <div class="container" style="text-align:left;">
+                <h3 style="margin-left:20px;" class="lblBlanco">Noticias</h3>
+            </div>
+        </div>
+    </div>
 
-			line-height:22px">Noticias</h1>
-					<h4 style="
-			color:#ffffff;
-			font-size:12pt;
-			line-height:17px">&nbsp;</h4>
-				</div>
-			</div>
-		</div>
-
-   <div class="container" style="padding-top:32px;">
+    <div class="container" style="padding-top:32px;">
     
+        <div class="divRenglon">
+            <div class="col-md-8 itemListado">
+            <div >
+                <div class="panel panel-default panel-relative">
+
+                    <img src="/uploads/{{noticia.banner}}" style="width:100%; height:439px;" />
+
+                    <div class="panel-body itemListado">
+                        <div class="col-md-12">
+
+                            <a href="/#/noticia/{{noticia._id}}" class="javo-tooltip javo-igl-title" >
+                                <div>
+                                    <h2 class="panel-title text-center">
+                                        <strong>{{ noticia.titulo}} </strong>
+                                    </h2>
+                                    <div class="text-center" style="padding-top:5px;"> categoría </div>
+                                </div>
+                            </a>
+                            <ul class="list list-unstyled">
+                                <li class="text-center text-excerpt javo-grid-listing-excerpt">
+
+                                    <p ng-bind-html="noticia.contenido"></p>
+                                </li>
+                                <li class="text-center">
+                                    <h2 class="javo-sns-wrap social-wrap">
+                                        <i class="sns-facebook" data-title="SUPER CAR RENTAL" data-url="https://javothemes.com/directory/demo1/item/super-car-rental/">
+                                            <a class="facebook javo-tooltip" title="" data-original-title="Share Facebook"></a>
+                                        </i>
+                                        <i class="sns-twitter" data-title="SUPER CAR RENTAL" data-url="https://javothemes.com/directory/demo1/item/super-car-rental/">
+                                            <a class="twitter javo-tooltip" title="" data-original-title="Share Twitter"></a>
+                                        </i>
+                                        <i class="sns-heart">
+                                            <a class="javo-tooltip favorite javo_favorite" data-post-id="2153" title="" data-original-title="Add My Favorite"></a>
+                                        </i>
+                                    </h2>
+                                </li>
+                            </ul><!-- List group -->
+                        </div>
+                    </div>
+
+                    <div class="javo-left-overlay">
+                        <div class="javo-txt-meta-area admin-color-setting">
+                            Riego								
+                        </div>
+                        <div class="corner-wrap">
+                            <div class="corner admin-color-setting"></div>
+                            <div class="corner-background admin-color-setting"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+        </div>
+            
+            <div class="col-md-4">
+                <a style="margin:0 auto; display:block; width:300px;">
+                    <img width="300" height="600" src="http://www.tgmdigital.com/wp-content/uploads/2016/03/fabrinor2.gif" style="margin:0 auto;">
+                </a>
+            </div>
+       </div>
+       
         <div ng-repeat="noticia in ultimasNoticias"
-             class="col-md-4 col-sm-6 col-xs-6 pull-left itemListado">
+             class="col-md-4 col-sm-6 col-xs-6 pull-left itemListado" style="padding-left:0;">
             <div >
                 <div class="panel panel-default panel-relative">
 
@@ -1040,38 +1081,77 @@
 
 <script type="text/ng-template" id="/portafolio.html">
 <!--<script> </script> -->
-<div class="javo_post_header_fancy" style="
-			position:relative;
-			background-color:#FFFFFF;
-			background-image:url('/images/aspersion.jpg');
-			background-repeat:no-repeat;
-			background-position:center center;
-			height:250px;">
-			<div class="container" style="display:table;">
-				<div style="
-			left:0px;
-			width:100%;
-			height:250px;
-			display:table-cell;
-			vertical-align:middle;
-			text-align:left;">
-					<h1 style="
-			color:#ffffff !important;
-			font-size:17pt;
-
-			line-height:22px">Eventos</h1>
-					<h4 style="
-			color:#ffffff;
-			font-size:12pt;
-			line-height:17px">&nbsp;</h4>
-				</div>
-			</div>
-		</div>
+ <div class="javo_post_header_fancy" >
+        <div class=" top-bar" style="display:table;">
+            <div class="container" style="text-align:left;">
+                <h3 style="margin-left:20px;" class="lblBlanco">Eventos</h3>
+            </div>
+        </div>
+    </div>
 
    <div class="container" style="padding-top:32px;">
     
+       <div class="divRenglon">
+            <div class="col-md-8 itemListado">
+                <div >
+                <div class="panel panel-default panel-relative">
+
+                    <img src="/uploads/{{noticia.banner}}" style="width:100%; height:439px;" />
+
+                    <div class="panel-body itemListado">
+                        <div class="col-md-12">
+
+                            <a href="/#/evento/{{noticia._id}}" class="javo-tooltip javo-igl-title" >
+                                <div>
+                                    <h2 class="panel-title text-center">
+                                        <strong>{{ noticia.nombre}} </strong>
+                                    </h2>
+                                    <div class="text-center" style="padding-top:5px;"> categoría </div>
+                                </div>
+                            </a>
+                            <ul class="list list-unstyled">
+                                <li class="text-center text-excerpt javo-grid-listing-excerpt">
+
+                                    <p ng-bind-html="noticia.descripcion"></p>
+                                </li>
+                                <li class="text-center">
+                                    <h2 class="javo-sns-wrap social-wrap">
+                                        <i class="sns-facebook" data-title="SUPER CAR RENTAL" data-url="https://javothemes.com/directory/demo1/item/super-car-rental/">
+                                            <a class="facebook javo-tooltip" title="" data-original-title="Share Facebook"></a>
+                                        </i>
+                                        <i class="sns-twitter" data-title="SUPER CAR RENTAL" data-url="https://javothemes.com/directory/demo1/item/super-car-rental/">
+                                            <a class="twitter javo-tooltip" title="" data-original-title="Share Twitter"></a>
+                                        </i>
+                                        <i class="sns-heart">
+                                            <a class="javo-tooltip favorite javo_favorite" data-post-id="2153" title="" data-original-title="Add My Favorite"></a>
+                                        </i>
+                                    </h2>
+                                </li>
+                            </ul><!-- List group -->
+                        </div>
+                    </div>
+
+                    <div class="javo-left-overlay">
+                        <div class="javo-txt-meta-area admin-color-setting">
+                            Riego								
+                        </div>
+                        <div class="corner-wrap">
+                            <div class="corner admin-color-setting"></div>
+                            <div class="corner-background admin-color-setting"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+           </div>
+           <div class="col-md-4">
+                <a style="margin:0 auto; display:block; width:300px;">
+                    <img width="300" height="600" src="http://www.tgmdigital.com/wp-content/uploads/2016/02/manrique-web.gif" style="margin:0 auto;">
+                </a>
+            </div>
+        </div>
+           
         <div ng-repeat="noticia in ultimosEventos"
-             class="col-md-4 col-sm-6 col-xs-6 pull-left itemListado">
+             class="col-md-4 col-sm-6 col-xs-6 pull-left itemListado" style="padding-left:0;">
             <div >
                 <div class="panel panel-default panel-relative">
 
