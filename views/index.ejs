@@ -46,9 +46,7 @@
     
       <style>
           
-        body {
-            background: whitesmoke;
-        }
+        
         .container-fluid {
             margin-top : 10px   ;    
         }
@@ -70,6 +68,17 @@
         #map {
             height: 350px;
             width: 100%;
+            }
+          
+          
+          .card {
+                
+                height : 130px;
+                padding: 15px;
+                background-color: #f7f7f7;
+                box-shadow: 10px 10px 5px grey;
+                 vertical-align:middle;
+              text-align: center;
             }
           
       </style>
@@ -303,9 +312,9 @@
 	</uib-carousel>
 </div>
 		
-<div id="divNuestrasCategorias" class="divBloque">
+<div id="divNuestrasCategorias" class="divBloqueBlack">
         <div class="divAlignCenter">
-            <h2 class="lblPrincipal"> Nuestras Categorías </h2>
+            <h3 style="color:whitesmoke"> Nuestras Categorías </h3>
         </div>
 
         <div class="dividerGeneral"></div>
@@ -318,8 +327,8 @@
                         <a href="/#/directorio/{{categoria.id }}">
                             <img src='/uploads/{{ categoria.url || bannerBack }}'/> 
 
-                            <h4 style="text-transform: capitalize;">
-                                {{categoria.nombre}}</h4>
+                            <h5 style="text-transform: capitalize; color:whitesmoke">
+                                {{categoria.nombre}}</h5>
                         </a>
                     </div>
                 </div>
@@ -529,100 +538,98 @@
       
 <script type="text/ng-template" id="/directorio-resultados.html">
 <!--<script> </script> -->
-<div class="altura32"></div>
+    
  <div class="container">
  
-    
-    <div class="row">
-        
-        <div class="col-md-2" style="margin:10px" >
-                
-            <div class="row" >
-               <div class="panel panel-primary">
-                    <div class="panel-heading"><b>Categorias</b></div>
-                        <div class="panel-body">
-                          <div ng-repeat="categoria in categorias">
-                          <b>
-                          
-<label class="checkbox-inline"><input type="checkbox" value="">
-                              <a style="color:gray" href="/#/directorio/{{ categoria.id }}">{{ categoria.nombre }}</a>
-                              </label>
-                              </b>
-                            </div>
-                        </div>
-                     </div>
-             </div>
-                             
-            <div class="row" >
-               <div class="panel panel-primary">
-                    <div class="panel-heading"><b>Pais</b></div>
-                        <div class="panel-body">
-                          <div >
-                            <b>
-                            <label class="checkbox-inline"><input type="checkbox" value="">
-                              <a style="color:gray" href="/#/directorio/1">Argentina</a>
-                              </label>
-                              </b>
-                            </div>
-                            
-                            <div >
-                            <b>
-                             <label class="checkbox-inline"><input type="checkbox" value="">
-                              <a style="color:gray" href="/#/directorio/1">Mexico</a>
-                               </label>
-                              </b>
-                            </div>
-                                
-                            <div >
-                            <b>
-                             <label class="checkbox-inline"><input type="checkbox" value="">
-                              <a style="color:gray" href="/#/directorio/1">Chile</a>
-                               </label>
-                              </b>
-                            </div>
-                        </div>
-                     </div>
-             </div>
-      
-    </div>
-        
-        
-        <div class="col-md-9 bgrdWhite">
+        <div class="col-md-12 bgrdWhite" style="background:azure;">
         
             <div class="page-header" >
-                
-            
-                 <h3 class="lblPrincipal" style="text-transform: uppercase;"><b>{{categoriaActual.nombre}}</b></h3>
-                 <div class="col-sm-offset-5 col-md-7 input-group">
-                    
-               
-                
+                <span>
+                <h3 class="lblPrincipal" style="text-transform: uppercase;"><b>{{categoriaActual.nombre}}</b></h3>
+                </span>    
+                 <div class="col-sm-offset-7 col-md-5 input-group">
+                            
                 <input kendo-auto-complete 
                     k-options="autoCompleteOptions"
                     ng-model="textoBusqueda"
                     style="width: 100%;" 
                     >
-                
-                <span class="input-group-addon btnGeneral" id="basic-addon2">
-                    <a href="#/directorio-resultados/{{textoBusqueda}}">Buscar</a>
-                </span>
-                    </input>
+                    <span class="input-group-addon btnGeneral" id="basic-addon2">
+                        <a href="#/directorio-resultados/{{textoBusqueda}}">Buscar</a>
+                    </span>
+                </input>
+                </div>
             </div>
-            </div>
+        <div>
+        <span ng-repeat="categoria in categorias" >
+        <button type="button" class="btn btn-default" >
+        <a style="color:gray; text-transform: uppercase" href="/#/directorio/{{ categoria.id }}">{{ categoria.nombre }}</a>
+        </button>
+                </span> 
+        </div>
+        <br />
+        
             <div class="col-sm-3"  ng-repeat="distribuidor in distribuidores">
-                <div class='thumbnail' style="height:100px;">
-                  <div>
+                <div class="card">
+                  
                     <a href="/#/detalle/{{distribuidor._id }}">
-                            <h5 style="text-transform: capitalize;">
                     <img src='/uploads/{{ distribuidor.logo || bannerBack }}' style="width:80px;height:80px;"/> 
-                                {{distribuidor.nombre}}</h5>
-                                </a>
-                    </div>
+                    <h4 style="text-transform: uppercase; color:gray;">{{distribuidor.nombre}}</h4>
+                        
+                                    </a>
+                  
+                      
                 </div>
             </div>
        </div>
+    
+    
+    
+    </div>
+       
+
+
+<div id="divDistribuidoresDestacados" class="divRenglon divPadBottomNormal">
+    <div class="divAlignCenter renglonPad50px">
+        <h2 class="lblPrincipal"> Distribuidores de México y Latinoamérica </h2>
+
+        <div class="dividerGeneral"></div>
+
+        <p> Elige tu distribuidor, compara precios y agenda cita. </p>
+    </div>
+
+    <div class="container text-center">
+        <div class="carousel slide row" data-ride="carousel" data-type="multi" data-interval="2000" id="corouselDistribuidores">
+
+            <div class="carousel-inner">
+                <div class="item {{$first ? 'active' : ''}}"  ng-repeat="objeto in distribuidores" 
+                     on-finish-render="ngRepeatSlideDistribuidoresFinished">
+                    <div class="col-md-3 col-sm-4 col-xs-12 dominoItemGallery">
+                        <div class="shadow"></div>
+                        <div>
+                            <a href="/#/detalle/{{objeto._id }}">
+                                <img src="/uploads/{{ objeto.logo || bannerBack }}" class="img-responsive">
+
+                                <div class="divBloque divTitulo">
+                                    <h4>{{objeto.nombre.slice(0,35) + '.'}}</h4>
+                                </div>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+            <a class="left carousel-control" href="#fruitscarousel" data-slide="prev"><i class="glyphicon glyphicon-chevron-left"></i></a>
+            <a class="right carousel-control" href="#fruitscarousel" data-slide="next"><i class="glyphicon glyphicon-chevron-right"></i></a> 
+
+        </div>
     </div>
 </div>
+        
+        
+    
+
 <div class="altura32"></div>
 </script>
       

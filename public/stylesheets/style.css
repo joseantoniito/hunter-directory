@@ -775,6 +775,7 @@ body {
 .lblPrincipal, .lblAzulObscuro{
     color:#01648B !important;
     margin-left: 10px;
+    text-transform: capitalize;
 }
 .lblSecundario{
     color:#F85709 !important;
@@ -1021,6 +1022,13 @@ h1, h2{
 .divBloque{
     display:inline-block; width:100%;
     padding:10px 0 0 0;
+    
+}
+
+.divBloqueBlack {
+    display:inline-block; width:100%;
+    padding:10px 0 0 0;
+    background-color: 	#363636;
 }
 .divRenglon{
     display:inline-block; width:100%;
@@ -1328,7 +1336,7 @@ footer .qodef-footer-bottom-holder {
 
 .divGrisClaro {
 	/*background-color: #f3f3f3;*/
-    background-color: #f4f4f4;
+    background-color: #C9CBCC;
 }
 
 .lblGrisClaro {
