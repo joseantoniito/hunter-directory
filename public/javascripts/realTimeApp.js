@@ -506,7 +506,7 @@ function($scope, $state, auth, projects, $sce, $uibModal){
 
     if($state.current.name == "home"){
         
-        $scope.descServicios = [
+        $scope.descServiciosTop = [
             {
                 icono: "fa-briefcase",
                 titulo: "Distribuidores a nivel Latino América",
@@ -516,7 +516,9 @@ function($scope, $state, auth, projects, $sce, $uibModal){
                 icono: "fa-leaf",
                 titulo: "Especialistas en todo tipo de riego",
                 descripcion: "Se publicitan los expertos en riego riego residencial, institucional, asi como implementaciones en campos de golf, futbol, para todo tipo de instalaciones deportivas."
-            },
+            }
+             ];
+            $scope.descServiciosbottom = [
             {
                 icono: "fa-lightbulb-o",
                 titulo: "Los mejores sistemas de iluminación",
