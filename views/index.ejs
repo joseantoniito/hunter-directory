@@ -243,7 +243,7 @@
                         </h2>
                     </div>			
                     <div class="widget_posts_wrap">
-                        <div class="latest-posts posts row" ng-repeat="noticia in ultimasNoticias">
+                        <div class="latest-posts posts row" ng-repeat="noticia in ultimasNoticias.slice(0,3)">
                             <div class="col-md-12">
                                 <span class="thumb">
                                     <a href="/#/noticia/{{noticia._id}}">
@@ -263,18 +263,27 @@
             </div>
           
             <div class="col-md-3">
-            <h3 class="m10" style="color:gray">Contacto</h3>
-             <div class="m10" style="margin-left:3px;"     >
-                <a>Diplay Imagén y publicidad </a>
-                </div>
-                <div class="m10" style="margin-left:3px;"     >
+           <div class="row widgets-wraps">
+                <div class="widgettitle_wrap col-md-12">
+                        <h2 class="widgettitle">
+                            <a href="/#/">Contacto</a>
+                        </h2>
+                    </div>		
+                <div class="widget_posts_wrap">
+                 <div class="m10" style="margin-left:3px;"     >
+                    <a>Diplay Imagén y publicidad </a>
+                    </div>
+                    <div class="m10" style="margin-left:3px;"     >
 
-                <a>Tel: 4423657157</a>
+                    <a>Tel: 4423657157</a>
+                    </div>
+                    <div class="m10" style="margin-left:3px;"     >
+                    <a> aespino@displayimagenpublicidad.com</a>
+                    </div>
+                    <div class="m10" style="margin-left:3px;"     >
                 </div>
-                <div class="m10" style="margin-left:3px;"     >
-                <a> aespino@displayimagenpublicidad.com</a>
                 </div>
-                <div class="m10" style="margin-left:3px;"     >
+               
             </div>
             </div>
 
@@ -493,7 +502,7 @@
             
            
            <div class="divRenglon">
-                <div ng-repeat="evento in ultimosEventos.slice(4,6)" class="itemListadoHome">
+                <div ng-repeat="evento in ultimosEventos.slice(3,6)" class="itemListadoHome">
                     <div class="divFlotante">
                         <img src="/uploads/{{evento.banner}}" style="width:218px; height:150px;"  />
                     </div>
@@ -501,7 +510,7 @@
                         <a href="/#/evento/{{evento._id}}" class="" >
                             <h3 style="font-size: 22px;
     line-height: 28px;
-    margin-bottom: 5px;">{{ noticia.titulo}}</h3>
+    margin-bottom: 5px;">{{ evento.nombre}}</h3>
                         </a>
                         
                          <p ng-bind-html="evento.descripcion.slice(0,200)"></p>
@@ -908,7 +917,7 @@
             </div>
        </div>
        
-        <div ng-repeat="noticia in ultimasNoticias"
+        <div ng-repeat="noticia in ultimasNoticias.slice(1, ultimasNoticias.length)"
              class="col-md-4 col-sm-6 col-xs-6 pull-left itemListado" style="padding-left:0;">
             <div >
                 <div class="panel panel-default panel-relative">
@@ -1200,7 +1209,7 @@
             </div>
         </div>
            
-        <div ng-repeat="noticia in ultimosEventos"
+        <div ng-repeat="noticia in ultimosEventos.slice(1, ultimosEventos.length)"
              class="col-md-4 col-sm-6 col-xs-6 pull-left itemListado" style="padding-left:0;">
             <div >
                 <div class="panel panel-default panel-relative">
