@@ -317,7 +317,7 @@
             <h3 style="color:whitesmoke"> Nuestras Categorías </h3>
         </div>
 
-        <div class="dividerGeneral"></div>
+        <div class="dividerGeneral" style="color:whitesmoke"></div>
 
         <div class="divBloque" style="padding-top:0;">
             <div style="width:{{categorias.length * 143}}px; margin:0 auto;">
@@ -383,18 +383,61 @@
     <div class="divPadBottomNormal"></div>
 </div>
     
-<div id="divUltimasNoticias" class="divBloqueBlack divPadBottomNormal">
+<div id="divUltimasNoticias" class=" divPadBottomNormal">
     <div class="divAlignCenter">
-            <h3 style="color:whitesmoke"> Testimoniales y Retos en los Sistemas de Riego </h3>
+            <h3 class="lblPrincipal"> Testimoniales y Retos en los Sistemas de Riego </h3>
         </div>
     <div class="divAlignCenter">
         
         <div class="dividerGeneral"></div>
         <p>Le presentamos las reseñas y entrevistas de los casos de éxito en el riego internacional</p>
+        
+        <div class="alto32"></div>
     </div>
 
-   <div class="container text-center">
-        <div class="carousel slide row" data-ride="carousel" data-type="multi" data-interval="3000" id="corouselNoticias">
+   <div class="container">
+        <div class="col-md-4">
+            <div style="text-alig:left;">
+
+                <img src="/uploads/{{noticia.banner}}" style="width:100%;height:235px;"/>
+
+                <div class="panel-body itemListado">
+                    <div class="col-md-12">
+
+                        <a href="/#/noticia/{{noticia._id}}" class="javo-tooltip javo-igl-title" style="margin:0 15px;" >
+                            <h2 class="panel-title">
+                                <strong>{{ noticia.titulo}} </strong>
+                            </h2>
+                        </a>
+                        <ul class="list list-unstyled">
+                            <li class="text-excerpt javo-grid-listing-excerpt">
+
+                                <p ng-bind-html="noticia.contenido"></p>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div ng-repeat="noticia in ultimasNoticias.slice(1,5)" class="itemListadoHome">
+                <div class="divFlotante">
+                    <img src="/uploads/{{noticia.banner}}"  />
+                </div>
+                <div class="detalle">
+                    <a href="/#/noticia/{{noticia._id}}" class="" >
+                        <h3>{{ noticia.titulo}}</h3>
+                    </a>
+            
+                </div>
+            </div>
+        </div>
+       <div class="col-md-4">
+            <a style="margin:0 auto; display:block; width:300px;float:right;">
+                <img width="300" height="414" src="http://www.tgmdigital.com/wp-content/uploads/2016/03/fabrinor2.gif" style="margin:0 auto;">
+            </a>
+        </div>
+        <!--<div class="carousel slide row" data-ride="carousel" data-type="multi" data-interval="3000" id="corouselNoticias">
 
             <div class="carousel-inner">
                 <div class="item {{$first ? 'active' : ''}}"  ng-repeat="objeto in ultimasNoticias" 
@@ -415,7 +458,7 @@
             </div>
 
            
-        </div>
+        </div>-->
     </div>
 </div>
     
@@ -426,43 +469,59 @@
     </div>
 
    <div class="container text-center">
-        <div class="carousel slide row" data-ride="carousel" data-type="multi" data-interval="3000" id="corouselEventos">
+       <div class="alto32"></div>
+       <div class="divRenglon container" style="text-alig:left;">
+                            
+            <div class="col-md-4 dominoItemGallery"  ng-repeat="evento in ultimosEventos.slice(0,3)">
+                <div class="shadow"></div>
+                <div>
+                    <a href="/#/evento/{{evento._id }}" style="margin-right:3px;">
+                        <img src="/uploads/{{ evento.banner || bannerBack }}" class="img-responsive"
+                             style="width:100%;height:220px;">
 
-            <div class="carousel-inner">
-                <div class="item {{$first ? 'active' : ''}}"  ng-repeat="objeto in ultimosEventos" 
-                     on-finish-render="ngRepeatSlideEventosFinished">
-                    <div class="col-md-3 col-sm-4 col-xs-12 dominoItemGallery">
-                        <div class="shadow"></div>
-                        <div>
-                            <a href="/#/evento/{{objeto._id }}">
-                                <img src="/uploads/{{ objeto.banner || bannerBack }}" class="img-responsive">
-
-                                <div class="divBloque divTitulo">
-                                    <h4>{{objeto.nombre.slice(0,35) + '.'}}</h4>
-                                </div>
-                            </a>
+                        <div class="divBloque divTitulo">
+                            <h4>{{evento.nombre.slice(0,35) + '.'}}</h4>
                         </div>
+                    </a>
+                </div>
+            </div>   
+        </div>
+       
+       <div class="alto32"></div>
+       
+       <div class="col-md-8">
+            
+           
+           <div class="divRenglon">
+                <div ng-repeat="evento in ultimosEventos.slice(4,6)" class="itemListadoHome">
+                    <div class="divFlotante">
+                        <img src="/uploads/{{evento.banner}}" style="width:218px; height:150px;"  />
+                    </div>
+                    <div class="detalle" style="margin-left: 234px;">
+                        <a href="/#/evento/{{evento._id}}" class="" >
+                            <h3 style="font-size: 22px;
+    line-height: 28px;
+    margin-bottom: 5px;">{{ noticia.titulo}}</h3>
+                        </a>
+                        
+                         <p ng-bind-html="evento.descripcion.slice(0,200)"></p>
+
                     </div>
                 </div>
             </div>
-
-            <a class="left carousel-control" href="#fruitscarousel" data-slide="prev"><i class="glyphicon glyphicon-chevron-left"></i></a>
-            <a class="right carousel-control" href="#fruitscarousel" data-slide="next"><i class="glyphicon glyphicon-chevron-right"></i></a> 
-
+           
+        </div>
+        
+       <div class="col-md-4">
+            <a style="margin:0 auto; display:block; width:300px;float:right;">
+                <img width="300" height="514" src="http://www.tgmdigital.com/wp-content/uploads/2016/02/manrique-web.gif" style="margin:0 auto;">
+            </a>
         </div>
     </div>
         <div class="divPadBottomNormal"></div>
 </div>
 
-<div id="divRedesSociales" class="divBloqueBlack">
-    <div class="col-md-offset-2"></div>
-    <div class="itemRedesSociales col-md-2 {{$first ? 'col-md-offset-1' : ''}}"
-        ng-repeat="redSocial in redesSociales">
-            <a class="qodef-icon-shortcode normal qodef-icon-little">
-                <i class="qodef-icon-font-awesome fa {{redSocial.icono}} qodef-icon-element" style=""></i>
-            </a>
-    </div>
-</div>
+
     
 <div id="divBusquedaDistribuidores" class="divBloque" 
      style="background-color:#01648B;">
@@ -475,7 +534,7 @@
         <div class="col-md-6" ng-repeat="descS in descServiciosTop">
                 <div class="row divAlignCenter" style="padding:0 15px;">
                     <a class="qodef-icon-shortcode normal qodef-icon-huge">
-                        <i class="qodef-icon-font-awesome fa {{descS.icono}} qodef-icon-element" style=""></i>
+                        <i class="qodef-icon-font-awesome fa {{descS.icono}} qodef-icon-element" style="color:whitesmoke !important;"></i>
                     </a>
                     <h4 style="color:whitesmoke"> {{descS.titulo}} </h4>
                     <p style="text-align:left;color:white;"> {{descS.descripcion}}  </p>
@@ -487,7 +546,7 @@
         <div class="col-md-6" ng-repeat="descS in descServiciosbottom">
                 <div class="row divAlignCenter" style="padding:0 15px;">
                     <a class="qodef-icon-shortcode normal qodef-icon-huge">
-                        <i class="qodef-icon-font-awesome fa {{descS.icono}} qodef-icon-element" style=""></i>
+                        <i class="qodef-icon-font-awesome fa {{descS.icono}} qodef-icon-element" style="color:whitesmoke !important"></i>
                     </a>
                     <h4 style="color:white"> {{descS.titulo}} </h4  >
                     <p style="text-align:left;color:white;"> {{descS.descripcion}}  </p>
@@ -549,6 +608,16 @@
 </div>
 </div>
 
+<div id="divRedesSociales" class="divRenglon" style="padding: 10px 0;">
+    <div class="col-md-offset-2"></div>
+    <div class="itemRedesSociales col-md-2 {{$first ? 'col-md-offset-1' : ''}}"
+        ng-repeat="redSocial in redesSociales">
+            <a class="qodef-icon-shortcode normal qodef-icon-little">
+                <i class="qodef-icon-font-awesome fa {{redSocial.icono}} qodef-icon-element" style=""></i>
+            </a>
+    </div>
+</div>
+      
 </script>
         
 
@@ -603,13 +672,6 @@
     
     
     </div>
-       
-
-
-
-        
-        
-    
 
 <div class="altura32"></div>
 </script>

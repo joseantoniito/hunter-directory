@@ -505,7 +505,8 @@ function($scope, $state, auth, projects, $sce, $uibModal){
     //carousel multi item
 
     if($state.current.name == "home"){
-        
+        $scope.noticia = $scope.ultimasNoticias[0];
+        $scope.evento = $scope.ultimosEventos[0];
         $scope.descServiciosTop = [
             {
                 icono: "fa-briefcase",
